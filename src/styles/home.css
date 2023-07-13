@@ -1,0 +1,434 @@
+/* Banner */
+.bannerSection {
+    background-image: url(../assets/imgs/test-banner.jpg);
+    /* background-image: url(../assets/imgs/test-house.png); */
+    background-color: #d9e8ff;
+    height: 72vh;
+    background-position: center 70%;
+    /* background-position: center -30px; */
+    /* background-position: 110%; */
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.titleDiv {
+    padding-top: 110px;
+    width: 65vw;
+    margin: auto;
+}
+
+.titleDiv h1 {
+    margin: 0;
+    font-size: 58px;
+    width: 50%;
+    color: #181c23;
+    
+    
+    /* margin: auto;
+    text-align: center;
+    font-weight: 500; */
+}
+
+.titleDiv h1>span {
+    display: block;
+    /* font-family: 'Roboto', sans-serif; */
+}
+
+.titleDiv h1>span>span {
+    /* color: #1e7cff; */
+}
+
+.titleDiv hr {
+    width: 150px;
+    border: 2px solid #3287ff;
+    margin: 20px auto 30px 5px;
+
+    /* margin: 20px auto 30px auto; */
+}
+
+.titleDiv p {
+    width: 50%;
+    font-weight: 600;
+    color: #292929;
+    font-size: 17px;
+}
+
+.searchBarDiv {
+    align-items: center;
+    display: flex;
+    width: 80%;
+    box-shadow: 0 2px 70px 1px rgba(38, 42, 76, 0.169);
+    background-color: rgba(255, 255, 255, 0.980);
+    border-radius: 30px;
+    height: 110px;
+    position: absolute;
+    bottom: -55px;
+
+}
+
+.searchBarDiv form {
+    width: 92%;
+    margin: auto;
+    gap: 5%;
+    display: flex;
+}
+
+.searchBarDiv form>.locationDiv {
+    width: 40%;
+}
+
+.searchBarDiv form>.stateDiv,
+.searchBarDiv form>.typeDiv {
+    width: 20%;
+}
+
+.searchBarDiv form div>label {
+    display: block;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.searchBarDiv form div>input {
+    border: 0;
+    font-family: 'Merriweather Sans', sans-serif;
+    width: 100%;
+    color: rgb(91, 91, 91);
+    border-bottom: 2px solid rgba(147, 147, 147, 0.565);
+    padding: 15px 0 8px 5px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all ease .3s;
+    outline: 0;
+}
+
+.searchBarDiv form div>input:focus-visible,
+.optionSelected>input {
+    color: black !important;
+    border-bottom: 2px solid #3287ff !important;
+}
+
+.dropdown {
+    position: relative;
+    display: block;
+}
+
+.dropdown input {
+    cursor: pointer;
+}
+
+.dropdown::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #000;
+    transition: transform 0.3s ease;
+    transform: rotate(270deg);
+}
+
+.openDropdown::before {
+    transform: rotate(360deg);
+}
+
+.options {
+    width: 100%;
+    position: absolute;
+    top: 44px;
+    left: 0;
+    font-size: 16px;
+    z-index: 1;
+    background-color: #fff;
+    border-radius: 0px 0 10px 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.option-item {
+    padding: 10px 10px;
+    cursor: pointer;
+    transition: all ease .3s;
+}
+
+.option-item:hover {
+    background-color: #eeeeee;
+}
+
+.searchSubmitDiv {
+    display: flex;
+    justify-content: end;
+}
+
+.searchSubmitDiv>.searchButton {
+    background-color: #1a79ffe4;
+    right: 0;
+    position: relative;
+    border-radius: 50%;
+    padding: 30px;
+    border: 0;
+    box-shadow: 0px 0px 5px 2px #2e85ff3d;
+    cursor: pointer;
+    background-image: url(../assets/icons/search-icon.svg);
+    background-size: 35px;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    transition: all ease .4s;
+}
+
+.searchSubmitDiv>.searchButton:hover {
+    background-color: #006aff;
+}
+
+/* End Banner */
+
+
+/* Properties */
+.propertiesSection {
+    width: 65vw;
+    margin: auto;
+    margin-top: 20vh;
+}
+
+.propertiesTitleDiv p {
+    color: #006aff;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.propertiesTitleDiv h2 {
+    font-size: 35px;
+    margin-top: 15px;
+    margin-bottom: 45px;
+    font-weight: 700;
+}
+
+
+.propertiesDiv {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.propertiesDiv>div {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 70px 1px rgba(38, 42, 76, 0.169);
+    width: 31.5%;
+    margin-bottom: 3.3%;
+    position: relative;
+    transition: all ease .5s;
+    cursor: pointer;
+}
+
+.propertiesDiv>div .imageDiv {
+    height: 220px;
+    overflow: hidden;
+    border-radius: 10px 10px 0 0;
+}
+
+.propertiesDiv>div .imageDiv img {
+    width: 100%;
+    margin-top: -15px;
+    transition: all ease .6s;
+    z-index: 10;
+}
+
+.propertiesDiv>div:hover {
+    box-shadow: 0 2px 25px 1px rgba(38, 42, 76, 0.373);
+}
+
+.propertiesDiv>div:hover .imageDiv img {
+    transform: scale(1.04);
+}
+
+.imageContent {
+    z-index: 9;
+    position: absolute;
+    height: 220px;
+    width: 100%;
+}
+
+.imageContent>.status {
+    background-color: white;
+    color: #000000f3;
+    font-size: 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    display: inline;
+    padding: 5px 10px;
+    position: absolute;
+    right: 14px;
+}
+
+.imageContent>div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    background-color: #00000032;
+    /* background-color: #00265b2a; */
+    padding: 5px 0 8px 0;
+}
+
+.imageContent>div p {
+    margin: 0;
+    color: white;
+}
+
+.imageContent>div .location {
+    align-items: center;
+    display: flex;
+    padding-left: 10px;
+    gap: 5px;
+}
+
+.imageContent>div .location::before {
+    content: '';
+    background-image: url(../assets/icons/location-icon.svg);
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-size: 18px;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.imageContent>div .share {
+    background-image: url(../assets/icons/share-icon.svg);
+    width: 18px;
+    padding-right: 25px;
+    height: 18px;
+    display: inline-block;
+    background-size: 18px;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+}
+
+.infoDiv {
+    width: 90%;
+    margin: auto;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+.infoDiv .price {
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.infoDiv .beds-baths-sqft {
+    font-size: 16px;
+    color: #676767;
+    font-weight: 600;
+    margin-top: 0px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.infoDiv .beds-baths-sqft span {
+    color: #2e2e2e;
+    font-weight: 500;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.infoDiv .beds-baths-sqft .beforeIcon::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: bottom bottom;
+}
+
+.infoDiv .beds-baths-sqft span:nth-child(1)::before {
+    background-image: url(../assets/icons/bed.png);
+}
+
+.infoDiv .beds-baths-sqft span:nth-child(2)::before {
+    background-image: url(../assets/icons/bath.png);
+    background-size: 19px;
+}
+
+.infoDiv .beds-baths-sqft span:nth-child(3)::before {
+    background-image: url(../assets/icons/sqft.png);
+}
+
+.infoDiv .beds-baths-sqft span:nth-child(4) {
+    color: #006aff;
+}
+
+.infoDiv .address {
+    font-size: 15px;
+    color: #7a7a7a;
+    font-weight: 500;
+}
+
+/* End Properties */
+
+/* About */
+.aboutSection {
+    padding-top: 36px;
+    width: 65vw;
+    margin: auto;
+    display: flex;
+    margin-top: 150px;
+}
+
+.aboutSection div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.aboutSection img {
+    margin-right: 80px;
+    width: 600px;
+    box-shadow: 30px 30px 0 0 rgb(236, 236, 236);
+}
+
+.aboutSection h2 {
+    font-size: 35px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.aboutSection h2>span {
+    display: block;
+}
+
+.aboutSection p {
+    color: #006aff;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+.aboutSection .aboutText{
+    color: #2f2f2f;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 0;
+
+}
+
+
+
+
+/* End About */

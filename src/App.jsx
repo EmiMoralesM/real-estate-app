@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import Header  from './Components/Header'
+import Home from './Pages/Home'
 
 function App() {
   const [properties, setProperties] = useState()
@@ -13,7 +15,9 @@ function App() {
 
   return (
     <>
-      {(!properties) ? (
+      <Header />
+      <Home />
+      {/* {(!properties) ? (
         <p>Loading...</p>
       ) : (
         properties.map((property, i) => (
@@ -26,7 +30,7 @@ function App() {
             <br />
           </div>
         ))
-      )}
+      )} */}
     </>
   )
 }
