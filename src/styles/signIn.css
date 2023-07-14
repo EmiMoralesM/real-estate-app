@@ -1,0 +1,188 @@
+.signInModal{
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    z-index: 99999;
+}
+
+.signInBackground{
+    background-color: rgba(0, 0, 0, 0.38);
+    height: 100vh;
+    width: 100vw;
+}
+
+.signInContent{
+    position: absolute;
+    background-color: white;
+    border-radius: 5px;
+    height: 700px;
+    width: 450px;
+    left: calc(50% - 225px);
+    top: calc(50% - 350px);
+}
+
+.closeModal{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: 0;
+    outline: 0;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 50%;
+    background-image: url(../assets/icons/x.svg);
+    background-position: center;
+    background-size: 38px;
+    cursor: pointer;
+    width: 45px;
+    height: 45px;
+    background-repeat: no-repeat;
+    transition: all ease .3s;
+}
+.closeModal:hover{
+    background-color: rgba(0, 0, 0, 0.075);
+    background-image: url(../assets/icons/x.svg);
+}
+
+.modalContent h3{
+    margin-top: 42px;
+    font-size: 24px;
+    text-align: center;
+}
+
+.signInOptions {
+    display: flex;
+    font-weight: 600;
+    color: rgb(81, 81, 81);
+    gap: 50px;
+    margin: auto;
+    width: 85%;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(215, 215, 215);
+}
+.signInOptions li{
+    cursor: pointer;
+    list-style-type: none;
+}
+.signInOptions .active{
+    color: rgb(29, 29, 29);
+    position: relative;
+}
+.signInOptions .active::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    margin-left: -15%;
+    margin-bottom: -10px;
+    left: 0;
+    width: 130%;
+    height: 3px;
+    background-color: #3287ff;
+    border-radius: 50px 50px 0 0;
+    /* box-shadow: 0 0 2px 0 rgb(201, 201, 201); */
+    animation: expand .15s ease-out;
+    transform-origin: center;
+    transition: all 0.3s ease-in-out;
+}
+
+@keyframes expand {
+    0% {
+        transform: scaleX(.2);
+    }
+    100% {
+        transform: scaleX(1);
+    }
+    
+}
+
+.modalForms{
+    width: 85%;
+    margin: auto;
+    margin-top: 25px;
+    position: relative;
+}
+.modalForms label{
+    display: block;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.modalForms input{
+    width: calc(100% - 32px);
+    padding: 10px 16px;
+    background-color: rgb(246, 246, 250);
+    border: 2px solid rgb(246, 246, 250);
+    border-radius: 6px;
+    outline: 1px solid rgb(209, 209, 213) ;
+    color: rgb(42, 42, 51);
+    font-weight: 400;
+    font-size: 15px;
+    font-family: 'Merriweather Sans', sans-serif;
+    margin-bottom: 25px;
+    transition: all ease .3s;
+}
+.modalForms input:hover{
+    border: 2px solid #72adff;
+    outline: 1px solid rgb(255, 255, 255);
+}
+.modalForms input:focus-visible{
+    border: 2px solid #3287ff;
+    outline: 1px solid rgb(255, 255, 255);
+}
+.errorInput{
+    border: 2px solid #ff3232!important;
+    outline: 1px solid rgb(255, 255, 255);
+}
+.errorText{
+    margin-top: -20px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: #ff3232;
+}
+.modalForms button{
+    width: 100%;
+    text-align: center;
+    background-color: #2a82ff;
+    cursor: pointer;
+    padding: 14px;
+    margin-top: 10px;
+    border: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    border-radius: 6px;
+    transition: all ease .3s;
+}
+.modalForms button:hover{
+    background-color: #006aff;
+}
+
+.forgotPass{
+    text-align: center;
+    font-weight: 600;
+    text-decoration: none;
+    color: #006aff;
+    transition: all ease .2s;
+    display: block;
+    margin-top: 30px;
+}
+.forgotPass:hover{
+    text-align: center;
+    font-weight: 600;
+    text-decoration: none;
+    color: #4e97ff;
+}
+
+.signInContent hr{
+    width: 80%;
+    border: 1px solid rgb(215, 215, 215);
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.eye{
+    position: absolute;
+    margin-right: 12px;
+    width: 22px;
+    right: 0;
+    height: 43px;
+}

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
-
+import axios from 'axios'
 function LatestProperties() {
     const [properties, setProperties] = useState()
     useEffect(() => {
-        fetch("http://localhost:4500/latestProperties/")
-            .then(res => res.json())
-            .then((data) => setProperties(data))
+        axios.get('https://real-estate-app-server.onrender.com/latestProperties')
+            .then((data) => setProperties(data.data))
             .catch(err => console.log(`Error: ${err}`))
     }, [])
 

@@ -1,13 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import '../styles/header.css'
-function Header() {
+function Header(props) {
   return (
     <header>
       <nav>
         <div className='ulNavbar'>
           <ul>
-            <li><Link to={'/'}>Buy</Link></li>
+            <li><Link to={'/properties'}>Buy</Link></li>
             <li><Link to={'/'}>Sell</Link></li>
           </ul>
         </div>
@@ -16,9 +16,9 @@ function Header() {
         </div>
         <div className='ulNavbar'>
           <ul>
-            <li><Link to={'/'}>Map</Link></li>
+            <li><Link to={'/properties'}>Map</Link></li>
             <li><Link to={'/'}>Dashboard</Link></li>
-            <li className='signUpButton'><Link to={'/'}><button>Sign Up</button></Link></li>
+            <li className='signUpButton' onClick={() => props.setSignInModalOpen(true)}><button>Sign In</button></li>
           </ul>
         </div>
       </nav>
