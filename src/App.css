@@ -5,3 +5,32 @@ body {
     max-width: 2000px;
     margin: auto;
 }
+
+.successMessage{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: rgb(71, 194, 71);
+    z-index: 999999;
+    animation: up 4.1s forwards;
+}
+@keyframes up {
+    0%{
+        transform: translateY(30px);
+    }
+    15%{
+        transform: translateY(0px);
+    }
+    85%{
+        transform: translateY(0px);
+    }
+    100%{
+        transform: translateY(40px);
+    }
+    
+}
+.successMessage > p{
+    margin: 5px;
+    color: white;
+}

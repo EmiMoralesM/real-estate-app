@@ -1,0 +1,192 @@
+.sideBar {
+    width: 270px;
+    height: 100vh;
+    background-color: #ffffff;
+    position: fixed;
+    box-shadow: 0px 0px 5px 2px #c0c0c03d;
+    z-index: 9999;
+    transition: all ease .4s;
+}
+.collapseSideBar {
+    width: 90px;
+}
+
+body {
+    background-color: rgb(244, 244, 244);
+}
+
+.collapseSideBar h1 {
+    background-image: url(../assets/imgs/logo-test-small.svg)!important;
+    background-size: 35px;
+    height: 40px;
+    margin: 39px auto!important;
+    width: 90px;
+}
+.sideBar h1 {
+    margin: 42px auto;
+    transition: all ease .1s;
+
+}
+
+
+.menuSideBar {
+    padding: 0;
+}
+
+.menuSideBar li {
+    height: 50px;
+    margin: 15px;
+    border-radius: 14px;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    transition: all ease .4s;
+}
+.menuSideBar li:hover {
+    background-color: #d8e9ff;
+}
+.menuSideBar>.active {
+    background-color: #2781ff;
+}
+.menuSideBar>.active:hover {
+    background-color: #2781ff;
+}
+.menuSideBar>.active a {
+    color: white;
+}
+
+.menuSideBar li a {
+    width: 300px;
+    height: 100%;
+    padding: 2px 15px 2px 0;
+    align-items: center;
+    display: flex;
+    /* display: block; */
+    white-space: nowrap;
+}
+.menuSideBar li a span{
+    opacity: 1;
+    transition: all ease .2s;
+}
+
+.collapseSideBar li a span{
+    opacity: 0;
+}
+.menuSideBar li i {
+    content: '';
+    /* margin-left: 20px; */
+    width: 58px;
+    height: 25px;
+    display: inline-block;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 17px;
+
+}
+.menuSideBar li .dashboardItem {
+    background-image: url(../assets/icons/dashboard.svg);
+}
+.menuSideBar .active .dashboardItem {
+    background-image: url(../assets/icons/dashboard-white.svg);
+}
+.menuSideBar li .usersItem {
+    background-size: 19px;
+    background-image: url(../assets/icons/user.svg);
+}
+.menuSideBar .active .usersItem {
+    background-size: 19px;
+    background-image: url(../assets/icons/user-white.svg);
+}
+.menuSideBar li .propertiesItem {
+    background-image: url(../assets/icons/property.svg);
+}
+.menuSideBar .active .propertiesItem {
+    background-image: url(../assets/icons/property-white.svg);
+}
+.menuSideBar li .notificationsItem {
+    background-image: url(../assets/icons/notification.svg);
+}
+.menuSideBar .active .notificationsItem {
+    background-image: url(../assets/icons/notification-white.svg);
+}
+
+.menuSideBar a {
+    color: black;
+    text-decoration: none;
+}
+
+.closeSidebar{
+    background-image: url(../assets/icons/menu-icon.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+/* End sidebar */
+
+/* Menu */
+
+.headerDashboard nav {
+    border-radius: 20px;
+    margin: 15px;
+    box-shadow: 2px 0px 5px 2px #c0c0c03d !important;
+    width: calc(100% - 30px - 270px);
+    position: fixed;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    transition: all ease .4s;
+}
+.extendheaderDashboard nav {
+    width: calc(100% - 30px - 90px);
+
+}
+.headerDashboard nav>div {
+    display: flex;
+    padding: 15px 60px 15px 30px;
+    align-items: center;
+    justify-content: center;
+}
+
+.headerDashboardMenu {
+    gap: 40px;
+}
+
+/* .headerDashboardMenu .notifications{
+    background-image: url(../assets/icons/notification.svg);
+    width: 20px;
+    height: 20px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 18px;
+    overflow: hidden;
+} */
+.headerDashboardMenu p a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.profileNameEmail>p {
+    text-align: right;
+    margin-right: 20px;
+}
+
+.profileNameEmail>p:nth-child(1) {
+    font-weight: 600;
+    font-size: 17px;
+    color: rgba(0, 0, 0, 0.94);
+    margin-top: 10px;
+    margin-bottom: 3px;
+}
+
+.profileNameEmail>p:nth-child(2) {
+    margin-top: 3px;
+    margin-bottom: 10px;
+    /* font-weight: 600; */
+    font-size: 12px;
+    color: rgb(91, 91, 91);
+}

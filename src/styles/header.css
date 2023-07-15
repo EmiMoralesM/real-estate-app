@@ -1,4 +1,4 @@
-nav{
+nav {
     display: flex;
     justify-content: space-around;
     height: 79px;
@@ -7,14 +7,15 @@ nav{
     position: fixed;
     width: 100%;
     background-color: white;
-}
-header{
-    z-index: 9999;
     box-shadow: 0px 0px 5px 2px #c0c0c03d;
+    z-index: 9999;
+}
+
+header {
     position: relative;
 }
 
-nav h1{
+.logo{
     background-image: url(../assets/imgs/logo-test.svg);
     width: 150px;
     height: 35px;
@@ -23,52 +24,90 @@ nav h1{
     background-size: 150px;
     overflow: hidden;
 }
-nav h1 a{
+
+.logo a {
     padding-left: 500px;
 }
-.logoDiv{
+
+.logoDiv {
     display: flex;
     justify-content: center;
     width: 30%;
 }
+
 .ulNavbar {
     display: flex;
     justify-content: center;
     width: 35%;
     margin: auto;
 }
-.ulNavbar > ul{
+
+.ulNavbar>ul {
     padding: 0;
     display: flex;
     gap: 55px;
     align-items: center;
 }
-.ulNavbar > ul li{
+
+.ulNavbar>ul li {
     list-style-type: none;
+    align-items: center;
+    display: flex;
 }
-.ulNavbar > ul li a{
+
+.ulNavbar>ul li a {
     color: black;
     text-decoration: none;
     font-size: 16px;
     font-weight: 500;
     transition: all ease .3s;
 }
-.ulNavbar > ul li a:hover{
+
+.ulNavbar>ul li a:hover {
     color: #006aff;
 }
 
-.ulNavbar > ul .signUpButton button {
+.ulNavbar>ul .signUpButton button, .dashboard, .blueButton {
+    text-decoration: none;
     background-color: #1a79ffe4;
     border-radius: 14px;
     padding: 11px 30px;
     font-weight: 600;
     font-size: 17px;
-    color: white;
+    color: white!important;
     border: 0;
     /* box-shadow: 0px 0px 5px 2px #2e85ff3d; */
     cursor: pointer;
     transition: all ease .4s;
 }
-.ulNavbar > ul .signUpButton button:hover {
+
+.ulNavbar>ul .signUpButton button:hover, .dashboard:hover, .blueButton:hover {
     background-color: #006aff;
+}
+
+.profile {
+    width: 28px;
+    display: flex;
+    height: 28px;
+    padding: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgb(221, 221, 221);
+    border: 2px solid rgb(208, 208, 208);
+    transition: all ease .4s;
+}
+
+.profile:hover {
+    border: 2px solid #1a79ffe4;
+}
+.profile a{
+    align-items: center;
+    display: flex;
+}
+.profilePic {
+    width: 21px;
+    align-items: center;
+    padding: 10px;
 }

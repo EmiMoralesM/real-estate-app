@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+
 import '../../styles/signIn.css'
-import { Link } from 'react-router-dom'
+
 import SignIn from './SignIn'
 import NewAccount from './NewAccount'
 
 function SignInModal(props) {
     const [signIn, setSignIn] = useState(true)
-    
+
+
     return (
         <aside className='signInModal' >
             <div className='signInContent'>
@@ -18,13 +20,21 @@ function SignInModal(props) {
                         <li onClick={() => setSignIn(false)} className={!signIn ? 'active' : ''}>New Account</li>
                     </ul>
                     <div className='modalForms'>
-                        {signIn && <SignIn />}
-                        {!signIn && <NewAccount />}
+                        {signIn && <SignIn
+                            setSignInModalOpen={props.setSignInModalOpen}
+                            setUser={props.setUser}
+                            changeSuccessMessage={props.changeSuccessMessage}
+                        />}
+                        {!signIn && <NewAccount
+                            setSignInModalOpen={props.setSignInModalOpen}
+                            setUser={props.setUser}
+                            changeSuccessMessage={props.changeSuccessMessage}
+                        />}
                     </div>
                 </div>
                 <hr />
                 <div>
-                    <p>Or connect with:</p>
+                    {/* <p>Or connect with:</p> */}
                 </div>
             </div>
 

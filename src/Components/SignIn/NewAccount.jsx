@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import eyeOff from '../../assets/icons/eye-off.svg'
 import eyeOn from '../../assets/icons/eye-on.svg'
 
-function NewAccount() {
+function NewAccount(props) {
     const [email, setEmail] = useState('')
     const [emailError, setEmailError] = useState('')
 
@@ -17,28 +17,32 @@ function NewAccount() {
     const [passwordVisibility, setPasswordVisibility] = useState('password')
     const [passwordConfirmVisibility, setPasswordConfirmVisibility] = useState('password')
 
-    const checkEmail = (email) => {
+    const checkEmail = async (email) => {
+        let valid = false
         if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
             setEmailError('Enter a valid email address')
             return false
         } else {
             // No errors
-            setEmailError('')
-            axios.get('http://localhost/getUsers/')
-            .then(res => {
-                res.data.forEach(user => {
-                    // If the email already exists then it sets the emailError to true
-                    if(user.email === email){
-                        setEmailError('This email has already been used')
-                    }
-                });
-            })
-            if(!emailError) return true
+            await axios.get('https://real-estate-app-server.onrender.com/getUsers')
+                .then(res => {
+                    setEmailError('')
+                    valid = true
+                    res.data.forEach(user => {
+                        // If the email already exists then it sets the emailError to true
+                        if (user.email === email) {
+                            setEmailError('This email has already been used')
+                            valid = false
+                            return
+                        }
+                    });
+                })
+            return valid
         }
     }
     const checkPassword = (password) => {
-        if (password.length < 8) {
-            setPasswordError('Enter at least 8 characters')
+        if (password.length < 8 || !(/[a-zA-Z]/.test(password) && /[0-9]/.test(password))) {
+            setPasswordError('Enter at least 8 characters. And at least one number')
             return false
         } else {
             setPasswordError('')
@@ -55,20 +59,34 @@ function NewAccount() {
         }
     }
     const submit = async () => {
-        if (checkEmail(email) && checkPassword(password) && checkPasswordConfirm(passwordConfirm)) {
-            console.log('Perfect!');
+        const emailValidation = await checkEmail(email)
+        if (emailValidation && checkPassword(password) && checkPasswordConfirm(passwordConfirm)) {
+            console.log(password);
             try {
                 await axios.post('http://localhost/createUser', {
-                    name: email.substring(0, email.indexOf('@')),
-                    email: email,
+                    name: email.substring(0, email.indexOf('@')).toLowerCase(),
+                    email: email.toLowerCase(),
                     favorites: [],
                     image: '',
                     role: 'user',
+                    password: password,
                 })
                     .then(res => console.log(res))
+                props.changeSuccessMessage(`Account created | Welcome ${email.substring(0, email.indexOf('@')).toLowerCase()}!`)
+                props.setUser({
+                    name: email.substring(0, email.indexOf('@')).toLowerCase(),
+                    email: email.toLowerCase(),
+                    favorites: [],
+                    image: '',
+                    role: 'user',
+                    password: password,
+                })
+                props.setSignInModalOpen(false)
             } catch (err) {
                 console.log(err);
             }
+        } else {
+            console.log('Account not created');
         }
     }
 
@@ -124,7 +142,6 @@ function NewAccount() {
                 </div>
                 <button type="submit" onClick={submit}>Create Account</button>
             </form>
-            <Link className='forgotPass' >Forgot your password?</Link>
         </>
     )
 }

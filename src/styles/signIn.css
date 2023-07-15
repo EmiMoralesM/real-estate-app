@@ -45,6 +45,7 @@
 
 .modalContent h3{
     margin-top: 42px;
+    margin-bottom: 42px;
     font-size: 24px;
     text-align: center;
 }
@@ -138,6 +139,13 @@
     font-size: 13px;
     color: #ff3232;
 }
+.formErrorText{
+    margin-top: 25px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #ff3232;
+}
 .modalForms button{
     width: 100%;
     text-align: center;
@@ -182,6 +190,7 @@
 .eye{
     position: absolute;
     margin-right: 12px;
+    opacity: .6;
     width: 22px;
     right: 0;
     height: 43px;
