@@ -7,21 +7,20 @@
     z-index: 9999;
     transition: all ease .4s;
 }
+
 .collapseSideBar {
     width: 90px;
 }
 
-body {
-    background-color: rgb(244, 244, 244);
-}
 
 .collapseSideBar h1 {
-    background-image: url(../assets/imgs/logo-test-small.svg)!important;
+    background-image: url(../assets/imgs/logo-test-small.svg) !important;
     background-size: 35px;
     height: 40px;
-    margin: 39px auto!important;
+    margin: 39px auto !important;
     width: 90px;
 }
+
 .sideBar h1 {
     margin: 42px auto;
     transition: all ease .1s;
@@ -42,15 +41,19 @@ body {
     align-items: center;
     transition: all ease .4s;
 }
+
 .menuSideBar li:hover {
     background-color: #d8e9ff;
 }
+
 .menuSideBar>.active {
     background-color: #2781ff;
 }
+
 .menuSideBar>.active:hover {
     background-color: #2781ff;
 }
+
 .menuSideBar>.active a {
     color: white;
 }
@@ -64,14 +67,16 @@ body {
     /* display: block; */
     white-space: nowrap;
 }
-.menuSideBar li a span{
+
+.menuSideBar li a span {
     opacity: 1;
     transition: all ease .2s;
 }
 
-.collapseSideBar li a span{
+.collapseSideBar li a span {
     opacity: 0;
 }
+
 .menuSideBar li i {
     content: '';
     /* margin-left: 20px; */
@@ -83,29 +88,37 @@ body {
     background-size: 17px;
 
 }
+
 .menuSideBar li .dashboardItem {
     background-image: url(../assets/icons/dashboard.svg);
 }
+
 .menuSideBar .active .dashboardItem {
     background-image: url(../assets/icons/dashboard-white.svg);
 }
+
 .menuSideBar li .usersItem {
     background-size: 19px;
     background-image: url(../assets/icons/user.svg);
 }
+
 .menuSideBar .active .usersItem {
     background-size: 19px;
     background-image: url(../assets/icons/user-white.svg);
 }
+
 .menuSideBar li .propertiesItem {
     background-image: url(../assets/icons/property.svg);
 }
+
 .menuSideBar .active .propertiesItem {
     background-image: url(../assets/icons/property-white.svg);
 }
+
 .menuSideBar li .notificationsItem {
     background-image: url(../assets/icons/notification.svg);
 }
+
 .menuSideBar .active .notificationsItem {
     background-image: url(../assets/icons/notification-white.svg);
 }
@@ -115,7 +128,7 @@ body {
     text-decoration: none;
 }
 
-.closeSidebar{
+.closeSidebar {
     background-image: url(../assets/icons/menu-icon.svg);
     background-position: center;
     background-repeat: no-repeat;
@@ -128,21 +141,24 @@ body {
 
 /* Menu */
 
+
 .headerDashboard nav {
     border-radius: 20px;
     margin: 15px;
     box-shadow: 2px 0px 5px 2px #c0c0c03d !important;
     width: calc(100% - 30px - 270px);
-    position: fixed;
     right: 0;
+    position: fixed;
     display: flex;
     justify-content: space-between;
     transition: all ease .4s;
 }
+
 .extendheaderDashboard nav {
     width: calc(100% - 30px - 90px);
 
 }
+
 .headerDashboard nav>div {
     display: flex;
     padding: 15px 60px 15px 30px;
@@ -190,3 +206,266 @@ body {
     font-size: 12px;
     color: rgb(91, 91, 91);
 }
+
+/* End menu */
+
+.mainDashboard {
+    width: calc(100% - 270px);
+    min-height: 100vh;
+    background-color: rgb(243, 243, 243);
+    margin: auto 0 auto auto;
+    transition: all ease .4s;
+}
+
+.extendDashboard {
+    width: calc(100% - 90px);
+
+}
+
+.dashboardTitleDiv {
+    padding: 120px 50px 20px 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dashboardTitleDiv p {
+    font-size: 14px;
+    font-weight: 500;
+    font-style: italic;
+    color: rgba(61, 61, 61, 0.907);
+    padding-top: 2px;
+}
+
+.dashboardTitleDiv p a {
+    color: #3b8dff;
+    text-decoration: none;
+    transition: all ease .3s;
+}
+
+.dashboardTitleDiv p a:hover {
+    color: #006aff;
+    text-decoration: none;
+}
+
+/* Charts */
+.charts {
+    padding: 0px 50px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 35px;
+}
+
+/* Chart 1 */
+
+.chart_1 {
+    display: flex;
+    flex-direction: column;
+    width: calc(30% - 50px);
+    font-family: 'Roboto', sans-serif;
+    align-items: center;
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px 20px 15px 20px;
+    box-shadow: 0px 0px 5px 2px #c0c0c03d;
+}
+
+.chart_1 .titleChat {
+    justify-content: space-between;
+    padding: 0;
+    align-items: center;
+    width: 100%;
+}
+
+.chart_1 .titleChat>p:nth-child(1) {
+    color: rgb(105, 105, 105);
+    font-size: 20px;
+    /* padding-top: 10px; */
+    padding-left: 20px;
+    font-weight: 600;
+    margin: 0;
+}
+.chart_1 .titleChat>p:nth-child(2) {
+    color: rgb(164, 164, 164);
+    font-size: 16px;
+    padding-top: 10px;
+    padding-left: 20px;
+    font-weight: 600;
+    margin: 0;
+}
+.chart_1 .titleChat>p:nth-child(2) span {
+    color: #4d97ff;
+}
+
+.chart_1>div {
+    width: 85%;
+    display: flex;
+    justify-content: center;
+    padding: 40px 0px 20px 0px ;
+}
+
+.chartInfo {
+    justify-content: left!important;
+    padding: 0!important;
+}
+.chartInfo ul{
+    /* display: flex;
+    flex-wrap: wrap; */
+    padding: 0;
+    justify-content: space-around;
+    gap: 20px;
+}
+.chartInfo ul li{
+    margin-bottom: 10px;
+    list-style-type: none;
+    color: rgb(111, 111, 111);
+    font-weight: 600;
+    align-items: center;
+    display: flex;
+    gap: 10px;
+}
+.chartInfo ul li span{
+    color: #1d1d1d;
+    font-weight: 700;
+}
+.chartInfo ul li::before{
+    content: '';
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+.chartInfo ul .houses:before{
+    background-color: rgba(54, 162, 235);
+}
+.chartInfo ul .townhomes:before{
+    background-color: rgba(75, 192, 192);
+}
+.chartInfo ul .multiFamily:before{
+    background-color: rgba(255, 99, 132);
+}
+.chartInfo ul .condos:before{
+    background-color: rgba(255, 206, 86);
+}
+.chartInfo ul .aparments:before{
+    background-color: rgba(255, 159, 64);
+}
+
+/* Chart 2 */
+
+.chart_2 {
+    display: flex;
+    gap: 35px;
+    width: calc(70% - 25px);
+    font-family: 'Roboto', sans-serif;
+    height: fit-content;
+}
+
+.chart_2>div {
+    display: flex;
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px 20px 15px 20px;
+    box-shadow: 0px 0px 5px 2px #c0c0c03d;
+    width: calc(40% - 20px);
+    justify-content: space-between;
+}
+
+.chart_2>div>div>p:nth-child(1) {
+    color: rgb(105, 105, 105);
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.chart_2>div>div>p:nth-child(2) {
+    color: #1677ff;
+    font-size: 30px;
+    font-weight: 600;
+    margin: 15px 0 8px 0;
+}
+
+.chart_2>div>div>p:nth-child(3) {
+    color: #b4b4b4;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    margin: 0px;
+    font-style: italic;
+}
+
+.chart_2>div>div>p:nth-child(3) span {
+    align-items: center;
+    display: inline-flex;
+    margin-right: 5px;
+    font-style: normal;
+}
+
+.chart_2>div>div>p:nth-child(3) span::before {
+    display: inline-block;
+    content: '';
+    width: 16px;
+    height: 15px;
+    background-size: 16px;
+    margin-right: 5px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.chart_2>div>div>p:nth-child(3) .red {
+    color: #a80a0a;
+}
+
+.chart_2>div>div>p:nth-child(3) .red::before {
+    background-image: url(../assets/icons/down-line.svg);
+}
+
+.chart_2>div>div>p:nth-child(3) .green {
+    color: rgb(10, 168, 13);
+}
+
+.chart_2>div>div>p:nth-child(3) .green::before {
+    background-image: url(../assets/icons/up-line.svg);
+}
+
+.chart2Icon {
+    /* background-color: #b2b2b2; */
+    background-color: #3b8dff;
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.chart2Icon p {
+    width: 30px;
+    height: 30px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.propertiesSold .chart2Icon p {
+    background-size: 30px;
+    background-image: url(../assets/icons/pulse-white.svg);
+}
+
+.newUsers .chart2Icon p {
+    background-size: 25px;
+    background-image: url(../assets/icons/user-white.svg);
+}
+
+.propertiesForSale .chart2Icon p {
+    background-size: 25px;
+    background-image: url(../assets/icons/property-white.svg);
+}
+
+
+/* Chart 3 */
+
+
+/* End Charts */
