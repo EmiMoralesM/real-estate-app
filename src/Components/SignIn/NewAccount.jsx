@@ -50,6 +50,7 @@ function NewAccount(props) {
         }
     }
     const checkPasswordConfirm = (passwordConfirm) => {
+        return true
         if (passwordConfirm !== password) {
             setPasswordConfirmError('Passwords do not match')
             return false
@@ -73,15 +74,15 @@ function NewAccount(props) {
                 })
                     .then(res => console.log(res))
                 props.changeSuccessMessage(`Account created | Welcome ${email.substring(0, email.indexOf('@')).toLowerCase()}!`)
-                props.setUser({
-                    name: email.substring(0, email.indexOf('@')).toLowerCase(),
-                    email: email.toLowerCase(),
-                    favorites: [],
-                    image: '',
-                    role: 'user',
-                    password: password,
-                })
-                props.setSignInModalOpen(false)
+                // props.setUser({
+                //     name: email.substring(0, email.indexOf('@')).toLowerCase(),
+                //     email: email.toLowerCase(),
+                //     favorites: [],
+                //     image: '',
+                //     role: 'user',
+                //     password: password,
+                // })
+                // props.setSignInModalOpen(false)
             } catch (err) {
                 console.log(err);
             }
@@ -113,7 +114,8 @@ function NewAccount(props) {
                         onMouseUp={() => setPasswordVisibility('password')}
                     />
                     <input
-                        type={passwordVisibility}
+                        // type={passwordVisibility}
+                        type='text'
                         className={passwordError ? 'errorInput' : ''}
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}

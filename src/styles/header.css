@@ -84,30 +84,3 @@ header {
 .ulNavbar>ul .signUpButton button:hover, .dashboard:hover, .blueButton:hover {
     background-color: #006aff;
 }
-
-.profile {
-    width: 28px;
-    display: flex;
-    height: 28px;
-    padding: 10px;
-    cursor: pointer;
-    overflow: hidden;
-    justify-content: center;
-    border-radius: 50%;
-    background-color: rgb(221, 221, 221);
-    border: 2px solid rgb(208, 208, 208);
-    transition: all ease .4s;
-}
-
-.profile:hover {
-    border: 2px solid #1a79ffe4;
-}
-.profile a{
-    align-items: center;
-    display: flex;
-}
-.profilePic {
-    width: 21px;
-    align-items: center;
-    padding: 10px;
-}

@@ -16,7 +16,7 @@
 
 .titleDiv {
     padding-top: 110px;
-    width: 65vw;
+    width: 1250px;
     margin: auto;
 }
 
@@ -194,7 +194,7 @@
 
 /* Properties */
 .propertiesSection {
-    width: 65vw;
+    width: 1250px;
     margin: auto;
     margin-top: 20vh;
 }
@@ -232,11 +232,14 @@
 }
 
 .propertiesDiv>div .imageDiv {
-    height: 220px;
+    height: 100%;
     overflow: hidden;
     border-radius: 10px 10px 0 0;
 }
-
+.imagePropertyDiv{
+    height: 220px;
+    position: relative;
+}
 .propertiesDiv>div .imageDiv img {
     width: 100%;
     margin-top: -15px;
@@ -387,7 +390,7 @@
 /* About */
 .aboutSection {
     padding-top: 36px;
-    width: 65vw;
+    width: 1250px;
     margin: auto;
     display: flex;
     margin-top: 150px;

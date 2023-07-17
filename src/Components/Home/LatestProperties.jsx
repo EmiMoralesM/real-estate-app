@@ -20,15 +20,17 @@ function LatestProperties() {
                 ) : (
                     properties.map((property, i) => (
                         <div key={i}>
-                            <div className='imageContent'>
-                                <p className='status'>{property.statusType.replace('_', ' ')}</p>
-                                <div>
-                                    <p className='location'>{property.addressCity}, {property.addressState}</p>
-                                    <p className='share'></p>
+                            <div className='imagePropertyDiv'>
+                                <div className='imageContent'>
+                                    <p className='status'>{property.statusType.replace('_', ' ')}</p>
+                                    <div>
+                                        <p className='location'>{property.addressCity}, {property.addressState}</p>
+                                        <p className='share'></p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className='imageDiv'>
-                                <img src={property.images[0]} alt="" />
+                                <div className='imageDiv'>
+                                    <img src={property.images[0]} alt="" />
+                                </div>
                             </div>
                             <div className='infoDiv'>
                                 <p className='price'>${new Intl.NumberFormat().format(property.price)}</p>

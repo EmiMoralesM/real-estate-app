@@ -186,6 +186,7 @@
     font-weight: 500;
 }
 
+
 .profileNameEmail>p {
     text-align: right;
     margin-right: 20px;
@@ -215,6 +216,7 @@
     background-color: rgb(243, 243, 243);
     margin: auto 0 auto auto;
     transition: all ease .4s;
+    position: relative;
 }
 
 .extendDashboard {
@@ -237,85 +239,117 @@
 }
 
 .dashboardTitleDiv p a {
-    color: #3b8dff;
+    color: rgba(126, 126, 126, 0.776);
     text-decoration: none;
     transition: all ease .3s;
 }
 
 .dashboardTitleDiv p a:hover {
-    color: #006aff;
+    color: #056dff;
     text-decoration: none;
 }
 
-/* Charts */
-.charts {
+.dashboardContent {
     padding: 0px 50px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 35px;
 }
 
-/* Chart 1 */
-
-.chart_1 {
+.chart_div,
+.dashboardItemBackground {
     display: flex;
+    height: 100%;
     flex-direction: column;
-    width: calc(30% - 50px);
     font-family: 'Roboto', sans-serif;
     align-items: center;
     background-color: white;
     border-radius: 15px;
-    padding: 20px 20px 15px 20px;
+    padding: 20px 20px 20px 20px;
     box-shadow: 0px 0px 5px 2px #c0c0c03d;
+    box-sizing: border-box;
 }
 
-.chart_1 .titleChat {
-    justify-content: space-between;
-    padding: 0;
-    align-items: center;
+/* Analysis */
+/* Charts */
+.chart_block_1 {
+    display: flex;
+    justify-content: center;
     width: 100%;
+    flex-wrap: wrap;
+    gap: 35px;
+    position: relative;
+    height: 650px;
+    box-sizing: border-box;
+    margin-bottom: 35px;
 }
 
-.chart_1 .titleChat>p:nth-child(1) {
+.chart_block_2 {
+    /* min-height: 610px; */
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 35px;
+    position: relative;
+    box-sizing: border-box;
+    padding-bottom: 105px;
+
+}
+
+.titleChat {
+    justify-content: space-between !important;
+    padding: 0 !important;
+    align-items: center !important;
+    display: flex !important;
+    width: 100% !important;
+}
+
+.titleChat>p:nth-child(1) {
     color: rgb(105, 105, 105);
     font-size: 20px;
-    /* padding-top: 10px; */
-    padding-left: 20px;
     font-weight: 600;
     margin: 0;
 }
-.chart_1 .titleChat>p:nth-child(2) {
+
+.titleChat>p:nth-child(2) {
     color: rgb(164, 164, 164);
     font-size: 16px;
-    padding-top: 10px;
+    padding-top: 2px;
     padding-left: 20px;
     font-weight: 600;
     margin: 0;
 }
-.chart_1 .titleChat>p:nth-child(2) span {
+
+.titleChat>p:nth-child(2) span {
     color: #4d97ff;
 }
 
+/* Chart 1 */
+
+
+.chart_1 {
+    width: 30%;
+}
+
 .chart_1>div {
-    width: 85%;
+    width: 83%;
     display: flex;
     justify-content: center;
-    padding: 40px 0px 20px 0px ;
+    padding: 40px 0px 20px 0px;
 }
 
 .chartInfo {
-    justify-content: left!important;
-    padding: 0!important;
+    justify-content: left !important;
+    padding: 0 !important;
 }
-.chartInfo ul{
+
+.chartInfo ul {
     /* display: flex;
     flex-wrap: wrap; */
     padding: 0;
     justify-content: space-around;
     gap: 20px;
 }
-.chartInfo ul li{
+
+.chartInfo ul li {
     margin-bottom: 10px;
     list-style-type: none;
     color: rgb(111, 111, 111);
@@ -324,11 +358,13 @@
     display: flex;
     gap: 10px;
 }
-.chartInfo ul li span{
+
+.chartInfo ul li span {
     color: #1d1d1d;
     font-weight: 700;
 }
-.chartInfo ul li::before{
+
+.chartInfo ul li::before {
     content: '';
     width: 15px;
     height: 15px;
@@ -336,30 +372,43 @@
     border-radius: 50%;
     margin-right: 5px;
 }
-.chartInfo ul .houses:before{
+
+.chartInfo ul .houses:before {
     background-color: rgba(54, 162, 235);
 }
-.chartInfo ul .townhomes:before{
+
+.chartInfo ul .townhomes:before {
     background-color: rgba(75, 192, 192);
 }
-.chartInfo ul .multiFamily:before{
+
+.chartInfo ul .multiFamily:before {
     background-color: rgba(255, 99, 132);
 }
-.chartInfo ul .condos:before{
+
+.chartInfo ul .condos:before {
     background-color: rgba(255, 206, 86);
 }
-.chartInfo ul .aparments:before{
+
+.chartInfo ul .aparments:before {
     background-color: rgba(255, 159, 64);
 }
 
 /* Chart 2 */
+.charts_2_3 {
+    width: calc(70% - 35px);
+    gap: 35px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+}
 
 .chart_2 {
-    display: flex;
     gap: 35px;
-    width: calc(70% - 25px);
+    display: flex;
     font-family: 'Roboto', sans-serif;
     height: fit-content;
+    height: 20%;
 }
 
 .chart_2>div {
@@ -466,6 +515,423 @@
 
 
 /* Chart 3 */
+.chart_3 {
+    height: calc(80% - 35px);
+}
 
+.chart_3 .chart_3Div {
+    height: calc(100%) !important;
+    width: 100%;
+    padding-bottom: 10px;
+}
+
+
+.chart_3 .titleChat>p:nth-child(1) {
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.chartInfo ul .Y2023:before {
+    background-color: rgba(54, 162, 235);
+    margin-right: 2px;
+}
+
+.chartInfo ul .Y2022:before {
+    background-color: rgba(255, 99, 132);
+    margin-right: 2px;
+}
+
+.chartInfo ul .Y2021:before {
+    background-color: rgb(255, 218, 70);
+    margin-right: 2px;
+}
+
+.chartInfoChart_3 ul {
+    display: flex;
+}
+
+
+/* Chart 4 */
+
+.chart_4 {
+    width: calc(45% - 17.5px);
+}
+
+/* Chart 5 */
+
+.chart_5 {
+    width: calc(55% - 17.5px);
+    height: auto;
+}
+
+.allUsersAnalysis {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.userRowChart {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    align-items: center;
+}
+
+
+.userPic {
+    width: 25px;
+    padding: 4px;
+}
+
+.userRowChart .userEmailChart {
+    width: 30%;
+    margin-left: 20px;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.userRowChart hr {
+    width: 30%;
+    height: 3px;
+    border-radius: 2px;
+    background-color: #d6d6d6;
+    border: 0px;
+}
+
+.userRowChart .userRoleChar {
+    width: 20%;
+    text-align: center;
+}
+
+.userRowChart .userRoleChart p,
+.userRole p {
+    padding: 6px 15px;
+    border-radius: 10px;
+    display: inline;
+    color: #ffffff;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    width: max-content;
+    margin: auto;
+}
+
+.userRowChart .userRoleChart p::before,
+.userRole p::before {
+    content: '';
+    width: 18px;
+    margin-left: -4px;
+    height: 20px;
+    display: inline-block;
+    margin-right: 10px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.userRowChart .userRoleChart .user,
+.userRole .user {
+    background-color: #9d9d9d;
+}
+
+.userRowChart .userRoleChart .user::before,
+.userRole .user::before {
+    background-image: url(../assets/icons/userRole.svg);
+    background-size: 15px;
+
+}
+
+.userRowChart .userRoleChart .admin,
+.userRole .admin {
+    background-color: #0064f1;
+}
+
+.userRowChart .userRoleChart .admin::before,
+.userRole .admin::before {
+    background-size: 18px;
+    background-image: url(../assets/icons/adminRole.svg);
+}
+
+.userRowChart .userRoleChart .manager,
+.userRole .manager {
+    background-color: #3e85e8;
+}
+
+.userRowChart .userRoleChart .manager::before,
+.userRole .manager::before {
+    background-size: 18px;
+    background-image: url(../assets/icons/managerRole.svg);
+}
+
+/* Properties */
+
+.propertiesDashboard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 40px;
+}
+
+.propertiesDashboard>div {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 70px 1px rgba(38, 42, 76, 0.169);
+    width: 45%;
+    margin-bottom: 3.3%;
+    position: relative;
+    transition: all ease .5s;
+    cursor: pointer;
+}
+
+.propertiesDashboard>div .imageDiv {
+    height: 100%;
+    overflow: hidden;
+    border-radius: 10px 10px 0 0;
+}
+
+.imageDivDashboard {
+    height: auto;
+    max-height: 180px;
+    overflow: hidden;
+    position: relative;
+}
+
+.propertiesDashboard>div .imageDiv img {
+    width: 100%;
+    margin-top: 0px;
+    transition: all ease .6s;
+    z-index: 10;
+}
+
+.locationDash {
+    position: absolute;
+    margin: 0;
+    padding: 5px;
+    z-index: 99;
+    color: white;
+    background-color: #1d1d1d70;
+    width: 100%;
+    box-sizing: border-box;
+    bottom: 0;
+}
+
+.locationDash {
+    align-items: center;
+    display: flex;
+    padding-left: 10px;
+    gap: 5px;
+}
+
+.locationDash::before {
+    content: '';
+    background-image: url(../assets/icons/location-icon.svg);
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-size: 18px;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.propertiesDashboard>div:hover {
+    box-shadow: 0 2px 25px 1px rgba(38, 42, 76, 0.373);
+}
+
+.propertiesDashboard>div:hover .imageDiv img {
+    transform: scale(1.04);
+}
 
 /* End Charts */
+
+/* Users */
+
+.allUsers {
+    gap: 20px;
+
+}
+
+.userInfoDiv {
+    display: flex;
+    width: max-content;
+}
+
+.userRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+
+.userNameEmailDiv {
+    display: flex;
+    margin-left: 20px;
+    align-items: center;
+}
+
+.userName {
+    font-weight: 700;
+    align-items: center;
+    display: flex;
+    color: rgba(0, 0, 0, 0.897);
+}
+
+.userEmail {
+    font-weight: 500;
+    align-items: center;
+    display: flex;
+    color: rgba(0, 0, 0, 0.583);
+    /* font-style: italic; */
+}
+
+.userEmail::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 2px;
+    background-color: rgba(166, 166, 166, 0.728);
+    margin: 0 10px;
+}
+
+.userRole {
+    display: flex;
+}
+
+.allUsers hr {
+    width: 50%;
+    height: 3px;
+    border-radius: 2px;
+    background-color: #dfdfdf;
+    border: 0;
+    margin-right: 20px;
+}
+.userRole {
+    width: fit-content;
+    display: flex;
+    margin-left: 10px;
+    align-items: center;
+}
+.userRole p {
+    margin-right: 0;
+}
+
+.editUser{
+    margin-left: 20px;
+    background-image: url(../assets/icons/edit-user.svg);
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    background-size: 18px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.userModal{
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    right: 0;
+}
+
+.userModalBackground{
+    background-color: rgba(0, 0, 0, 0.38);
+    height: 100vh;
+    width: 100vw;
+}
+
+.userModalDiv{
+    position: absolute;
+    background-color: white;
+    border-radius: 5px;
+    height: 450px;
+    width: 450px;
+    left: calc(50% - 225px);
+    top: calc(50% - 225px);
+}
+
+.userModalContent{
+    padding: 40px 30px;
+}
+
+.userModalContent h3{
+    text-align: center;
+    font-size: 22px;
+    margin-top: 10px;
+}
+
+.userModalContent .profileInfo{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+.userModalContent .profileInfo div:nth-child(2) p:nth-child(1){
+    /* Name */
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+.userModalContent .profileInfo div:nth-child(2) p:nth-child(2){ 
+    /* Email */
+    margin-top: 0px;
+    font-weight: 500;
+    color: #959595;
+    font-size: 14px;
+}
+.userModalContent h4{
+    margin-top: 40px;
+}
+.chengeUserRole{
+    display: flex;
+    justify-content: space-between;
+}
+.chengeUserRole .roleActive{
+    transition: all ease .3s;
+    cursor: pointer;
+    opacity: 1;
+}
+.chengeUserRole .roleInactive{
+    transition: all ease .3s;
+    cursor: pointer;
+    opacity: .4;
+}
+.userEditActions{
+    gap: 20px;
+    display: flex;
+    margin-bottom: 40px;
+    width: 100%;
+    justify-content: space-around;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.confirmUserChange, .deleteUser{
+    padding: 10px;
+    border-radius: 10px;
+    border: 0;
+    outline: 0;
+    font-weight: 700;
+    font-size: 15px;
+    font-family: 'Merriweather Sans', sans-serif;
+    transition: all ease .3s;
+    cursor: pointer;
+}
+.confirmUserChange{
+    background-color: #3288ff;
+    color: white;
+}
+.confirmUserChange:hover{
+    background-color: #1677ff;
+    color: white;
+}
+.deleteUser{
+    background-color: #cc3838;
+    color: white;
+}
+.deleteUser:hover{
+    background-color: #b41515;
+    color: white;
+}
+
+/* End Users */

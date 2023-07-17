@@ -14,7 +14,7 @@ function SideBar(props) {
                     <Link to={'/dashboard/users'}><i className='usersItem'></i><span>Users</span></Link>
                 </li>
                 <li className={location.hash.includes('properties') ? 'active' : ''}>
-                    <Link to={'/dashboard/properties'}><i className='propertiesItem'></i><span>Manage Properties</span></Link>
+                    <Link to={'/dashboard/properties'}><i className='propertiesItem'></i><span>Properties</span></Link>
                 </li>
                 <li className={location.hash.includes('notifications') ? 'active' : ''}>
                     <Link to={'/dashboard/notifications'}><i className='notificationsItem'></i><span>Notifications</span></Link>

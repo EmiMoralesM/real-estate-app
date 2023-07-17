@@ -54,9 +54,9 @@ function Chart_1() {
         }
     }
     return (
-        <div className='chart_1'>
+        <div className='chart_1 chart_div'>
             <div className='titleChat'>
-                <p>Propery Types</p>
+                <p>Property Types</p>
                 <p>Total Properties: <span>2,572</span></p>
             </div>
             <div>

@@ -11,7 +11,7 @@ function Header(props) {
       <nav>
         <div className='ulNavbar'>
           <ul>
-            {props.user.role == 'admin' && <li ><Link className='dashboard' to={'/dashboard/analytics'}>Admin Dashboard</Link></li>}
+            {props.user && props.user.role == 'admin' && <li ><Link className='dashboard' to={'/dashboard/analytics'}>Admin Dashboard</Link></li>}
             <li><Link to={'/properties'}>Buy</Link></li>
             <li><Link to={'/'}>Sell</Link></li>
           </ul>
@@ -24,7 +24,7 @@ function Header(props) {
             <li><Link to={'/properties'}>Map</Link></li>
             {!props.user && <li className='signUpButton' onClick={() => props.setSignInModalOpen(true)}><button>Sign In</button></li>}
             {props.user && <li className='profile'>
-              <Link to={'/profile'}>
+              <Link className='profilePicItem' to={'/profile'}>
                 <img className='profilePic' src={props.user.image ? props.user.image : profilePic} alt="" />
               </Link>
             </li>}
