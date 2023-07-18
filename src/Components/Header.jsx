@@ -11,7 +11,7 @@ function Header(props) {
       <nav>
         <div className='ulNavbar'>
           <ul>
-            {props.user && props.user.role == 'admin' && <li ><Link className='dashboard' to={'/dashboard/analytics'}>Admin Dashboard</Link></li>}
+            {props.user && (props.user.role == 'admin' || props.user.role == 'manager') && <li ><Link className='dashboard' to={'/dashboard/analytics'}>Admin Dashboard</Link></li>}
             <li><Link to={'/properties'}>Buy</Link></li>
             <li><Link to={'/'}>Sell</Link></li>
           </ul>

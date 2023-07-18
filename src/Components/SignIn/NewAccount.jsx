@@ -50,7 +50,6 @@ function NewAccount(props) {
         }
     }
     const checkPasswordConfirm = (passwordConfirm) => {
-        return true
         if (passwordConfirm !== password) {
             setPasswordConfirmError('Passwords do not match')
             return false
@@ -62,27 +61,19 @@ function NewAccount(props) {
     const submit = async () => {
         const emailValidation = await checkEmail(email)
         if (emailValidation && checkPassword(password) && checkPasswordConfirm(passwordConfirm)) {
-            console.log(password);
             try {
                 await axios.post('http://localhost/createUser', {
                     name: email.substring(0, email.indexOf('@')).toLowerCase(),
                     email: email.toLowerCase(),
                     favorites: [],
-                    image: '',
-                    role: 'user',
                     password: password,
                 })
-                    .then(res => console.log(res))
-                props.changeSuccessMessage(`Account created | Welcome ${email.substring(0, email.indexOf('@')).toLowerCase()}!`)
-                // props.setUser({
-                //     name: email.substring(0, email.indexOf('@')).toLowerCase(),
-                //     email: email.toLowerCase(),
-                //     favorites: [],
-                //     image: '',
-                //     role: 'user',
-                //     password: password,
-                // })
-                // props.setSignInModalOpen(false)
+                    .then(res => {
+                        // console.log(res.data);
+                        props.setUser(res.data)
+                        props.changeSuccessMessage(`Account created | Welcome ${email.substring(0, email.indexOf('@')).toLowerCase()}!`)
+                        props.setSignInModalOpen(false)
+                    })
             } catch (err) {
                 console.log(err);
             }
@@ -114,8 +105,8 @@ function NewAccount(props) {
                         onMouseUp={() => setPasswordVisibility('password')}
                     />
                     <input
-                        // type={passwordVisibility}
-                        type='text'
+                        type={passwordVisibility}
+                        // type='text'
                         className={passwordError ? 'errorInput' : ''}
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}

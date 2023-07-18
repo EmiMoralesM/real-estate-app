@@ -62,8 +62,6 @@ body {
     border: 2px solid rgb(208, 208, 208);
 }
 
-
-
 .profile .profilePicItem{
     align-items: center;
     display: flex;
@@ -72,4 +70,95 @@ body {
     width: 21px;
     align-items: center;
     padding: 10px;
+}
+
+.chart_div,
+.whiteBackground {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    font-family: 'Roboto', sans-serif;
+    align-items: center;
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px 20px 20px 20px;
+    box-shadow: 0px 0px 5px 2px #c0c0c03d;
+    box-sizing: border-box;
+}
+
+/* Modal */
+.generalModal {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    right: 0;
+}
+
+.generalModalBackground {
+    background-color: rgba(0, 0, 0, 0.38);
+    height: 100vh;
+    width: 100vw;
+}
+
+.generalModalDiv {
+    position: absolute;
+    background-color: white;
+    border-radius: 5px;
+    height: 450px;
+    width: 450px;
+    left: calc(50% - 225px);
+    top: calc(50% - 225px);
+}
+.generalModalContent {
+    padding: 30px 30px;
+}
+
+.generalModalContent h3 {
+    text-align: center;
+    font-size: 22px;
+    margin-top: 10px;
+}
+
+.closeModal{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: 0;
+    outline: 0;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 50%;
+    background-image: url(assets/icons/x.svg);
+    background-position: center;
+    background-size: 38px;
+    cursor: pointer;
+    width: 45px;
+    height: 45px;
+    background-repeat: no-repeat;
+    transition: all ease .3s;
+}
+.closeModal:hover{
+    background-color: rgba(0, 0, 0, 0.075);
+    background-image: url(assets/icons/x.svg);
+}
+
+/* Errors */
+.errorInput{
+    border: 2px solid #ff3232!important;
+    outline: 1px solid rgb(255, 255, 255);
+}
+.errorText{
+    margin-top: -20px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: #ff3232;
+    font-weight: 600;
+}
+.disabled{
+    opacity: .5;
+    cursor: auto!important;
+}
+.disabled:hover{
+    opacity: .5!important;
 }

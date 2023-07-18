@@ -21,27 +21,6 @@
     top: calc(50% - 350px);
 }
 
-.closeModal{
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    border: 0;
-    outline: 0;
-    background-color: rgba(0, 0, 0, 0);
-    border-radius: 50%;
-    background-image: url(../assets/icons/x.svg);
-    background-position: center;
-    background-size: 38px;
-    cursor: pointer;
-    width: 45px;
-    height: 45px;
-    background-repeat: no-repeat;
-    transition: all ease .3s;
-}
-.closeModal:hover{
-    background-color: rgba(0, 0, 0, 0.075);
-    background-image: url(../assets/icons/x.svg);
-}
 
 .modalContent h3{
     margin-top: 42px;
@@ -129,16 +108,7 @@
     border: 2px solid #3287ff;
     outline: 1px solid rgb(255, 255, 255);
 }
-.errorInput{
-    border: 2px solid #ff3232!important;
-    outline: 1px solid rgb(255, 255, 255);
-}
-.errorText{
-    margin-top: -20px;
-    margin-bottom: 20px;
-    font-size: 13px;
-    color: #ff3232;
-}
+
 .formErrorText{
     margin-top: 25px;
     text-align: center;

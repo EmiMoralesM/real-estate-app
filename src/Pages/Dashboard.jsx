@@ -23,7 +23,7 @@ function Dashboard(props) {
                 </div>
                 <div className='dashboardContent'>
                     {title.toLowerCase() == 'analytics' && <Analytics />}
-                    {title.toLowerCase() == 'users' && <Users />}
+                    {title.toLowerCase() == 'users' && <Users userActive={props.user} changeSuccessMessage={props.changeSuccessMessage} />}
                 </div>
             </main>
         </>

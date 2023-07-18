@@ -17,7 +17,7 @@ function App() {
   const [signInModalOpen, setSignInModalOpen] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
   const [user, setUser] = useState(
-      {
+    {
       name: "Emiliano Morales",
       email: "moralesemi000@gmail.com",
       favorites: [],
@@ -25,10 +25,7 @@ function App() {
       role: "admin",
       password: "$2b$10$Y/fkB.14Xahp5XLxi.M5zOS9H2eab/SKQuw18w/nsR9RIA/bS95RO"
     }
-    )
-    
-
-
+  )
   const changeSuccessMessage = (message) => {
     setSuccessMessage(message)
     setTimeout(() => setSuccessMessage(''), 4200)
@@ -41,8 +38,8 @@ function App() {
       <Routes>
         <Route path='*' element={<Home signInModalOpen={signInModalOpen} />} />
         <Route path='/properties' element={<Properties />} />
-        <Route path='/profile' element={<Profile />} />
-        {user && user.role == 'admin' && <Route path='/dashboard/*' element={<Dashboard user={user} />} />}
+        <Route path='/profile' element={<Profile user={user} setUser={setUser} changeSuccessMessage={changeSuccessMessage}/>} />
+        {user && (user.role === 'admin' || user.role === 'manager') && <Route path='/dashboard/*' element={<Dashboard changeSuccessMessage={changeSuccessMessage} user={user} />} />}
       </Routes>
       {successMessage && <SuccessMessage successMessage={successMessage} />}
     </>

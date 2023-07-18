@@ -16,7 +16,7 @@ function SignIn(props) {
     const [formError, setFormError] = useState('')
 
     const [passwordVisibility, setPasswordVisibility] = useState('password')
-
+    
     const checkEmail = (email) => {
         if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
             setEmailError('Enter a valid email address')
@@ -33,13 +33,12 @@ function SignIn(props) {
             return true
         }
     }
-    const submit = () => {
-        console.log(email);
+    const submit = async () => {
         if (checkEmail(email) && checkPassword(password)) {
             setFormError('')
             // If the credentials are correct , the server will return an object with the user.
             // If the user is invalid it will retun { error: ... }.
-            axios.get(`http://localhost/getUser/?email=${email}&password=${password}`)
+            await axios.get(`http://localhost/getUser?email=${email}&password=${password}`)
                 .then(res => {
                     if (res.data.error) {
                         setFormError(res.data.error)

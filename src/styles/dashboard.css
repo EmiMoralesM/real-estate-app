@@ -251,21 +251,9 @@
 
 .dashboardContent {
     padding: 0px 50px;
+    padding-bottom: 50px;
 }
 
-.chart_div,
-.dashboardItemBackground {
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    font-family: 'Roboto', sans-serif;
-    align-items: center;
-    background-color: white;
-    border-radius: 15px;
-    padding: 20px 20px 20px 20px;
-    box-shadow: 0px 0px 5px 2px #c0c0c03d;
-    box-sizing: border-box;
-}
 
 /* Analysis */
 /* Charts */
@@ -290,8 +278,6 @@
     gap: 35px;
     position: relative;
     box-sizing: border-box;
-    padding-bottom: 105px;
-
 }
 
 .titleChat {
@@ -751,6 +737,44 @@
 
 }
 
+/* .warningMessageDiv{
+    display: flex;
+    width: 100%;
+    justify-content: right;
+    text-align: right;
+    align-items: end;
+    align-items: center;
+    gap: 10px;
+} */
+/* .warningMessageDiv hr{
+    flex-grow: 1;
+    height: 2px;
+    background-color: #d4d4d4ed;
+    border: 0;
+    border-radius: 5px;
+} */
+.warningMessage {
+    margin: 0;
+    color: rgb(76, 76, 76);
+    font-weight: 500;
+    font-size: 15px;
+    padding-bottom: 20px;
+    align-items: center;
+    display: flex;
+    gap: 8px;
+}
+
+.warningMessage::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url(../assets/icons/warning.svg);
+    background-size: 18px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 .userInfoDiv {
     display: flex;
     width: max-content;
@@ -761,8 +785,12 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    order: 2;
 }
 
+#userActiveRow {
+    order: 1 !important;
+}
 
 .userNameEmailDiv {
     display: flex;
@@ -775,6 +803,29 @@
     align-items: center;
     display: flex;
     color: rgba(0, 0, 0, 0.897);
+}
+
+#userActiveRow .userName {
+    font-weight: 700;
+    align-items: center;
+    display: flex;
+    color: #0064f1;
+}
+
+#userActiveRow .you {
+    font-weight: 700;
+    align-items: center;
+    display: flex;
+    color: #0064f1;
+}
+
+#userActiveRow .you::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 2px;
+    background-color: rgba(166, 166, 166, 0.728);
+    margin: 0 10px;
 }
 
 .userEmail {
@@ -798,105 +849,137 @@
     display: flex;
 }
 
-.allUsers hr {
-    width: 50%;
+.allUsers .userSeparator {
+    flex-grow: 1;
+    padding: 0 30px;
+}
+
+.allUsers .userSeparator hr {
+    width: 100%;
+    /* display: inline; */
     height: 3px;
     border-radius: 2px;
     background-color: #dfdfdf;
     border: 0;
     margin-right: 20px;
 }
+
 .userRole {
     width: fit-content;
     display: flex;
     margin-left: 10px;
     align-items: center;
 }
+
 .userRole p {
     margin-right: 0;
 }
 
-.editUser{
+.editUser {
     margin-left: 20px;
     background-image: url(../assets/icons/edit-user.svg);
     width: 30px;
     height: 30px;
+    outline: 0;
+    cursor: pointer;
+    border: 0px solid gray;
+    background-color: #e9e9e9;
     border-radius: 5px;
     background-size: 18px;
     background-position: center;
     background-repeat: no-repeat;
+    transition: all ease .3s;
 }
 
-.userModal{
-    height: 100vh;
-    width: 100vw;
-    position: fixed;
-    z-index: 99999;
-    top: 0;
-    right: 0;
+.editUser:hover {
+    background-color: #dedede;
 }
 
-.userModalBackground{
-    background-color: rgba(0, 0, 0, 0.38);
-    height: 100vh;
-    width: 100vw;
+.editUserDisabled {
+    /* opacity: .6; */
+    cursor: auto;
+    align-items: center;
+    transition: all ease .3s;
 }
 
-.userModalDiv{
-    position: absolute;
-    background-color: white;
-    border-radius: 5px;
-    height: 450px;
-    width: 450px;
-    left: calc(50% - 225px);
-    top: calc(50% - 225px);
+.editUserDisabled:hover {
+    background-color: #e9e9e9;
 }
 
-.userModalContent{
-    padding: 40px 30px;
+/* .editUserDisabled::before{
+    content: 'Only admins can edit users';
+    padding: 10px;
+    box-sizing: border-box;
+    color: rgb(93, 93, 93);
+    font-weight: 600;
+    display: inline-block;
+    position: relative;
+    left: -170px;
+    top: -10px;
+    border-radius: 10px;
+    background-color: #dfdfdf;
+    width: 150px;
+    height: 50px;
+    opacity: 0;
+    transition: all ease .3s;
 }
+.editUserDisabled:hover::before{
+    opacity: 1;
+    
+} */
 
-.userModalContent h3{
-    text-align: center;
-    font-size: 22px;
-    margin-top: 10px;
-}
-
-.userModalContent .profileInfo{
+.generalModalContent .profileInfo {
     display: flex;
     gap: 15px;
     align-items: center;
 }
-.userModalContent .profileInfo div:nth-child(2) p:nth-child(1){
+
+.generalModalContent .profileInfo div:nth-child(2) p:nth-child(1) {
     /* Name */
     margin-bottom: 5px;
     font-weight: 600;
 }
-.userModalContent .profileInfo div:nth-child(2) p:nth-child(2){ 
+
+.generalModalContent .profileInfo div:nth-child(2) p:nth-child(2) {
     /* Email */
     margin-top: 0px;
     font-weight: 500;
     color: #959595;
     font-size: 14px;
 }
-.userModalContent h4{
+
+.generalModalContent h4 {
     margin-top: 40px;
 }
-.chengeUserRole{
+
+.chengeUserRole {
     display: flex;
     justify-content: space-between;
 }
-.chengeUserRole .roleActive{
+
+.deleteUserModalDiv {
+    position: absolute;
+    background-color: white;
+    border-radius: 5px;
+    height: 320px;
+    width: 500px;
+    left: calc(50% - 250px);
+    top: calc(50% - 160px);
+}
+
+.chengeUserRole .roleActive {
     transition: all ease .3s;
     cursor: pointer;
     opacity: 1;
 }
-.chengeUserRole .roleInactive{
+
+.chengeUserRole .roleInactive {
     transition: all ease .3s;
     cursor: pointer;
     opacity: .4;
 }
-.userEditActions{
+
+.userEditActions {
     gap: 20px;
     display: flex;
     margin-bottom: 40px;
@@ -906,7 +989,20 @@
     bottom: 0;
     left: 0;
 }
-.confirmUserChange, .deleteUser{
+
+.deleteUserEditActions {
+    gap: 20px;
+    display: flex;
+    margin-bottom: 40px;
+    width: 100%;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.confirmUserChange,
+.deleteUser {
     padding: 10px;
     border-radius: 10px;
     border: 0;
@@ -917,19 +1013,23 @@
     transition: all ease .3s;
     cursor: pointer;
 }
-.confirmUserChange{
+
+.confirmUserChange {
     background-color: #3288ff;
     color: white;
 }
-.confirmUserChange:hover{
+
+.confirmUserChange:hover {
     background-color: #1677ff;
     color: white;
 }
-.deleteUser{
+
+.deleteUser {
     background-color: #cc3838;
     color: white;
 }
-.deleteUser:hover{
+
+.deleteUser:hover {
     background-color: #b41515;
     color: white;
 }
