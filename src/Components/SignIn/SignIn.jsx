@@ -1,12 +1,14 @@
 import axios from 'axios'
 
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import eyeOff from '../../assets/icons/eye-off.svg'
 import eyeOn from '../../assets/icons/eye-on.svg'
+import { Context } from '../../assets/Context'
 
 function SignIn(props) {
+    const { SERVER_URL } = useContext(Context)
     const [email, setEmail] = useState('')
     const [emailError, setEmailError] = useState('')
 
@@ -38,14 +40,14 @@ function SignIn(props) {
             setFormError('')
             // If the credentials are correct , the server will return an object with the user.
             // If the user is invalid it will retun { error: ... }.
-            await axios.get(`http://localhost/getUser?email=${email}&password=${password}`)
+            await axios.get(`${SERVER_URL}/getUser?email=${email}&password=${password}`)
                 .then(res => {
-                    if (res.data.error) {
-                        setFormError(res.data.error)
-                    } else {
+                    if (res.data.email) {
                         props.changeSuccessMessage(`Welcome back ${res.data.name}!`)
                         props.setSignInModalOpen(false)
                         props.setUser(res.data)
+                    } else {
+                        setFormError(res.data.error)
                     }
                 })
         }

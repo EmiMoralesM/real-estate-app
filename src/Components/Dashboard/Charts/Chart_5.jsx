@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+
 import profilePic from '../../../assets/icons/profile.png'
-import { Link } from 'react-router-dom'
+import { Context } from '../../../assets/Context'
+
 import axios from 'axios'
+
 function Chart_5() {
+    const { SERVER_URL } = useContext(Context)
     const [admins, setAdmins] = useState([])
     useEffect(() => {
         axios.get('http://localhost/getAdmins?limit=5')
@@ -22,9 +26,9 @@ function Chart_5() {
                 ) : (
                     admins.map((user, i) => (
                         <div className='userRowChart'>
-                            <div className='profile profileUser'>
+                            <div className={`profile profileUser ${user.image ? 'imageSet' : ''}`}>
                                 <p className='profilePicItem'>
-                                    <img className='profilePic' src={user.image ? user.image : profilePic} alt="" />
+                                    <img className='profilePic' src={user.image ? `${SERVER_URL}/images/${user.image}` : profilePic} alt="" />
                                 </p>
                             </div>
                             <p className='userEmailChart'>{user.email}</p>

@@ -170,14 +170,22 @@
     gap: 40px;
 }
 
+.headerDashboardMenu .notifications{
+    margin-left: -5px;
+}
 /* .headerDashboardMenu .notifications{
     background-image: url(../assets/icons/notification.svg);
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-left: -10px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: 18px;
     overflow: hidden;
+}
+.headerDashboardMenu .notifications a{
+    padding-left: 100px;
 } */
 .headerDashboardMenu p a {
     text-decoration: none;

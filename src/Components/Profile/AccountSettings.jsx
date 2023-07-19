@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
-
+import React, { useContext, useEffect, useState } from 'react'
 import profilePic from '../../assets/icons/profile.png'
+import { Context } from '../../assets/Context'
 import axios from 'axios'
 
 function AccountSettings(props) {
+  const { SERVER_URL } = useContext(Context)
+
   const [openSettingsModal, setOpenSettingsModal] = useState(false)
 
   useEffect(() => {
@@ -19,6 +21,7 @@ function AccountSettings(props) {
   const [password, setPassword] = useState('')
 
   const [newName, setNewName] = useState('')
+  const [newImage, setNewImage] = useState()
   const [newEmail, setNewEmail] = useState('')
   const [newPassword, setNewPassword] = useState('')
 
@@ -27,15 +30,28 @@ function AccountSettings(props) {
   const [newPasswordError, setNewPasswordError] = useState('')
 
   // Checks email structure
-  const checkEmail = () => {
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(newEmail)) {
-      setEmailError('')
-      return true
-    } else {
+  const checkEmail = async () => {
+    let valid = false
+    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(newEmail)) {
       setEmailError('Enter a valid email address')
       return false
+    } else {
+      // No errors
+      await axios.get(`${SERVER_URL}/getUsers`)
+        .then(res => {
+          setEmailError('')
+          valid = true
+          res.data.forEach(user => {
+            // If the email already exists then it sets the emailError to true
+            console.log(user.email === newEmail);
+            if (user.email === newEmail) {
+              setEmailError('This email has already been used')
+              valid = false
+            }
+          });
+        })
+      return valid
     }
-
   }
   // Checks password structure
   const checkPassword = () => {
@@ -50,7 +66,7 @@ function AccountSettings(props) {
 
   const handleEmailChange = async () => {
     // If the new email structure is correct 
-    if (checkEmail()) {
+    if (await checkEmail()) {
       // We verify that the password passed is the correct one
       if (await handleVerification('email')) {
         // If it is we updae the user data with the new email
@@ -58,13 +74,24 @@ function AccountSettings(props) {
       }
     }
   }
-  
+
+  const handleImageChange = async (e) => {
+    const formData = new FormData()
+    formData.append('newImage', newImage)
+    await axios.patch(`${SERVER_URL}/uploadImage/${props.user.email}`, formData)
+      .then(res => {
+        props.setUser(res.data)
+        props.changeSuccessMessage(`Image changed!`)
+        setOpenSettingsModal(false)
+      })
+  }
+
   const handlePasswordChange = async () => {
     if (checkPassword()) {
       // We verify that the password passed is the correct one
-      if (await handleVerification('password')) {
+      if (await handleVerification()) {
         // If it is, we change the users password for tyhe newPassword
-        axios.patch(`http://localhost/changePassword/${props.user.email}`, { newPassword })
+        axios.patch(`${SERVER_URL}/changePassword/${props.user.email}`, { newPassword })
           .then(res => {
             props.setUser(res.data)
             props.changeSuccessMessage(`Password changed!`)
@@ -74,12 +101,25 @@ function AccountSettings(props) {
       }
     }
   }
+  const handleDeleteAcoount = async () => {
+    // We verify that the password passed is the correct one
+    if (await handleVerification()) {
+      // If it is, we change the users password for tyhe newPassword
+      await axios.delete(`${SERVER_URL}/deleteUser/${props.user.email}`)
+        .then(res => {
+          props.setUser()
+          props.changeSuccessMessage('User deleted!')
+          setOpenSettingsModal(false)
+        })
+        .catch(e => console.log(e))
+    }
+  }
 
   // This function validates that the current password the user entered is the correct one. 
-  const handleVerification = async (verify) => {
+  const handleVerification = async () => {
     let verified = false
     // We verify the user password to be correct
-    await axios.get(`http://localhost/getUser?email=${props.user.email}&password=${password}`)
+    await axios.get(`${SERVER_URL}/getUser?email=${props.user.email}&password=${password}`)
       .then(res => {
         // If the promise return a user, then we change the user email
         if (res.data.email === props.user.email) {
@@ -95,9 +135,9 @@ function AccountSettings(props) {
   }
 
   // This function executes after all the validation. It reseives the values to update, and sends a patch request.
-  const handleUserChange = (name, email, image) => {
+  const handleUserChange = (name, email) => {
     // We update the user with the info passed to the function
-    axios.patch(`http://localhost/updateUser/${props.user.email}`, { name, email, image, })
+    axios.patch(`${SERVER_URL}/updateUser/${props.user.email}`, { name, email })
       .then(res => {
         props.setUser(res.data)
         props.changeSuccessMessage(`${newEmail ? 'Email' : newName ? 'Name' : ''} changed!`)
@@ -127,12 +167,15 @@ function AccountSettings(props) {
             <p className='description'>Personalize your profile pic with a custom photo.</p>
           </div>
           <div className='editProfileDiv'>
-            <div className='profile profileUser'>
+            <div className={`profile profileUser ${props.user.image ? 'imageSet' : ''}`}>
               <p className='profilePicItem'>
-                <img className='profilePic' src={profilePic} alt="" />
+                <img className='profilePic'
+                  src={props.user.image ? `${SERVER_URL}/images/${props.user.image}` : profilePic}
+                  alt="profilePicture"
+                />
               </p>
             </div>
-            <button className={`editUser`}></button>
+            <button onClick={() => setOpenSettingsModal('image')} className={`editUser`}></button>
           </div>
         </div>
         <hr />
@@ -169,7 +212,7 @@ function AccountSettings(props) {
             <p className='description'>You won't be able to access yur account anymore.</p>
           </div>
           <div className='editProfileDiv'>
-            <button className='changePasswordButton'>Delete account</button>
+            <button className='changePasswordButton' onClick={() => setOpenSettingsModal('deleteAccount')}>Delete account</button>
           </div>
         </div>
         <hr />
@@ -184,8 +227,8 @@ function AccountSettings(props) {
                 <>
                   <h3>Edit Name</h3>
                   <div>
-                    <label htmlFor="newName">New Name</label>
-                    <input type="text" name="newName" id="" onChange={(e) => setNewName(e.target.value)} value={newName} />
+                    <label>New Name</label>
+                    <input type="text" name="newName" onChange={(e) => setNewName(e.target.value)} value={newName} />
                   </div>
                   <div className='profileModalActions'>
                     <button onClick={() => setOpenSettingsModal(false)} className='cancel'>Cancel</button>
@@ -193,6 +236,22 @@ function AccountSettings(props) {
                       disabled={newName ? '' : 'disabled'}
                       onClick={() => handleUserChange(newName, props.user.email, props.user.image)}
                       className={`update ${newName ? '' : 'disabled'}`}>Update</button>
+                  </div>
+                </>
+              }
+              {openSettingsModal === 'image' &&
+                <>
+                  <h3>Edit Image</h3>
+                  <div>
+                    <label>Upload New Image</label>
+                    <input type="file" name="newImage" accept="image/png, image/jpg, image/jpeg" className='inputFile' onChange={(e) => setNewImage(e.target.files[0])} />
+                  </div>
+                  <div className='profileModalActions'>
+                    <button onClick={() => setOpenSettingsModal(false)} className='cancel'>Cancel</button>
+                    <button
+                      disabled={newImage ? '' : 'disabled'}
+                      onClick={handleImageChange}
+                      className={`update ${newImage ? '' : 'disabled'}`}>Update</button>
                   </div>
                 </>
               }
@@ -261,6 +320,29 @@ function AccountSettings(props) {
                       disabled={newPassword ? '' : 'disabled'}
                       onClick={handlePasswordChange}
                       className={`update ${newPassword ? '' : 'disabled'}`}>Update</button>
+                  </div>
+                </>
+              }
+              {openSettingsModal === 'deleteAccount' &&
+                <>
+                  <h3>Delete Account</h3>
+                  <div className='deleteAccountLabel'>
+                    <label >Enter your current password</label>
+                    <input type="password"
+                      name="password"
+                      onChange={(e) => setPassword(e.target.value)}
+                      value={password}
+                      className={passwordError ? 'errorInput' : ''}
+                    />
+                    {passwordError && <p className='errorText'>{passwordError}</p>}
+                    <p className='warning'>Once you delete your account, you won't be able to recover it.</p>
+                  </div>
+                  <div className='profileModalActions'>
+                    <button onClick={() => setOpenSettingsModal(false)} className='cancel'>Cancel</button>
+                    <button
+                      disabled={password ? '' : 'disabled'}
+                      onClick={handleDeleteAcoount}
+                      className={`update ${password ? '' : 'disabled'}`}>Delete</button>
                   </div>
                 </>
               }

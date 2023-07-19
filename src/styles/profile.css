@@ -30,8 +30,11 @@
 }
 
 .profileOptions li {
-    cursor: pointer;
     list-style-type: none;
+}
+.profileOptions li a {
+    color: black;
+    text-decoration: none;
 }
 
 .profileOptions .active {
@@ -126,6 +129,8 @@
     opacity: .8;
 }
 
+/* Modals */
+
 .nameModalDiv {
     height: 275px;
     width: 450px;
@@ -138,6 +143,21 @@
     left: calc(50% - 325px);
     top: calc(50% - 200px);
 }
+.imageModalDiv{
+    height: 290px;
+    width: 550px;
+    left: calc(50% - 275px);
+    top: calc(50% - 145px);
+}
+.deleteAccountModalDiv{
+    height: 350px;
+    width: 550px;
+    left: calc(50% - 275px);
+    top: calc(50% - 175px);
+}
+
+
+
 .profileModalDiv .generalModalContent label{
     display: block;
     font-size: 16px;
@@ -170,6 +190,33 @@
     outline: 1px solid rgb(255, 255, 255);
 }
 
+
+.inputFile{
+    background-color: transparent!important;
+    border: 0!important;
+    outline: 0!important;
+    padding: 10px 0!important;
+    margin-bottom: 10px!important;
+}
+
+::-webkit-file-upload-button{
+    background-color: #3287ff;
+    padding: 13px 18px;
+    border-radius: 10px;
+    outline: 0;
+    border: 0;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all ease .3s;
+    margin-right: 14px;
+}
+::-webkit-file-upload-button:hover{
+    background-color: #006aff;
+}
+
+
+
 .profileModalActions{
     display: flex;
     margin-top: 20px;
@@ -194,7 +241,24 @@
     background-color: #006aff;
     color: #ffffff;
 }
-
 .profileModalActions .cancel:hover, .profileModalActions .update:hover{
     opacity: .8;
+}
+
+
+.profileModalDiv .title{
+    font-weight: 600;
+}
+.profileModalDiv .warning{
+    font-weight: 600;
+    color: rgb(217, 21, 21);
+    margin-top: 0px;
+    margin-bottom: 50px;
+}
+
+
+
+
+.deleteAccountLabel{
+    margin-top: 40px;
 }

@@ -1,0 +1,89 @@
+.filtersHeader {
+    width: 100vw;
+    height: 50px;
+    margin-top: 79px;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0px 0px 5px 2px #c0c0c03d;
+    z-index: 9999;
+}
+
+.filtersHeader>div {
+    margin-left: 200px;
+}
+
+.filterButton {
+    padding: 8px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: white;
+    border: 2px solid #006aff;
+    color: rgba(0, 0, 0, 0.923);
+    outline: 0;
+    align-items: center;
+    display: flex;
+}
+
+/* body {
+    background-color: rgb(41, 41, 41);
+} */
+
+.arrow {
+    display: inline-block;
+    border-left: 2px solid rgba(0, 0, 0, 0.923);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.923);
+    height: 8px;
+    margin-left: 12px;
+    width: 8px;
+
+    transform: rotate(135deg);
+    margin-top: 4px;
+}
+
+.arrowActive {
+    transform: rotate(-45deg);
+    margin-top: -4px;
+}
+
+.filtersDropdown {
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 0px 5px 2px #c0c0c03d;
+    top: 50px;
+    border-radius: 0 0 10px 10px;
+}
+
+.filterTitle {
+    width: 100%;
+    font-weight: 600;
+    background-color: #ececec;
+    margin: 0;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.filterSubTitle {
+    width: 100%;
+    font-weight: 600;
+    font-size: 15px;
+    margin: 0;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.individualFilterDropdown>input {
+    padding: 15px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(94, 94, 94);
+    background-color: rgb(247, 247, 247);
+    border: 1px solid #cdcdcd;
+    outline: 0;
+    align-items: center;
+    display: flex;
+}

@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 
 import profilePic from '../../assets/icons/profile.png'
 import { Link } from 'react-router-dom'
+import { Context } from '../../assets/Context'
 
 function Users(props) {
+    const {SERVER_URL} = useContext(Context)
     const [users, setUsers] = useState([])
     const [userEdit, setUserEdit] = useState({})
     const [modalEdit, setModalEdit] = useState(false)
@@ -12,7 +14,7 @@ function Users(props) {
 
     // Bring users from the database
     useEffect(() => {
-        axios.get('http://localhost/getUsers')
+        axios.get(`${SERVER_URL}/getUsers`)
             .then(res => setUsers(res.data))
             .catch(err => console.log(`Error: ${err}`))
 
@@ -33,7 +35,7 @@ function Users(props) {
     }
 
     const handleUserChange = async () => {
-        await axios.patch(`http://localhost/updateUser/${userEdit.email}`, { role: userEdit.role })
+        await axios.patch(`${SERVER_URL}/updateUser/${userEdit.email}`, { role: userEdit.role })
             .then(res => console.log('User changed!'))
             .catch(err => console.log(`Error: ${err}`))
         setModalEdit(false)
@@ -43,7 +45,7 @@ function Users(props) {
     }
 
     const handleUserDelete = async () => {
-        await axios.delete(`http://localhost/deleteUser/${userEdit.email}`)
+        await axios.delete(`${SERVER_URL}/deleteUser/${userEdit.email}`)
             .then(res => console.log(res.data))
             .catch(err => console.log(`Error: ${err}`))
         setConfirmDeleteModal(false)
@@ -62,9 +64,9 @@ function Users(props) {
                     users.map((user, i) => (
                         <div className='userRow' id={props.userActive.email === user.email ? 'userActiveRow' : ''}>
                             <div className='userInfoDiv'>
-                                <div className='profile profileUser'>
+                                <div className={`profile profileUser ${user.image ? 'imageSet' : ''}`}>
                                     <p className='profilePicItem'>
-                                        <img className='profilePic' src={user.image ? user.image : profilePic} alt="" />
+                                        <img className='profilePic' src={user.image ? `${SERVER_URL}/images/${user.image}` : profilePic} alt="" />
                                     </p>
                                 </div>
                                 <div className='userNameEmailDiv'>

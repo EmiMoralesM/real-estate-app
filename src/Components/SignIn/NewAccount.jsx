@@ -1,10 +1,14 @@
-import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+
 import eyeOff from '../../assets/icons/eye-off.svg'
 import eyeOn from '../../assets/icons/eye-on.svg'
+import { Context } from '../../assets/Context'
 
 function NewAccount(props) {
+    const { SERVER_URL } = useContext(Context)
+
     const [email, setEmail] = useState('')
     const [emailError, setEmailError] = useState('')
 
@@ -24,7 +28,7 @@ function NewAccount(props) {
             return false
         } else {
             // No errors
-            await axios.get('https://real-estate-app-server.onrender.com/getUsers')
+            await axios.get(`${SERVER_URL}/getUsers`)
                 .then(res => {
                     setEmailError('')
                     valid = true
@@ -62,14 +66,13 @@ function NewAccount(props) {
         const emailValidation = await checkEmail(email)
         if (emailValidation && checkPassword(password) && checkPasswordConfirm(passwordConfirm)) {
             try {
-                await axios.post('http://localhost/createUser', {
+                await axios.post(`${SERVER_URL}/createUser`, {
                     name: email.substring(0, email.indexOf('@')).toLowerCase(),
                     email: email.toLowerCase(),
                     favorites: [],
                     password: password,
                 })
                     .then(res => {
-                        // console.log(res.data);
                         props.setUser(res.data)
                         props.changeSuccessMessage(`Account created | Welcome ${email.substring(0, email.indexOf('@')).toLowerCase()}!`)
                         props.setSignInModalOpen(false)

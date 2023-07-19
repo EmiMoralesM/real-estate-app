@@ -10,20 +10,24 @@ import Users from '../Components/Dashboard/Users'
 
 function Dashboard(props) {
     const [sideBarOpen, setSideBarOpen] = useState(true)
+    const [dashboardPage, setDashboardPage] = useState('analytics')
+
+    useEffect(() => {
+        setDashboardPage(location.pathname.replace('/dashboard/', '').charAt(0).toUpperCase() + location.pathname.replace('/dashboard/', '').slice(1))
+    }, [location.pathname])
     
-    let title = location.hash.replace('#/dashboard/', '').charAt(0).toUpperCase() + location.hash.replace('#/dashboard/', '').slice(1)
     return (
         <>
             <SideBar sideBarOpen={sideBarOpen} />
             <Navbar sideBarOpen={sideBarOpen} setSideBarOpen={setSideBarOpen} user={props.user} />
             <main className={`mainDashboard ${sideBarOpen ? '' : 'extendDashboard'}`}>
                 <div className='dashboardTitleDiv'>
-                    <h1>{title == 'Users' || title == 'Properties' ? `Manage ${title}` : title}</h1>
-                    <p><Link to={'/'}>Home</Link> / Dashboard / {title}</p>
+                    <h1>{dashboardPage == 'Users' || dashboardPage == 'Properties' ? `Manage ${dashboardPage}` : dashboardPage}</h1>
+                    <p><Link to={'/'}>Home</Link> / Dashboard / {dashboardPage}</p>
                 </div>
                 <div className='dashboardContent'>
-                    {title.toLowerCase() == 'analytics' && <Analytics />}
-                    {title.toLowerCase() == 'users' && <Users userActive={props.user} changeSuccessMessage={props.changeSuccessMessage} />}
+                    {dashboardPage.toLowerCase() == 'analytics' && <Analytics />}
+                    {dashboardPage.toLowerCase() == 'users' && <Users userActive={props.user} changeSuccessMessage={props.changeSuccessMessage} />}
                 </div>
             </main>
         </>

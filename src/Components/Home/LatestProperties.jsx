@@ -3,9 +3,10 @@ import axios from 'axios'
 function LatestProperties() {
     const [properties, setProperties] = useState()
     useEffect(() => {
-        axios.get('https://real-estate-app-server.onrender.com/latestProperties')
+        axios.get('http://localhost/latestProperties?limit=6')
             .then((data) => setProperties(data.data))
             .catch(err => console.log(`Error: ${err}`))
+
     }, [])
 
     return (
