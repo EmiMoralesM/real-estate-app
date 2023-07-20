@@ -15,11 +15,17 @@ function Dashboard(props) {
     useEffect(() => {
         setDashboardPage(location.pathname.replace('/dashboard/', '').charAt(0).toUpperCase() + location.pathname.replace('/dashboard/', '').slice(1))
     }, [location.pathname])
-    
+
     return (
         <>
             <SideBar sideBarOpen={sideBarOpen} />
-            <Navbar sideBarOpen={sideBarOpen} setSideBarOpen={setSideBarOpen} user={props.user} />
+            <Navbar
+                sideBarOpen={sideBarOpen}
+                setSideBarOpen={setSideBarOpen}
+                user={props.user}
+                changeSuccessMessage={props.changeSuccessMessage}
+                setUser={props.setUser}
+            />
             <main className={`mainDashboard ${sideBarOpen ? '' : 'extendDashboard'}`}>
                 <div className='dashboardTitleDiv'>
                     <h1>{dashboardPage == 'Users' || dashboardPage == 'Properties' ? `Manage ${dashboardPage}` : dashboardPage}</h1>

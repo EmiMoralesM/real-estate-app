@@ -215,7 +215,15 @@
     font-size: 12px;
     color: rgb(91, 91, 91);
 }
-
+.dashboardProfileSubMenu{
+    top: 79px;
+    right: auto;
+}
+.ulProfileSubMenu li {
+    list-style-type: none;
+    align-items: center;
+    display: flex;
+}
 /* End menu */
 
 .mainDashboard {

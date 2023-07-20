@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
+import { Context } from '../../assets/Context'
+
 function LatestProperties() {
+    const { SERVER_URL } = useContext(Context)
     const [properties, setProperties] = useState()
     useEffect(() => {
-        axios.get('http://localhost/latestProperties?limit=6')
+        axios.get(`${SERVER_URL}/latestProperties?limit=6`)
             .then((data) => setProperties(data.data))
             .catch(err => console.log(`Error: ${err}`))
 

@@ -22,6 +22,7 @@ function SignIn(props) {
     const checkEmail = (email) => {
         if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
             setEmailError('Enter a valid email address')
+            console.log('email valid');
         } else {
             setEmailError('')
             return true
@@ -30,23 +31,28 @@ function SignIn(props) {
     const checkPassword = (password) => {
         if (password.length < 1) {
             setPasswordError('Enter a password')
+            console.log('password valid');
         } else {
             setPasswordError('')
             return true
         }
     }
     const submit = async () => {
+        console.log('submit');
         if (checkEmail(email) && checkPassword(password)) {
             setFormError('')
             // If the credentials are correct , the server will return an object with the user.
             // If the user is invalid it will retun { error: ... }.
+            console.log('Sign In');
             await axios.get(`${SERVER_URL}/getUser?email=${email}&password=${password}`)
                 .then(res => {
                     if (res.data.email) {
                         props.changeSuccessMessage(`Welcome back ${res.data.name}!`)
                         props.setSignInModalOpen(false)
                         props.setUser(res.data)
+                        console.log(res.data);
                     } else {
+                        console.log(res.data.error);
                         setFormError(res.data.error)
                     }
                 })

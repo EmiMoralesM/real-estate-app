@@ -1,36 +1,82 @@
+/* Filters */
 .filtersHeader {
     width: 100vw;
-    height: 50px;
+    /* height: 50px; */
     margin-top: 79px;
+    padding: 6px 40px;
     display: flex;
     align-items: center;
     position: fixed;
     width: 100%;
+    gap: 20px;
     background-color: white;
-    box-shadow: 0px 0px 5px 2px #c0c0c03d;
-    z-index: 9999;
-}
-
-.filtersHeader>div {
-    margin-left: 200px;
+    /* box-shadow: 0px 0px 5px 2px #c0c0c03d; */
+    z-index: 9998;
+    border: 1px solid gainsboro;
 }
 
 .filterButton {
-    padding: 8px 20px;
+    padding: 9px 20px;
     border-radius: 5px;
     font-size: 16px;
+    cursor: pointer;
     font-weight: 600;
     background-color: white;
-    border: 2px solid #006aff;
+    border: 2px solid #cdcdcd;
     color: rgba(0, 0, 0, 0.923);
     outline: 0;
+    transition: all ease .3s;
     align-items: center;
     display: flex;
 }
 
-/* body {
-    background-color: rgb(41, 41, 41);
-} */
+.filterButton:hover {
+    border: 2px solid #006aff;
+    /* background-color: rgb(236, 236, 236); */
+}
+
+.locationSearchDiv {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.locationInput {
+    width: 275px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 600;
+    background-color: white;
+    border: 2px solid #cdcdcd;
+    color: rgba(0, 0, 0, 0.923);
+    outline: 0;
+    transition: all ease .3s;
+    align-items: center;
+    display: flex;
+    padding: 9px;
+}
+
+.locationSearchIcon {
+    position: absolute;
+    margin: 0;
+    right: 20px;
+    width: 22px;
+    height: 22px;
+    background-size: 24px;
+    background-image: url(../assets/icons/search-icon-black.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+
+.locationInput:hover {
+    border: 2px solid #006aff;
+}
+
+.locationInput:focus-visible {
+    border: 2px solid #006aff;
+}
 
 .arrow {
     display: inline-block;
@@ -39,21 +85,20 @@
     height: 8px;
     margin-left: 12px;
     width: 8px;
-
-    transform: rotate(135deg);
-    margin-top: 4px;
+    transform: rotate(-45deg);
+    margin-top: -4px;
 }
 
 .arrowActive {
-    transform: rotate(-45deg);
-    margin-top: -4px;
+    transform: rotate(135deg);
+    margin-top: 4px;
 }
 
 .filtersDropdown {
     position: absolute;
     background-color: white;
-    box-shadow: 0px 0px 5px 2px #c0c0c03d;
-    top: 50px;
+    box-shadow: 0px 10px 5px 2px #c0c0c03d;
+    margin-top: 8px;
     border-radius: 0 0 10px 10px;
 }
 
@@ -63,6 +108,7 @@
     background-color: #ececec;
     margin: 0;
     padding: 15px;
+    font-size: 14px;
     box-sizing: border-box;
 }
 
@@ -75,10 +121,21 @@
     box-sizing: border-box;
 }
 
-.individualFilterDropdown>input {
+.individualFilterDropdown {
+    position: relative;
+    height: 100px;
+}
+
+.individualFilterDropdown .individualFilterButton {
+    display: flex;
+    align-items: center;
+}
+
+.individualFilterDropdown .individualFilterButton>input {
+    width: 110px;
     padding: 15px 20px;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 600;
     color: rgb(94, 94, 94);
     background-color: rgb(247, 247, 247);
@@ -86,4 +143,278 @@
     outline: 0;
     align-items: center;
     display: flex;
+    font-family: 'Roboto', sans-serif;
+}
+
+.individualFilterDropdown .individualFilterButton>.arrow {
+    position: absolute;
+    right: 20px;
+    margin-top: 18px;
+    opacity: .7;
+}
+
+.individualFilterDropdown .individualFilterButton>.arrowActive {
+    margin-top: 8px;
+}
+
+.hideOptions {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.individualFilterDropdown .filterOptions {
+    width: 100%;
+    position: absolute;
+    top: 100px;
+    left: 0;
+    font-size: 16px;
+    z-index: 1;
+    background-color: #fff;
+    border-radius: 0px 0 10px 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.individualFilterDropdown .filterOptions .option-item {
+    font-size: 17px;
+    font-weight: 600;
+    padding: 10px 20px;
+    font-family: 'Roboto', sans-serif;
+    color: rgb(94, 94, 94);
+}
+
+.applyFilterDiv {
+    padding: 5px 20px 20px 20px;
+}
+
+.applyFilterDiv button {
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #207dff;
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+    outline: 0;
+    border: 0;
+    justify-content: center;
+    padding: 10px;
+    box-sizing: border-box;
+    transition: all ease .3s;
+}
+
+.applyFilterDiv button:hover {
+    background-color: #006aff;
+
+}
+
+
+.priceFilters {
+    display: flex;
+    gap: 20px;
+    padding: 10px 20px 20px 20px;
+}
+
+.bathsOptions {
+    padding: 10px 20px 20px 20px;
+}
+
+.bathsOptions>div {
+    display: flex;
+}
+
+.bathsOptions>div:nth-child(2) {
+    margin-bottom: 30px;
+}
+
+.bathsOptions>div:nth-child(4) {
+    margin-bottom: 10px;
+}
+
+.bathsOptions>div>p {
+    padding: 10px 12px;
+    font-family: 'Roboto', sans-serif;
+    color: rgb(94, 94, 94);
+    background-color: rgb(247, 247, 247);
+    font-size: 17px;
+    font-weight: 600;
+    border: 1px solid transparent;
+    outline: 1px solid #cdcdcd;
+    width: 35px;
+    text-align: center;
+    margin: 0 -1px;
+    cursor: pointer;
+    transition: all ease .4s;
+}
+
+.bathsOptions>div>p:hover {
+    background-color: rgb(232, 232, 232);
+}
+
+.bathsOptions>div>.first {
+    border-radius: 5px 0px 0px 5px;
+}
+
+.bathsOptions>div>.last {
+    border-radius: 0px 5px 5px 0px;
+}
+
+.bathsOptions>div>.active {
+    z-index: 9;
+    outline: 1px solid #1878ff;
+    border: 1px solid #1878ff;
+}
+
+.hometypeOptions {
+    padding: 10px 20px 10px 20px;
+
+}
+
+.hometypeOptions ul {
+    padding: 0;
+    margin: 0;
+}
+
+.hometypeOptions li {
+    list-style-type: none;
+    padding: 12px 0;
+    align-items: center;
+    display: flex;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.hometypeOptions li p {
+    margin: 0;
+    padding: 0;
+}
+
+.hometypeOptions li .checkboxHometype {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-color: #e7e7e7;
+    border: 2px solid rgb(149, 149, 149);
+    border-radius: 5px;
+    transition: all ease .3s;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    background-position: center;
+}
+
+.hometypeOptions li:hover .checkboxHometype {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-color: #e7e7e7;
+    border: 2px solid #207dff;
+    border-radius: 5px;
+}
+
+.hometypeOptions li .active {
+    background-color: #207dff;
+    border: 2px solid #207dff;
+    background-image: url(../assets/icons/check.svg);
+}
+
+.hometypeOptions li:hover .active {
+    background-color: #207dff;
+    border: 2px solid #207dff;
+    background-image: url(../assets/icons/check.svg);
+}
+
+
+/* Map */
+
+.mapSection{
+    background-color: #8c8c8c;
+    position: fixed;
+    width: 62vw;
+    margin-top: calc(79px + 54px);
+    height: calc(100% - 79px - 62px);
+}
+.map{
+    width: 100%;
+    height: 100%;
+    background-image: url(../assets/imgs/map.png);
+    background-size: cover;
+}
+
+/* Home properties */
+
+.homesSection{
+    background-color: #ffffff;
+    position: absolute;
+    right: 0;
+    width: 37vw;
+    min-height: 100vh;
+    margin-top: calc(79px + 54px);
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 5px 2px #ababab3d;
+}
+
+.homesSection h1{
+    font-size: 26px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.homesSection .resultsCout{
+    font-family: 'Roboto', sans-serif;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #898989;
+    font-weight: 500;
+}
+
+.sortButton{
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+.sortOptions{
+    z-index: 999;
+}
+.sortButton > p:nth-child(1){
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+.sortButton > .arrow{
+    margin-top: 10px;
+}
+.sortButton > .arrowActive{
+    margin-top: 20px;
+}
+.sortButton p{
+    color: #006aff;
+    font-weight: 600;
+    font-size: 15px;
+}
+.sortButton .arrow{
+    border-color: #006aff;
+    color: #006aff;
+}
+.homesSectionDescriptionDiv{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Properties */
+
+.homesDiv>div {
+    width: 49%;
+    margin-bottom: 2%;
+}
+.homesImageContent {
+    height: 180px;
+}
+.homesDiv>div .imageDiv {
+    height: 180px;
+}
+.homesDiv>div .imagePropertyDiv{
+    height: 180px;
 }

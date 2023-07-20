@@ -15,9 +15,7 @@ function Banner() {
         if (id == "state") setIsStateOpen(prevIsStateOpen => !prevIsStateOpen);
         if (id == "type") setIsTypeOpen(prevIsTypeOpen => !prevIsTypeOpen);
     };
-    function handleLocationChange(event) {
-        setLocationValue(event.target.value);
-    }
+    
 
     return (
         <section className='bannerSection'>
@@ -35,9 +33,8 @@ function Banner() {
                             type="text"
                             name='location'
                             value={locationValue}
-                            onChange={handleLocationChange}
+                            onChange={(event) => setLocationValue(event.target.value)}
                             placeholder="Enter an address, neighborhood, city, or ZIP code"
-
                         />
                     </div>
                     <div className='stateDiv' onMouseLeave={() => setIsStateOpen(false)}>
