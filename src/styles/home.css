@@ -336,7 +336,7 @@
     margin-bottom: 10px;
 }
 
-.infoDiv .beds-baths-sqft {
+.beds-baths-sqft {
     font-size: 16px;
     color: #676767;
     font-weight: 600;
@@ -346,7 +346,7 @@
     gap: 8px;
 }
 
-.infoDiv .beds-baths-sqft span {
+.beds-baths-sqft span {
     color: #2e2e2e;
     font-weight: 500;
     display: flex;
@@ -354,7 +354,7 @@
     align-items: center;
 }
 
-.infoDiv .beds-baths-sqft .beforeIcon::before {
+.beds-baths-sqft .beforeIcon::before {
     content: '';
     width: 20px;
     height: 20px;
@@ -364,17 +364,17 @@
     background-position: bottom bottom;
 }
 
-.infoDiv .beds-baths-sqft span:nth-child(1)::before {
-    background-image: url(../assets/icons/bed.png);
+.beds-baths-sqft span:nth-child(1)::before {
+    background-image: url(../assets/icons/bed.svg);
 }
 
-.infoDiv .beds-baths-sqft span:nth-child(2)::before {
-    background-image: url(../assets/icons/bath.png);
+.beds-baths-sqft span:nth-child(2)::before {
+    background-image: url(../assets/icons/bath.svg);
     background-size: 19px;
 }
 
-.infoDiv .beds-baths-sqft span:nth-child(3)::before {
-    background-image: url(../assets/icons/sqft.png);
+.beds-baths-sqft span:nth-child(3)::before {
+    background-image: url(../assets/icons/sqft.svg);
 }
 
 .infoDiv .beds-baths-sqft span:nth-child(4) {

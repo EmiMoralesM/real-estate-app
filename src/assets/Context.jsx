@@ -4,7 +4,7 @@ import React, { Component, useEffect, useRef } from "react"
 export const Context = React.createContext()
 
 export function ContextProvider({ children }) {
-    const SERVER_URL = 'http://localhost'
+    const SERVER_URL = 'https://real-estate-app-server.onrender.com'
 
     // Function to close pop ups when click outside
     const useOutsideClick = (callback) => {

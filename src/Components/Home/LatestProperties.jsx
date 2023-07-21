@@ -38,11 +38,11 @@ function LatestProperties() {
                                 </div>
                             </div>
                             <div className='infoDiv'>
-                                <p className='price'>${new Intl.NumberFormat().format(property.price)}</p>
+                                <p className='price'>${Intl.NumberFormat().format(property.price)}</p>
                                 <p className='beds-baths-sqft'>
                                     <span className='beforeIcon'> {property.beds ? property.beds : '--'} </span> |
                                     <span className='beforeIcon'> {property.baths ? property.baths : '--'} </span> |
-                                    <span className='beforeIcon'> {new Intl.NumberFormat().format(property.lotAreaUnit == 'sqft' ? property.lotSize : parseInt(property.lotSize * 43560))} sqft </span> -
+                                    <span className='beforeIcon'> {Intl.NumberFormat().format(property.lotAreaUnit == 'sqft' ? property.lotSize : parseInt(property.lotSize * 43560))} sqft </span> -
                                     <span> {property.statusText} </span>
                                 </p>
                                 <p className='address'>{property.address}</p>
