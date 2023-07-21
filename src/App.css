@@ -123,6 +123,9 @@ body {
     background-color: rgba(0, 0, 0, 0.38);
     height: 100vh;
     width: 100vw;
+    display: inline-block;
+    cursor: auto;
+    
 }
 
 .generalModalDiv {

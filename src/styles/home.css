@@ -220,7 +220,7 @@
     justify-content: space-between;
 }
 
-.propertiesDiv>div {
+.propertiesDiv>.propertyDiv {
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 2px 70px 1px rgba(38, 42, 76, 0.169);
@@ -229,9 +229,11 @@
     position: relative;
     transition: all ease .5s;
     cursor: pointer;
+    text-decoration: none;
+    color: #000;
 }
 
-.propertiesDiv>div .imageDiv {
+.propertiesDiv>.propertyDiv .imageDiv {
     height: 220px;
     overflow: hidden;
     border-radius: 10px 10px 0 0;
@@ -240,18 +242,18 @@
     height: 220px;
     position: relative;
 }
-.propertiesDiv>div .imageDiv img {
+.propertiesDiv>.propertyDiv .imageDiv img {
     width: 100%;
     margin-top: -15px;
     transition: all ease .6s;
     z-index: 10;
 }
 
-.propertiesDiv>div:hover {
+.propertiesDiv>.propertyDiv:hover {
     box-shadow: 0 2px 25px 1px rgba(38, 42, 76, 0.373);
 }
 
-.propertiesDiv>div:hover .imageDiv img {
+.propertiesDiv>.propertyDiv:hover .imageDiv img {
     transform: scale(1.04);
 }
 

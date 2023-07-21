@@ -405,16 +405,16 @@
 
 /* Properties */
 
-.homesDiv>div {
+.homesDiv>.propertyDiv {
     width: 49%;
     margin-bottom: 2%;
 }
 .homesImageContent {
     height: 180px;
 }
-.homesDiv>div .imageDiv {
+.homesDiv>.propertyDiv .imageDiv {
     height: 180px;
 }
-.homesDiv>div .imagePropertyDiv{
+.homesDiv>.propertyDiv .imagePropertyDiv{
     height: 180px;
 }

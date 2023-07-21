@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../../assets/Context'
+import { Link } from 'react-router-dom'
 
 function Homes(props) {
   const { SERVER_URL } = useContext(Context)
@@ -41,7 +42,11 @@ function Homes(props) {
           <p>Loading...</p>
         ) : (
           properties.map((property, i) => (
-            <div key={i}>
+            <Link
+              to={`/properties/details/${property.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${property._id}`}
+              key={i}
+              className='propertyDiv'
+            >
               <div className='imagePropertyDiv'>
                 <div className='imageContent homesImageContent'>
                   <p className='status'>{property.statusType.replace('_', ' ')}</p>
@@ -64,7 +69,7 @@ function Homes(props) {
                 </p>
                 <p className='address'>{property.address}</p>
               </div>
-            </div>
+            </Link>
           ))
         )}
       </div>

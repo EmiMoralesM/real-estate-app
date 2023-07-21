@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { Context } from '../../assets/Context'
+import { Link } from 'react-router-dom'
 
 function LatestProperties() {
     const { SERVER_URL } = useContext(Context)
@@ -23,7 +24,7 @@ function LatestProperties() {
                     <p>Loading...</p>
                 ) : (
                     properties.map((property, i) => (
-                        <div key={i}>
+                        <Link key={i} className='propertyDiv'>
                             <div className='imagePropertyDiv'>
                                 <div className='imageContent'>
                                     <p className='status'>{property.statusType.replace('_', ' ')}</p>
@@ -46,7 +47,7 @@ function LatestProperties() {
                                 </p>
                                 <p className='address'>{property.address}</p>
                             </div>
-                        </div>
+                        </Link>
                     ))
                 )}
             </div>
