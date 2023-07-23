@@ -24,7 +24,11 @@ function LatestProperties() {
                     <p>Loading...</p>
                 ) : (
                     properties.map((property, i) => (
-                        <Link key={i} className='propertyDiv'>
+                        <Link
+                            to={`/properties/details/${property.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${property._id}`}
+                            key={i}
+                            className='propertyDiv'
+                        >
                             <div className='imagePropertyDiv'>
                                 <div className='imageContent'>
                                     <p className='status'>{property.statusType.replace('_', ' ')}</p>

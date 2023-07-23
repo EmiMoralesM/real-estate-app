@@ -25,7 +25,7 @@ function Chart_5() {
                     <p>Loading...</p>
                 ) : (
                     admins.map((user, i) => (
-                        <div className='userRowChart'>
+                        <div key={i} className='userRowChart'>
                             <div className={`profile profileUser ${user.image ? 'imageSet' : ''}`}>
                                 <p className='profilePicItem'>
                                     <img className='profilePic' src={user.image ? `${SERVER_URL}/images/${user.image}` : profilePic} alt="" />

@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
 
-import AccountSettings from '../Components/Profile/AccountSettings'
-
 import '../styles/profile.css'
 import { Link } from 'react-router-dom'
 
+import AccountSettings from '../Components/Profile/AccountSettings'
+import FavoriteProperties from '../Components/Profile/FavoriteProperties'
+
 function Profile(props) {
 	const [profilePage, setProfilePage] = useState('accountSettings')
-
+	
 	useEffect(() => {
-		setProfilePage(location.pathname.replace('/profile/', ''))
+		setProfilePage(location.pathname.replace('profile', '').replaceAll('/', ''))
 	}, [location.pathname])
 
 	return (
@@ -30,6 +31,11 @@ function Profile(props) {
 			</div>
 
 			{profilePage === 'accountSettings' && <AccountSettings
+				user={props.user}
+				setUser={props.setUser}
+				changeSuccessMessage={props.changeSuccessMessage}
+			/>}
+			{profilePage === 'favoriteProperties' && <FavoriteProperties
 				user={props.user}
 				setUser={props.setUser}
 				changeSuccessMessage={props.changeSuccessMessage}

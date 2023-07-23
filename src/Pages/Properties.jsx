@@ -8,7 +8,7 @@ import Map from '../Components/Properties/Map'
 import Homes from '../Components/Properties/Homes'
 import DetailProductModal from './DetailProductModal'
 
-function Properties() {
+function Properties(props) {
   const { useOutsideClick } = useContext(Context)
   const [propertyDetail, setPropertyDetail] = useState('')
 
@@ -27,7 +27,13 @@ function Properties() {
       <Map />
       <Homes useOutsideClick={useOutsideClick} />
       {propertyDetail &&
-        <DetailProductModal setPropertyDetail={setPropertyDetail} propertyDetail={propertyDetail} />
+        <DetailProductModal user={props.user}
+          setUser={props.setUser}
+          changeSuccessMessage={props.changeSuccessMessage}
+          changeErrorMessage={props.changeErrorMessage}
+          setPropertyDetail={setPropertyDetail}
+          propertyDetail={propertyDetail}
+        />
       }
     </main>
   )

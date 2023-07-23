@@ -147,7 +147,7 @@ function AccountSettings(props) {
   }
 
   return (
-    <div className='whiteBackground accountSettings'>
+    <div className='whiteBackground profileContentDiv accountSettings'>
       <div>
         <h2>Personal Info</h2>
         <div className='accountSetDiv'>

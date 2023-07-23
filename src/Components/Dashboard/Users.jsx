@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { Context } from '../../assets/Context'
 
 function Users(props) {
-    const {SERVER_URL} = useContext(Context)
+    const { SERVER_URL } = useContext(Context)
     const [users, setUsers] = useState([])
     const [userEdit, setUserEdit] = useState({})
     const [modalEdit, setModalEdit] = useState(false)
@@ -46,12 +46,13 @@ function Users(props) {
 
     const handleUserDelete = async () => {
         await axios.delete(`${SERVER_URL}/deleteUser/${userEdit.email}`)
-            .then(res => console.log(res.data))
+            .then(res => {
+                setConfirmDeleteModal(false)
+                setModalEdit(false)
+                props.changeSuccessMessage(`User deleted!`)
+                setUsers(prevUsers => prevUsers.filter(user => user.email !== userEdit.email))
+            })
             .catch(err => console.log(`Error: ${err}`))
-        setConfirmDeleteModal(false)
-        setModalEdit(false)
-        props.changeSuccessMessage(`User deleted!`)
-        setUsers(prevUsers => prevUsers.filter(user => user.email !== userEdit.email))
     }
 
     return (
@@ -62,7 +63,7 @@ function Users(props) {
                     <p>Loading...</p>
                 ) : (
                     users.map((user, i) => (
-                        <div className='userRow' id={props.userActive.email === user.email ? 'userActiveRow' : ''}>
+                        <div className='userRow' key={user.email} id={props.userActive.email === user.email ? 'userActiveRow' : ''}>
                             <div className='userInfoDiv'>
                                 <div className={`profile profileUser ${user.image ? 'imageSet' : ''}`}>
                                     <p className='profilePicItem'>

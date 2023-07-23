@@ -8,16 +8,19 @@ import Home from './Pages/Home'
 import Properties from './Pages/Properties'
 import SignInModal from './Components/SignIn/SignInModal'
 import SuccessMessage from './Components/SuccessMessage'
+import ErrorMessage from './Components/ErrorMessage'
 import Profile from './Pages/Profile'
 import Dashboard from './Pages/Dashboard'
 import ProtectedRoutesUser from './assets/ProtectedRoutesUser'
 import ProtectedRoutesAdmin from './assets/ProtectedRoutesAdmin'
+import SellProperty from './Pages/SellProperty'
 
 function App() {
   let location = useLocation().pathname
 
   const [signInModalOpen, setSignInModalOpen] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')) : {})
     
     // {
@@ -30,8 +33,6 @@ function App() {
     // }
 
   useEffect(()=> {
-    console.log('change');
-    // console.log(user);
     if (user.email) {localStorage.setItem('user', JSON.stringify(user))}
     if (!user.email) {localStorage.removeItem('user')}
   }, [user])
@@ -45,6 +46,10 @@ function App() {
     setSuccessMessage(message)
     setTimeout(() => setSuccessMessage(''), 4200)
   }
+  const changeErrorMessage = (message) => {
+    setErrorMessage(message)
+    setTimeout(() => setErrorMessage(''), 4200)
+  }
 
   return (
     <>
@@ -52,7 +57,8 @@ function App() {
       {signInModalOpen && <SignInModal setUser={setUser} setSignInModalOpen={setSignInModalOpen} changeSuccessMessage={changeSuccessMessage} />}
       <Routes>
         <Route path='*' element={<Home signInModalOpen={signInModalOpen} />} />
-        <Route path='/properties/*' element={<Properties />} />
+        <Route path='/properties/*' element={<Properties changeErrorMessage={changeErrorMessage} user={user} setUser={setUser} changeSuccessMessage={changeSuccessMessage} />} />
+        <Route path='/sellProperty/*' element={<SellProperty />} />
         <Route element={<ProtectedRoutesUser user={user} />}>
           <Route path='/profile/*' exact element={<Profile user={user} setUser={setUser} changeSuccessMessage={changeSuccessMessage} />} />
           <Route element={<ProtectedRoutesAdmin user={user} />}>
@@ -61,6 +67,7 @@ function App() {
         </Route>
       </Routes>
       {successMessage && <SuccessMessage successMessage={successMessage} />}
+      {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
     </>
   )
 }

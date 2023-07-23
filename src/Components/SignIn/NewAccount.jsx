@@ -62,7 +62,8 @@ function NewAccount(props) {
             return true
         }
     }
-    const submit = async () => {
+    const submit = async (e) => {
+        e.preventDefault()
         const emailValidation = await checkEmail(email)
         if (emailValidation && checkPassword(password) && checkPasswordConfirm(passwordConfirm)) {
             try {

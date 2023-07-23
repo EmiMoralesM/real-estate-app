@@ -19,7 +19,7 @@ function Header(props) {
           <ul>
             {props.user.email && (props.user.role == 'admin' || props.user.role == 'manager') && <li ><Link className='dashboard' to={'/dashboard/analytics'}>Admin Dashboard</Link></li>}
             <li><Link to={'/properties'}>Buy</Link></li>
-            <li><Link to={'/'}>Sell</Link></li>
+            <li><Link to={'/sellProperty'}>Sell</Link></li>
           </ul>
         </div>
         <div className='logoDiv'>
@@ -27,7 +27,7 @@ function Header(props) {
         </div>
         <div className='ulNavbar'>
           <ul>
-            <li><Link to={'/properties'}>Map</Link></li>
+            <li><Link to={'/properties/'}>Map</Link></li>
             {!props.user.email && <li className='signUpButton' onClick={() => props.setSignInModalOpen(true)}><button>Sign In</button></li>}
             {props.user.email && <li className='profileItem' ref={profileSubMenu ? refSubMenu : null}>
               <p className={`profile ${props.user.image ? 'imageSet' : ''}`}>

@@ -6,34 +6,49 @@ body {
     margin: auto;
 }
 
-.successMessage{
+/* Messages */
+.successMessage,
+.errorMessage {
     position: fixed;
     bottom: 0;
     width: 100%;
     text-align: center;
-    background-color: rgb(71, 194, 71);
     z-index: 999999;
     animation: up 4.1s forwards;
 }
-@keyframes up {
-    0%{
-        transform: translateY(30px);
-    }
-    15%{
-        transform: translateY(0px);
-    }
-    85%{
-        transform: translateY(0px);
-    }
-    100%{
-        transform: translateY(40px);
-    }
-    
-}
-.successMessage > p{
+
+.successMessage>p,
+.errorMessage>p {
     margin: 5px;
     color: white;
 }
+
+.successMessage {
+    background-color: rgb(57, 170, 57);
+}
+.errorMessage {
+    background-color: rgb(173, 61, 61);
+}
+
+@keyframes up {
+    0% {
+        transform: translateY(30px);
+    }
+
+    15% {
+        transform: translateY(0px);
+    }
+
+    85% {
+        transform: translateY(0px);
+    }
+
+    100% {
+        transform: translateY(40px);
+    }
+
+}
+
 /* Profile Picture */
 .profile {
     width: 28px;
@@ -55,42 +70,49 @@ body {
 .profile:hover {
     border: 2px solid #1a79ffe4;
 }
+
 .profileUser:hover {
     cursor: pointer;
     border: 2px solid rgb(208, 208, 208);
 }
+
 .profileUser {
-    cursor: auto!important;
+    cursor: auto !important;
     border: 2px solid rgb(208, 208, 208);
 }
 
-.profile .profilePicItem{
+.profile .profilePicItem {
     align-items: center;
     display: flex;
 }
+
 .profilePic {
     width: 21px;
     align-items: center;
     padding: 10px;
 }
-.imageSet{
+
+.imageSet {
     padding: 0;
     width: 48px;
     height: 48px;
     border: 2px solid #4492ffe4;
 }
-.imageSet:hover{
+
+.imageSet:hover {
     padding: 0;
     width: 48px;
     height: 48px;
     border: 2px solid #006aff;
 }
-.imageSet .profilePicItem{
+
+.imageSet .profilePicItem {
     width: 100%;
     height: 100%;
     justify-content: center;
 }
-.imageSet .profilePicItem .profilePic{
+
+.imageSet .profilePicItem .profilePic {
     padding: 0;
     width: 100%;
 }
@@ -117,6 +139,9 @@ body {
     z-index: 99999;
     top: 0;
     right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .generalModalBackground {
@@ -125,7 +150,7 @@ body {
     width: 100vw;
     display: inline-block;
     cursor: auto;
-    
+
 }
 
 .generalModalDiv {
@@ -134,9 +159,8 @@ body {
     border-radius: 5px;
     height: 450px;
     width: 450px;
-    left: calc(50% - 225px);
-    top: calc(50% - 225px);
 }
+
 .generalModalContent {
     padding: 30px 30px;
 }
@@ -147,7 +171,7 @@ body {
     margin-top: 10px;
 }
 
-.closeModal{
+.closeModal {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -164,27 +188,79 @@ body {
     background-repeat: no-repeat;
     transition: all ease .3s;
 }
-.closeModal:hover{
+
+.closeModal:hover {
     background-color: rgba(0, 0, 0, 0.075);
     background-image: url(assets/icons/x.svg);
 }
 
 /* Errors */
-.errorInput{
-    border: 2px solid #ff3232!important;
+.errorInput {
+    border: 2px solid #ff3232 !important;
     outline: 1px solid rgb(255, 255, 255);
 }
-.errorText{
+
+.errorText {
     margin-top: -20px;
     margin-bottom: 20px;
     font-size: 13px;
     color: #ff3232;
     font-weight: 600;
 }
-.disabled{
+
+.disabled {
     opacity: .5;
-    cursor: auto!important;
+    cursor: auto !important;
 }
-.disabled:hover{
-    opacity: .5!important;
+
+.disabled:hover {
+    opacity: .5 !important;
+}
+
+
+/* Favorite message */
+
+.favoriteButton, .removeFavoriteButton {
+    padding: 8px 12px;
+    border: 0;
+    outline: 0;
+    align-items: center;
+    display: flex;
+    gap: 8px;
+    font-weight: 600;
+    font-family: 'Merriweather Sans', sans-serif;
+    color: white;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: #1f7cff;
+    transition: all ease .3s;
+}
+
+.favoriteButton:hover, .removeFavoriteButton:hover {
+    background-color: #0464ea;
+}
+
+.favoriteButton::before, .removeFavoriteButton::before {
+    content: '';
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 0;
+    outline: 0;
+    height: 20px;
+    width: 20px;
+}
+.favoriteButton::before {
+    background-size: 20px;
+    background-image: url(assets/icons/favorite.svg);
+}
+.removeFavoriteButton::before {
+    background-size: 15px;
+    background-image: url(assets/icons/trash.svg);
+
+}
+
+.favoriteButtonActive::before {
+    background-image: url(assets/icons/favorite-filled.svg);
 }

@@ -102,17 +102,6 @@ function Chart_3() {
         pointRadius: 0,
         pointHoverRadius: 4,
       },
-      // {
-      //   label: '2021',
-      //   data: [185, 200, 210, 200, 230, 210, 220, 195, 235, 210, 230, 250],
-      //   borderColor: 'rgb(255, 218, 70)',
-      //   backgroundColor: 'rgb(255, 218, 70)',
-      //   borderWidth: 4,
-      //   yAxisID: 'y',
-      //   tension: .4,
-      //   pointRadius: 0,
-      //   pointHoverRadius: 4,
-      // },
     ],
   };
   return (

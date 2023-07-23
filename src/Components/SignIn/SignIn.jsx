@@ -37,7 +37,8 @@ function SignIn(props) {
             return true
         }
     }
-    const submit = () => {
+    const submit = (e) => {
+        e.preventDefault()
         console.log('submit');
         if (checkEmail(email) && checkPassword(password)) {
             setFormError('')
