@@ -5,7 +5,25 @@ body {
     max-width: 2000px;
     margin: auto;
 }
-
+/* Button */
+.button{
+    padding: 8px 12px;
+    border: 0;
+    outline: 0;
+    gap: 8px;
+    font-weight: 600;
+    font-family: 'Merriweather Sans', sans-serif;
+    color: white;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: #1f7cff;
+    transition: all ease .3s;
+    padding: 11px 30px;
+}
+.button:hover{
+    background-color: #006aff;
+}
 /* Messages */
 .successMessage,
 .errorMessage {
@@ -220,7 +238,7 @@ body {
 
 /* Favorite message */
 
-.favoriteButton, .removeFavoriteButton {
+.favoriteButton, .removeFavoriteButton, .submitButton {
     padding: 8px 12px;
     border: 0;
     outline: 0;
@@ -263,4 +281,9 @@ body {
 
 .favoriteButtonActive::before {
     background-image: url(assets/icons/favorite-filled.svg);
+}
+
+.requiredField{
+    color: #d52121;
+    font-size: 12px;
 }

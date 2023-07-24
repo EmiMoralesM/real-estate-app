@@ -136,6 +136,7 @@
 
 .usMapDiv div h2 {
     font-size: 30px;
+    
 }
 
 .sellNowButtonDiv {
@@ -159,25 +160,22 @@
     background-color: #006aff;
 }
 
-.propDetailsForm hr{
+.propDetailsForm hr {
     border: 1px solid gainsboro;
     margin-top: 30px;
 }
-
-/* Map Address */
 
 .mapAddressSection {
     padding-top: 100px;
 }
 
 .mapAddressSection .mapAddressTitleDiv h1 {
-    font-size: 35px;
+    font-size: 32px;
     margin-bottom: 10px;
 }
-
 .mapAddressSection .mapAddressTitleDiv p {
     color: #5e5e5e;
-    font-size: 20px;
+    font-size: 18px;
     margin: 0;
     font-family: 'Roboto', sans-serif;
     font-weight: 600;
@@ -187,6 +185,9 @@
     border: 1px solid gainsboro;
     margin-top: 30px;
 }
+/* Map Address */
+
+
 
 .mapAddressSection .mapAddressDiv p {
     color: #5e5e5e;
@@ -260,28 +261,48 @@
 
 
 /* Property Info */
+
 .propInfoTitle {
-    font-size: 22px;
+    font-size: 21px;
+    margin-top: 30px;
     font-weight: 600;
 }
+
 .propDetailsForm input:focus-visible {
-    border: 2px solid #006aff!important;
+    border: 2px solid #006aff !important;
 }
-.propDetailsForm .arrow{
+
+.propDetailsForm .arrow {
     position: absolute;
     right: 20px;
     margin-top: 10px;
     opacity: .7;
 }
-.propDetailsForm .arrowActive{
+
+.propDetailsForm .arrowActive {
     margin-top: 20px;
 }
-.propDetailsForm .optionsDiv{
+
+.propDetailsForm .optionsDiv {
     width: 100%;
     position: absolute;
     background-color: white;
     z-index: 9;
     box-shadow: 0 2px 10px 1px rgba(38, 42, 76, 0.169);
+}
+
+.prop50PercentDiv {
+    display: flex;
+    gap: 20px;
+    box-sizing: border-box;
+}
+
+.prop50PercentDiv>div {
+    justify-content: baseline;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
 /* Price */
@@ -316,23 +337,154 @@
     padding-left: 25px;
     box-sizing: border-box;
 }
+
 /* Images */
 
-
-/* Information */
-.propInfoDiv > div{
-    position: relative;
-    width: 50%;
-    margin: 35px 0;  
+.imageContainer {
+    display: flex;
+    margin-bottom: 50px;
 }
 
-.propInfoDiv label{
+.imageContainer>figure {
+    position: relative;
+    height: 250px;
+    margin: 0 0 0 30px;
+}
+
+.imageContainer>figure figcaption {
+    color: #737373;
+}
+
+.imageContainer>figure img {
+    border-radius: 5px;
+    height: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.imageContainer>.otherImagesFigure {
+    position: relative;
+    height: auto;
+    margin: 0 0 0 30px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 70%;
+    gap: 10px;
+}
+
+.otherImagesFigure>div {
+    width: 200px;
+    height: 120px;
+    overflow: hidden;
+    align-items: center;
+    display: flex;
+    border-radius: 2px;
+    position: relative;
+}
+
+.otherImagesFigure .removeImage {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background-image: url(../assets/icons/x.svg);
+    background-size: 21px;
+    background-position: center;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    width: 10px;
+    background-color: rgba(34, 34, 34, 0.533);
+    padding: 5px;
+    border-radius: 50%;
+    height: 10px;
+    transition: all ease .3s;
+}
+
+.otherImagesFigure .removeImage:hover {
+    background-color: rgba(79, 79, 79, 0.533);
+}
+
+.picturesLabel {
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+    height: 250px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+    border: 2px solid #cdcdcd;
+    color: #797979;
+}
+
+.picturesLabelShrink {
+    width: 30%;
+}
+
+.picturesLabel div span {
+    opacity: .3;
+    background-image: url(../assets/icons/images.svg);
+    background-size: 80px;
+    height: 80px;
+    width: 80px;
+    display: inline-block;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.picturesLabel div p {
+    opacity: .9;
+    font-size: 16px;
+    margin-top: 2px;
+}
+
+.picturesLabel>p {
+    font-size: 16px;
+    margin: 0;
+    padding: 8px 15px;
+    background-color: #1074ff;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+    font-weight: 600;
+    transition: all ease .3s;
+}
+
+.picturesLabel button:hover {
+    background-color: #2f86ff;
+}
+
+.pictureInput {
+    display: none;
+}
+
+/* Information */
+.propInfoDiv>div {
+    position: relative;
+    width: 100%;
+    margin: 35px 0;
+}
+.propInfoDiv>p {
+    color: gray;
+    margin: 0;
+}
+
+.propInfoDiv label {
     margin-bottom: 15px;
     display: block;
 }
-.propInfoDiv input{
+
+.propInfoDiv input, .propInfoDiv textarea {
     width: 100%;
     box-sizing: border-box;
+    resize: none;
     padding: 9px;
     border-radius: 5px;
     cursor: pointer;
@@ -347,31 +499,20 @@
     align-items: center;
 }
 
-
-
-.propInfoHomeType .homeTypeInputDiv{
+.propInfoHomeType .homeTypeInputDiv {
     align-items: center;
     display: flex;
     position: relative;
 }
 
-
-
-.propInfoSqftDiv{
-    display: flex;
-    gap: 20px;
-    box-sizing: border-box;
-}
-.propInfoSqftDiv > div{
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    position: relative;
-}
-
-.propInfoSqftDiv > div .optionsDiv{
+.propInfoSqftDiv>div {
+    justify-content: end;    
+}    
+    .propInfoSqftDiv>div .optionsDiv {
     top: 75px;
 }
 
-
+.submitSellPorpertyButton{
+    width: 100%;
+    margin-top: 20px;
+}
