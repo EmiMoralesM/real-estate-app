@@ -38,7 +38,7 @@ function LatestProperties() {
                                     </div>
                                 </div>
                                 <div className='imageDiv'>
-                                    <img src={property.images[0]} alt="" />
+                                    <img src={property.mainImage} alt="" />
                                 </div>
                             </div>
                             <div className='infoDiv'>

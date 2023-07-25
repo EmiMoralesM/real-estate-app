@@ -60,7 +60,11 @@
     outline: 0;
     width: 90%;
 }
-
+.errorPropertyDetails{
+    position: absolute;
+    bottom: 0;
+    margin-bottom: -20px;
+}
 .sellPropeSearchBarDiv span {
     /* padding: 20px; */
     box-sizing: border-box;
@@ -187,8 +191,6 @@
 }
 /* Map Address */
 
-
-
 .mapAddressSection .mapAddressDiv p {
     color: #5e5e5e;
     margin-top: 30px;
@@ -310,6 +312,7 @@
 .propPriceDiv>div {
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .propPriceDiv>div>span {
@@ -343,6 +346,7 @@
 .imageContainer {
     display: flex;
     margin-bottom: 50px;
+    position: relative;
 }
 
 .imageContainer>figure {

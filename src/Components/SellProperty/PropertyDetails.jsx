@@ -1,30 +1,38 @@
 import React, { useContext, useState } from 'react'
 import { Context } from '../../assets/Context'
-import test from '../../assets/imgs/banner.jpg'
+import axios from 'axios'
 
-function PropertyDetails() {
-    const { useOutsideClick } = useContext(Context)
-    let address = '5145 S Hatch Drive, Evergreen, CO 80439'
+function PropertyDetails(props) {
+
+    const { SERVER_URL, useOutsideClick } = useContext(Context)
     const hometypes_array = ['Houses', 'Townhomes', 'Multy-family', 'Condos', 'Aparments']
 
-    
+
+    const [price, setPrice] = useState('')
     const [homeType, setHomeType] = useState(hometypes_array[0])
     const [beds, setBeds] = useState(0)
     const [baths, setBaths] = useState(0)
     const [size, setSize] = useState(0)
     const [sizeScale, setSizeScale] = useState('Sqft')
-    
+    const [mainImage, setMainImage] = useState('')
+    const [otherImages, setOtherImages] = useState([])
+
+    const [priceError, setPriceError] = useState('')
+    const [sizeError, setSizeError] = useState('')
+    const [mainImageError, setMainImageError] = useState('')
+    const [otherImageError, setOtherImageError] = useState('')
+
 
     const refHomeType = useOutsideClick(() => setHomeTypeOpen(false))
     const refSizeScale = useOutsideClick(() => setSizeScaleOpen(false))
-    
+
     const [homeTypeOpen, setHomeTypeOpen] = useState(false)
     const [sizeScaleOpen, setSizeScaleOpen] = useState(false)
 
     const [mainImagePreview, setMainImagePreview] = useState('')
-    const [otherImagePreview, setOtherImagePreview] = useState([])
+    const [otherImagesPreview, setOtherImagesPreview] = useState([])
 
-
+    const [submitActive, setSubmitActive] = useState(false)
 
     const previewImage = (e, type) => {
         const reader = new FileReader()
@@ -32,23 +40,88 @@ function PropertyDetails() {
             reader.readAsDataURL(e.target.files[0])
             reader.onload = () => {
                 setMainImagePreview(reader.result)
+                setMainImage(e.target.files[0])
             }
         } else if (type == 'other') {
-            if (e.target.files.length == 1) {
-                console.log('one image');
-                reader.readAsDataURL(e.target.files[0])
+            for (let x = 0; x < e.target.files.length; x++) {
+                const reader = new FileReader()
+                reader.readAsDataURL(e.target.files[x])
                 reader.onload = () => {
-                    setOtherImagePreview(prevOtherImagePreview => [...prevOtherImagePreview, reader.result])
-                }
-            } else if (e.target.files.length > 1) {
-                for (let x = 0; x < e.target.files.length; x++) {
-                    const reader = new FileReader()
-                    reader.readAsDataURL(e.target.files[x])
-                    reader.onload = () => {
-                        setOtherImagePreview(prevOtherImagePreview => [...prevOtherImagePreview, reader.result])
-                    }
+                    setOtherImagesPreview(prevOtherImage => [...prevOtherImage, reader.result])
+                    setOtherImages(prevOtherImage => [...prevOtherImage, e.target.files[x]])
                 }
             }
+        }
+    }
+
+    const checkInputs = (input) => {
+        var valid = true
+        if (input == 'all' || input == 'price') {
+            if (price <= 0) {
+                var valid = false
+                setPriceError('Enter a valid price')
+            } else { setPriceError('') }
+        }
+        if (input == 'all' || input == 'size') {
+            if (size <= 0) {
+                var valid = false
+                setSizeError('Enter a valid lot size')
+            } else { setSizeError('') }
+        }
+        if (input == 'all' || input == 'mainImage') {
+            if (!mainImage) {
+                var valid = false
+                setMainImageError('Provide a main image for the property')
+            } else { setMainImageError('') }
+        }
+        if (input == 'all' || input == 'otherImages') {
+            if (otherImages.length <= 0) {
+                var valid = false
+                setOtherImageError('Provide at least one other image')
+            } else { setOtherImageError('') }
+        }
+        return valid
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        setSubmitActive(true)
+        if (checkInputs('all')) {
+            console.log('upload property...');
+            await axios.post(`${SERVER_URL}/postProperty`, {
+                statusType: 'FOR_SALE',
+                statusText: homeType,
+                price: price,
+                pricePerSqFt: (sizeScale.toLowerCase() == 'sqft' ? (price / size) : (price / (size * 43560))).toFixed(1),
+                lotSize: size,
+                lotAreaUnit: sizeScale.toLowerCase(),
+                beds: beds,
+                baths: baths,
+                address: `${props.addressStreet}, ${props.addressCity}, ${props.addressState} ${props.addressZipCode}`,
+                addressStreet: props.addressStreet,
+                addressCity: props.addressCity,
+                addressState: props.addressState,
+                addressZipcode: props.addressZipCode,
+                coordinates: {
+                    latitude: props.latitude,
+                    longitude: props.longitude,
+                },
+            })
+                .then(res => {
+                    const imagesData = new FormData()
+                    imagesData.append('imagesData', mainImage)
+                    otherImages.forEach(image => {
+                        imagesData.append('imagesData', image)
+                    });
+                    axios.patch(`${SERVER_URL}/postPropertyImages/${res.data._id}`, imagesData)
+                        .then(res => {
+                            setSubmitActive(false)
+                            props.changeSuccessMessage('Property Published Successfully!')
+                            location = '/profile/yourProperties'
+                        })
+                })
+        } else {
+            setSubmitActive(false)
         }
     }
 
@@ -59,7 +132,14 @@ function PropertyDetails() {
                     <h2 className='propInfoTitle'>Price <span className='requiredField'>*</span></h2>
                     <div>
                         <span>$</span>
-                        <input type="number" />
+                        <input
+                            type="number"
+                            onBlur={() => checkInputs('price')}
+                            className={priceError ? 'errorInput' : ''}
+                            value={price}
+                            onChange={(e) => setPrice(e.target.value)}
+                        />
+                        {priceError && <p className='errorText errorPropertyDetails'>{priceError}</p>}
                     </div>
                     <hr />
                 </div>
@@ -67,8 +147,11 @@ function PropertyDetails() {
                     <h2 className='propInfoTitle'>Pictures</h2>
                     <div>
                         <p>Main Image <span className='requiredField'>*</span></p>
-                        <div className='imageContainer'>
-                            <label htmlFor="mainImage" className='picturesLabel' >
+                        <div className='imageContainer' >
+                            <label
+                                htmlFor="mainImage"
+                                className={`picturesLabel ${mainImageError ? 'errorInput' : ''}`}
+                            >
                                 <div>
                                     <span></span>
                                     <p>Select the main image for your product</p>
@@ -77,34 +160,42 @@ function PropertyDetails() {
                                 {mainImagePreview && <p>Change Image</p>}
                             </label>
                             {mainImagePreview && <figure>
-                                <img src={mainImagePreview} id='mainImagePreview' alt="" />
+                                <img src={mainImagePreview} alt="Main Image" />
                             </figure>}
+                            {mainImageError && <p className='errorText errorPropertyDetails'>{mainImageError}</p>}
                         </div>
-                        <input type="file" name="" onChange={(e) => previewImage(e, 'main')} id="mainImage" accept="image/png, image/jpeg" className='pictureInput' />
+                        <input type="file" name="" onChange={async (e) => {
+                            previewImage(e, 'main')
+                            setMainImageError('')
+                        }} id="mainImage" accept="image/png, image/jpeg" className='pictureInput' />
                     </div>
                     <div>
                         <p>Other Images <span className='requiredField'>*</span></p>
                         <div className='imageContainer'>
-                            <label htmlFor="otherImages" className={`picturesLabel ${otherImagePreview.length > 0 ? 'picturesLabelShrink' : ''}`}>
+                            <label htmlFor="otherImages" className={`picturesLabel ${otherImageError ? 'errorInput' : ''} ${otherImagesPreview.length > 0 ? 'picturesLabelShrink' : ''}`}>
                                 <div>
                                     <span></span>
                                     <p>Select other images for your product</p>
                                 </div>
                                 <p>Add Images</p>
                             </label>
-                            {otherImagePreview.length > 0 && <figure className='otherImagesFigure'>
-                                {otherImagePreview.map((image, i) => (
+                            {otherImagesPreview.length > 0 && <figure className='otherImagesFigure'>
+                                {otherImagesPreview.map((image, i) => (
                                     <div>
                                         <img src={image} key={i} alt="" />
                                         <span
                                             className='removeImage'
-                                            onClick={() => setOtherImagePreview(prevOtherImagePreview => prevOtherImagePreview.filter(item => image != item))}
+                                            onClick={() => setOtherImagesPreview(prevOtherImage => prevOtherImage.filter(item => image != item))}
                                         ></span>
                                     </div>
                                 ))}
                             </figure>}
+                            {otherImageError && <p className='errorText errorPropertyDetails'>{otherImageError}</p>}
                         </div>
-                        <input type="file" name="" multiple onChange={(e) => previewImage(e, 'other')} id="otherImages" accept="image/png, image/jpeg" className='pictureInput' />
+                        <input type="file" name="" multiple onChange={(e) => {
+                            previewImage(e, 'other')
+                            setOtherImageError('')
+                        }} id="otherImages" accept="image/png, image/jpeg" className='pictureInput' />
                     </div>
                     <hr />
                 </div>
@@ -142,7 +233,17 @@ function PropertyDetails() {
                     <div className='prop50PercentDiv propInfoSqftDiv'>
                         <div>
                             <label htmlFor="size">Lot Size <span className='requiredField'>*</span></label>
-                            <input type="number" name="size" id="size" value={size} max="99" onChange={(e) => setSize(e.target.value)} />
+                            <input
+                                type="number"
+                                onBlur={() => checkInputs('size')}
+                                className={sizeError ? 'errorInput' : ''}
+                                name="size"
+                                id="size"
+                                value={size}
+                                onChange={(e) => setSize(e.target.value)}
+                            />
+                            {sizeError && <p className='errorText errorPropertyDetails'>{sizeError}</p>}
+
                         </div>
                         <div ref={sizeScaleOpen ? refSizeScale : null}>
                             <input type="text" name="sizeScale" readOnly id="sizeScale" value={sizeScale} onClick={() => setSizeScaleOpen(prevSizeScaleOpen => !prevSizeScaleOpen)} />
@@ -176,11 +277,11 @@ function PropertyDetails() {
                     <p>Potential buyers will contact you through the email address you use to register on Zillow. You can also add your phone number.</p>
                     <div>
                         <label htmlFor="size">Phone Number</label>
-                        <input type="tel" id="phone" name="phone"/>
+                        <input type="tel" id="phone" name="phone" />
                     </div>
                     <hr />
                 </div>
-                <button className='button submitSellPorpertyButton'>Submit</button>
+                <button className='button submitSellPorpertyButton' disabled={submitActive} onClick={handleSubmit}>Submit</button>
             </form >
         </>
     )

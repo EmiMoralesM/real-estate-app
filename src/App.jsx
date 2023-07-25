@@ -58,7 +58,7 @@ function App() {
       <Routes>
         <Route path='*' element={<Home signInModalOpen={signInModalOpen} />} />
         <Route path='/properties/*' element={<Properties changeErrorMessage={changeErrorMessage} user={user} setUser={setUser} changeSuccessMessage={changeSuccessMessage} />} />
-        <Route path='/sellProperty/*' element={<SellProperty />} />
+        <Route path='/sellProperty/*' element={<SellProperty changeSuccessMessage={changeSuccessMessage} />} />
         <Route element={<ProtectedRoutesUser user={user} />}>
           <Route path='/profile/*' exact element={<Profile user={user} setUser={setUser} changeSuccessMessage={changeSuccessMessage} />} />
           <Route element={<ProtectedRoutesAdmin user={user} />}>

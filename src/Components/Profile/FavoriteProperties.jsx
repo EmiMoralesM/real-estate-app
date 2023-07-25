@@ -47,7 +47,7 @@ function FavoriteProperties(props) {
                                     className='contentFavoriteProperty'
                                 >
                                     <div className='imgDiv'>
-                                        <img src={prop.images[0]} alt="" />
+                                        <img src={prop.mainImage} alt="" />
                                     </div>
                                     <div>
                                         <h3>${Intl.NumberFormat().format(prop.price)} - <span> {prop.statusText}</span></h3>
