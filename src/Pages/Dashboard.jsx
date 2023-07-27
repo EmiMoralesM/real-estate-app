@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 import '../styles/dashboard.css'
@@ -7,8 +7,12 @@ import SideBar from '../Components/Dashboard/SideBar'
 import Navbar from '../Components/Dashboard/Navbar'
 import Analytics from '../Components/Dashboard/Analytics'
 import Users from '../Components/Dashboard/Users'
+import { Context } from '../assets/Context'
+import ManageProperties from '../Components/Dashboard/ManageProperties'
 
 function Dashboard(props) {
+    const { user} = useContext(Context)
+    
     const [sideBarOpen, setSideBarOpen] = useState(true)
     const [dashboardPage, setDashboardPage] = useState('analytics')
 
@@ -22,9 +26,7 @@ function Dashboard(props) {
             <Navbar
                 sideBarOpen={sideBarOpen}
                 setSideBarOpen={setSideBarOpen}
-                user={props.user}
                 changeSuccessMessage={props.changeSuccessMessage}
-                setUser={props.setUser}
             />
             <main className={`mainDashboard ${sideBarOpen ? '' : 'extendDashboard'}`}>
                 <div className='dashboardTitleDiv'>
@@ -32,8 +34,9 @@ function Dashboard(props) {
                     <p><Link to={'/'}>Home</Link> / Dashboard / {dashboardPage}</p>
                 </div>
                 <div className='dashboardContent'>
-                    {dashboardPage.toLowerCase() == 'analytics' && <Analytics />}
-                    {dashboardPage.toLowerCase() == 'users' && <Users userActive={props.user} changeSuccessMessage={props.changeSuccessMessage} />}
+                    {dashboardPage == 'Analytics' && <Analytics />}
+                    {dashboardPage == 'Users' && <Users userActive={user} changeSuccessMessage={props.changeSuccessMessage} />}
+                    {dashboardPage == 'Properties' && <ManageProperties changeSuccessMessage={props.changeSuccessMessage} />}
                 </div>
             </main>
         </>

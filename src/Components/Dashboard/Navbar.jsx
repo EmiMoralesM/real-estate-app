@@ -4,7 +4,7 @@ import profilePic from '../../assets/icons/profile.png'
 import { Context } from '../../assets/Context'
 
 function Navbar(props) {
-    const { SERVER_URL, useOutsideClick } = useContext(Context)
+    const { SERVER_URL, useOutsideClick, user, setUser } = useContext(Context)
     const [profileSubMenu, setProfileSubMenu] = useState(false)
 
     const refSubMenu = useOutsideClick(() => setProfileSubMenu(false));
@@ -12,7 +12,7 @@ function Navbar(props) {
     const toggleSideBar = () => {
         props.setSideBarOpen(prevSideBarOpen => !prevSideBarOpen)
     }
-    let fullname = props.user.name.split(' ');
+    let fullname = user.name.split(' ');
     for (var i = 0; i < fullname.length; i++) {
         fullname[i] = fullname[i].charAt(0).toUpperCase() + fullname[i].slice(1) + ' ';
     }
@@ -28,11 +28,11 @@ function Navbar(props) {
                 <div className='profileInfo'>
                     <div className='profileNameEmail'>
                         <p>{fullname}</p>
-                        <p>{props.user.email}</p>
+                        <p>{user.email}</p>
                     </div>
-                    <div className={`profile ${props.user.image ? 'imageSet' : ''}`} ref={profileSubMenu ? refSubMenu : null}>
+                    <div className={`profile ${user.image ? 'imageSet' : ''}`} ref={profileSubMenu ? refSubMenu : null}>
                         <p className='profilePicItem' onClick={() => setProfileSubMenu(prevValue => !prevValue)}>
-                            <img className='profilePic' src={props.user.image ? `${SERVER_URL}/images/${props.user.image}` : profilePic} alt="" />
+                            <img className='profilePic' src={user.image ? `${SERVER_URL}/images/${user.image}` : profilePic} alt="" />
                         </p>
                     </div>
                     {profileSubMenu &&
@@ -44,7 +44,7 @@ function Navbar(props) {
                             </ul>
                             <hr />
                             <button className='logOutButton' onClick={() => {
-                                props.setUser({})
+                                setUser({})
                                 props.changeSuccessMessage('Succesfully signed out!')
                             }}>Sign Out</button>
                         </aside>

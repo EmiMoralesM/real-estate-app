@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Context } from '../../assets/Context'
+import { Context } from '../../../assets/Context'
 
 
 function Filters(props) {
@@ -55,7 +55,7 @@ function Filters(props) {
     const refHometype = useOutsideClick(handleClickOutside)
 
     return (
-        <header className='filtersHeader'>
+        <>
             <div className='locationSearchDiv'>
                 <input
                     className='generalInput locationInput'
@@ -68,7 +68,15 @@ function Filters(props) {
                 <p className='locationSearchIcon'></p>
             </div>
             <div ref={priceFilterOpen ? refPrice : null}>
-                <button className='generalInput filterButton' onClick={() => toggleDropdown('price')}>Price <span className={`arrow ${priceFilterOpen ? 'arrowActive' : ''}`}></span></button>
+                <button className='generalInput filterButton' onClick={() => toggleDropdown('price')}>
+                    {props.minPrice || props.maxPrice ?
+                        `${props.minPrice ?
+                            `$${Intl.NumberFormat().format(props.minPrice)}+` : ' '} 
+                               ${props.maxPrice ?
+                            `$${Intl.NumberFormat().format(props.maxPrice)}-` : ' '}`
+                        : 'Price'}
+                    <span className={`arrow ${priceFilterOpen ? 'arrowActive' : ''}`}></span>
+                </button>
                 {priceFilterOpen && (
                     <div className='filtersDropdown' >
                         <p className='filterTitle'>Price Range</p>
@@ -116,24 +124,36 @@ function Filters(props) {
                                         </div>
                                     ))}
                                 </div>
-
                             </div>
                         </div>
                         <div className='applyFilterDiv'>
-                            <button>Filter</button>
+                            <button onClick={() => {
+                                // When the user clicks the button, we set the filters and "activate" the useEffect that fetches the data
+                                props.setMinPrice(minPrice)
+                                props.setMaxPrice(maxPrice)
+                                setPriceFilterOpen(false)
+                            }}>Filter</button>
                         </div>
                     </div>
                 )}
             </div>
             <div ref={bathsFilterOpen ? refBaths : null}>
-                <button className='generalInput filterButton' onClick={() => toggleDropdown('baths')}>Baths & Beds <span className={`arrow ${bathsFilterOpen ? 'arrowActive' : ''}`}></span></button>
+                <button className='generalInput filterButton' onClick={() => toggleDropdown('baths')}>
+                    {props.minBaths > 0 || props.minBeds > 0 ?
+                        `${props.minBeds > 0 ?
+                            `${props.minBeds}+ bd` : ' '} 
+                        ${props.minBaths > 0 ?
+                            `${props.minBaths}+ ba` : ' '}`
+                        : 'Beds & Baths'}
+                    <span className={`arrow ${bathsFilterOpen ? 'arrowActive' : ''}`}></span>
+                </button>
                 {bathsFilterOpen && (
                     <div className='filtersDropdown' >
                         <p className='filterTitle'>Number of Rooms</p>
                         <div className='bathsOptions'>
                             <p>Bedrooms</p>
                             <div>
-                                <p className={`first ${bedrooms ? '' : 'active'}`} onClick={() => setBedrooms()}>Any</p>
+                                <p className={`first ${bedrooms ? '' : 'active'}`} onClick={() => setBedrooms(0)}>Any</p>
                                 {beds_baths_array.map((option) => (
                                     <p className={`${option == beds_baths_array.length ? 'last' : ''} ${option == bedrooms ? 'active' : ''}`}
                                         onClick={() => setBedrooms(option)}
@@ -143,7 +163,7 @@ function Filters(props) {
                             </div>
                             <p>Bathrooms</p>
                             <div>
-                                <p className={`first ${bathrooms ? '' : 'active'}`} onClick={() => setBathrooms()}>Any</p>
+                                <p className={`first ${bathrooms ? '' : 'active'}`} onClick={() => setBathrooms(0)}>Any</p>
                                 {beds_baths_array.map((option) => (
                                     <p className={`${option == beds_baths_array.length ? 'last' : ''} ${option == bathrooms ? 'active' : ''}`}
                                         onClick={() => setBathrooms(option)}
@@ -153,7 +173,11 @@ function Filters(props) {
                             </div>
                         </div>
                         <div className='applyFilterDiv'>
-                            <button>Filter</button>
+                            <button onClick={() => {
+                                props.setMinBaths(bathrooms)
+                                props.setMinBeds(bedrooms)
+                                setBathsFilterOpen(false)
+                            }}>Filter</button>
                         </div>
                     </div>
                 )}
@@ -179,7 +203,7 @@ function Filters(props) {
                     </div>
                 )}
             </div>
-        </header>
+        </>
     )
 }
 

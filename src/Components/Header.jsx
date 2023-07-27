@@ -7,7 +7,7 @@ import profilePic from '../assets/icons/profile.png'
 import { Context } from '../assets/Context'
 
 function Header(props) {
-  const { SERVER_URL, useOutsideClick } = useContext(Context)
+  const { SERVER_URL, useOutsideClick, user, setUser } = useContext(Context)
   const [profileSubMenu, setProfileSubMenu] = useState(false)
 
   // This returns a reference. And creates an event listener that will activate with every click outside the reference. (form Context.jsx)
@@ -17,7 +17,7 @@ function Header(props) {
       <nav onClick={() => { if (profileSubMenu) setProfileSubMenu(false) }}>
         <div className='ulNavbar'>
           <ul>
-            {props.user.email && (props.user.role == 'admin' || props.user.role == 'manager') && <li ><Link className='dashboard' to={'/dashboard/analytics'}>Admin Dashboard</Link></li>}
+            {user.email && (user.role == 'admin' || user.role == 'manager') && <li ><Link className='dashboard' to={'/dashboard/analytics'}>Admin Dashboard</Link></li>}
             <li><Link to={'/properties'}>Buy</Link></li>
             <li><Link to={'/sellProperty'}>Sell</Link></li>
           </ul>
@@ -28,11 +28,11 @@ function Header(props) {
         <div className='ulNavbar'>
           <ul>
             <li><Link to={'/properties/'}>Map</Link></li>
-            {!props.user.email && <li className='signUpButton' onClick={() => props.setSignInModalOpen(true)}><button>Sign In</button></li>}
-            {props.user.email && <li className='profileItem' ref={profileSubMenu ? refSubMenu : null}>
-              <p className={`profile ${props.user.image ? 'imageSet' : ''}`}>
+            {!user.email && <li className='signUpButton' onClick={() => props.setSignInModalOpen(true)}><button>Sign In</button></li>}
+            {user.email && <li className='profileItem' ref={profileSubMenu ? refSubMenu : null}>
+              <p className={`profile ${user.image ? 'imageSet' : ''}`}>
                 <Link className='profilePicItem' onClick={() => setProfileSubMenu(prevValue => !prevValue)}>
-                  <img className='profilePic' src={props.user.image ? `${SERVER_URL}/images/${props.user.image}` : profilePic} alt="" />
+                  <img className='profilePic' src={user.image ? `${SERVER_URL}/images/${user.image}` : profilePic} alt="" />
                 </Link>
               </p>
               {profileSubMenu &&
@@ -44,7 +44,7 @@ function Header(props) {
                   </ul>
                   <hr />
                   <button className='logOutButton' onClick={() => {
-                    props.setUser({})
+                    setUser({})
                     props.changeSuccessMessage('Succesfully signed out!')
                   }}>Sign Out</button>
                 </aside>

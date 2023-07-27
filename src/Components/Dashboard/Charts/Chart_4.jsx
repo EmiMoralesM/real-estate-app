@@ -24,7 +24,7 @@ function Chart_4() {
                             <div className='imageDivDashboard'>
                                 <div className='imageDiv'>
                                     <p className='locationDash'>{property.addressCity}, {property.addressState}</p>
-                                    <img src={property.images[0]} alt="" />
+                                    <img src={property.mainImage} alt="" />
                                 </div>
                             </div>
                             <div className='infoDiv'>

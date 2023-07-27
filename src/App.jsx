@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 
 import './App.css'
@@ -14,14 +14,15 @@ import Dashboard from './Pages/Dashboard'
 import ProtectedRoutesUser from './assets/ProtectedRoutesUser'
 import ProtectedRoutesAdmin from './assets/ProtectedRoutesAdmin'
 import SellProperty from './Pages/SellProperty'
+import { Context } from './assets/Context'
 
 function App() {
   let location = useLocation().pathname
-
+  const { user, setUser } = useContext(Context)
   const [signInModalOpen, setSignInModalOpen] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')) : {})
+  
     
     // {
     //   name: "Emiliano Morales",
@@ -53,16 +54,16 @@ function App() {
 
   return (
     <>
-      {!location.includes('dashboard') && <Header user={user} changeSuccessMessage={changeSuccessMessage} setUser={setUser} setSignInModalOpen={setSignInModalOpen} />}
-      {signInModalOpen && <SignInModal setUser={setUser} setSignInModalOpen={setSignInModalOpen} changeSuccessMessage={changeSuccessMessage} />}
+      {!location.includes('dashboard') && <Header changeSuccessMessage={changeSuccessMessage} setSignInModalOpen={setSignInModalOpen} />}
+      {signInModalOpen && <SignInModal setSignInModalOpen={setSignInModalOpen} changeSuccessMessage={changeSuccessMessage} />}
       <Routes>
         <Route path='*' element={<Home signInModalOpen={signInModalOpen} />} />
-        <Route path='/properties/*' element={<Properties changeErrorMessage={changeErrorMessage} user={user} setUser={setUser} changeSuccessMessage={changeSuccessMessage} />} />
+        <Route path='/properties/*' element={<Properties changeErrorMessage={changeErrorMessage} changeSuccessMessage={changeSuccessMessage} />} />
         <Route path='/sellProperty/*' element={<SellProperty changeSuccessMessage={changeSuccessMessage} />} />
-        <Route element={<ProtectedRoutesUser user={user} />}>
-          <Route path='/profile/*' exact element={<Profile user={user} setUser={setUser} changeSuccessMessage={changeSuccessMessage} />} />
-          <Route element={<ProtectedRoutesAdmin user={user} />}>
-            <Route path='/dashboard/*' element={<Dashboard changeSuccessMessage={changeSuccessMessage} user={user} setUser={setUser} />} />
+        <Route element={<ProtectedRoutesUser />}>
+          <Route path='/profile/*' exact element={<Profile changeSuccessMessage={changeSuccessMessage} />} />
+          <Route element={<ProtectedRoutesAdmin />}>
+            <Route path='/dashboard/*' element={<Dashboard changeSuccessMessage={changeSuccessMessage} />} />
           </Route>
         </Route>
       </Routes>

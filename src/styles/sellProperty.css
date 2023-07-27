@@ -1,10 +1,12 @@
 .bannerSellProp {
-    background-image: url(/src/assets/imgs/banner.jpg);
+    background-image: url(/src/assets/imgs/sell-banner.jpg);
     background-color: #d9e8ff;
+    background-size: cover;
     height: 55vh;
     background-position: center;
     background-repeat: no-repeat;
     display: flex;
+    background-position: bottom;
     flex-direction: column;
     align-items: center;
     position: relative;
@@ -19,7 +21,7 @@
     padding-top: 60px;
 }
 
-.sellPropeSearchBarDiv {
+/* .sellPropeSearchBarDiv {
     margin: 0;
     font-size: 40px;
     width: 800px;
@@ -37,18 +39,14 @@
     align-items: center;
     display: flex;
     justify-content: space-between;
-    /* padding: 15px; */
     transition: all ease .3s;
 }
-
 .sellPropeSearchBarDiv:hover {
     border: 2px solid #3f8fff;
 }
-
 .sellPropeSearchBarDiv:has(input:focus-visible) {
     border: 2px solid #006aff;
 }
-
 .sellPropeSearchBarDiv input {
     border-radius: 8px;
     padding: 20px;
@@ -60,17 +58,10 @@
     outline: 0;
     width: 90%;
 }
-.errorPropertyDetails{
-    position: absolute;
-    bottom: 0;
-    margin-bottom: -20px;
-}
 .sellPropeSearchBarDiv span {
-    /* padding: 20px; */
     box-sizing: border-box;
     margin-right: 20px;
 }
-
 .sellPropeSearchBarDiv span a {
     display: block;
     width: 28px;
@@ -81,12 +72,108 @@
     border: 0;
     outline: 0;
     background-image: url(../assets/icons/search-icon-black.svg);
+} */
+
+
+
+
+
+
+
+.sellPropeSearchBarDiv {
+    align-items: center;
+    margin-top: 30px;
+    display: flex;
+    box-shadow: 0 2px 70px 1px rgba(38, 42, 76, 0.169);
+    background-color: rgba(255, 255, 255, 0.980);
+    border-radius: 30px;
+    height: 110px;
+    width: 1200px;
+    bottom: -55px;
+
+}
+
+.sellPropeSearchBarDiv > div  {
+    width: 93%;
+    margin: auto;
+    gap: 3%;
+    display: flex;
+}
+
+.sellPropeSearchBarDiv > div >.streetDiv {
+    width: 45%;
+}
+
+.sellPropeSearchBarDiv > div >.cityDiv,
+.sellPropeSearchBarDiv > div >.zipDiv {
+    width: 20%;
+}
+
+.sellPropeSearchBarDiv > div >.stateDiv {
+    width: 15%;
+}
+
+.sellPropeSearchBarDiv > div  div>label {
+    display: block;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.sellPropeSearchBarDiv > div div>input {
+    border: 0;
+    font-family: 'Merriweather Sans', sans-serif;
+    width: 100%;
+    color: rgb(91, 91, 91);
+    border-bottom: 2px solid rgba(147, 147, 147, 0.565);
+    padding: 15px 0 8px 5px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all ease .3s;
+    outline: 0;
+}
+
+.sellPropeSearchBarDiv > div div>input:focus-visible,
+.optionSelected>input {
+    color: black !important;
+    border-bottom: 2px solid #3287ff !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.errorPropertyDetails {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: -20px;
+}
+
+
+.bannerSellProp>div {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
 }
 
 .bannerSellProp div p {
     text-align: center;
     font-size: 16px;
+    margin: 0;
+    padding: 5px 40px;
+    border-radius: 0 0 10px 10px;
     color: black;
+    background-color: rgba(255, 255, 255, 0.512);
+    width: fit-content;
     font-weight: 600;
 }
 
@@ -107,7 +194,7 @@
     width: 1250px;
     margin: auto;
     position: relative;
-    padding-top: 15vh;
+    padding-top: 12vh;
     padding-bottom: 15vh;
 }
 
@@ -140,7 +227,7 @@
 
 .usMapDiv div h2 {
     font-size: 30px;
-    
+
 }
 
 .sellNowButtonDiv {
@@ -177,6 +264,7 @@
     font-size: 32px;
     margin-bottom: 10px;
 }
+
 .mapAddressSection .mapAddressTitleDiv p {
     color: #5e5e5e;
     font-size: 18px;
@@ -189,6 +277,7 @@
     border: 1px solid gainsboro;
     margin-top: 30px;
 }
+
 /* Map Address */
 
 .mapAddressSection .mapAddressDiv p {
@@ -475,6 +564,7 @@
     width: 100%;
     margin: 35px 0;
 }
+
 .propInfoDiv>p {
     color: gray;
     margin: 0;
@@ -485,7 +575,8 @@
     display: block;
 }
 
-.propInfoDiv input, .propInfoDiv textarea {
+.propInfoDiv input,
+.propInfoDiv textarea {
     width: 100%;
     box-sizing: border-box;
     resize: none;
@@ -510,13 +601,17 @@
 }
 
 .propInfoSqftDiv>div {
-    justify-content: end;    
-}    
-    .propInfoSqftDiv>div .optionsDiv {
+    justify-content: end;
+}
+
+.propInfoSqftDiv>div .optionsDiv {
     top: 75px;
 }
 
-.submitSellPorpertyButton{
+.submitSellPorpertyButton {
     width: 100%;
     margin-top: 20px;
 }
+
+
+/*  */

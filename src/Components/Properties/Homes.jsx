@@ -4,14 +4,14 @@ import { Context } from '../../assets/Context'
 import { Link } from 'react-router-dom'
 
 function Homes(props) {
-  const { SERVER_URL } = useContext(Context)
+  const { SERVER_URL, useOutsideClick } = useContext(Context)
 
   const sort_options_array = ['Homes for You', 'Price (Low to High)', 'Price (High to Low)', 'Square Feet']
 
   const [sortResults, setSortResults] = useState(sort_options_array[0])
   const [sortResultsOpen, setSortResultsOpen] = useState(false)
 
-  const refSort = props.useOutsideClick(() => setSortResultsOpen(false))
+  const refSort = useOutsideClick(() => setSortResultsOpen(false))
 
   const [properties, setProperties] = useState()
   useEffect(() => {

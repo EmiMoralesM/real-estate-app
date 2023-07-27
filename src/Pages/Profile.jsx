@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 
 import AccountSettings from '../Components/Profile/AccountSettings'
 import FavoriteProperties from '../Components/Profile/FavoriteProperties'
+import YourProperties from '../Components/Profile/YourProperties'
 
 function Profile(props) {
 	const [profilePage, setProfilePage] = useState('accountSettings')
@@ -31,13 +32,12 @@ function Profile(props) {
 			</div>
 
 			{profilePage === 'accountSettings' && <AccountSettings
-				user={props.user}
-				setUser={props.setUser}
 				changeSuccessMessage={props.changeSuccessMessage}
 			/>}
 			{profilePage === 'favoriteProperties' && <FavoriteProperties
-				user={props.user}
-				setUser={props.setUser}
+				changeSuccessMessage={props.changeSuccessMessage}
+			/>}
+			{profilePage === 'yourProperties' && <YourProperties
 				changeSuccessMessage={props.changeSuccessMessage}
 			/>}
 

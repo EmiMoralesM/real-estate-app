@@ -22,12 +22,10 @@ function SignInModal(props) {
                     <div className='modalForms'>
                         {signIn && <SignIn
                             setSignInModalOpen={props.setSignInModalOpen}
-                            setUser={props.setUser}
                             changeSuccessMessage={props.changeSuccessMessage}
                         />}
                         {!signIn && <NewAccount
                             setSignInModalOpen={props.setSignInModalOpen}
-                            setUser={props.setUser}
                             changeSuccessMessage={props.changeSuccessMessage}
                         />}
                     </div>

@@ -9,7 +9,6 @@ import Homes from '../Components/Properties/Homes'
 import DetailProductModal from './DetailProductModal'
 
 function Properties(props) {
-  const { useOutsideClick } = useContext(Context)
   const [propertyDetail, setPropertyDetail] = useState('')
 
   // If we are trying to access a particular property
@@ -23,12 +22,11 @@ function Properties(props) {
 
   return (
     <main className='mainProperties'>
-      <Filters useOutsideClick={useOutsideClick} />
+      <Filters/>
       <Map />
-      <Homes useOutsideClick={useOutsideClick} />
+      <Homes />
       {propertyDetail &&
-        <DetailProductModal user={props.user}
-          setUser={props.setUser}
+        <DetailProductModal
           changeSuccessMessage={props.changeSuccessMessage}
           changeErrorMessage={props.changeErrorMessage}
           setPropertyDetail={setPropertyDetail}

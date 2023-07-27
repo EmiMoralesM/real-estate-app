@@ -7,7 +7,7 @@ import eyeOn from '../../assets/icons/eye-on.svg'
 import { Context } from '../../assets/Context'
 
 function NewAccount(props) {
-    const { SERVER_URL } = useContext(Context)
+    const { SERVER_URL, setUser } = useContext(Context)
 
     const [email, setEmail] = useState('')
     const [emailError, setEmailError] = useState('')
@@ -74,7 +74,7 @@ function NewAccount(props) {
                     password: password,
                 })
                     .then(res => {
-                        props.setUser(res.data)
+                        setUser(res.data)
                         props.changeSuccessMessage(`Account created | Welcome ${email.substring(0, email.indexOf('@')).toLowerCase()}!`)
                         props.setSignInModalOpen(false)
                     })

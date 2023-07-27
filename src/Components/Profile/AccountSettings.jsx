@@ -4,7 +4,7 @@ import { Context } from '../../assets/Context'
 import axios from 'axios'
 
 function AccountSettings(props) {
-  const { SERVER_URL } = useContext(Context)
+  const { SERVER_URL, user, setUser } = useContext(Context)
 
   const [openSettingsModal, setOpenSettingsModal] = useState(false)
 
@@ -70,7 +70,7 @@ function AccountSettings(props) {
       // We verify that the password passed is the correct one
       if (await handleVerification('email')) {
         // If it is we updae the user data with the new email
-        handleUserChange(props.user.name, newEmail, props.user.image)
+        handleUserChange(user.name, newEmail, user.image)
       }
     }
   }
@@ -78,9 +78,9 @@ function AccountSettings(props) {
   const handleImageChange = async (e) => {
     const formData = new FormData()
     formData.append('newImage', newImage)
-    await axios.patch(`${SERVER_URL}/uploadImage/${props.user.email}`, formData)
+    await axios.patch(`${SERVER_URL}/uploadImage/${user.email}`, formData)
       .then(res => {
-        props.setUser(res.data)
+        setUser(res.data)
         props.changeSuccessMessage(`Image changed!`)
         setOpenSettingsModal(false)
       })
@@ -91,9 +91,9 @@ function AccountSettings(props) {
       // We verify that the password passed is the correct one
       if (await handleVerification()) {
         // If it is, we change the users password for tyhe newPassword
-        axios.patch(`${SERVER_URL}/changePassword/${props.user.email}`, { newPassword })
+        axios.patch(`${SERVER_URL}/changePassword/${user.email}`, { newPassword })
           .then(res => {
-            props.setUser(res.data)
+            setUser(res.data)
             props.changeSuccessMessage(`Password changed!`)
             setOpenSettingsModal(false)
           })
@@ -105,9 +105,9 @@ function AccountSettings(props) {
     // We verify that the password passed is the correct one
     if (await handleVerification()) {
       // If it is, we change the users password for tyhe newPassword
-      await axios.delete(`${SERVER_URL}/deleteUser/${props.user.email}`)
+      await axios.delete(`${SERVER_URL}/deleteUser/${user.email}`)
         .then(res => {
-          props.setUser()
+          setUser()
           props.changeSuccessMessage('User deleted!')
           setOpenSettingsModal(false)
         })
@@ -119,10 +119,10 @@ function AccountSettings(props) {
   const handleVerification = async () => {
     let verified = false
     // We verify the user password to be correct
-    await axios.get(`${SERVER_URL}/getUser?email=${props.user.email}&password=${password}`)
+    await axios.get(`${SERVER_URL}/getUser?email=${user.email}&password=${password}`)
       .then(res => {
         // If the promise return a user, then we change the user email
-        if (res.data.email === props.user.email) {
+        if (res.data.email === user.email) {
           setPasswordError('')
           verified = true
         }
@@ -137,9 +137,9 @@ function AccountSettings(props) {
   // This function executes after all the validation. It reseives the values to update, and sends a patch request.
   const handleUserChange = (name, email) => {
     // We update the user with the info passed to the function
-    axios.patch(`${SERVER_URL}/updateUser/${props.user.email}`, { name, email })
+    axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { name, email })
       .then(res => {
-        props.setUser(res.data)
+        setUser(res.data)
         props.changeSuccessMessage(`${newEmail ? 'Email' : newName ? 'Name' : ''} changed!`)
         setOpenSettingsModal(false)
       })
@@ -156,7 +156,7 @@ function AccountSettings(props) {
             <p className='description'>Updates are going to be reflected across all Zillow experiences.</p>
           </div>
           <div className='editProfileDiv'>
-            <p className=''>{props.user.name}</p>
+            <p className=''>{user.name}</p>
             <button onClick={() => setOpenSettingsModal('name')} className={`editUser`}></button>
           </div>
         </div>
@@ -167,10 +167,10 @@ function AccountSettings(props) {
             <p className='description'>Personalize your profile pic with a custom photo.</p>
           </div>
           <div className='editProfileDiv'>
-            <div className={`profile profileUser ${props.user.image ? 'imageSet' : ''}`}>
+            <div className={`profile profileUser ${user.image ? 'imageSet' : ''}`}>
               <p className='profilePicItem'>
                 <img className='profilePic'
-                  src={props.user.image ? `${SERVER_URL}/images/${props.user.image}` : profilePic}
+                  src={user.image ? `${SERVER_URL}/images/${user.image}` : profilePic}
                   alt="profilePicture"
                 />
               </p>
@@ -188,7 +188,7 @@ function AccountSettings(props) {
             <p className='description'>This is the email associated with your account.</p>
           </div>
           <div className='editProfileDiv'>
-            <p className=''>{props.user.email}</p>
+            <p className=''>{user.email}</p>
             <button onClick={() => setOpenSettingsModal('email')} className={`editUser`}></button>
           </div>
         </div>
@@ -234,7 +234,7 @@ function AccountSettings(props) {
                     <button onClick={() => setOpenSettingsModal(false)} className='cancel'>Cancel</button>
                     <button
                       disabled={newName ? '' : 'disabled'}
-                      onClick={() => handleUserChange(newName, props.user.email, props.user.image)}
+                      onClick={() => handleUserChange(newName, user.email, user.image)}
                       className={`update ${newName ? '' : 'disabled'}`}>Update</button>
                   </div>
                 </>
@@ -260,7 +260,7 @@ function AccountSettings(props) {
                 <>
                   <h3>Edit Email</h3>
                   <div>
-                    <label htmlFor="newEmail">Your email is <span>{props.user.email}</span>. Enter new email</label>
+                    <label htmlFor="newEmail">Your email is <span>{user.email}</span>. Enter new email</label>
                     <input
                       type="text"
                       name="newEmail"

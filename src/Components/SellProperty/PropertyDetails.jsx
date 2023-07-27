@@ -4,7 +4,7 @@ import axios from 'axios'
 
 function PropertyDetails(props) {
 
-    const { SERVER_URL, useOutsideClick } = useContext(Context)
+    const { SERVER_URL, useOutsideClick, user, setUser } = useContext(Context)
     const hometypes_array = ['Houses', 'Townhomes', 'Multy-family', 'Condos', 'Aparments']
 
 
@@ -86,43 +86,54 @@ function PropertyDetails(props) {
     const handleSubmit = async (e) => {
         e.preventDefault()
         setSubmitActive(true)
-        if (checkInputs('all')) {
-            console.log('upload property...');
-            await axios.post(`${SERVER_URL}/postProperty`, {
-                statusType: 'FOR_SALE',
-                statusText: homeType,
-                price: price,
-                pricePerSqFt: (sizeScale.toLowerCase() == 'sqft' ? (price / size) : (price / (size * 43560))).toFixed(1),
-                lotSize: size,
-                lotAreaUnit: sizeScale.toLowerCase(),
-                beds: beds,
-                baths: baths,
-                address: `${props.addressStreet}, ${props.addressCity}, ${props.addressState} ${props.addressZipCode}`,
-                addressStreet: props.addressStreet,
-                addressCity: props.addressCity,
-                addressState: props.addressState,
-                addressZipcode: props.addressZipCode,
-                coordinates: {
-                    latitude: props.latitude,
-                    longitude: props.longitude,
-                },
+        // if (checkInputs('all')) {
+        console.log('upload property...');
+        await axios.post(`${SERVER_URL}/postProperty`, {
+            statusType: 'FOR_SALE',
+            statusText: homeType,
+            price: price,
+            pricePerSqFt: (sizeScale.toLowerCase() == 'sqft' ? (price / size) : (price / (size * 43560))).toFixed(1),
+            lotSize: size,
+            lotAreaUnit: sizeScale.toLowerCase(),
+            beds: beds,
+            baths: baths,
+            address: `${props.addressStreet}, ${props.addressCity}, ${props.addressState} ${props.addressZipCode}`,
+            addressStreet: props.addressStreet,
+            addressCity: props.addressCity,
+            addressState: props.addressState,
+            addressZipcode: props.addressZipCode,
+            coordinates: {
+                latitude: props.latitude,
+                longitude: props.longitude,
+            },
+        })
+            .then(data => {
+                console.log('data');
+                const imagesData = new FormData()
+                imagesData.append('imagesData', mainImage)
+                otherImages.forEach(image => {
+                    imagesData.append('imagesData', image)
+                });
+                axios.patch(`${SERVER_URL}/postPropertyImages/${data.data._id}`, imagesData)
+                    .then(res => {
+                        console.log('image');
+                        props.setPropertyId(data.data._id)
+                        console.log(data.data._id);
+                        axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { yourProperties: [...user.yourProperties, data.data._id] })
+                            .then(res => {
+                                setUser(res.data)
+                                console.log(res.data);
+                                location = '../propertyPublished'
+                            })
+                        setSubmitActive(false)
+                    })
             })
-                .then(res => {
-                    const imagesData = new FormData()
-                    imagesData.append('imagesData', mainImage)
-                    otherImages.forEach(image => {
-                        imagesData.append('imagesData', image)
-                    });
-                    axios.patch(`${SERVER_URL}/postPropertyImages/${res.data._id}`, imagesData)
-                        .then(res => {
-                            setSubmitActive(false)
-                            props.changeSuccessMessage('Property Published Successfully!')
-                            location = '/profile/yourProperties'
-                        })
-                })
-        } else {
-            setSubmitActive(false)
-        }
+        // props.setPropertyId('64bf54767ddbcab441138187')
+
+        // } else {
+        //     setSubmitActive(false)
+        //     window.scrollTo(0, 0)
+        // }
     }
 
     return (

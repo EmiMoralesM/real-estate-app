@@ -8,10 +8,10 @@ import '../styles/home.css'
 function Home() {
   return (
     <main>
-        <Banner />
-        <LatestProperties />
-        <About />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+      <Banner />
+      <LatestProperties />
+      <About />
+      <br /><br /><br /><br /><br /><br /><br /><br /><br />
     </main>
   )
 }

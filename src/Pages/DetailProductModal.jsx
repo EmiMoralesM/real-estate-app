@@ -5,7 +5,7 @@ import axios from 'axios'
 import { Context } from '../assets/Context'
 
 function DetailProductModal(props) {
-    const { SERVER_URL } = useContext(Context)
+    const { SERVER_URL, user, setUser} = useContext(Context)
     const [property, setProperty] = useState('')
     const [isFavorite, setIsFavorite] = useState(false)
     const [images, setImages] = useState([])
@@ -15,21 +15,21 @@ function DetailProductModal(props) {
             .then(data => {
                 setProperty(data.data)
                 setImages(data.data.images.splice(1).map(image => <img className='image' key={image} src={image} alt="" />))
-                setIsFavorite(props.user.favorites.includes(data.data._id) ? true : false)
+                setIsFavorite(user.favorites.includes(data.data._id) ? true : false)
             })
     }, [])
 
     const toggleFavorite = () => {
         if (isFavorite) {
-            axios.patch(`${SERVER_URL}/updateUser/${props.user.email}`, { favorites: props.user.favorites.filter(favProp => favProp != property._id) })
+            axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { favorites: user.favorites.filter(favProp => favProp != property._id) })
                 .then(res => {
-                    props.setUser(res.data)
+                    setUser(res.data)
                     props.changeSuccessMessage('Property removed from favorites!')
                 })
             } else {
-                axios.patch(`${SERVER_URL}/updateUser/${props.user.email}`, { favorites: [...props.user.favorites, property._id] })
+                axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { favorites: [...user.favorites, property._id] })
                 .then(res => {
-                    props.setUser(res.data)
+                    setUser(res.data)
                     props.changeSuccessMessage('Property added to favorites!')
                 })
         }
@@ -56,7 +56,7 @@ function DetailProductModal(props) {
                                 <hr />
                                 <div className='priceDiv'>
                                     <h2>${Intl.NumberFormat().format(property.price)}</h2>
-                                    <button onClick={props.user.email ? toggleFavorite : () => props.changeErrorMessage('You have to sign in to add a property to favorites')} className={`favoriteButton ${isFavorite ? 'favoriteButtonActive' : ''}`}>Save</button>
+                                    <button onClick={user.email ? toggleFavorite : () => props.changeErrorMessage('You have to sign in to add a property to favorites')} className={`favoriteButton ${isFavorite ? 'favoriteButtonActive' : ''}`}>Save</button>
                                 </div>
                                 <p className='address'>{property.address}</p>
                                 <p className='beds-baths-sqft'>

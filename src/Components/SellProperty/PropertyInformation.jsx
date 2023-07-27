@@ -27,11 +27,9 @@ function PropertyInformation(props) {
                 addressCity={props.addressCity}
                 addressState={props.addressState}
                 addressZipCode={props.addressZipCode}
-                sellLocation={props.sellLocation}
                 latitude={latitude}
                 longitude={longitude}
-                address={props.address}
-                changeSuccessMessage={props.changeSuccessMessage}
+                setPropertyId={props.setPropertyId}
             />}
         </section>
     )

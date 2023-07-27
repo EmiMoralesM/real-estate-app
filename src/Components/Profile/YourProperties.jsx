@@ -7,40 +7,40 @@ import images from '../../assets/icons/images.svg'
 
 function FavoriteProperties(props) {
     const { SERVER_URL, user, setUser } = useContext(Context)
-    const [favProperties, setFavProperties] = useState([])
+    const [yourProperties, setYourProperties] = useState([])
 
     useEffect(() => {
-        setFavProperties([])
-        user.favorites.forEach(propertyId => {
+        setYourProperties([])
+        user.yourProperties.forEach(propertyId => {
             axios.get(`${SERVER_URL}/getProperty/${propertyId}`)
                 .then(data => {
-                    setFavProperties(prevFavProperties => [...prevFavProperties, data.data])
+                    setYourProperties(prevYourProperties => [...prevYourProperties, data.data])
                 })
         });
     }, [])
 
     const removeFavorite = async (propId) => {
-        await axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { favorites: user.favorites.filter(favProp => favProp != propId) })
+        await axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { yourProperties: user.yourProperties.filter(yourProp => yourProp != propId) })
             .then(res => {
                 setUser(res.data)
                 props.changeSuccessMessage('Property removed from favorites!')
-                setFavProperties(prevFavProperties => prevFavProperties.filter(prop => prop._id != propId))
+                setYourProperties(prevYourProperties => prevYourProperties.filter(prop => prop._id != propId))
             })
     }
 
     return (
         <div className='whiteBackground profileContentDiv'>
             <div>
-                <h2>Your Favorite Properties</h2>
-                <div className='favoritePropertiesDiv'>
-                    {(favProperties.length <= 0) ? (
+                <h2>Your Published Properties</h2>
+                <div className='savedPropertiesDiv'>
+                    {(yourProperties.length <= 0) ? (
                         <div className='noPropertiesToShow'>
                             <img src={images} alt="" />
-                            <p>No properties saved!</p>
-                            <p>Whenever you find homes you like, select the <span></span> to save them here.</p>
+                            <p>No properties published!</p>
+                            <Link to={'/sellProperty'} className='button'>Sell your first property!</Link>
                         </div>
                     ) : (
-                        favProperties.map(prop => (
+                        yourProperties.map(prop => (
                             <div key={prop._id} className='favoriteProperty'>
                                 <Link
                                     to={`/properties/details/${prop.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${prop._id}`}

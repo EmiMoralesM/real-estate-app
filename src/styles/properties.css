@@ -17,22 +17,6 @@
 
 .filterButton {
     padding: 9px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    font-weight: 600;
-    background-color: white;
-    border: 2px solid #cdcdcd;
-    color: rgba(0, 0, 0, 0.923);
-    outline: 0;
-    transition: all ease .3s;
-    align-items: center;
-    display: flex;
-}
-
-.filterButton:hover {
-    border: 2px solid #006aff;
-    /* background-color: rgb(236, 236, 236); */
 }
 
 .locationSearchDiv {
@@ -43,18 +27,6 @@
 
 .locationInput {
     width: 275px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    font-weight: 600;
-    background-color: white;
-    border: 2px solid #cdcdcd;
-    color: rgba(0, 0, 0, 0.923);
-    outline: 0;
-    transition: all ease .3s;
-    align-items: center;
-    display: flex;
-    padding: 9px;
 }
 
 .locationSearchIcon {
@@ -70,13 +42,7 @@
 
 }
 
-.locationInput:hover {
-    border: 2px solid #006aff;
-}
 
-.locationInput:focus-visible {
-    border: 2px solid #006aff;
-}
 
 .arrow {
     display: inline-block;
@@ -134,6 +100,7 @@
 .individualFilterDropdown .individualFilterButton>input {
     width: 110px;
     padding: 15px 20px;
+    cursor: pointer;
     border-radius: 5px;
     font-size: 17px;
     font-weight: 600;
@@ -149,12 +116,12 @@
 .individualFilterDropdown .individualFilterButton>.arrow {
     position: absolute;
     right: 20px;
-    margin-top: 18px;
+    margin-top: 13px;
     opacity: .7;
 }
 
 .individualFilterDropdown .individualFilterButton>.arrowActive {
-    margin-top: 8px;
+    margin-top: 20px;
 }
 
 .hideOptions {

@@ -287,3 +287,27 @@ body {
     color: #d52121;
     font-size: 12px;
 }
+
+/* General Input */
+.generalInput {
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 600;
+    background-color: white;
+    border: 2px solid #cdcdcd;
+    color: rgba(0, 0, 0, 0.923);
+    outline: 0;
+    transition: all ease .3s;
+    align-items: center;
+    display: flex;
+    padding: 9px;
+}
+
+.generalInput:hover {
+    border: 2px solid #006aff;
+}
+
+.generalInput:focus-visible {
+    border: 2px solid #006aff;
+}
