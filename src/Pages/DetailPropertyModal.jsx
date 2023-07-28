@@ -8,13 +8,13 @@ function DetailProductModal(props) {
     const { SERVER_URL, user, setUser} = useContext(Context)
     const [property, setProperty] = useState('')
     const [isFavorite, setIsFavorite] = useState(false)
-    const [images, setImages] = useState([])
+    const [otherImages, setOtherImages] = useState([])
 
     useEffect(() => {
         axios.get(`${SERVER_URL}/getProperty/${props.propertyDetail}`)
             .then(data => {
                 setProperty(data.data)
-                setImages(data.data.images.splice(1).map(image => <img className='image' key={image} src={image} alt="" />))
+                setOtherImages(data.data.otherImages.map(image => <img className='image' key={image} src={image} alt="" />))
                 setIsFavorite(user.favorites.includes(data.data._id) ? true : false)
             })
     }, [])
@@ -46,7 +46,7 @@ function DetailProductModal(props) {
                     <>
                         <div className='propertyImages'>
                             <img className='mainImage' onClick={() => setIsFavorite(true)} src={property.mainImage} alt="" />
-                            {images}
+                            {otherImages}
                         </div>
                         <div className='propertyDetails'>
                             <div className='propertyTitleDiv'>

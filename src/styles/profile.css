@@ -226,33 +226,6 @@
     justify-content: center;
 }
 
-.profileModalActions button {
-    border: 0;
-    outline: 0;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 18px;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: all ease .3s;
-}
-
-.profileModalActions .cancel {
-    background-color: transparent;
-    color: #006aff;
-}
-
-.profileModalActions .update {
-    background-color: #006aff;
-    color: #ffffff;
-}
-
-.profileModalActions .cancel:hover,
-.profileModalActions .update:hover {
-    opacity: .8;
-}
-
-
 .profileModalDiv .title {
     font-weight: 600;
 }

@@ -5,6 +5,9 @@ body {
     max-width: 2000px;
     margin: auto;
 }
+.noScroll{
+    overflow: hidden;   
+}
 /* Button */
 .button{
     padding: 8px 12px;
@@ -23,6 +26,24 @@ body {
 }
 .button:hover{
     background-color: #006aff;
+}
+
+
+
+.cancel{
+    border: 0;
+    outline: 0;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: all ease .3s;
+    background-color: transparent;
+    color: #006aff;
+}
+.cancel:hover{
+    color: #4089ff;
 }
 /* Messages */
 .successMessage,
@@ -310,4 +331,55 @@ body {
 
 .generalInput:focus-visible {
     border: 2px solid #006aff;
+}
+
+
+
+
+/* Loadings */
+
+.loadingProperty{
+    height: 340px;
+    width: 350px;
+    margin-bottom: 30px;
+    background-color: rgb(209, 209, 209);
+    border-radius: 10px;
+    box-shadow: 0 2px 70px 1px rgba(38, 42, 76, 0.169);
+    animation: loadingProperty 1.5s infinite;
+}
+@keyframes loadingProperty {
+    0%{
+        opacity: .8;
+    }
+    50%{
+        opacity: .3;
+    }
+    100%{
+        opacity: .8;
+    }
+}
+.loadingProperty .loadingPropertyImage{
+    background-color: rgb(190, 190, 190);
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+    height: 220px;
+}
+.infoDiv{
+    width: 100%;
+}
+.infoDiv > .priceLoading{
+    width: 45%;
+    margin: 15px 0;
+    height: 18px;
+    display: inline-block;
+    background-color: rgb(190, 190, 190);
+    border-radius: 10px;
+}
+.infoDiv > .infoLoading{
+    width: 100%;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    height: 15px;
+    display: inline-block;
+    background-color: rgb(190, 190, 190);
 }

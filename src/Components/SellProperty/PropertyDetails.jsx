@@ -4,8 +4,7 @@ import axios from 'axios'
 
 function PropertyDetails(props) {
 
-    const { SERVER_URL, useOutsideClick, user, setUser } = useContext(Context)
-    const hometypes_array = ['Houses', 'Townhomes', 'Multy-family', 'Condos', 'Aparments']
+    const { SERVER_URL, useOutsideClick, user, setUser, hometypes_array } = useContext(Context)
 
 
     const [price, setPrice] = useState('')
@@ -84,61 +83,60 @@ function PropertyDetails(props) {
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
         setSubmitActive(true)
-        // if (checkInputs('all')) {
-        console.log('upload property...');
-        await axios.post(`${SERVER_URL}/postProperty`, {
-            statusType: 'FOR_SALE',
-            statusText: homeType,
-            price: price,
-            pricePerSqFt: (sizeScale.toLowerCase() == 'sqft' ? (price / size) : (price / (size * 43560))).toFixed(1),
-            lotSize: size,
-            lotAreaUnit: sizeScale.toLowerCase(),
-            beds: beds,
-            baths: baths,
-            address: `${props.addressStreet}, ${props.addressCity}, ${props.addressState} ${props.addressZipCode}`,
-            addressStreet: props.addressStreet,
-            addressCity: props.addressCity,
-            addressState: props.addressState,
-            addressZipcode: props.addressZipCode,
-            coordinates: {
-                latitude: props.latitude,
-                longitude: props.longitude,
-            },
-        })
-            .then(data => {
-                console.log('data');
-                const imagesData = new FormData()
-                imagesData.append('imagesData', mainImage)
-                otherImages.forEach(image => {
-                    imagesData.append('imagesData', image)
-                });
-                axios.patch(`${SERVER_URL}/postPropertyImages/${data.data._id}`, imagesData)
-                    .then(res => {
-                        console.log('image');
-                        props.setPropertyId(data.data._id)
-                        console.log(data.data._id);
-                        axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { yourProperties: [...user.yourProperties, data.data._id] })
-                            .then(res => {
-                                setUser(res.data)
-                                console.log(res.data);
-                                location = '../propertyPublished'
-                            })
-                        setSubmitActive(false)
-                    })
+        if (checkInputs('all')) {
+            console.log('upload property...');
+            await axios.post(`${SERVER_URL}/postProperty`, {
+                statusType: 'FOR_SALE',
+                statusText: homeType,
+                price: price,
+                pricePerSqFt: (sizeScale.toLowerCase() == 'sqft' ? (price / size) : (price / (size * 43560))).toFixed(1),
+                lotSize: size,
+                lotAreaUnit: sizeScale.toLowerCase(),
+                beds: beds,
+                baths: baths,
+                address: `${props.addressStreet}, ${props.addressCity}, ${props.addressState} ${props.addressZipCode}`,
+                addressStreet: props.addressStreet,
+                addressCity: props.addressCity,
+                addressState: props.addressState,
+                addressZipcode: props.addressZipCode,
+                coordinates: {
+                    latitude: props.latitude,
+                    longitude: props.longitude,
+                },
             })
-        // props.setPropertyId('64bf54767ddbcab441138187')
+                .then(data => {
+                    console.log('data');
+                    const imagesData = new FormData()
+                    imagesData.append('imagesData', mainImage)
+                    otherImages.forEach(image => {
+                        imagesData.append('imagesData', image)
+                    });
+                    axios.patch(`${SERVER_URL}/postPropertyImages/${data.data._id}`, imagesData)
+                        .then(res => {
+                            console.log('image');
+                            props.setPropertyId(data.data._id)
+                            console.log(data.data._id);
+                            axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { yourProperties: [...user.yourProperties, data.data._id] })
+                                .then(res => {
+                                    setUser(res.data)
+                                    console.log(res.data);
+                                    location = '../propertyPublished'
+                                })
+                            setSubmitActive(false)
+                        })
+                })
+                // props.setPropertyId('64bf54767ddbcab441138187')
 
-        // } else {
-        //     setSubmitActive(false)
-        //     window.scrollTo(0, 0)
-        // }
+        } else {
+            setSubmitActive(false)
+            window.scrollTo(0, 0)
+        }
     }
 
     return (
         <>
-            <form action="#" className='propDetailsForm'>
+            <div className='propDetailsForm'>
                 <div className='propPriceDiv'>
                     <h2 className='propInfoTitle'>Price <span className='requiredField'>*</span></h2>
                     <div>
@@ -293,7 +291,7 @@ function PropertyDetails(props) {
                     <hr />
                 </div>
                 <button className='button submitSellPorpertyButton' disabled={submitActive} onClick={handleSubmit}>Submit</button>
-            </form >
+            </div >
         </>
     )
 }

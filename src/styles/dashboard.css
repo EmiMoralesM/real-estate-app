@@ -170,9 +170,10 @@
     gap: 40px;
 }
 
-.headerDashboardMenu .notifications{
+.headerDashboardMenu .notifications {
     margin-left: -5px;
 }
+
 /* .headerDashboardMenu .notifications{
     background-image: url(../assets/icons/notification.svg);
     width: 30px;
@@ -215,15 +216,18 @@
     font-size: 12px;
     color: rgb(91, 91, 91);
 }
-.dashboardProfileSubMenu{
+
+.dashboardProfileSubMenu {
     top: 79px;
     right: auto;
 }
+
 .ulProfileSubMenu li {
     list-style-type: none;
     align-items: center;
     display: flex;
 }
+
 /* End menu */
 
 .mainDashboard {
@@ -979,8 +983,6 @@
     border-radius: 5px;
     height: 320px;
     width: 500px;
-    left: calc(50% - 250px);
-    top: calc(50% - 160px);
 }
 
 .chengeUserRole .roleActive {
@@ -1056,58 +1058,6 @@
 
 /* Manage Properties */
 
-/* .manageProperties{
-    align-items: baseline;
-}
-.manageProperties div h2{
-    color: rgb(105, 105, 105);
-    font-size: 20px;
-    font-weight: 600;
-    margin: 5px 0 20px 0;
-}
-.manageProperties .filters{
-    display: flex;
-    gap: 2vw;
-}
-.manageProperties .filters > .addressFilterDiv input{
-    width: 300px;
-}
-
-.manageProperties .filters > .priceFilterDiv{
-    display: flex;
-    gap: 14px;
-    align-items: center;
-}
-.manageProperties .filters > .priceFilterDiv > div{
-    display: flex;
-    align-items: center;
-}
-.manageProperties .filters > .priceFilterDiv span{
-    position: absolute;
-    color: #212121;
-    padding: 6px;
-    margin: 2px;
-    font-weight: 500;
-}
-.manageProperties .filters > .priceFilterDiv input{
-    padding-left: 20px;
-    width: 100px;
-}
-.manageProperties .filters > .priceFilterDiv p{
-    margin: 0;
-    font-weight: 500;
-    color: #959595;
-    font-size: 20px;
-}
-.manageProperties .filters > .homeTypeFilterDiv .filtersDropdown{
-    box-shadow: 0px 0px 5px 2px #c0c0c03d;
-    border-radius: 10px;
-    font-weight: 500;    
-}
-.manageProperties .filters > button{
-    border-radius: 5px;
-} */
-
 .managePropertiesFilterDiv {
     padding: 6px 20px;
     display: flex;
@@ -1118,26 +1068,106 @@
 }
 
 /* results */
-.manageProperties .propertiesDiv{
+.manageProperties{
+    align-items: baseline;
+}
+.manageProperties .propertiesDiv {
     margin-top: 30px;
     justify-content: space-around;
     width: 100%;
 }
-.manageProperties .propertiesDiv > .propertyDiv {
+
+.manageProperties .propertiesDiv>.propertyDiv {
     width: 350px;
     margin-bottom: 30px;
+    cursor: auto;
 }
-.manageProperties .propertiesDiv > .propertyDiv .editPropertyButton {
+
+.manageProperties .propertiesDiv>.propertyDiv .editPropertyButton {
     position: absolute;
     padding: 8px 10px;
     right: 10px;
     top: 10px;
 }
-.manageProperties .propertiesDiv > .propertyDiv .deletePropertyButton {
+.manageProperties .propertiesDiv>.propertyDiv:hover .imageDiv img {
+    transform: scale(1);
+}
+
+.manageProperties .propertiesDiv>.propertyDiv .deletePropertyButton {
     position: absolute;
     padding: 8px 10px;
     left: 10px;
     top: 10px;
 }
 
+.deletePropertyModalDiv {
+    position: absolute;
+    background-color: white;
+    border-radius: 5px;
+    height: 330px;
+    width: 600px;
+}
+
+
+.deletePropertyContent {
+    display: flex;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 35px;
+}
+
+.deletePropertyContent .imgDiv {
+    width: 180px;
+    height: 110px;
+    align-items: center;
+    margin-right: 20px;
+    display: flex;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.deletePropertyContent .imgDiv img {
+    width: 100%;
+}
+.deletePropertyContent div h3 {
+    align-items: center;
+    display: flex;
+    font-size: 26px;
+    margin: 0;
+}
+.deletePropertyContent div h3 span {
+    margin-left: 10px;
+    font-size: 18px;
+    color: #006aff;
+}
+.deletePropertyContent div p {
+    font-weight: 500;
+    color: #707070;
+    margin: 10px 0 0 0;
+}
+
+
+.editPropertyModalDiv {
+
+    position: absolute;
+    background-color: white;
+    border-radius: 5px;
+    height: 95vh;
+    width: 1620px;
+}
+
+.editPropertyModalDiv .generalModalContent h3 {
+    margin-bottom: 0;
+    padding-bottom: 10px;
+}
+
+.editPropertyForm{
+    height: 80%;
+    width: 100%;
+    left: 0;
+    padding: 0 40px;
+    box-sizing: border-box;
+    position: absolute;
+    margin: auto;
+    overflow-y: scroll;
+}
 /* End Manage Properties */

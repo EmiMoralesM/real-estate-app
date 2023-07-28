@@ -235,7 +235,7 @@ function AccountSettings(props) {
                     <button
                       disabled={newName ? '' : 'disabled'}
                       onClick={() => handleUserChange(newName, user.email, user.image)}
-                      className={`update ${newName ? '' : 'disabled'}`}>Update</button>
+                      className={`button ${newName ? '' : 'disabled'}`}>Update</button>
                   </div>
                 </>
               }
@@ -251,7 +251,7 @@ function AccountSettings(props) {
                     <button
                       disabled={newImage ? '' : 'disabled'}
                       onClick={handleImageChange}
-                      className={`update ${newImage ? '' : 'disabled'}`}>Update</button>
+                      className={`button ${newImage ? '' : 'disabled'}`}>Update</button>
                   </div>
                 </>
               }
@@ -282,7 +282,7 @@ function AccountSettings(props) {
                     <button
                       disabled={newEmail ? '' : 'disabled'}
                       onClick={handleEmailChange}
-                      className={`update ${newEmail ? '' : 'disabled'}`}
+                      className={`button ${newEmail ? '' : 'disabled'}`}
                     >
                       Update
                     </button>
@@ -319,7 +319,7 @@ function AccountSettings(props) {
                     <button
                       disabled={newPassword ? '' : 'disabled'}
                       onClick={handlePasswordChange}
-                      className={`update ${newPassword ? '' : 'disabled'}`}>Update</button>
+                      className={`button ${newPassword ? '' : 'disabled'}`}>Update</button>
                   </div>
                 </>
               }
@@ -342,7 +342,7 @@ function AccountSettings(props) {
                     <button
                       disabled={password ? '' : 'disabled'}
                       onClick={handleDeleteAcoount}
-                      className={`update ${password ? '' : 'disabled'}`}>Delete</button>
+                      className={`button ${password ? '' : 'disabled'}`}>Delete</button>
                   </div>
                 </>
               }

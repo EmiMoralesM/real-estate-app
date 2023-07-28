@@ -6,7 +6,7 @@ import { Context } from '../assets/Context'
 import Filters from '../Components/Properties/Filters'
 import Map from '../Components/Properties/Map'
 import Homes from '../Components/Properties/Homes'
-import DetailProductModal from './DetailProductModal'
+import DetailPropertyModal from './DetailPropertyModal'
 
 function Properties(props) {
   const [propertyDetail, setPropertyDetail] = useState('')
@@ -26,7 +26,7 @@ function Properties(props) {
       <Map />
       <Homes />
       {propertyDetail &&
-        <DetailProductModal
+        <DetailPropertyModal
           changeSuccessMessage={props.changeSuccessMessage}
           changeErrorMessage={props.changeErrorMessage}
           setPropertyDetail={setPropertyDetail}

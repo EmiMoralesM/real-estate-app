@@ -190,15 +190,18 @@ function Filters(props) {
                         <div className='hometypeOptions'>
                             <ul>
                                 {hometypes_array.map(option => (
-                                    <li onClick={() => toggleHomeType(option.toLowerCase())} key={option}>
-                                        <span className={`checkboxHometype ${hometypes.includes(option.toLowerCase()) ? 'active' : ''}`}></span>
+                                    <li onClick={() => toggleHomeType(option)} key={option}>
+                                        <span className={`checkboxHometype ${hometypes.includes(option) ? 'active' : ''}`}></span>
                                         <p>{option}</p>
                                     </li>
                                 ))}
                             </ul>
                         </div>
                         <div className='applyFilterDiv'>
-                            <button>Filter</button>
+                            <button onClick={() => {
+                                props.setHomeTypes(hometypes)
+                                setHometypeFilterOpen(false)
+                            }}>Filter</button>
                         </div>
                     </div>
                 )}
