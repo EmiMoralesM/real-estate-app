@@ -6,7 +6,7 @@ import images from '../../assets/icons/images.svg'
 
 
 function FavoriteProperties(props) {
-    const { SERVER_URL, user, setUser } = useContext(Context)
+    const { SERVER_URL, user, setUser, imageUrl } = useContext(Context)
     const [yourProperties, setYourProperties] = useState([])
 
     useEffect(() => {
@@ -14,19 +14,21 @@ function FavoriteProperties(props) {
         user.yourProperties.forEach(propertyId => {
             axios.get(`${SERVER_URL}/getProperty/${propertyId}`)
                 .then(data => {
-                    setYourProperties(prevYourProperties => [...prevYourProperties, data.data])
+                    if (data.data) {
+                        setYourProperties(prevYourProperties => [...prevYourProperties, data.data])
+                    }
                 })
         });
     }, [])
 
-    const removeFavorite = async (propId) => {
-        await axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { yourProperties: user.yourProperties.filter(yourProp => yourProp != propId) })
-            .then(res => {
-                setUser(res.data)
-                props.changeSuccessMessage('Property removed from favorites!')
-                setYourProperties(prevYourProperties => prevYourProperties.filter(prop => prop._id != propId))
-            })
-    }
+    // const removeFavorite = async (propId) => {
+    //     await axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { yourProperties: user.yourProperties.filter(yourProp => yourProp != propId) })
+    //         .then(res => {
+    //             setUser(res.data)
+    //             props.changeSuccessMessage('Property removed from favorites!')
+    //             setYourProperties(prevYourProperties => prevYourProperties.filter(prop => prop._id != propId))
+    //         })
+    // }
 
     return (
         <div className='whiteBackground profileContentDiv'>
@@ -41,13 +43,16 @@ function FavoriteProperties(props) {
                         </div>
                     ) : (
                         yourProperties.map(prop => (
+                            // <div>
+                            //     <p>{prop.price}</p>
+                            // </div>
                             <div key={prop._id} className='favoriteProperty'>
                                 <Link
                                     to={`/properties/details/${prop.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${prop._id}`}
                                     className='contentFavoriteProperty'
                                 >
                                     <div className='imgDiv'>
-                                        <img src={prop.mainImage} alt="" />
+                                        <img src={imageUrl(prop.mainImage)} alt="" />
                                     </div>
                                     <div>
                                         <h3>${Intl.NumberFormat().format(prop.price)} - <span> {prop.statusText}</span></h3>

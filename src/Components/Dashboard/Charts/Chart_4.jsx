@@ -1,7 +1,9 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { Context } from '../../../assets/Context'
 
 function Chart_4() {
+    const { imageUrl } = useContext(Context)
     const [properties, setProperties] = useState()
     useEffect(() => {
         axios.get('http://localhost/latestProperties?limit=2')
@@ -24,7 +26,7 @@ function Chart_4() {
                             <div className='imageDivDashboard'>
                                 <div className='imageDiv'>
                                     <p className='locationDash'>{property.addressCity}, {property.addressState}</p>
-                                    <img src={property.mainImage} alt="" />
+                                    <img src={imageUrl(property.mainImage)} alt="" />
                                 </div>
                             </div>
                             <div className='infoDiv'>

@@ -3,8 +3,7 @@ import { Context } from '../../../assets/Context'
 import axios from 'axios'
 
 function EditPropertyModal(props) {
-    const { SERVER_URL, useOutsideClick, user, setUser, hometypes_array, enableScroll } = useContext(Context)
-
+    const { SERVER_URL, useOutsideClick, user, setUser, hometypes_array, enableScroll, imageUrl } = useContext(Context)
 
     const [price, setPrice] = useState(props.editProperty.price)
     const [homeType, setHomeType] = useState(props.editProperty.statusText)
@@ -17,17 +16,15 @@ function EditPropertyModal(props) {
 
     const [priceError, setPriceError] = useState('')
     const [sizeError, setSizeError] = useState('')
-    const [mainImageError, setMainImageError] = useState('')
     const [otherImageError, setOtherImageError] = useState('')
 
-    console.log(mainImage);
     const refHomeType = useOutsideClick(() => setHomeTypeOpen(false))
     const refSizeScale = useOutsideClick(() => setSizeScaleOpen(false))
 
     const [homeTypeOpen, setHomeTypeOpen] = useState(false)
     const [sizeScaleOpen, setSizeScaleOpen] = useState(false)
 
-    const [mainImagePreview, setMainImagePreview] = useState(props.editProperty.mainImage)
+    const [mainImagePreview, setMainImagePreview] = useState()
     const [otherImagesPreview, setOtherImagesPreview] = useState(props.editProperty.otherImages)
 
     const [submitActive, setSubmitActive] = useState(false)
@@ -66,12 +63,6 @@ function EditPropertyModal(props) {
                 setSizeError('Enter a valid lot size')
             } else { setSizeError('') }
         }
-        if (input == 'all' || input == 'mainImage') {
-            if (!mainImage) {
-                var valid = false
-                setMainImageError('Provide a main image for the property')
-            } else { setMainImageError('') }
-        }
         if (input == 'all' || input == 'otherImages') {
             if (otherImages.length <= 0) {
                 var valid = false
@@ -94,31 +85,61 @@ function EditPropertyModal(props) {
                 beds: beds,
                 baths: baths,
             })
-                .then(data => {
+                .then(async res => {
+                    /* if (props.editProperty.mainImage != mainImage || props.editProperty.otherImages != otherImages) {
+                        console.log('image change');
+                        console.log(mainImage);
+                        console.log(otherImages);
+                        const imagesData = new FormData()
+                        imagesData.append('imagesData', mainImage)
+                        otherImages.forEach(image => {
+                            imagesData.append('imagesData', image)
+                        });
+                        console.log(imagesData);
+                        await axios.patch(`${SERVER_URL}/postPropertyImages/${props.editProperty._id}`, imagesData)
+                            .then(res => {
+                                props.changeSuccessMessage('Property Updated!')
+                                props.setEditProperty(false)
+                                props.changeSuccessMessage('Property Updated!')
+                                props.setEditProperty(false)
+                                enableScroll()
+                                props.setResults(prevResults => prevResults.map(prop => {
+                                    if (prop._id == res.data._id) {
+                                        return res.data
+                                    } else {
+                                        return prop
+                                    }
+                                }))
+                            })
+                    } */
+                    let newData = res
+                    // If the main image was changed then we upload it and update the property
+                    if (props.editProperty.mainImage != mainImage) {
+                        const mainImg = new FormData()
+                        mainImg.append('mainImg', mainImage)
+                        await axios.patch(`${SERVER_URL}/updateMainImage/${props.editProperty._id}`, mainImg)
+                            .then(res => newData = res)
+                    }
+                    return newData
+                })
+                .then(newData => {
+                    props.setResults(prevResults => prevResults.map(prop => {
+                        if (prop._id == newData.data._id) {
+                            return newData.data
+                        } else {
+                            return prop
+                        }
+                    }))
                     props.changeSuccessMessage('Property Updated!')
                     props.setEditProperty(false)
                     enableScroll()
-                    // if(props.editProperty.mainImage != mainImage){
-
-                    // }
-                    // const imagesData = new FormData()
-                    // imagesData.append('imagesData', mainImage)
-                    // otherImages.forEach(image => {
-                    //     imagesData.append('imagesData', image)
-                    // });
-                    // axios.patch(`${SERVER_URL}/postPropertyImages/${props.editProperty._id}`, imagesData)
-                    //     .then(res => {
-                    //         props.changeSuccessMessage('Property Updated!')
-                    //         props.setEditProperty(false)
-                    //         enableScroll()
-                    //     })
                 })
-
         } else {
             setSubmitActive(false)
             window.scrollTo(0, 0)
         }
     }
+
     return (
         <aside className='generalModal'>
             <div className='editPropertyModalDiv'>
@@ -150,44 +171,51 @@ function EditPropertyModal(props) {
                             <div>
                                 <p>Main Image <span className='requiredField'>*</span></p>
                                 <div className='imageContainer' >
-                                    <label
-                                        htmlFor="mainImage"
-                                        className={`picturesLabel ${mainImageError ? 'errorInput' : ''}`}
-                                    >
+                                    <label htmlFor="mainImage" className={`picturesLabel`}>
                                         <div>
                                             <span></span>
                                             <p>Select the main image for your product</p>
                                         </div>
-                                        {!mainImagePreview && <p>Add Image</p>}
-                                        {mainImagePreview && <p>Change Image</p>}
+                                        <p>Change Image</p>
                                     </label>
-                                    {mainImagePreview && <figure>
-                                        <img src={mainImagePreview} alt="Main Image" />
-                                    </figure>}
-                                    {mainImageError && <p className='errorText errorPropertyDetails'>{mainImageError}</p>}
+                                    <figure>
+                                        {!mainImagePreview && <img src={imageUrl(mainImage)} alt="Main Image" />}
+                                        {mainImagePreview && <img src={mainImagePreview} alt="Main Image" />}
+                                    </figure>
                                 </div>
-                                <input type="file" name="" onChange={async (e) => {
-                                    previewImage(e, 'main')
-                                    setMainImageError('')
-                                }} id="mainImage" accept="image/png, image/jpeg" className='pictureInput' />
+                                <input
+                                    type="file"
+                                    name=""
+                                    onChange={async (e) => previewImage(e, 'main')}
+                                    id="mainImage"
+                                    accept="image/png, image/jpeg"
+                                    className='pictureInput'
+                                />
                             </div>
                             <div>
                                 <p>Other Images <span className='requiredField'>*</span></p>
                                 <div className='imageContainer'>
-                                    <label htmlFor="otherImages" className={`picturesLabel ${otherImageError ? 'errorInput' : ''} ${otherImagesPreview.length > 0 ? 'picturesLabelShrink' : ''}`}>
+                                    <label htmlFor="otherImages" className={`picturesLabel ${otherImageError ? 'errorInput' : ''} ${otherImages.length > 0 ? 'picturesLabelShrink' : ''}`}>
                                         <div>
                                             <span></span>
                                             <p>Select other images for your product</p>
                                         </div>
                                         <p>Add Images</p>
                                     </label>
-                                    {otherImagesPreview.length > 0 && <figure className='otherImagesFigure'>
-                                        {otherImagesPreview.map((image, i) => (
-                                            <div>
-                                                <img src={image} key={i} alt="" />
+
+                                    {(otherImages.length > 0 || otherImagesPreview.length > 0) && <figure className='otherImagesFigure'>
+                                        {otherImagesPreview.length > 0 && otherImagesPreview.map((image, i) => (
+                                            <div key={i}>
+                                                {/* If its an old image it will display it normally. */}
+                                                {otherImages.includes(image) && <img src={imageUrl(image)} alt="" />}
+                                                {/* If its a new uploaded image it will display it in the base64 format. */}
+                                                {!otherImages.includes(image) && <img src={image} alt="" />}
                                                 <span
                                                     className='removeImage'
-                                                    onClick={() => setOtherImagesPreview(prevOtherImage => prevOtherImage.filter(item => image != item))}
+                                                    onClick={() => {
+                                                        setOtherImagesPreview(prevOtherImage => prevOtherImage.filter(item => image != item))
+                                                        setOtherImages(otherImage => otherImage.filter(item => image != item))
+                                                    }}
                                                 ></span>
                                             </div>
                                         ))}
@@ -261,9 +289,6 @@ function EditPropertyModal(props) {
                             <hr />
                         </div>
                     </div >
-
-
-
 
 
                     <div className='deleteUserEditActions'>

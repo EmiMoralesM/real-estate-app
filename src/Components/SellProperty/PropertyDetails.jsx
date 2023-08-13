@@ -112,6 +112,8 @@ function PropertyDetails(props) {
                     otherImages.forEach(image => {
                         imagesData.append('imagesData', image)
                     });
+                    console.log(mainImage);
+                    console.log(otherImages);
                     axios.patch(`${SERVER_URL}/postPropertyImages/${data.data._id}`, imagesData)
                         .then(res => {
                             console.log('image');
@@ -121,7 +123,7 @@ function PropertyDetails(props) {
                                 .then(res => {
                                     setUser(res.data)
                                     console.log(res.data);
-                                    location = '../propertyPublished'
+                                    // location = '../propertyPublished'
                                 })
                             setSubmitActive(false)
                         })

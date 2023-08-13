@@ -6,7 +6,7 @@ import images from '../../assets/icons/images.svg'
 
 
 function FavoriteProperties(props) {
-    const { SERVER_URL, user, setUser } = useContext(Context)
+    const { SERVER_URL, user, setUser, imageUrl } = useContext(Context)
     const [favProperties, setFavProperties] = useState([])
 
     useEffect(() => {
@@ -14,7 +14,10 @@ function FavoriteProperties(props) {
         user.favorites.forEach(propertyId => {
             axios.get(`${SERVER_URL}/getProperty/${propertyId}`)
                 .then(data => {
-                    setFavProperties(prevFavProperties => [...prevFavProperties, data.data])
+                    // Review
+                    if (data.data) {
+                        setFavProperties(prevFavProperties => [...prevFavProperties, data.data])
+                    }
                 })
         });
     }, [])
@@ -47,7 +50,7 @@ function FavoriteProperties(props) {
                                     className='contentFavoriteProperty'
                                 >
                                     <div className='imgDiv'>
-                                        <img src={prop.mainImage} alt="" />
+                                        <img src={imageUrl(prop.mainImage)} alt="" />
                                     </div>
                                     <div>
                                         <h3>${Intl.NumberFormat().format(prop.price)} - <span> {prop.statusText}</span></h3>

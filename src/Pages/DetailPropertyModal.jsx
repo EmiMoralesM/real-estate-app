@@ -5,16 +5,18 @@ import axios from 'axios'
 import { Context } from '../assets/Context'
 
 function DetailProductModal(props) {
-    const { SERVER_URL, user, setUser} = useContext(Context)
+    const { SERVER_URL, user, setUser, imageUrl } = useContext(Context)
     const [property, setProperty] = useState('')
     const [isFavorite, setIsFavorite] = useState(false)
     const [otherImages, setOtherImages] = useState([])
+
+    const [openContactModal, setOpenContactModal] = useState(false)
 
     useEffect(() => {
         axios.get(`${SERVER_URL}/getProperty/${props.propertyDetail}`)
             .then(data => {
                 setProperty(data.data)
-                setOtherImages(data.data.otherImages.map(image => <img className='image' key={image} src={image} alt="" />))
+                setOtherImages(data.data.otherImages.map(image => <img className='image' key={image} src={imageUrl(image)} alt="" />))
                 setIsFavorite(user.favorites.includes(data.data._id) ? true : false)
             })
     }, [])
@@ -26,8 +28,8 @@ function DetailProductModal(props) {
                     setUser(res.data)
                     props.changeSuccessMessage('Property removed from favorites!')
                 })
-            } else {
-                axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { favorites: [...user.favorites, property._id] })
+        } else {
+            axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { favorites: [...user.favorites, property._id] })
                 .then(res => {
                     setUser(res.data)
                     props.changeSuccessMessage('Property added to favorites!')
@@ -45,7 +47,7 @@ function DetailProductModal(props) {
                 {property &&
                     <>
                         <div className='propertyImages'>
-                            <img className='mainImage' onClick={() => setIsFavorite(true)} src={property.mainImage} alt="" />
+                            <img className='mainImage' onClick={() => setIsFavorite(true)} src={imageUrl(property.mainImage)} alt="" />
                             {otherImages}
                         </div>
                         <div className='propertyDetails'>
@@ -65,7 +67,9 @@ function DetailProductModal(props) {
                                     <span className='beforeIcon'> {Intl.NumberFormat().format(property.lotAreaUnit == 'sqft' ? property.lotSize : parseInt(property.lotSize * 43560))} sqft </span> -
                                     <span> {property.statusText} </span>
                                 </p>
-                                <button className='contactAgent'>Contact Agent</button>
+                                <button className='contactAgent' onClick={() => {
+                                    setOpenContactModal(true)
+                                }}>Contact Agent</button>
                                 <hr />
                             </div>
                             <div className='propertyInfoDiv'>
@@ -88,7 +92,16 @@ function DetailProductModal(props) {
                     </>
                 }
             </div>
-        </section>
+            {openContactModal && <aside className='generalModal '>
+                <div className={`generalModalDiv `}>
+                    <button className='closeModal' onClick={() => setOpenContactModal(false)}></button>
+                    <div className='generalModalContent'>
+                        <h3>Contact agent</h3>
+                    </div>
+                </div>
+                <div onClick={() => setOpenContactModal(false)} className='generalModalBackground'></div>
+            </aside>}
+        </section >
     )
 }
 

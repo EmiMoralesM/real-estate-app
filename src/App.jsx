@@ -15,6 +15,7 @@ import ProtectedRoutesUser from './assets/ProtectedRoutesUser'
 import ProtectedRoutesAdmin from './assets/ProtectedRoutesAdmin'
 import SellProperty from './Pages/SellProperty'
 import { Context } from './assets/Context'
+import Footer from './Components/Footer'
 
 function App() {
   let location = useLocation().pathname
@@ -69,6 +70,7 @@ function App() {
       </Routes>
       {successMessage && <SuccessMessage successMessage={successMessage} />}
       {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
+      {!location.includes('dashboard') && <Footer />}
     </>
   )
 }

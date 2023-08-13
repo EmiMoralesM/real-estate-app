@@ -6,7 +6,7 @@ import Filters from './ManageProperties/Filters'
 import EditPropertyModal from './ManageProperties/EditPropertyModal'
 
 function ManageProperties(props) {
-    const { SERVER_URL, hometypes_array, disableScroll } = useContext(Context)
+    const { SERVER_URL, hometypes_array, disableScroll, enableScroll, imageUrl } = useContext(Context)
     const [results, setResults] = useState()
 
     const [minPrice, setMinPrice] = useState()
@@ -33,6 +33,7 @@ function ManageProperties(props) {
         await axios.delete(`${SERVER_URL}/deleteProperty/${confirmDeleteModal._id}`)
             .then(res => {
                 setConfirmDeleteModal(false)
+                enableScroll()
                 props.changeSuccessMessage(`Property deleted!`)
                 setResults(prevResults => prevResults.filter(prop => prop._id !== confirmDeleteModal._id))
             })
@@ -85,7 +86,7 @@ function ManageProperties(props) {
                                     </div>
                                 </div>
                                 <div className='imageDiv'>
-                                    <img src={property.mainImage} alt="" />
+                                    <img src={imageUrl(property.mainImage)} alt="" />
                                 </div>
                             </div>
                             <div className='infoDiv'>
@@ -110,7 +111,7 @@ function ManageProperties(props) {
                         <h3>Are you sure you want to delete this property?</h3>
                         <div className='deletePropertyContent'>
                             <div className='imgDiv'>
-                                <img src={confirmDeleteModal.mainImage} alt="" />
+                                <img src={imageUrl(confirmDeleteModal.mainImage)} alt="" />
                             </div>
                             <div>
                                 <h3>${Intl.NumberFormat().format(confirmDeleteModal.price)} - <span> {confirmDeleteModal.statusText}</span></h3>
@@ -118,14 +119,22 @@ function ManageProperties(props) {
                             </div>
                         </div>
                         <div className='deleteUserEditActions'>
-                            <button onClick={() => setConfirmDeleteModal(false)} className='confirmUserChange'>Cancel</button>
+                            <button onClick={() => {
+                                enableScroll()
+                                setConfirmDeleteModal(false)
+                            }} className='confirmUserChange'>Cancel</button>
                             <button onClick={handlePropertyDelete} className='deleteUser'>Delete</button>
                         </div>
                     </div>
                 </div>
                 <div onClick={() => setConfirmDeleteModal(false)} className='generalModalBackground'></div>
             </aside>}
-            {editPropertyModal && <EditPropertyModal changeSuccessMessage={props.changeSuccessMessage} editProperty={editPropertyModal} setEditProperty={setEditPropertyModal} />}
+            {editPropertyModal && <EditPropertyModal
+                setResults={setResults}
+                changeSuccessMessage={props.changeSuccessMessage}
+                editProperty={editPropertyModal}
+                setEditProperty={setEditPropertyModal}
+            />}
 
         </>
     )

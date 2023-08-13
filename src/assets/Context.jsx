@@ -31,6 +31,14 @@ export function ContextProvider({ children }) {
 
         return ref
     }
+    
+    const imageUrl = (image) => {
+        if(image.includes('http')){
+            return image
+        } else{
+            return `${SERVER_URL}/images/${image}`
+        }
+    }
 
     const disableScroll = () => {
         document.body.classList.add("noScroll");
@@ -41,7 +49,7 @@ export function ContextProvider({ children }) {
     }
 
     return (
-        <Context.Provider value={{ SERVER_URL, useOutsideClick, user, setUser, hometypes_array, disableScroll, enableScroll }}>
+        <Context.Provider value={{ SERVER_URL, useOutsideClick, user, setUser, hometypes_array, disableScroll, enableScroll, imageUrl }}>
             {children}
         </Context.Provider>
     )

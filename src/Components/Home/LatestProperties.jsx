@@ -4,7 +4,7 @@ import { Context } from '../../assets/Context'
 import { Link } from 'react-router-dom'
 
 function LatestProperties() {
-    const { SERVER_URL } = useContext(Context)
+    const { SERVER_URL, imageUrl } = useContext(Context)
     const [properties, setProperties] = useState()
     useEffect(() => {
         axios.get(`${SERVER_URL}/latestProperties?limit=6`)
@@ -38,7 +38,7 @@ function LatestProperties() {
                                     </div>
                                 </div>
                                 <div className='imageDiv'>
-                                    <img src={property.mainImage} alt="" />
+                                    <img src={imageUrl(property.mainImage)} alt="" />
                                 </div>
                             </div>
                             <div className='infoDiv'>

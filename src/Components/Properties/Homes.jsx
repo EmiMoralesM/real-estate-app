@@ -4,7 +4,7 @@ import { Context } from '../../assets/Context'
 import { Link } from 'react-router-dom'
 
 function Homes(props) {
-  const { SERVER_URL, useOutsideClick } = useContext(Context)
+  const { SERVER_URL, useOutsideClick, imageUrl } = useContext(Context)
 
   const sort_options_array = ['Homes for You', 'Price (Low to High)', 'Price (High to Low)', 'Square Feet']
 
@@ -56,7 +56,7 @@ function Homes(props) {
                   </div>
                 </div>
                 <div className='imageDiv'>
-                  <img src={property.mainImage} alt="" />
+                  <img src={imageUrl(property.mainImage)} alt="" />
                 </div>
               </div>
               <div className='infoDiv'>
