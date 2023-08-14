@@ -26,7 +26,6 @@ function Dashboard(props) {
             <Navbar
                 sideBarOpen={sideBarOpen}
                 setSideBarOpen={setSideBarOpen}
-                changeSuccessMessage={props.changeSuccessMessage}
             />
             <main className={`mainDashboard ${sideBarOpen ? '' : 'extendDashboard'}`}>
                 <div className='dashboardTitleDiv'>
@@ -35,8 +34,8 @@ function Dashboard(props) {
                 </div>
                 <div className='dashboardContent'>
                     {dashboardPage == 'Analytics' && <Analytics />}
-                    {dashboardPage == 'Users' && <Users userActive={user} changeSuccessMessage={props.changeSuccessMessage} />}
-                    {dashboardPage == 'Properties' && <ManageProperties changeSuccessMessage={props.changeSuccessMessage} />}
+                    {dashboardPage == 'Users' && <Users userActive={user} />}
+                    {dashboardPage == 'Properties' && <ManageProperties />}
                 </div>
             </main>
         </>

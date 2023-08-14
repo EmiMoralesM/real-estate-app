@@ -5,7 +5,7 @@ import axios from 'axios'
 import { Context } from '../assets/Context'
 
 function DetailProductModal(props) {
-    const { SERVER_URL, user, setUser, imageUrl } = useContext(Context)
+    const { SERVER_URL, user, setUser, imageUrl, changeSuccessMessage, changeErrorMessage } = useContext(Context)
     const [property, setProperty] = useState('')
     const [isFavorite, setIsFavorite] = useState(false)
     const [otherImages, setOtherImages] = useState([])
@@ -26,13 +26,13 @@ function DetailProductModal(props) {
             axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { favorites: user.favorites.filter(favProp => favProp != property._id) })
                 .then(res => {
                     setUser(res.data)
-                    props.changeSuccessMessage('Property removed from favorites!')
+                    changeSuccessMessage('Property removed from favorites!')
                 })
         } else {
             axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { favorites: [...user.favorites, property._id] })
                 .then(res => {
                     setUser(res.data)
-                    props.changeSuccessMessage('Property added to favorites!')
+                    changeSuccessMessage('Property added to favorites!')
                 })
         }
         setIsFavorite(prevIsFavorite => !prevIsFavorite)
@@ -58,7 +58,7 @@ function DetailProductModal(props) {
                                 <hr />
                                 <div className='priceDiv'>
                                     <h2>${Intl.NumberFormat().format(property.price)}</h2>
-                                    <button onClick={user.email ? toggleFavorite : () => props.changeErrorMessage('You have to sign in to add a property to favorites')} className={`favoriteButton ${isFavorite ? 'favoriteButtonActive' : ''}`}>Save</button>
+                                    <button onClick={user.email ? toggleFavorite : () => changeErrorMessage('You have to sign in to add a property to favorites')} className={`favoriteButton ${isFavorite ? 'favoriteButtonActive' : ''}`}>Save</button>
                                 </div>
                                 <p className='address'>{property.address}</p>
                                 <p className='beds-baths-sqft'>

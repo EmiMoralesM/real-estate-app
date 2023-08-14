@@ -4,7 +4,7 @@ import { Context } from '../../assets/Context'
 import axios from 'axios'
 
 function AccountSettings(props) {
-  const { SERVER_URL, user, setUser } = useContext(Context)
+  const { SERVER_URL, user, setUser, changeSuccessMessage } = useContext(Context)
 
   const [openSettingsModal, setOpenSettingsModal] = useState(false)
 
@@ -81,7 +81,7 @@ function AccountSettings(props) {
     await axios.patch(`${SERVER_URL}/uploadImage/${user.email}`, formData)
       .then(res => {
         setUser(res.data)
-        props.changeSuccessMessage(`Image changed!`)
+        changeSuccessMessage(`Image changed!`)
         setOpenSettingsModal(false)
       })
   }
@@ -94,7 +94,7 @@ function AccountSettings(props) {
         axios.patch(`${SERVER_URL}/changePassword/${user.email}`, { newPassword })
           .then(res => {
             setUser(res.data)
-            props.changeSuccessMessage(`Password changed!`)
+            changeSuccessMessage(`Password changed!`)
             setOpenSettingsModal(false)
           })
           .catch(e => console.log(e))
@@ -108,7 +108,7 @@ function AccountSettings(props) {
       await axios.delete(`${SERVER_URL}/deleteUser/${user.email}`)
         .then(res => {
           setUser()
-          props.changeSuccessMessage('User deleted!')
+          changeSuccessMessage('User deleted!')
           setOpenSettingsModal(false)
         })
         .catch(e => console.log(e))
@@ -140,7 +140,7 @@ function AccountSettings(props) {
     axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { name, email })
       .then(res => {
         setUser(res.data)
-        props.changeSuccessMessage(`${newEmail ? 'Email' : newName ? 'Name' : ''} changed!`)
+        changeSuccessMessage(`${newEmail ? 'Email' : newName ? 'Name' : ''} changed!`)
         setOpenSettingsModal(false)
       })
       .catch(e => console.log(e))

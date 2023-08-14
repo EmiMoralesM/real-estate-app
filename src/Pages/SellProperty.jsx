@@ -11,7 +11,7 @@ import PropertyPublished from '../Components/SellProperty/PropertyPublished'
 function SellProperty(props) {
     const [sellLocation, setSellLocation] = useState()
 
-    const [propertyId, setPropertyId] = useState()
+    // const [propertyId, setPropertyId] = useState()
 
     // const [addressStreet, setAddressStreet] = useState()
     // const [addressCity, setAddressCity] = useState()
@@ -44,13 +44,11 @@ function SellProperty(props) {
                 addressState={addressState}
                 addressZipCode={addressZipCode}
                 sellLocation={sellLocation}
-                changeSuccessMessage={props.changeSuccessMessage}
-                setPropertyId={setPropertyId}
+                // setPropertyId={setPropertyId}
             />}
-            {propertyId && sellLocation.includes('propertyPublished') && <PropertyPublished
+            {/* {propertyId && sellLocation.includes('propertyPublished') && <PropertyPublished
                 propertyId={propertyId}
-                changeSuccessMessage={props.changeSuccessMessage}
-            />}
+            />} */}
         </main>
     )
 }

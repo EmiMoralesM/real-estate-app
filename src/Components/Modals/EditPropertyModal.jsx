@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react'
-import { Context } from '../../../assets/Context'
+import { Context } from '../../assets/Context'
 import axios from 'axios'
 
 function EditPropertyModal(props) {
-    const { SERVER_URL, useOutsideClick, user, setUser, hometypes_array, enableScroll, imageUrl } = useContext(Context)
+    const { SERVER_URL, useOutsideClick, hometypes_array, enableScroll, imageUrl, changeSuccessMessage, changeErrorMessage } = useContext(Context)
 
     const [price, setPrice] = useState(props.editProperty.price)
     const [homeType, setHomeType] = useState(props.editProperty.statusText)
@@ -75,68 +75,63 @@ function EditPropertyModal(props) {
     const handleUpdate = async (e) => {
         setSubmitActive(true)
         if (checkInputs('all')) {
-            console.log('update property...');
-            await axios.post(`${SERVER_URL}/updateProperty/${props.editProperty._id}`, {
-                statusText: homeType,
-                price: price,
-                pricePerSqFt: (sizeScale.toLowerCase() == 'sqft' ? (price / size) : (price / (size * 43560))).toFixed(1),
-                lotSize: size,
-                lotAreaUnit: sizeScale.toLowerCase(),
-                beds: beds,
-                baths: baths,
-            })
-                .then(async res => {
-                    /* if (props.editProperty.mainImage != mainImage || props.editProperty.otherImages != otherImages) {
-                        console.log('image change');
-                        console.log(mainImage);
-                        console.log(otherImages);
-                        const imagesData = new FormData()
-                        imagesData.append('imagesData', mainImage)
-                        otherImages.forEach(image => {
-                            imagesData.append('imagesData', image)
-                        });
-                        console.log(imagesData);
-                        await axios.patch(`${SERVER_URL}/postPropertyImages/${props.editProperty._id}`, imagesData)
-                            .then(res => {
-                                props.changeSuccessMessage('Property Updated!')
-                                props.setEditProperty(false)
-                                props.changeSuccessMessage('Property Updated!')
-                                props.setEditProperty(false)
-                                enableScroll()
-                                props.setResults(prevResults => prevResults.map(prop => {
-                                    if (prop._id == res.data._id) {
-                                        return res.data
-                                    } else {
-                                        return prop
-                                    }
-                                }))
-                            })
-                    } */
-                    let newData = res
-                    // If the main image was changed then we upload it and update the property
-                    if (props.editProperty.mainImage != mainImage) {
-                        const mainImg = new FormData()
-                        mainImg.append('mainImg', mainImage)
-                        await axios.patch(`${SERVER_URL}/updateMainImage/${props.editProperty._id}`, mainImg)
-                            .then(res => newData = res)
-                    }
-                    return newData
+            try {
+                // If the data updated is valid, we update the property.
+                await axios.post(`${SERVER_URL}/updateProperty/${props.editProperty._id}`, {
+                    statusText: homeType,
+                    price: price,
+                    pricePerSqFt: (sizeScale.toLowerCase() == 'sqft' ? (price / size) : (price / (size * 43560))).toFixed(1),
+                    lotSize: size,
+                    lotAreaUnit: sizeScale.toLowerCase(),
+                    beds: beds,
+                    baths: baths,
                 })
-                .then(newData => {
-                    props.setResults(prevResults => prevResults.map(prop => {
-                        if (prop._id == newData.data._id) {
-                            return newData.data
-                        } else {
-                            return prop
+                    .then(async res => {
+                        let newData = res
+                        // If the main image was changed then we upload it and update the property
+                        if (props.editProperty.mainImage != mainImage) {
+                            const mainImg = new FormData()
+                            mainImg.append('newMainImg', mainImage)
+                            await axios.patch(`${SERVER_URL}/postPropertyMainImage/${props.editProperty._id}`, mainImg)
+                                .then(res => newData = res)
                         }
-                    }))
-                    props.changeSuccessMessage('Property Updated!')
-                    props.setEditProperty(false)
-                    enableScroll()
-                })
+                        // If the other images were changed then we upload the new ones and update the property
+                        if (props.editProperty.otherImages != otherImages) {
+                            const otherImgs = new FormData();
+                            otherImages.forEach(image => {
+                                if (typeof image === 'string') {
+                                    otherImgs.append('oldOtherImages', image);
+                                } else {
+                                    otherImgs.append('newOtherImages', image);
+                                }
+                            });
+                            await axios.patch(`${SERVER_URL}/postPropertyOtherImages/${props.editProperty._id}`, otherImgs)
+                                .then(res => newData = res)
+                        }
+                        return newData
+                    })
+                    .then(newData => {
+
+                        // Update the results
+                        props.setResults(prevResults => prevResults.map(prop => {
+                            if (prop._id == newData.data._id) {
+                                return newData.data
+                            } else {
+                                return prop
+                            }
+                        }))
+                        changeSuccessMessage('Property Updated!')
+                        props.setEditProperty(false)
+                        enableScroll()
+                    })
+            } catch (e) {
+                changeErrorMessage('An error occurred. Please try again.')
+                props.setEditProperty(false)
+                console.log(e);
+            }
         } else {
+            changeErrorMessage('Verify that every filed is filled')
             setSubmitActive(false)
-            window.scrollTo(0, 0)
         }
     }
 

@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { Context } from '../assets/Context'
 
 function SuccessMessage(props) {
+  const { successMessage } = useContext(Context)
   return (
     <aside className='successMessage'>
-        <p>{props.successMessage}</p>
+        <p>{successMessage}</p>
     </aside>
   )
 }

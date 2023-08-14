@@ -3,10 +3,11 @@ import ManagePropsFilters from './ManageProperties/ManagePropsFilters'
 import axios from 'axios'
 import { Context } from '../../assets/Context'
 import Filters from './ManageProperties/Filters'
-import EditPropertyModal from './ManageProperties/EditPropertyModal'
+import EditPropertyModal from '../Modals/EditPropertyModal'
+import ConfirmDeleteProperty from '../Modals/ConfirmDeleteProperty'
 
 function ManageProperties(props) {
-    const { SERVER_URL, hometypes_array, disableScroll, enableScroll, imageUrl } = useContext(Context)
+    const { SERVER_URL, hometypes_array, disableScroll, enableScroll, imageUrl, changeSuccessMessage } = useContext(Context)
     const [results, setResults] = useState()
 
     const [minPrice, setMinPrice] = useState()
@@ -34,109 +35,86 @@ function ManageProperties(props) {
             .then(res => {
                 setConfirmDeleteModal(false)
                 enableScroll()
-                props.changeSuccessMessage(`Property deleted!`)
+                changeSuccessMessage(`Property deleted!`)
                 setResults(prevResults => prevResults.filter(prop => prop._id !== confirmDeleteModal._id))
             })
             .catch(err => console.log(`Error: ${err}`))
     }
-    return (
-        <>
-            <div className='whiteBackground manageProperties'>
-                <div className='managePropertiesFilterDiv'>
-                    <Filters
-                        minPrice={minPrice}
-                        setMinPrice={setMinPrice}
-                        maxPrice={maxPrice}
-                        setMaxPrice={setMaxPrice}
-                        minBaths={minBaths}
-                        setMinBaths={setMinBaths}
-                        minBeds={minBeds}
-                        setMinBeds={setMinBeds}
-                        setHomeTypes={setHomeTypes}
-                    />
-                </div>
-                <div className='propertiesDiv'>
-                    {(!results) ? (
-                        <>
-                            {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
-                                <div key={i} className='loadingProperty'>
-                                    <div className='loadingPropertyImage' />
-                                    <div className='infoDiv'>
-                                        <span className='priceLoading' />
-                                        <span className='infoLoading' />
-                                        <span className='infoLoading' />
-                                    </div>
-                                </div>
-                            ))}
-                        </>
-                    ) : (results.map(property => (
-                        <div key={property._id} className='propertyDiv managePropertiesResults'>
-                            <div className='imagePropertyDiv'>
-                                <div className='imageContent'>
-                                    <button onClick={() => {
-                                        disableScroll()
-                                        setConfirmDeleteModal(property)
-                                    }} className='button deletePropertyButton'>Delete Property</button>
-                                    <button onClick={() => {
-                                        disableScroll()
-                                        setEditPropertyModal(property)
-                                    }} className='button editPropertyButton'>Edit Property</button>
-                                    <div >
-                                        <p className='location'>{property.addressCity}, {property.addressState}</p>
-                                    </div>
-                                </div>
-                                <div className='imageDiv'>
-                                    <img src={imageUrl(property.mainImage)} alt="" />
-                                </div>
-                            </div>
-                            <div className='infoDiv'>
-                                <p className='price'>${Intl.NumberFormat().format(property.price)}</p>
-                                <p className='beds-baths-sqft'>
-                                    <span className='beforeIcon'> {property.beds ? property.beds : '--'} </span> |
-                                    <span className='beforeIcon'> {property.baths ? property.baths : '--'} </span> |
-                                    <span className='beforeIcon'> {Intl.NumberFormat().format(property.lotAreaUnit == 'sqft' ? property.lotSize : parseInt(property.lotSize * 43560))} sqft </span> -
-                                    <span> {property.statusText} </span>
-                                </p>
-                                <p className='address'>{property.address}</p>
-                            </div>
-                        </div>
-                    ))
-                    )}
-                </div>
 
+    return (
+        <div className='whiteBackground manageProperties'>
+            <div className='managePropertiesFilterDiv'>
+                <Filters
+                    minPrice={minPrice}
+                    setMinPrice={setMinPrice}
+                    maxPrice={maxPrice}
+                    setMaxPrice={setMaxPrice}
+                    minBaths={minBaths}
+                    setMinBaths={setMinBaths}
+                    minBeds={minBeds}
+                    setMinBeds={setMinBeds}
+                    setHomeTypes={setHomeTypes}
+                />
             </div>
-            {confirmDeleteModal && <aside className='generalModal'>
-                <div className='deletePropertyModalDiv'>
-                    <div className='generalModalContent'>
-                        <h3>Are you sure you want to delete this property?</h3>
-                        <div className='deletePropertyContent'>
-                            <div className='imgDiv'>
-                                <img src={imageUrl(confirmDeleteModal.mainImage)} alt="" />
+            <div className='propertiesDiv'>
+                {(!results) ? (
+                    <>
+                        {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
+                            <div key={i} className='loadingProperty'>
+                                <div className='loadingPropertyImage' />
+                                <div className='infoDiv'>
+                                    <span className='priceLoading' />
+                                    <span className='infoLoading' />
+                                    <span className='infoLoading' />
+                                </div>
                             </div>
-                            <div>
-                                <h3>${Intl.NumberFormat().format(confirmDeleteModal.price)} - <span> {confirmDeleteModal.statusText}</span></h3>
-                                <p>{confirmDeleteModal.address}</p>
+                        ))}
+                    </>
+                ) : (results.map(property => (
+                    <div key={property._id} className='propertyDiv managePropertiesResults'>
+                        <div className='imagePropertyDiv'>
+                            <div className='imageContent'>
+                                <button onClick={() => {
+                                    disableScroll()
+                                    setConfirmDeleteModal(property)
+                                }} className='button deletePropertyButton'>Delete Property</button>
+                                <button onClick={() => {
+                                    disableScroll()
+                                    setEditPropertyModal(property)
+                                }} className='button editPropertyButton'>Edit Property</button>
+                                <div >
+                                    <p className='location'>{property.addressCity}, {property.addressState}</p>
+                                </div>
+                            </div>
+                            <div className='imageDiv'>
+                                <img src={imageUrl(property.mainImage)} alt="" />
                             </div>
                         </div>
-                        <div className='deleteUserEditActions'>
-                            <button onClick={() => {
-                                enableScroll()
-                                setConfirmDeleteModal(false)
-                            }} className='confirmUserChange'>Cancel</button>
-                            <button onClick={handlePropertyDelete} className='deleteUser'>Delete</button>
+                        <div className='infoDiv'>
+                            <p className='price'>${Intl.NumberFormat().format(property.price)}</p>
+                            <p className='beds-baths-sqft'>
+                                <span className='beforeIcon'> {property.beds ? property.beds : '--'} </span> |
+                                <span className='beforeIcon'> {property.baths ? property.baths : '--'} </span> |
+                                <span className='beforeIcon'> {Intl.NumberFormat().format(property.lotAreaUnit == 'sqft' ? property.lotSize : parseInt(property.lotSize * 43560))} sqft </span> -
+                                <span> {property.statusText} </span>
+                            </p>
+                            <p className='address'>{property.address}</p>
                         </div>
                     </div>
-                </div>
-                <div onClick={() => setConfirmDeleteModal(false)} className='generalModalBackground'></div>
-            </aside>}
+                ))
+                )}
+            </div>
+            {confirmDeleteModal && <ConfirmDeleteProperty
+                handlePropertyDelete={handlePropertyDelete}
+                setConfirmDeleteModal={setConfirmDeleteModal}
+                confirmDeleteModal={confirmDeleteModal}
+            />}
             {editPropertyModal && <EditPropertyModal
                 setResults={setResults}
-                changeSuccessMessage={props.changeSuccessMessage}
                 editProperty={editPropertyModal}
                 setEditProperty={setEditPropertyModal}
             />}
-
-        </>
+        </div>
     )
 }
 

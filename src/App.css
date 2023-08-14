@@ -168,6 +168,7 @@ body {
     padding: 20px 20px 20px 20px;
     box-shadow: 0px 0px 5px 2px #c0c0c03d;
     box-sizing: border-box;
+    font-weight: 500;
 }
 
 /* Modal */
@@ -259,7 +260,7 @@ body {
 
 /* Favorite message */
 
-.favoriteButton, .removeFavoriteButton, .submitButton {
+.favoriteButton, .removeFavoriteButton, .submitButton, .deleteUserPropertiesButton, .editUserPropertiesButton {
     padding: 8px 12px;
     border: 0;
     outline: 0;
@@ -276,11 +277,21 @@ body {
     transition: all ease .3s;
 }
 
-.favoriteButton:hover, .removeFavoriteButton:hover {
+.favoriteButton, .removeFavoriteButton, .submitButton, .editUserPropertiesButton {
+    background-color: #1f7cff;
+}
+.favoriteButton:hover, .removeFavoriteButton:hover, .editUserPropertiesButton:hover {
     background-color: #0464ea;
 }
 
-.favoriteButton::before, .removeFavoriteButton::before {
+.deleteUserPropertiesButton {
+    background-color: #0755c2;
+}
+.deleteUserPropertiesButton:hover {
+    background-color: #0043a2;
+}
+
+.favoriteButton::before, .removeFavoriteButton::before, .deleteUserPropertiesButton::before, .editUserPropertiesButton::before {
     content: '';
     display: inline-block;
     background-repeat: no-repeat;
@@ -294,10 +305,13 @@ body {
     background-size: 20px;
     background-image: url(assets/icons/favorite.svg);
 }
-.removeFavoriteButton::before {
+.removeFavoriteButton::before, .deleteUserPropertiesButton::before {
     background-size: 15px;
     background-image: url(assets/icons/trash.svg);
-
+}
+.editUserPropertiesButton::before {
+    background-size: 16px;
+    background-image: url(assets/icons/edit-property.svg);
 }
 
 .favoriteButtonActive::before {

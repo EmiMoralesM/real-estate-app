@@ -85,7 +85,6 @@ function PropertyDetails(props) {
     const handleSubmit = async (e) => {
         setSubmitActive(true)
         if (checkInputs('all')) {
-            console.log('upload property...');
             await axios.post(`${SERVER_URL}/postProperty`, {
                 statusType: 'FOR_SALE',
                 statusText: homeType,
@@ -105,30 +104,28 @@ function PropertyDetails(props) {
                     longitude: props.longitude,
                 },
             })
-                .then(data => {
-                    console.log('data');
-                    const imagesData = new FormData()
-                    imagesData.append('imagesData', mainImage)
-                    otherImages.forEach(image => {
-                        imagesData.append('imagesData', image)
-                    });
-                    console.log(mainImage);
-                    console.log(otherImages);
-                    axios.patch(`${SERVER_URL}/postPropertyImages/${data.data._id}`, imagesData)
-                        .then(res => {
-                            console.log('image');
-                            props.setPropertyId(data.data._id)
-                            console.log(data.data._id);
-                            axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { yourProperties: [...user.yourProperties, data.data._id] })
+                .then(async data => {
+                    const mainImg = new FormData()
+                    mainImg.append('newMainImg', mainImage)
+                    await axios.patch(`${SERVER_URL}/postPropertyMainImage/${data.data._id}`, mainImg)
+                        .then(async res => {
+                            const otherImgs = new FormData();
+                            otherImages.forEach(image => {
+                                otherImgs.append('newOtherImages', image);
+                            });
+                            await axios.patch(`${SERVER_URL}/postPropertyOtherImages/${data.data._id}`, otherImgs)
                                 .then(res => {
-                                    setUser(res.data)
-                                    console.log(res.data);
-                                    // location = '../propertyPublished'
+                                    axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { yourProperties: [...user.yourProperties, data.data._id] })
+                                        .then(res => {
+                                            setUser(res.data)
+                                            // location = '../propertyPublished'
+                                        })
+                                    setSubmitActive(false)
                                 })
-                            setSubmitActive(false)
                         })
+
                 })
-                // props.setPropertyId('64bf54767ddbcab441138187')
+            // props.setPropertyId('64bf54767ddbcab441138187')
 
         } else {
             setSubmitActive(false)

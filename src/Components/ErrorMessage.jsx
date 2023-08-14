@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { Context } from '../assets/Context'
 
 function ErrorMessage(props) {
+  const { errorMessage } = useContext(Context)
   return (
     <aside className='errorMessage'>
-        <p>{props.errorMessage}</p>
+        <p>{errorMessage}</p>
     </aside>
   )
 }

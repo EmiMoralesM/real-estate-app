@@ -7,7 +7,7 @@ import profilePic from '../assets/icons/profile.png'
 import { Context } from '../assets/Context'
 
 function Header(props) {
-  const { SERVER_URL, useOutsideClick, user, setUser } = useContext(Context)
+  const { SERVER_URL, useOutsideClick, user, setUser, changeSuccessMessage } = useContext(Context)
   const [profileSubMenu, setProfileSubMenu] = useState(false)
 
   // This returns a reference. And creates an event listener that will activate with every click outside the reference. (form Context.jsx)
@@ -45,7 +45,7 @@ function Header(props) {
                   <hr />
                   <button className='logOutButton' onClick={() => {
                     setUser({})
-                    props.changeSuccessMessage('Succesfully signed out!')
+                    changeSuccessMessage('Succesfully signed out!')
                   }}>Sign Out</button>
                 </aside>
               }

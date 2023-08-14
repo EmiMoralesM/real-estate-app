@@ -31,11 +31,12 @@ export function ContextProvider({ children }) {
 
         return ref
     }
-    
+
+    // Format the image route
     const imageUrl = (image) => {
-        if(image.includes('http')){
+        if (image.includes('http')) {
             return image
-        } else{
+        } else {
             return `${SERVER_URL}/images/${image}`
         }
     }
@@ -48,8 +49,20 @@ export function ContextProvider({ children }) {
         document.body.classList.remove("noScroll");
     }
 
+    const [successMessage, setSuccessMessage] = useState('')
+    const changeSuccessMessage = (message) => {
+        setSuccessMessage(message)
+        setTimeout(() => setSuccessMessage(''), 4200)
+    }
+
+    const [errorMessage, setErrorMessage] = useState('')
+    const changeErrorMessage = (message) => {
+        setErrorMessage(message)
+        setTimeout(() => setErrorMessage(''), 4200)
+    }
+
     return (
-        <Context.Provider value={{ SERVER_URL, useOutsideClick, user, setUser, hometypes_array, disableScroll, enableScroll, imageUrl }}>
+        <Context.Provider value={{ SERVER_URL, useOutsideClick, user, setUser, hometypes_array, disableScroll, enableScroll, imageUrl, successMessage, changeSuccessMessage, errorMessage, changeErrorMessage }}>
             {children}
         </Context.Provider>
     )

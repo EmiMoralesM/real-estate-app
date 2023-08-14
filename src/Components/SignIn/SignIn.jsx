@@ -9,7 +9,7 @@ import { Context } from '../../assets/Context'
 
 function SignIn(props) {
 
-    const { SERVER_URL, setUser } = useContext(Context)
+    const { SERVER_URL, setUser, changeSuccessMessage } = useContext(Context)
     const [email, setEmail] = useState('')
     const [emailError, setEmailError] = useState('')
 
@@ -49,7 +49,7 @@ function SignIn(props) {
             axios.get(`${SERVER_URL}/getUser?email=${email}&password=${password}`)
                 .then(res => {
                     if (res.data.email) {
-                        props.changeSuccessMessage(`Welcome back ${res.data.name}!`)
+                        changeSuccessMessage(`Welcome back ${res.data.name}!`)
                         props.setSignInModalOpen(false)
                         setUser(res.data)
                         console.log(res.data);

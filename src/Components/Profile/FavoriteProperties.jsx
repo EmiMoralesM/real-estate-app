@@ -6,7 +6,7 @@ import images from '../../assets/icons/images.svg'
 
 
 function FavoriteProperties(props) {
-    const { SERVER_URL, user, setUser, imageUrl } = useContext(Context)
+    const { SERVER_URL, user, setUser, imageUrl, changeSuccessMessage } = useContext(Context)
     const [favProperties, setFavProperties] = useState([])
 
     useEffect(() => {
@@ -26,7 +26,7 @@ function FavoriteProperties(props) {
         await axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { favorites: user.favorites.filter(favProp => favProp != propId) })
             .then(res => {
                 setUser(res.data)
-                props.changeSuccessMessage('Property removed from favorites!')
+                changeSuccessMessage('Property removed from favorites!')
                 setFavProperties(prevFavProperties => prevFavProperties.filter(prop => prop._id != propId))
             })
     }

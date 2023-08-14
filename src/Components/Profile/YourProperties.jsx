@@ -3,11 +3,16 @@ import { Context } from '../../assets/Context';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import images from '../../assets/icons/images.svg'
+import EditPropertyModal from '../Modals/EditPropertyModal';
+import ConfirmDeleteProperty from '../Modals/ConfirmDeleteProperty';
 
 
 function FavoriteProperties(props) {
-    const { SERVER_URL, user, setUser, imageUrl } = useContext(Context)
+    const { SERVER_URL, user, setUser, imageUrl, enableScroll, disableScroll, changeSuccessMessage } = useContext(Context)
     const [yourProperties, setYourProperties] = useState([])
+
+    const [confirmDeleteModal, setConfirmDeleteModal] = useState(false)
+    const [editPropertyModal, setEditPropertyModal] = useState(false)
 
     useEffect(() => {
         setYourProperties([])
@@ -21,16 +26,23 @@ function FavoriteProperties(props) {
         });
     }, [])
 
-    // const removeFavorite = async (propId) => {
-    //     await axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { yourProperties: user.yourProperties.filter(yourProp => yourProp != propId) })
-    //         .then(res => {
-    //             setUser(res.data)
-    //             props.changeSuccessMessage('Property removed from favorites!')
-    //             setYourProperties(prevYourProperties => prevYourProperties.filter(prop => prop._id != propId))
-    //         })
-    // }
+    const handlePropertyDelete = async () => {
+        await axios.delete(`${SERVER_URL}/deleteProperty/${confirmDeleteModal._id}`)
+            .then(async res => {
+                await axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { yourProperties: user.yourProperties.filter(yourProp => yourProp != confirmDeleteModal._id) })
+                    .then(res => {
+                        changeSuccessMessage(`Property deleted!`)
+                        enableScroll()
+                        setUser(res.data)
+                        setYourProperties(prevYourProperties => prevYourProperties.filter(prop => prop._id != confirmDeleteModal._id))
+                        setConfirmDeleteModal(false)
+                    })
+            })
+            .catch(err => console.log(`Error: ${err}`))
+    }
 
     return (
+
         <div className='whiteBackground profileContentDiv'>
             <div>
                 <h2>Your Published Properties</h2>
@@ -43,9 +55,6 @@ function FavoriteProperties(props) {
                         </div>
                     ) : (
                         yourProperties.map(prop => (
-                            // <div>
-                            //     <p>{prop.price}</p>
-                            // </div>
                             <div key={prop._id} className='favoriteProperty'>
                                 <Link
                                     to={`/properties/details/${prop.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${prop._id}`}
@@ -59,14 +68,31 @@ function FavoriteProperties(props) {
                                         <p>{prop.address}</p>
                                     </div>
                                 </Link>
-                                <div>
-                                    <button className='removeFavoriteButton' onClick={() => removeFavorite(prop._id)}>Remove</button>
+                                <div className='yourPropertiesButtons'>
+                                    <button className='editUserPropertiesButton' onClick={() => {
+                                        disableScroll()
+                                        setEditPropertyModal(prop)
+                                    }}>Edit Property</button>
+                                    <button className='deleteUserPropertiesButton' onClick={() => {
+                                        disableScroll()
+                                        setConfirmDeleteModal(prop)
+                                    }}>Delete Property</button>
                                 </div>
                             </div>
                         ))
                     )}
                 </div>
             </div>
+            {confirmDeleteModal && <ConfirmDeleteProperty 
+                handlePropertyDelete={handlePropertyDelete}
+                setConfirmDeleteModal={setConfirmDeleteModal}
+                confirmDeleteModal={confirmDeleteModal}
+            />}
+            {editPropertyModal && <EditPropertyModal
+                setResults={setYourProperties}
+                editProperty={editPropertyModal}
+                setEditProperty={setEditPropertyModal}
+            />}
         </div>
     )
 }

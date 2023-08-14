@@ -31,15 +31,9 @@ function Profile(props) {
 				</ul>
 			</div>
 
-			{profilePage === 'accountSettings' && <AccountSettings
-				changeSuccessMessage={props.changeSuccessMessage}
-			/>}
-			{profilePage === 'favoriteProperties' && <FavoriteProperties
-				changeSuccessMessage={props.changeSuccessMessage}
-			/>}
-			{profilePage === 'yourProperties' && <YourProperties
-				changeSuccessMessage={props.changeSuccessMessage}
-			/>}
+			{profilePage === 'accountSettings' && <AccountSettings />}
+			{profilePage === 'favoriteProperties' && <FavoriteProperties />}
+			{profilePage === 'yourProperties' && <YourProperties />}
 
 		</main >
 	)

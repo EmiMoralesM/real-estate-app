@@ -1,0 +1,53 @@
+footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 150px 50px 100px;
+    font-family: 'Merriweather Sans', sans-serif;
+    background-color: rgb(246, 246, 246);
+    box-shadow: 0px 0px 5px 2px #7474743d;
+}
+
+footer .logoAndCopy {
+    margin-top: 20px;
+}
+footer .logoAndCopy > p:nth-child(2) {
+    font-weight: 600;
+    margin-top: 20px;
+    font-size: 15px;
+    color: rgb(68, 68, 68);
+}
+
+footer .menuFooter {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    margin-top: 30px;
+}
+footer .menuFooter > div > a {
+    color: rgb(19, 19, 19);
+    font-weight: 700;
+    font-size: 20px;
+    margin: 0;
+    text-decoration: none;
+    transition: all ease .3s;
+}
+footer .menuFooter > div > a:hover {
+    color: rgb(54, 54, 54);
+}
+footer .menuFooter > div > ul {
+    padding: 0;
+    margin-top: 35px;
+}
+footer .menuFooter > div > ul li {
+    list-style-type: none;
+    margin-top: 18px;
+}
+footer .menuFooter > div > ul li a {
+    font-weight: 500;
+    color: rgb(47, 47, 47);
+    text-decoration: none;
+    transition: all ease .3s;
+}
+footer .menuFooter > div > ul li a:hover {
+    color: rgb(126, 126, 126);
+}

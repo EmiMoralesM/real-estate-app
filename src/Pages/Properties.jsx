@@ -27,8 +27,6 @@ function Properties(props) {
       <Homes />
       {propertyDetail &&
         <DetailPropertyModal
-          changeSuccessMessage={props.changeSuccessMessage}
-          changeErrorMessage={props.changeErrorMessage}
           setPropertyDetail={setPropertyDetail}
           propertyDetail={propertyDetail}
         />

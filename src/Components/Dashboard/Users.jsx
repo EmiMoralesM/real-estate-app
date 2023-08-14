@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { Context } from '../../assets/Context'
 
 function Users(props) {
-    const { SERVER_URL } = useContext(Context)
+    const { SERVER_URL, changeSuccessMessage } = useContext(Context)
     const [users, setUsers] = useState([])
     const [userEdit, setUserEdit] = useState({})
     const [modalEdit, setModalEdit] = useState(false)
@@ -41,7 +41,7 @@ function Users(props) {
         setModalEdit(false)
         // Update users in the page (So that you dont have to do another fetch form the database)
         setUsers(prevUsers => prevUsers.map(user => user.email === userEdit.email ? userEdit : user))
-        props.changeSuccessMessage(`User (${userEdit.email}) updated!`)
+        changeSuccessMessage(`User (${userEdit.email}) updated!`)
     }
 
     const handleUserDelete = async () => {
@@ -49,7 +49,7 @@ function Users(props) {
             .then(res => {
                 setConfirmDeleteModal(false)
                 setModalEdit(false)
-                props.changeSuccessMessage(`User deleted!`)
+                changeSuccessMessage(`User deleted!`)
                 setUsers(prevUsers => prevUsers.filter(user => user.email !== userEdit.email))
             })
             .catch(err => console.log(`Error: ${err}`))

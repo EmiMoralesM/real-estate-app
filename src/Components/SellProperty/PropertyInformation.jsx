@@ -29,7 +29,7 @@ function PropertyInformation(props) {
                 addressZipCode={props.addressZipCode}
                 latitude={latitude}
                 longitude={longitude}
-                setPropertyId={props.setPropertyId}
+                // setPropertyId={props.setPropertyId}
             />}
         </section>
     )
