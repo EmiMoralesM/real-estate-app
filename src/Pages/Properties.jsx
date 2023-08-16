@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { Wrapper } from '@googlemaps/react-wrapper'
 
 import '../styles/properties.css'
 
@@ -19,11 +20,17 @@ function Properties(props) {
       // Open the propery detail modal 
     }
   }, [location.pathname])
-
+  
   return (
     <main className='mainProperties'>
-      <Filters/>
-      <Map />
+      <Filters />
+
+      <section className='mapSection'>
+        <Wrapper apiKey='AIzaSyDYd25d8gbKq9Voxfu5aFxog9SPnT4OZTU' version='beta' libraries={['marker']} >
+          <Map />
+        </Wrapper>
+      </section>
+      
       <Homes />
       {propertyDetail &&
         <DetailPropertyModal

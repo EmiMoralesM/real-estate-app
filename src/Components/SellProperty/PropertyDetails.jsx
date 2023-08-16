@@ -100,8 +100,8 @@ function PropertyDetails(props) {
                 addressState: props.addressState,
                 addressZipcode: props.addressZipCode,
                 coordinates: {
-                    latitude: props.latitude,
-                    longitude: props.longitude,
+                    lat: props.lat,
+                    lng: props.lng,
                 },
             })
                 .then(async data => {

@@ -84,7 +84,7 @@ function DetailProductModal(props) {
                                 <hr />
                                 <div className='descriptionDiv'>
                                     <h3>Location</h3>
-                                    <iframe className='descriptionMap' src={`https://maps.google.com/maps?q=${property.coordinates.latitude},${property.coordinates.longitude}&t=&z=15&ie=UTF8&iwloc=&output=embed`} />
+                                    <iframe className='descriptionMap' src={`https://maps.google.com/maps?q=${property.coordinates.lat},${property.coordinates.lng}&t=&z=15&ie=UTF8&iwloc=&output=embed`} />
                                 </div>
 
                             </div>

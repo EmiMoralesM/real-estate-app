@@ -304,9 +304,65 @@
 .map{
     width: 100%;
     height: 100%;
-    background-image: url(../assets/imgs/map.png);
-    background-size: cover;
 }
+.mapMarker{
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    display: block;
+    border: 2px solid #ffffff;
+    background-color: #003e96;
+}
+
+.mapMarkerInfo{
+    position: absolute;
+    margin-top: -82px;
+    margin-left: -100px;
+    width: 210px;
+    box-sizing: border-box;
+    display: flex;
+    background-color: white;
+    border-radius: 5px;
+    padding: 7px;
+    box-shadow: 0px 0px 5px 2px #ababab3d;
+    transition: all ease .3s;
+    /* opacity: 0; */
+}
+.mapMarkerInfoHover{
+    opacity: 1!important;
+
+}
+.mapMarkerInfo .markerImg{
+    width: 90px;
+    height: 60px;
+    display: flex;
+    border-radius: 5px;
+    justify-content: center;
+    overflow: hidden;
+    margin-right: 10px;
+}
+.mapMarkerInfo .markerImg img{
+    width: 90px;
+}
+.mapMarkerInfo .markerData > h3{
+    margin: 0;
+    font-size: 18px;
+}
+.mapMarkerInfo .markerData > p{
+    margin: 5px 0 0 0;
+}
+.mapMarkerInfo .markerData .markerBaBd{
+    display: flex;
+
+}
+.mapMarkerInfo .markerData .markerBaBd p{
+    margin: 4px 5px 0 0 ;
+    font-size: 13px;
+
+}
+
+
+
 
 /* Home properties */
 

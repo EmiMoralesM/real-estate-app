@@ -21,7 +21,7 @@ function MapAddress(props) {
           <button className='closeModal' onClick={() => setModalAddress(false)}></button>
           <div className='generalModalContent'>
             <h3>Modify Location</h3>
-            <p className='lat_long'>{props.longitude}, {props.latitude}</p>
+            <p className='lat_long'>{props.lng}, {props.lat}</p>
 
             <div className='mapAddress'></div>
             <div className='addressActionsDiv'>

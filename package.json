@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@googlemaps/react-wrapper": "^1.1.35",
     "axios": "^1.4.0",
     "chart.js": "^4.3.0",
     "react": "^18.2.0",
@@ -18,7 +19,7 @@
     "react-router-dom": "^6.14.1"
   },
   "devDependencies": {
-    "@types/react": "^18.2.14",
+    "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.6",
     "@vitejs/plugin-react": "^4.0.1",
     "eslint": "^8.44.0",

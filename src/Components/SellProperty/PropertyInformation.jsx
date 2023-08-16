@@ -6,8 +6,8 @@ function PropertyInformation(props) {
     useEffect(() => {
         if(!props.addressStreet || !props.addressCity || !props.addressZipCode){ location = '/sellProperty'} 
     })
-    const [longitude, setLongitude] = useState(48.464444)
-    const [latitude, setLatitude] = useState(-105.84886)
+    const [lng, setLng] = useState(48.464444)
+    const [lat, setLat] = useState(-105.84886)
 
     return (
         <section className='mapAddressSection contentSellProp'>
@@ -17,18 +17,18 @@ function PropertyInformation(props) {
                 <hr />
             </div>
             {props.sellLocation.includes('mapAddress') && <MapAddress
-                longitude={longitude}
-                setLongitude={setLongitude}
-                latitude={latitude}
-                setLatitude={setLatitude}
+                lng={lng}
+                setLng={setLng}
+                lat={lat}
+                setLat={setLat}
             />}
             {props.sellLocation.includes('propertyDetails') && <PropertyDetails
                 addressStreet={props.addressStreet}
                 addressCity={props.addressCity}
                 addressState={props.addressState}
                 addressZipCode={props.addressZipCode}
-                latitude={latitude}
-                longitude={longitude}
+                lat={lat}
+                lng={lng}
                 // setPropertyId={props.setPropertyId}
             />}
         </section>
