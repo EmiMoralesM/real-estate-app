@@ -11,15 +11,15 @@ import DetailPropertyModal from './DetailPropertyModal'
 
 function Properties(props) {
   const [propertyDetail, setPropertyDetail] = useState('')
-
-  // If we are trying to access a particular property
+  const [properties, setProperties] = useState()
+  /* // If we are trying to access a particular property
   useEffect(() => {
     if (location.pathname.includes('details')) {
       // Set propertyDetail to the _id of the property accessed.
       setPropertyDetail(location.pathname.split('/').pop())
       // Open the propery detail modal 
     }
-  }, [location.pathname])
+  }, [location.pathname]) */
   
   return (
     <main className='mainProperties'>
@@ -27,11 +27,11 @@ function Properties(props) {
 
       <section className='mapSection'>
         <Wrapper apiKey='AIzaSyDYd25d8gbKq9Voxfu5aFxog9SPnT4OZTU' version='beta' libraries={['marker']} >
-          <Map />
+          <Map properties={properties} setPropertyDetail={setPropertyDetail}/>
         </Wrapper>
       </section>
       
-      <Homes />
+      <Homes properties={properties} setProperties={setProperties} setPropertyDetail={setPropertyDetail}/>
       {propertyDetail &&
         <DetailPropertyModal
           setPropertyDetail={setPropertyDetail}

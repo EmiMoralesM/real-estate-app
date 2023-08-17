@@ -105,16 +105,21 @@ function PropertyDetails(props) {
                 },
             })
                 .then(async data => {
+                    console.log('data');
                     const mainImg = new FormData()
                     mainImg.append('newMainImg', mainImage)
                     await axios.patch(`${SERVER_URL}/postPropertyMainImage/${data.data._id}`, mainImg)
                         .then(async res => {
+                            console.log('main img');
+                            console.log(res);
                             const otherImgs = new FormData();
                             otherImages.forEach(image => {
                                 otherImgs.append('newOtherImages', image);
                             });
                             await axios.patch(`${SERVER_URL}/postPropertyOtherImages/${data.data._id}`, otherImgs)
                                 .then(res => {
+                                    console.log('other imgs');
+                                    console.log(res);
                                     axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { yourProperties: [...user.yourProperties, data.data._id] })
                                         .then(res => {
                                             setUser(res.data)

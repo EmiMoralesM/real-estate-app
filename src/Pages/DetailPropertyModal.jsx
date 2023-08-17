@@ -14,11 +14,12 @@ function DetailProductModal(props) {
 
     useEffect(() => {
         axios.get(`${SERVER_URL}/getProperty/${props.propertyDetail}`)
-            .then(data => {
-                setProperty(data.data)
-                setOtherImages(data.data.otherImages.map(image => <img className='image' key={image} src={imageUrl(image)} alt="" />))
-                setIsFavorite(user.favorites.includes(data.data._id) ? true : false)
-            })
+        .then(data => {
+            setProperty(data.data)
+            setOtherImages(data.data.otherImages.map(image => <img className='image' key={image} src={imageUrl(image)} alt="" />))
+            setIsFavorite(user.favorites.includes(data.data._id) ? true : false)
+            // location.pathname = `/properties/details/${data.data.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${data.data._id}`
+        })
     }, [])
 
     const toggleFavorite = () => {

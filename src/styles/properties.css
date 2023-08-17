@@ -312,7 +312,19 @@
     display: block;
     border: 2px solid #ffffff;
     background-color: #003e96;
+    transition: all ease .2s;
+    
 }
+.mapMarkerHover{
+    background-color: #006aff;
+}
+/* .mapMarkerDiv{
+    z-index: 0;
+    position: relative;
+}
+.mapMarkerDivHover{
+    z-index: 99!important;
+} */
 
 .mapMarkerInfo{
     position: absolute;
@@ -326,11 +338,16 @@
     padding: 7px;
     box-shadow: 0px 0px 5px 2px #ababab3d;
     transition: all ease .3s;
-    /* opacity: 0; */
+    animation: opacityEase .3s linear;
 }
-.mapMarkerInfoHover{
-    opacity: 1!important;
-
+@keyframes opacityEase {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+    
 }
 .mapMarkerInfo .markerImg{
     width: 90px;

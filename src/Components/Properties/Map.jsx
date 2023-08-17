@@ -1,27 +1,22 @@
 import axios from 'axios'
-import React, { Children, useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Context } from '../../assets/Context'
 import { createRoot } from "react-dom/client"
 
 
-function Map() {
+function Map(props) {
     const { SERVER_URL, imageUrl } = useContext(Context)
     const [map, setMap] = useState()
-    const [properties, setProperties] = useState()
     const mapRef = useRef()
     const mapOptions = {
         mapId: '49c3f173e021d634',
         center: { lat: 36.778259, lng: -119.417931 },
         zoom: 6,
-        disableDefaultUI: true
+        // disableDefaultUI: true
     }
 
     useEffect(() => {
         setMap(new window.google.maps.Map(mapRef.current, mapOptions))
-        axios.get(`${SERVER_URL}/latestProperties?limit=6`)
-            .then((data) => setProperties(data.data))
-            .catch(err => console.log(`Error: ${err}`))
-
     }, [])
 
     const [propertyHover, setPropertyHover] = useState('')
@@ -30,16 +25,15 @@ function Map() {
         <>
             <div ref={mapRef} className='map' />
             {/* The content of the maker */}
-            {map && properties && properties.map(property => (
+            {map && props.properties && props.properties.map(property => (
                 <Marker
                     key={property._id}
                     map={map}
-                    onClick={() => setPropertyHover(property._id)}
-                    onMouseEnter={() => setPropertyHover(property._id)}
                     setPropertyHover={setPropertyHover}
                     coordinates={property.coordinates}
                 >
-                    <div>
+                    <div onClick={() => props.setPropertyDetail(property._id)}>
+                        {/* className={`mapMarkerDiv ${propertyHover === property._id ? 'mapMarkerDivHover' : ''}`} */}
                         {propertyHover == property._id && <div className='mapMarkerInfo'>
                             <div className='markerImg'>
                                 <img src={imageUrl(property.mainImage)} alt="" />
@@ -53,7 +47,7 @@ function Map() {
                                 <p>{property.lotAreaUnit == 'acres' ? property.lotSize.toFixed(3) : property.lotSize} {property.lotAreaUnit}</p>
                             </div>
                         </div>}
-                        <div className={`mapMarker ${propertyHover === property._id ? 'mapMarkerHover' : ''}`}></div>
+                        <div className={`mapMarker ${propertyHover === property._id ? 'mapMarkerHover' : ''}`} onMouseEnter={() => setPropertyHover(property._id)} onMouseLeave={() => setPropertyHover()}></div>
                     </div>
                 </Marker>)
             )}
@@ -76,30 +70,10 @@ function Marker(props) {
                 position: props.coordinates,
                 content: container
             })
+            // This makes the other events work (review)
+            if (markerRef.current) { markerRef.current.addListener('gmp-click', () => { }) }
         }
     }, [])
-
-    useEffect(() => {
-        if (markerRef.current) {
-            markerRef.current.addListener('click', () => {
-                // Handle marker click event here
-                console.log('Marker clicked');
-                // You can call the onClick function from props here if needed
-                if (props.onClick) {
-                    props.onClick();
-                }
-            });
-            /* markerRef.current.addListener('mouseover', () => {
-                // Handle marker click event here
-                console.log('Marker hovered');
-                // You can call the onClick function from props here if needed
-                if (props.onMouseEnter) {
-                    props.onMouseEnter();
-                }
-            }); */
-        }
-    }, []);
-
 
     useEffect(() => {
         // This updates the content of the div that was created before, with the info of the property. 

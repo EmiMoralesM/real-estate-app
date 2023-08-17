@@ -4,7 +4,7 @@ import { Context } from '../../assets/Context'
 import { Link } from 'react-router-dom'
 
 function Homes(props) {
-  const { SERVER_URL, useOutsideClick, imageUrl } = useContext(Context)
+  const { SERVER_URL, useOutsideClick, imageUrl, hometypes_array } = useContext(Context)
 
   const sort_options_array = ['Homes for You', 'Price (Low to High)', 'Price (High to Low)', 'Square Feet']
 
@@ -13,18 +13,31 @@ function Homes(props) {
 
   const refSort = useOutsideClick(() => setSortResultsOpen(false))
 
-  const [properties, setProperties] = useState()
+  const [minPrice, setMinPrice] = useState()
+  const [maxPrice, setMaxPrice] = useState()
+  const [minBaths, setMinBaths] = useState()
+  const [minBeds, setMinBeds] = useState()
+  const [homeTypes, setHomeTypes] = useState([])
+
   useEffect(() => {
-    axios.get(`${SERVER_URL}/latestProperties?limit=6`)
-      .then((data) => setProperties(data.data))
-      .catch(err => console.log(`Error: ${err}`))
-  }, [])
+    props.setProperties()
+    async function fetchData() {
+      // Fetch the properties with the filters specified 
+      await axios.get(axios.get(`${SERVER_URL}/getProperties?minPrice=${minPrice ? minPrice : 0}&maxPrice=${maxPrice ? maxPrice : 0}&minBaths=${minBaths ? minBaths : 0}&minBeds=${minBeds ? minBeds : 0}&homeTypes=${homeTypes.length == 0 ? hometypes_array : homeTypes}`)
+        .then((data) => {
+          console.log(data.data);
+          props.setProperties(data.data)
+        })
+        .catch(err => console.log(`Error: ${err}`)))
+    }
+    fetchData();
+  }, [maxPrice, minPrice, minBaths, minBeds, homeTypes])
 
   return (
     <section className='homesSection'>
       <h1>Search Results</h1>
       <div className='homesSectionDescriptionDiv'>
-        <p className='resultsCout'>{ } 29,093 results</p>
+        {<p className='resultsCout'>{props.properties && props.properties.length} Results</p>}
         <div className='sortButton' ref={refSort} onClick={() => setSortResultsOpen(prevSortResultsOpen => !prevSortResultsOpen)}>
           <p>Sort: {sortResults}</p>
           <p className={`arrow ${sortResultsOpen ? 'arrowActive' : ''}`}></p>
@@ -38,12 +51,24 @@ function Homes(props) {
         </div>
       </div>
       <div className='propertiesDiv homesDiv'>
-        {(!properties) ? (
-          <p>Loading...</p>
+        {(!props.properties) ? (
+          <>
+            {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
+              <div key={i} className='loadingProperty loadingPropertyMap'>
+                <div className='loadingPropertyImage' />
+                <div className='infoDiv'>
+                  <span className='priceLoading' />
+                  <span className='infoLoading' />
+                  <span className='infoLoading' />
+                </div>
+              </div>
+            ))}
+          </>
         ) : (
-          properties.map((property, i) => (
+          props.properties.map((property, i) => (
             <Link
-              to={`/properties/details/${property.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${property._id}`}
+              // to={`/properties/details/${property.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${property._id}`}
+              onClick={() => props.setPropertyDetail(property._id)}
               key={i}
               className='propertyDiv'
             >

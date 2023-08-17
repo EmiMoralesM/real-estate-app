@@ -352,9 +352,15 @@ body {
 
 /* Loadings */
 
-.loadingProperty{
+.loadingPropertyMap{
+    height: 340px;
+    width: 49%;
+}
+.loadingPropertyDashboard{
     height: 340px;
     width: 350px;
+}
+.loadingProperty{
     margin-bottom: 30px;
     background-color: rgb(209, 209, 209);
     border-radius: 10px;
