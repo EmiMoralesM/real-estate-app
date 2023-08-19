@@ -428,6 +428,7 @@
     padding: 9px;
     padding-left: 25px;
     box-sizing: border-box;
+    margin: 0;
 }
 
 /* Images */
@@ -591,6 +592,7 @@
     outline: 0;
     transition: all ease .3s;
     display: flex;
+    margin: 0;
     align-items: center;
 }
 

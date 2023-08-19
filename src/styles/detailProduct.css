@@ -200,3 +200,18 @@
 .descriptionDiv p{
     font-size: 15px;
 }
+
+/* Contact owner */
+
+.contactOwnerModal> .generalModalDiv{
+    height: 650px;
+    width: 550px;
+}
+
+.sendOwnerMessage{
+    display: flex;
+    justify-content: center;
+}
+.sendOwnerMessage > button{
+    width: 100%;
+}

@@ -18,7 +18,12 @@
 .filterButton {
     padding: 9px 20px;
 }
-
+.removeFiltersButton{
+    color: #979797;
+}
+.removeFiltersButton:hover{
+    color: #006aff;
+}
 .locationSearchDiv {
     display: flex;
     align-items: center;
@@ -53,6 +58,16 @@
     width: 8px;
     transform: rotate(-45deg);
     margin-top: -4px;
+}
+.x {
+    display: inline-block;
+    background-image: url(../assets/icons/x.svg);
+    background-size: 32px;
+    background-position: center center;
+    height: 15px;
+    opacity: .5;
+    width: 15px;
+    margin-left: 12px;
 }
 
 .arrowActive {

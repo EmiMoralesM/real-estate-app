@@ -7,7 +7,7 @@ export function ContextProvider({ children }) {
     // const SERVER_URL = 'https://real-estate-app-server.onrender.com'
     const SERVER_URL = 'http://localhost'
 
-    const hometypes_array = ['House', 'Townhome', 'Multy-family', 'Condo', 'Aparment']
+    const hometypes_array = ['House', 'Townhouse', 'Multy-family', 'Condo']
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')) : {})
 
     // Function to close pop ups when click outside

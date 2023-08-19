@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { Context } from '../../assets/Context';
 
 function Banner() {
+    const { hometypes_array } = useContext(Context)
     const [locationValue, setLocationValue] = useState('');
 
     const [isStateOpen, setIsStateOpen] = useState(false);
@@ -9,13 +11,12 @@ function Banner() {
 
     const [isTypeOpen, setIsTypeOpen] = useState(false);
     const [selectedTypeOption, setSelectedTypeOption] = useState('Any');
-    const typeOptions = ['Any', 'Houses', 'Townhomes', 'Multy-family', 'Condos', 'Aparments'];
 
     const toggleDropdown = (id) => {
         if (id == "state") setIsStateOpen(prevIsStateOpen => !prevIsStateOpen);
         if (id == "type") setIsTypeOpen(prevIsTypeOpen => !prevIsTypeOpen);
     };
-    
+
 
     return (
         <section className='bannerSection'>
@@ -65,7 +66,13 @@ function Banner() {
                             <input type="text" name='type' value={selectedTypeOption} readOnly />
                             {isTypeOpen && (
                                 <div className="options">
-                                    {typeOptions.map((option) => (
+                                    {selectedTypeOption != 'Any' ? <div
+                                        className="option-item"
+                                        onClick={() => setSelectedTypeOption('Any')}
+                                    >   
+                                        {'Any'}
+                                    </div> : ''}
+                                    {hometypes_array.map((option) => (
                                         selectedTypeOption != option ? <div
                                             className="option-item"
                                             key={option}

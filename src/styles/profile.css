@@ -155,20 +155,21 @@
 
 
 
-.profileModalDiv .generalModalContent label {
+.profileModalDiv .generalModalContent label, .contactOwnerModal .generalModalContent label {
     display: block;
     font-size: 16px;
     font-weight: 600;
     color: rgb(75, 75, 75);
 }
 
-.profileModalDiv .generalModalContent label span {
+.profileModalDiv .generalModalContent label span, .contactOwnerModal .generalModalContent label span {
     color: rgb(17, 17, 17);
 }
 
-.profileModalDiv .generalModalContent input {
+.generalModalContent input, .generalModalContent textarea  {
     width: calc(100% - 32px);
     padding: 10px 16px;
+    resize: none;
     background-color: rgb(246, 246, 250);
     border: 2px solid rgb(246, 246, 250);
     border-radius: 6px;
@@ -181,12 +182,12 @@
     transition: all ease .3s;
 }
 
-.profileModalDiv .generalModalContent input:hover {
+.generalModalContent input:hover, .generalModalContent textarea:hover  {
     border: 2px solid #72adff;
     outline: 1px solid rgb(255, 255, 255);
 }
 
-.profileModalDiv .generalModalContent input:focus-visible {
+.generalModalContent input:focus-visible, .generalModalContent textarea:focus-visible  {
     border: 2px solid #3287ff;
     outline: 1px solid rgb(255, 255, 255);
 }

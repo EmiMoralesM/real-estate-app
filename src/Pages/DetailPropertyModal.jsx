@@ -9,17 +9,32 @@ function DetailProductModal(props) {
     const [property, setProperty] = useState('')
     const [isFavorite, setIsFavorite] = useState(false)
     const [otherImages, setOtherImages] = useState([])
+    const [nameContact, setNameContact] = useState(user.name)
+    const [emailContact, setEmailContact] = useState(user.email)
+    const [messageContact, setMessageContact] = useState('')
 
     const [openContactModal, setOpenContactModal] = useState(false)
 
+    const sendMessageToOwner = async () => {
+        if (property.ownerEmail) {
+            console.log(property.ownerEmail);
+            console.log(nameContact);
+            console.log(emailContact);
+            console.log(messageContact);
+            await axios.patch(`${SERVER_URL}/updateUser/${property.ownerEmail}`, { notifications: ['aaa'] })
+                .then((res) => console.log(res.data))
+        }
+    }
+
     useEffect(() => {
         axios.get(`${SERVER_URL}/getProperty/${props.propertyDetail}`)
-        .then(data => {
-            setProperty(data.data)
-            setOtherImages(data.data.otherImages.map(image => <img className='image' key={image} src={imageUrl(image)} alt="" />))
-            setIsFavorite(user.favorites.includes(data.data._id) ? true : false)
-            // location.pathname = `/properties/details/${data.data.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${data.data._id}`
-        })
+            .then(data => {
+                setProperty(data.data)
+                setOtherImages(data.data.otherImages.map(image => <img className='image' key={image} src={imageUrl(image)} alt="" />))
+                setIsFavorite(user.favorites.includes(data.data._id) ? true : false)
+                setMessageContact(`Hi, I'm interested in ${data.data.address}.`)
+                // location.pathname = `/properties/details/${data.data.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${data.data._id}`
+            })
     }, [])
 
     const toggleFavorite = () => {
@@ -70,7 +85,7 @@ function DetailProductModal(props) {
                                 </p>
                                 <button className='contactAgent' onClick={() => {
                                     setOpenContactModal(true)
-                                }}>Contact Agent</button>
+                                }}>Contact Owner</button>
                                 <hr />
                             </div>
                             <div className='propertyInfoDiv'>
@@ -93,11 +108,26 @@ function DetailProductModal(props) {
                     </>
                 }
             </div>
-            {openContactModal && <aside className='generalModal '>
-                <div className={`generalModalDiv `}>
+            {openContactModal && <aside className='generalModal contactOwnerModal'>
+                <div className={`generalModalDiv`}>
                     <button className='closeModal' onClick={() => setOpenContactModal(false)}></button>
                     <div className='generalModalContent'>
-                        <h3>Contact agent</h3>
+                        <h3>Contact Owner</h3>
+                        <div>
+                            <label htmlFor="">Name</label>
+                            <input type="text" value={nameContact} onChange={(e) => setNameContact(e.target.value)} name="" id="" />
+                        </div>
+                        <div>
+                            <label htmlFor="">Email</label>
+                            <input type="text" value={emailContact} onChange={(e) => setEmailContact(e.target.value)} name="" id="" />
+                        </div>
+                        <div>
+                            <label htmlFor="">Message</label>
+                            <textarea name="" id="" value={messageContact} onChange={(e) => setMessageContact(e.target.value)} cols="30" rows="10"></textarea>
+                        </div>
+                        <div className='sendOwnerMessage'>
+                            <button className="button" onClick={sendMessageToOwner}>Send</button>
+                        </div>
                     </div>
                 </div>
                 <div onClick={() => setOpenContactModal(false)} className='generalModalBackground'></div>

@@ -1,17 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Wrapper } from '@googlemaps/react-wrapper'
+import React, { useState } from "react";
+import { Wrapper } from "@googlemaps/react-wrapper";
 
-import '../styles/properties.css'
+import "../styles/properties.css";
 
-import { Context } from '../assets/Context'
-import Filters from '../Components/Properties/Filters'
-import Map from '../Components/Properties/Map'
-import Homes from '../Components/Properties/Homes'
-import DetailPropertyModal from './DetailPropertyModal'
+import Filters from '../Components/Dashboard/ManageProperties/Filters'
+import Map from "../Components/Properties/Map";
+import Homes from "../Components/Properties/Homes";
+import DetailPropertyModal from "./DetailPropertyModal";
 
 function Properties(props) {
-  const [propertyDetail, setPropertyDetail] = useState('')
-  const [properties, setProperties] = useState()
+  const [propertyDetail, setPropertyDetail] = useState("");
+  const [properties, setProperties] = useState();
   /* // If we are trying to access a particular property
   useEffect(() => {
     if (location.pathname.includes('details')) {
@@ -20,26 +19,57 @@ function Properties(props) {
       // Open the propery detail modal 
     }
   }, [location.pathname]) */
-  
-  return (
-    <main className='mainProperties'>
-      <Filters />
+  const [minPrice, setMinPrice] = useState();
+  const [maxPrice, setMaxPrice] = useState();
+  const [minBaths, setMinBaths] = useState();
+  const [minBeds, setMinBeds] = useState();
+  const [homeTypes, setHomeTypes] = useState([]);
 
-      <section className='mapSection'>
-        <Wrapper apiKey='AIzaSyDYd25d8gbKq9Voxfu5aFxog9SPnT4OZTU' version='beta' libraries={['marker']} >
-          <Map properties={properties} setPropertyDetail={setPropertyDetail}/>
+  return (
+    <main className="mainProperties">
+      <section className="mapSection">
+        {/* <Map properties={properties} setPropertyDetail={setPropertyDetail} /> */}
+        <Wrapper
+          apiKey="AIzaSyDYd25d8gbKq9Voxfu5aFxog9SPnT4OZTU"
+          version="beta"
+          libraries={["marker"]}
+        >
+          <Map properties={properties} setPropertyDetail={setPropertyDetail} />
         </Wrapper>
       </section>
-      
-      <Homes properties={properties} setProperties={setProperties} setPropertyDetail={setPropertyDetail}/>
-      {propertyDetail &&
+      <header className="filtersHeader">
+        <Filters
+          minPrice={minPrice}
+          setMinPrice={setMinPrice}
+          maxPrice={maxPrice}
+          setMaxPrice={setMaxPrice}
+          minBaths={minBaths}
+          setMinBaths={setMinBaths}
+          minBeds={minBeds}
+          setMinBeds={setMinBeds}
+          homeTypes={homeTypes}
+          setHomeTypes={setHomeTypes}
+        />
+      </header>
+      <Homes
+        properties={properties}
+        setProperties={setProperties}
+        setPropertyDetail={setPropertyDetail}
+
+        minPrice={minPrice}
+        maxPrice={maxPrice}
+        minBaths={minBaths}
+        minBeds={minBeds}
+        homeTypes={homeTypes}
+      />
+      {propertyDetail && (
         <DetailPropertyModal
           setPropertyDetail={setPropertyDetail}
           propertyDetail={propertyDetail}
         />
-      }
+      )}
     </main>
-  )
+  );
 }
 
-export default Properties
+export default Properties;

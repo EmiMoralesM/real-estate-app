@@ -13,25 +13,18 @@ function Homes(props) {
 
   const refSort = useOutsideClick(() => setSortResultsOpen(false))
 
-  const [minPrice, setMinPrice] = useState()
-  const [maxPrice, setMaxPrice] = useState()
-  const [minBaths, setMinBaths] = useState()
-  const [minBeds, setMinBeds] = useState()
-  const [homeTypes, setHomeTypes] = useState([])
-
   useEffect(() => {
     props.setProperties()
     async function fetchData() {
-      // Fetch the properties with the filters specified 
-      await axios.get(axios.get(`${SERVER_URL}/getProperties?minPrice=${minPrice ? minPrice : 0}&maxPrice=${maxPrice ? maxPrice : 0}&minBaths=${minBaths ? minBaths : 0}&minBeds=${minBeds ? minBeds : 0}&homeTypes=${homeTypes.length == 0 ? hometypes_array : homeTypes}`)
+      // Fetch the properties with the specified filters
+      await axios.get(axios.get(`${SERVER_URL}/getProperties?minPrice=${props.minPrice ? props.minPrice : 0}&maxPrice=${props.maxPrice ? props.maxPrice : 0}&minBaths=${props.minBaths ? props.minBaths : 0}&minBeds=${props.minBeds ? props.minBeds : 0}&homeTypes=${props.homeTypes.length == 0 ? hometypes_array : props.homeTypes}`)
         .then((data) => {
-          console.log(data.data);
           props.setProperties(data.data)
         })
         .catch(err => console.log(`Error: ${err}`)))
     }
     fetchData();
-  }, [maxPrice, minPrice, minBaths, minBeds, homeTypes])
+  }, [props.maxPrice, props.minPrice, props.minBaths, props.minBeds, props.homeTypes])
 
   return (
     <section className='homesSection'>

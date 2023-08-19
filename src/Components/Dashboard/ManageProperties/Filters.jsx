@@ -2,11 +2,11 @@ import React, { useContext, useState } from 'react'
 import { Context } from '../../../assets/Context'
 
 
-function Filters(props) {
+function Filters(props) { 
     const { useOutsideClick, hometypes_array } = useContext(Context)
     const [priceFilterOpen, setPriceFilterOpen] = useState(false)
     const [bathsFilterOpen, setBathsFilterOpen] = useState(false)
-    const [hometypeFilterOpen, setHometypeFilterOpen] = useState(false)
+    const [homeTypeFilterOpen, setHomeTypeFilterOpen] = useState(false)
 
     const [locationValue, setLocationValue] = useState('')
 
@@ -22,12 +22,13 @@ function Filters(props) {
     const [bedrooms, setBedrooms] = useState()
     const [bathrooms, setBathrooms] = useState()
 
-    const [hometypes, setHometypes] = useState([])
+    const [homeTypes, setHomeTypes] = useState([])
+    
     const toggleHomeType = (option) => {
-        if (hometypes.includes(option)) {
-            setHometypes(prevHometypes => prevHometypes.filter(type => option != type))
+        if (homeTypes.includes(option)) {
+            setHomeTypes(prevHomeTypes => prevHomeTypes.filter(type => option != type))
         } else {
-            setHometypes(prevHometypes => [...prevHometypes, option])
+            setHomeTypes(prevHomeTypes => [...prevHomeTypes, option])
         }
     }
 
@@ -38,21 +39,21 @@ function Filters(props) {
         if (filter === 'baths') {
             setBathsFilterOpen(prevBathsFilterOpen => !prevBathsFilterOpen)
         }
-        if (filter === 'hometype') {
-            setHometypeFilterOpen(prevHometypeFilterOpen => !prevHometypeFilterOpen)
+        if (filter === 'homeType') {
+            setHomeTypeFilterOpen(prevHomeTypeFilterOpen => !prevHomeTypeFilterOpen)
         }
     }
 
     const handleClickOutside = () => {
         setPriceFilterOpen(false)
         setBathsFilterOpen(false)
-        setHometypeFilterOpen(false)
+        setHomeTypeFilterOpen(false)
     }
 
     // This returns a reference. And creates an event listener that will activate with every click outside the reference. (Form Context.jsx)
     const refPrice = useOutsideClick(handleClickOutside)
     const refBaths = useOutsideClick(handleClickOutside)
-    const refHometype = useOutsideClick(handleClickOutside)
+    const refHomeType = useOutsideClick(handleClickOutside)
 
     return (
         <>
@@ -72,7 +73,7 @@ function Filters(props) {
                     {props.minPrice || props.maxPrice ?
                         `${props.minPrice ?
                             `$${Intl.NumberFormat().format(props.minPrice)}+` : ' '} 
-                               ${props.maxPrice ?
+                        ${props.maxPrice ?
                             `$${Intl.NumberFormat().format(props.maxPrice)}-` : ' '}`
                         : 'Price'}
                     <span className={`arrow ${priceFilterOpen ? 'arrowActive' : ''}`}></span>
@@ -131,6 +132,8 @@ function Filters(props) {
                                 // When the user clicks the button, we set the filters and "activate" the useEffect that fetches the data
                                 props.setMinPrice(minPrice)
                                 props.setMaxPrice(maxPrice)
+                                setMinPriceOpen(false)
+                                setMaxPriceOpen(false)
                                 setPriceFilterOpen(false)
                             }}>Filter</button>
                         </div>
@@ -182,16 +185,16 @@ function Filters(props) {
                     </div>
                 )}
             </div>
-            <div ref={hometypeFilterOpen ? refHometype : null}>
-                <button className='generalInput filterButton' onClick={() => toggleDropdown('hometype')}>Home Type {hometypes.length > 0 ? `(${hometypes.length})` : ''} <span className={`arrow ${hometypeFilterOpen ? 'arrowActive' : ''}`}></span></button>
-                {hometypeFilterOpen && (
+            <div ref={homeTypeFilterOpen ? refHomeType : null}>
+                <button className='generalInput filterButton' onClick={() => toggleDropdown('homeType')}>Home Type {props.homeTypes.length != 0 ? `(${props.homeTypes.length})` : ''} <span className={`arrow ${homeTypeFilterOpen ? 'arrowActive' : ''}`}></span></button>
+                {homeTypeFilterOpen && (
                     <div className='filtersDropdown' >
                         <p className='filterTitle'>Home Type</p>
                         <div className='hometypeOptions'>
                             <ul>
                                 {hometypes_array.map(option => (
                                     <li onClick={() => toggleHomeType(option)} key={option}>
-                                        <span className={`checkboxHometype ${hometypes.includes(option) ? 'active' : ''}`}></span>
+                                        <span className={`checkboxHometype ${homeTypes.includes(option) ? 'active' : ''}`}></span>
                                         <p>{option}</p>
                                     </li>
                                 ))}
@@ -199,13 +202,26 @@ function Filters(props) {
                         </div>
                         <div className='applyFilterDiv'>
                             <button onClick={() => {
-                                props.setHomeTypes(hometypes)
-                                setHometypeFilterOpen(false)
+                                props.setHomeTypes(homeTypes)
+                                setHomeTypeFilterOpen(false)
+                                // props.setProperties()
                             }}>Filter</button>
                         </div>
                     </div>
                 )}
             </div>
+            {(props.minPrice || props.maxPrice || props.minBaths || props.minBeds || props.homeTypes.length != 0) && <div>
+                <button className='generalInput filterButton removeFiltersButton' onClick={() => {
+                    props.setMinPrice()
+                    props.setMaxPrice()
+                    props.setMinBaths()
+                    props.setMinBeds()
+                    props.setHomeTypes([])
+                    setHomeTypes([])
+                }}>Remove filters
+                    {/* <span className='x'></span> */}
+                </button>
+            </div>}
         </>
     )
 }

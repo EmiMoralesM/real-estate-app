@@ -1,3 +1,4 @@
+
 import axios from 'axios'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Context } from '../../assets/Context'
@@ -7,33 +8,45 @@ import { createRoot } from "react-dom/client"
 function Map(props) {
     const { SERVER_URL, imageUrl } = useContext(Context)
     const [map, setMap] = useState()
+    const [refreshMap, setRefreshMap] = useState({ lat: 36.778259, lng: -119.417931 })
+    const [propertyHover, setPropertyHover] = useState('')
+
     const mapRef = useRef()
+
     const mapOptions = {
         mapId: '49c3f173e021d634',
-        center: { lat: 36.778259, lng: -119.417931 },
+        center: refreshMap,
         zoom: 6,
         // disableDefaultUI: true
     }
 
     useEffect(() => {
-        setMap(new window.google.maps.Map(mapRef.current, mapOptions))
-    }, [])
+        if (props.properties) {
+            const mapConfig = new window.google.maps.Map(mapRef.current, mapOptions)
+            mapConfig.addListener('click', (e) => {
+                console.log('click');
+                // This refreshes the map every time the user click it.
+                // It sets the position (center) of the map to be the lat and lng clicked by the user. 
+                // setRefreshMap({ lat: e.latLng.lat(), lng: e.latLng.lng() })
+            })
+            setMap(mapConfig)
+        }
+    }, [props.properties])
 
-    const [propertyHover, setPropertyHover] = useState('')
 
     return (
         <>
+            {/* Map */}
             <div ref={mapRef} className='map' />
-            {/* The content of the maker */}
-            {map && props.properties && props.properties.map(property => (
+            {/* Markers (they will be rendered when the properties have been fetched and the map has been created) */}
+            {props.properties && refreshMap && map && props.properties.map(property => (
                 <Marker
                     key={property._id}
                     map={map}
-                    setPropertyHover={setPropertyHover}
                     coordinates={property.coordinates}
                 >
+                    {/* Content of the marker */}
                     <div onClick={() => props.setPropertyDetail(property._id)}>
-                        {/* className={`mapMarkerDiv ${propertyHover === property._id ? 'mapMarkerDivHover' : ''}`} */}
                         {propertyHover == property._id && <div className='mapMarkerInfo'>
                             <div className='markerImg'>
                                 <img src={imageUrl(property.mainImage)} alt="" />
@@ -55,22 +68,26 @@ function Map(props) {
     )
 }
 
-// This function creates the markers  
+// This function creates every individual marker  
 function Marker(props) {
+
     const markerRef = useRef()
     const rootRef = useRef()
+
     useEffect(() => {
-        // If the rootRef is not defined
+        // The if condition solves the problem of duplicating the markers: 
+        // If the rootRef is not defined yet (if the marker hasn't been created)...
         if (!rootRef.current) {
+            // Div of the marker (later it will be replaced with the children of the Marker)
             const container = document.createElement('div')
             rootRef.current = createRoot(container)
 
-            // This creates the marker and passes the coordinates and the content (div) to be displayed to it.
+            // This creates the marker. To create it we have to pass the coordinates and the content (the div to be displayed).
             markerRef.current = new google.maps.marker.AdvancedMarkerView({
                 position: props.coordinates,
                 content: container
             })
-            // This makes the other events work (review)
+            // This makes the marker events work (click, mouseEnter, etc.) (review)
             if (markerRef.current) { markerRef.current.addListener('gmp-click', () => { }) }
         }
     }, [])

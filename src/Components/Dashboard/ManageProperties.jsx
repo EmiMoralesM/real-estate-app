@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react'
-import ManagePropsFilters from './ManageProperties/ManagePropsFilters'
 import axios from 'axios'
 import { Context } from '../../assets/Context'
 import Filters from './ManageProperties/Filters'
@@ -53,6 +52,7 @@ function ManageProperties(props) {
                     setMinBaths={setMinBaths}
                     minBeds={minBeds}
                     setMinBeds={setMinBeds}
+                    homeTypes={homeTypes}
                     setHomeTypes={setHomeTypes}
                 />
             </div>
