@@ -6,7 +6,7 @@ import EditPropertyModal from '../Modals/EditPropertyModal'
 import ConfirmDeleteProperty from '../Modals/ConfirmDeleteProperty'
 
 function ManageProperties(props) {
-    const { SERVER_URL, hometypes_array, disableScroll, enableScroll, imageUrl, changeSuccessMessage } = useContext(Context)
+    const { SERVER_URL, hometypes_array, disableScroll, enableScroll, imageUrl, changeSuccessMessage, changeErrorMessage, user } = useContext(Context)
     const [results, setResults] = useState()
 
     const [minPrice, setMinPrice] = useState()
@@ -75,8 +75,12 @@ function ManageProperties(props) {
                         <div className='imagePropertyDiv'>
                             <div className='imageContent'>
                                 <button onClick={() => {
-                                    disableScroll()
-                                    setConfirmDeleteModal(property)
+                                    if (user.role === 'admin') {
+                                        disableScroll()
+                                        setConfirmDeleteModal(property)
+                                    } else {
+                                        changeErrorMessage('Only admins can delete properties')
+                                    }
                                 }} className='button deletePropertyButton'>Delete Property</button>
                                 <button onClick={() => {
                                     disableScroll()
@@ -104,7 +108,7 @@ function ManageProperties(props) {
                 ))
                 )}
             </div>
-            {confirmDeleteModal && <ConfirmDeleteProperty
+            {confirmDeleteModal && user.role === 'admin' && <ConfirmDeleteProperty
                 handlePropertyDelete={handlePropertyDelete}
                 setConfirmDeleteModal={setConfirmDeleteModal}
                 confirmDeleteModal={confirmDeleteModal}

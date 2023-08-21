@@ -18,12 +18,15 @@
 .filterButton {
     padding: 9px 20px;
 }
-.removeFiltersButton{
+
+.removeFiltersButton {
     color: #979797;
 }
-.removeFiltersButton:hover{
+
+.removeFiltersButton:hover {
     color: #006aff;
 }
+
 .locationSearchDiv {
     display: flex;
     align-items: center;
@@ -59,6 +62,7 @@
     transform: rotate(-45deg);
     margin-top: -4px;
 }
+
 .x {
     display: inline-block;
     background-image: url(../assets/icons/x.svg);
@@ -308,19 +312,38 @@
 
 
 /* Map */
-
-.mapSection{
+.loadingMapSkeleton {
+    width: 62vw;
+    height: 100%;
+    display: block;
+    background-color: rgb(209, 209, 209);
+    animation: loadingMapSkeleton 1.5s infinite;
+}
+@keyframes loadingMapSkeleton {
+    0%{
+        opacity: .3;
+    }
+    50%{
+        opacity: .8;
+    }
+    100%{
+        opacity: .3;
+    }
+}
+.mapSection {
     background-color: #8c8c8c;
     position: fixed;
     width: 62vw;
     margin-top: calc(79px + 54px);
     height: calc(100% - 79px - 62px);
 }
-.map{
+
+.map {
     width: 100%;
     height: 100%;
 }
-.mapMarker{
+
+.mapMarker {
     border-radius: 50%;
     width: 12px;
     height: 12px;
@@ -328,11 +351,13 @@
     border: 2px solid #ffffff;
     background-color: #003e96;
     transition: all ease .2s;
-    
+
 }
-.mapMarkerHover{
+
+.mapMarkerHover {
     background-color: #006aff;
 }
+
 /* .mapMarkerDiv{
     z-index: 0;
     position: relative;
@@ -341,7 +366,7 @@
     z-index: 99!important;
 } */
 
-.mapMarkerInfo{
+.mapMarkerInfo {
     position: absolute;
     margin-top: -82px;
     margin-left: -100px;
@@ -355,16 +380,19 @@
     transition: all ease .3s;
     animation: opacityEase .3s linear;
 }
+
 @keyframes opacityEase {
-    0%{
+    0% {
         opacity: 0;
     }
-    100%{
+
+    100% {
         opacity: 1;
     }
-    
+
 }
-.mapMarkerInfo .markerImg{
+
+.mapMarkerInfo .markerImg {
     width: 90px;
     height: 60px;
     display: flex;
@@ -373,22 +401,27 @@
     overflow: hidden;
     margin-right: 10px;
 }
-.mapMarkerInfo .markerImg img{
+
+.mapMarkerInfo .markerImg img {
     width: 90px;
 }
-.mapMarkerInfo .markerData > h3{
+
+.mapMarkerInfo .markerData>h3 {
     margin: 0;
     font-size: 18px;
 }
-.mapMarkerInfo .markerData > p{
+
+.mapMarkerInfo .markerData>p {
     margin: 5px 0 0 0;
 }
-.mapMarkerInfo .markerData .markerBaBd{
+
+.mapMarkerInfo .markerData .markerBaBd {
     display: flex;
 
 }
-.mapMarkerInfo .markerData .markerBaBd p{
-    margin: 4px 5px 0 0 ;
+
+.mapMarkerInfo .markerData .markerBaBd p {
+    margin: 4px 5px 0 0;
     font-size: 13px;
 
 }
@@ -398,7 +431,7 @@
 
 /* Home properties */
 
-.homesSection{
+.homesSection {
     background-color: #ffffff;
     position: absolute;
     right: 0;
@@ -410,12 +443,13 @@
     box-shadow: 0px 0px 5px 2px #ababab3d;
 }
 
-.homesSection h1{
+.homesSection h1 {
     font-size: 26px;
     margin-top: 10px;
     margin-bottom: 5px;
 }
-.homesSection .resultsCout{
+
+.homesSection .resultsCout {
     font-family: 'Roboto', sans-serif;
     margin-top: 10px;
     font-size: 16px;
@@ -423,36 +457,43 @@
     font-weight: 500;
 }
 
-.sortButton{
+.sortButton {
     display: flex;
     align-items: center;
     position: relative;
     cursor: pointer;
 }
-.sortOptions{
+
+.sortOptions {
     z-index: 999;
 }
-.sortButton > p:nth-child(1){
+
+.sortButton>p:nth-child(1) {
     margin: 0;
     display: flex;
     align-items: center;
 }
-.sortButton > .arrow{
+
+.sortButton>.arrow {
     margin-top: 10px;
 }
-.sortButton > .arrowActive{
+
+.sortButton>.arrowActive {
     margin-top: 20px;
 }
-.sortButton p{
+
+.sortButton p {
     color: #006aff;
     font-weight: 600;
     font-size: 15px;
 }
-.sortButton .arrow{
+
+.sortButton .arrow {
     border-color: #006aff;
     color: #006aff;
 }
-.homesSectionDescriptionDiv{
+
+.homesSectionDescriptionDiv {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -464,12 +505,15 @@
     width: 49%;
     margin-bottom: 2%;
 }
+
 .homesImageContent {
     height: 180px;
 }
+
 .homesDiv>.propertyDiv .imageDiv {
     height: 180px;
 }
-.homesDiv>.propertyDiv .imagePropertyDiv{
+
+.homesDiv>.propertyDiv .imagePropertyDiv {
     height: 180px;
 }

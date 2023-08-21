@@ -137,7 +137,7 @@ function NewAccount(props) {
                     />
                     {passwordConfirmError && <p className='errorText'>{passwordConfirmError}</p>}
                 </div>
-                <button type="submit" onClick={submit}>Create Account</button>
+                <button type="submit" onClick={submit} className='submitSignInButton'>Create Account</button>
             </form>
         </>
     )

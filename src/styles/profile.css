@@ -155,18 +155,21 @@
 
 
 
-.profileModalDiv .generalModalContent label, .contactOwnerModal .generalModalContent label {
+.profileModalDiv .generalModalContent label,
+.contactOwnerModal .generalModalContent label {
     display: block;
     font-size: 16px;
     font-weight: 600;
     color: rgb(75, 75, 75);
 }
 
-.profileModalDiv .generalModalContent label span, .contactOwnerModal .generalModalContent label span {
+.profileModalDiv .generalModalContent label span,
+.contactOwnerModal .generalModalContent label span {
     color: rgb(17, 17, 17);
 }
 
-.generalModalContent input, .generalModalContent textarea  {
+.generalModalContent input,
+.generalModalContent textarea {
     width: calc(100% - 32px);
     padding: 10px 16px;
     resize: none;
@@ -182,12 +185,14 @@
     transition: all ease .3s;
 }
 
-.generalModalContent input:hover, .generalModalContent textarea:hover  {
+.generalModalContent input:hover,
+.generalModalContent textarea:hover {
     border: 2px solid #72adff;
     outline: 1px solid rgb(255, 255, 255);
 }
 
-.generalModalContent input:focus-visible, .generalModalContent textarea:focus-visible  {
+.generalModalContent input:focus-visible,
+.generalModalContent textarea:focus-visible {
     border: 2px solid #3287ff;
     outline: 1px solid rgb(255, 255, 255);
 }
@@ -264,7 +269,8 @@
     border-radius: 5px;
     box-shadow: 0 0 7px 0 rgb(211, 211, 211);
 }
-.favoriteProperty > div{
+
+.favoriteProperty>div {
     align-items: center;
     display: flex;
 
@@ -291,6 +297,7 @@
     width: 100%;
     transition: all ease .3s;
 }
+
 .contentFavoriteProperty:hover div img {
     transform: scale(1.05);
 }
@@ -314,34 +321,39 @@
     margin: 10px 0 0 0;
 }
 
-.yourPropertiesButtons{
+.yourPropertiesButtons {
     display: flex;
-    align-items: end!important;
+    align-items: end !important;
     flex-direction: column;
     justify-content: center;
     gap: 14px;
 }
-.noPropertiesToShow{
+
+.noPropertiesToShow {
     width: 100%;
     text-align: center;
     margin: 20px 0;
 }
-.noPropertiesToShow img{
+
+.noPropertiesToShow img {
     opacity: .4;
     width: 150px;
 }
-.noPropertiesToShow a{
+
+.noPropertiesToShow a {
     margin-top: 10px;
     text-decoration: none;
     display: inline-block;
 }
-.noPropertiesToShow p:nth-child(2){
+
+.noPropertiesToShow p:nth-child(2) {
     opacity: .4;
     margin: 10px 0;
     font-weight: 600;
     font-size: 22px;
 }
-.noPropertiesToShow p:nth-child(3){
+
+.noPropertiesToShow p:nth-child(3) {
     opacity: .4;
     margin: 10px 0;
     font-weight: 500;
@@ -349,7 +361,8 @@
     justify-content: center;
     font-size: 18px;
 }
-.noPropertiesToShow p:nth-child(3) span{
+
+.noPropertiesToShow p:nth-child(3) span {
     width: 20px;
     display: inline-block;
     height: 20px;
@@ -358,4 +371,92 @@
     background-repeat: no-repeat;
     background-size: 20px;
     margin: 0 6px;
+}
+
+/* Notifications */
+
+.refreshDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.refreshDiv p {
+    opacity: .6;
+    color: #006aff;
+    cursor: pointer;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    transition: all ease .3s;
+}
+
+.refreshDiv p span {
+    content: '';
+    margin-right: 4px;
+    width: 20px;
+    display: inline-block;
+    height: 20px;
+    background-image: url(../assets/icons/refresh.svg);
+    background-size: 20px;
+}
+
+.refreshDiv p:hover {
+    opacity: 1;
+}
+
+
+.notificationDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: rgb(255, 255, 255);
+    padding: 20px 25px;
+    border-radius: 5px;
+    box-shadow: 0 0 7px 0 rgb(211, 211, 211);
+}
+.notificationProfileDiv{
+    display: flex;
+    justify-content: space-between;
+}
+.notificationNameDiv>p{
+    margin-left: 20px;
+}
+.notificationProfileDiv .blueDot{
+    width: 15px;
+    height: 15px;
+    margin-top: 5px;
+    background-color: #2881ff;
+    display: inline-block;
+    border-radius: 50%;
+}
+.notificationProfileDiv h3{
+    margin: 0;
+    margin-top: 5px;
+}
+.notificationProfileDiv span{
+    font-size: 16px;
+    color: #8c8c8c;
+    font-weight: 500;
+    margin-left: 12px;
+}
+.notificationProperty{
+    justify-content: right;
+    gap: 5px;
+    display: flex;
+    color: rgb(68, 68, 68);
+    margin: 0;
+    margin-top: 20px;
+}
+.notificationProperty span{
+    font-weight: 600;
+}
+.notificationProperty a{
+    color: #006aff;
+    text-decoration: none;
+    transition: all ease .3s;
+    font-weight: 600;
+}
+.notificationProperty a:hover{
+    color: #4391ff;
 }

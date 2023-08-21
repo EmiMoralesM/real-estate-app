@@ -27,7 +27,10 @@ function ConfirmDeleteProperty(props) {
                     </div>
                 </div>
             </div>
-            <div onClick={() => props.setConfirmDeleteModal(false)} className='generalModalBackground'></div>
+            <div onClick={() => {
+                enableScroll()
+                props.setConfirmDeleteModal(false)
+            }} className='generalModalBackground'></div>
         </aside>
     )
 }

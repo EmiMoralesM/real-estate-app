@@ -209,7 +209,7 @@ function AccountSettings(props) {
         <div className='accountSetDiv'>
           <div>
             <p className='title'>Delete Account</p>
-            <p className='description'>You won't be able to access yur account anymore.</p>
+            <p className='description'>You won't be able to access your account anymore.</p>
           </div>
           <div className='editProfileDiv'>
             <button className='changePasswordButton' onClick={() => setOpenSettingsModal('deleteAccount')}>Delete account</button>

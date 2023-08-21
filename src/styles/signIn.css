@@ -116,7 +116,7 @@
     font-size: 14px;
     color: #ff3232;
 }
-.modalForms button{
+.modalForms .submitSignInButton{
     width: 100%;
     text-align: center;
     background-color: #2a82ff;
@@ -130,8 +130,27 @@
     border-radius: 6px;
     transition: all ease .3s;
 }
-.modalForms button:hover{
+.modalForms .submitSignInButton:hover{
     background-color: #006aff;
+}
+.testAccountButton{
+    width: 100%;
+    text-align: center;
+    background-color: #ffffff;
+    cursor: pointer;
+    padding: 12px;
+    margin-top: 10px;
+    border: 0;
+    font-size: 16px;
+    font-weight: 600;
+    border: 2px solid #5ba0ff;
+    color: #5ba0ff;
+    border-radius: 6px;
+    transition: all ease .2 s;
+}
+.testAccountButton:hover{
+    border: 2px solid #006aff;
+    color: #006aff;
 }
 
 .forgotPass{
@@ -154,7 +173,7 @@
     width: 80%;
     border: 1px solid rgb(215, 215, 215);
     margin-top: 30px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .eye{
@@ -165,3 +184,4 @@
     right: 0;
     height: 43px;
 }
+

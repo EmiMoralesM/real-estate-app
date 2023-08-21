@@ -21,9 +21,9 @@ function SignIn(props) {
     const [passwordVisibility, setPasswordVisibility] = useState('password')
 
     const checkEmail = (email) => {
+        console.log(email);
         if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
             setEmailError('Enter a valid email address')
-            console.log('email valid');
         } else {
             setEmailError('')
             return true
@@ -40,27 +40,34 @@ function SignIn(props) {
     }
     const submit = (e) => {
         e.preventDefault()
-        console.log('submit');
         if (checkEmail(email) && checkPassword(password)) {
             setFormError('')
             // If the credentials are correct , the server will return an object with the user.
             // If the user is invalid it will retun { error: ... }.
-            console.log('Sign In');
             axios.get(`${SERVER_URL}/getUser?email=${email}&password=${password}`)
                 .then(res => {
                     if (res.data.email) {
                         changeSuccessMessage(`Welcome back ${res.data.name}!`)
                         props.setSignInModalOpen(false)
                         setUser(res.data)
-                        console.log(res.data);
                     } else {
-                        console.log(res.data.error);
                         setFormError(res.data.error)
                     }
                 })
         }
     }
-
+    const testAccount = (testEmail, testPassword) => {
+        axios.get(`${SERVER_URL}/getUser?email=${testEmail}&password=${testPassword}`)
+            .then(res => {
+                if (res.data.email) {
+                    changeSuccessMessage(`Welcome back ${res.data.name}!`)
+                    props.setSignInModalOpen(false)
+                    setUser(res.data)
+                } else {
+                    setFormError(res.data.error)
+                }
+            })
+    }
     return (
         <>
             <form action="#">
@@ -94,10 +101,28 @@ function SignIn(props) {
                     />
                     {passwordError && <p className='errorText'>{passwordError}</p>}
                 </div>
-                <button type="submit" onClick={submit}>Sign In</button>
+                <button onClick={submit} className='submitSignInButton'>Sign In</button>
+                {/* <Link className='forgotPass' >Forgot your password?</Link> */}
+                {formError && <p className='formErrorText'>{formError}</p>}
             </form>
-            <Link className='forgotPass' >Forgot your password?</Link>
-            {formError && <p className='formErrorText'>{formError}</p>}
+            <hr />
+            <div>
+                <button className='testAccountButton' onClick={() => {
+                    setEmail('test_admin@gmail.com')
+                    setPassword('testAdmin1234')
+                    testAccount('test_admin@gmail.com', 'testAdmin1234')
+                }}>Test Admin Account</button>
+                <button className='testAccountButton' onClick={() => {
+                    setEmail('test_manager@gmail.com')
+                    setPassword('testManager1234')
+                    testAccount('test_manager@gmail.com', 'testManager1234')
+                }}>Test Manager Account</button>
+                <button className='testAccountButton' onClick={() => {
+                    setEmail('test_user@gmail.com')
+                    setPassword('testUser1234')
+                    testAccount('test_user@gmail.com', 'testUser1234')
+                }}>Test User Account</button>
+            </div>
         </>
     )
 }

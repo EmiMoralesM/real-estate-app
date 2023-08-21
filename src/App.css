@@ -365,9 +365,9 @@ body {
     background-color: rgb(209, 209, 209);
     border-radius: 10px;
     box-shadow: 0 2px 70px 1px rgba(38, 42, 76, 0.169);
-    animation: loadingProperty 1.5s infinite;
+    animation: loadingSkeleton 1.5s infinite;
 }
-@keyframes loadingProperty {
+@keyframes loadingSkeleton {
     0%{
         opacity: .8;
     }

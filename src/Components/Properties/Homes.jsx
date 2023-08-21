@@ -60,8 +60,8 @@ function Homes(props) {
         ) : (
           props.properties.map((property, i) => (
             <Link
-              // to={`/properties/details/${property.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${property._id}`}
-              onClick={() => props.setPropertyDetail(property._id)}
+              to={`/properties/details/${property.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${property._id}`}
+              // onClick={() => props.setPropertyDetail(property._id)}
               key={i}
               className='propertyDiv'
             >

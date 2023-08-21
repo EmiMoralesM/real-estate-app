@@ -41,6 +41,7 @@ function Header(props) {
                     <li><Link to={'/profile/accountSettings'}>Account Settings</Link></li>
                     <li><Link to={'/profile/favoriteProperties'}>Favorite Properties</Link></li>
                     <li><Link to={'/profile/yourProperties'}>Your Properties</Link></li>
+                    <li><Link to={'/profile/notifications'}>Notifications</Link></li>
                   </ul>
                   <hr />
                   <button className='logOutButton' onClick={() => {

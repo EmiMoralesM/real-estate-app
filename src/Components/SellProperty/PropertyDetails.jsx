@@ -4,7 +4,7 @@ import axios from 'axios'
 
 function PropertyDetails(props) {
 
-    const { SERVER_URL, useOutsideClick, user, setUser, hometypes_array } = useContext(Context)
+    const { SERVER_URL, useOutsideClick, user, setUser, hometypes_array, changeSuccessMessage } = useContext(Context)
 
 
     const [price, setPrice] = useState('')
@@ -103,6 +103,7 @@ function PropertyDetails(props) {
                     lat: props.lat,
                     lng: props.lng,
                 },
+                ownerId: user._id
             })
                 .then(async data => {
                     console.log('data');
@@ -117,13 +118,13 @@ function PropertyDetails(props) {
                                 otherImgs.append('newOtherImages', image);
                             });
                             await axios.patch(`${SERVER_URL}/postPropertyOtherImages/${data.data._id}`, otherImgs)
-                                .then(res => {
+                                .then(async res => {
                                     console.log('other imgs');
                                     console.log(res);
-                                    axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { yourProperties: [...user.yourProperties, data.data._id] })
-                                        .then(res => {
-                                            setUser(res.data)
-                                            // location = '../propertyPublished'
+                                    await axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { yourProperties: [...user.yourProperties, data.data._id] })
+                                        .then(resUser => {
+                                            setUser(resUser.data)
+                                            location = `../../properties/details/${res.data.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${res.data._id}`
                                         })
                                     setSubmitActive(false)
                                 })

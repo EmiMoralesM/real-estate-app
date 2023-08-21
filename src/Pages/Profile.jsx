@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import AccountSettings from '../Components/Profile/AccountSettings'
 import FavoriteProperties from '../Components/Profile/FavoriteProperties'
 import YourProperties from '../Components/Profile/YourProperties'
+import Notifications from '../Components/Profile/Notifications'
 
 function Profile(props) {
 	const [profilePage, setProfilePage] = useState('accountSettings')
@@ -28,12 +29,16 @@ function Profile(props) {
 					<li className={profilePage === 'yourProperties' ? 'active' : ''}>
 						<Link to={'/profile/yourProperties'}>Your Properties</Link>
 					</li>
+					<li className={profilePage === 'notifications' ? 'active' : ''}>
+						<Link to={'/profile/notifications'}>Notifications</Link>
+					</li>
 				</ul>
 			</div>
 
 			{profilePage === 'accountSettings' && <AccountSettings />}
 			{profilePage === 'favoriteProperties' && <FavoriteProperties />}
 			{profilePage === 'yourProperties' && <YourProperties />}
+			{profilePage === 'notifications' && <Notifications />}
 
 		</main >
 	)

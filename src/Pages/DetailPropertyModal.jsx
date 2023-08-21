@@ -16,13 +16,21 @@ function DetailProductModal(props) {
     const [openContactModal, setOpenContactModal] = useState(false)
 
     const sendMessageToOwner = async () => {
-        if (property.ownerEmail) {
-            console.log(property.ownerEmail);
-            console.log(nameContact);
-            console.log(emailContact);
-            console.log(messageContact);
-            await axios.patch(`${SERVER_URL}/updateUser/${property.ownerEmail}`, { notifications: ['aaa'] })
-                .then((res) => console.log(res.data))
+        if (property.ownerId) {
+            await axios.post(`${SERVER_URL}/postNotification/${property.ownerId}`, {
+                propertyId: property._id,
+                propertyAddress: property.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', ''),
+                nameContact: nameContact,
+                emailContact: emailContact,
+                messageContact: messageContact,
+            })
+                .then((res) => {
+                    changeSuccessMessage('Message Send!')
+                    setOpenContactModal(false)
+                })
+                .catch((e) => {
+                    console.log(e);
+                })
         }
     }
 
@@ -83,9 +91,12 @@ function DetailProductModal(props) {
                                     <span className='beforeIcon'> {Intl.NumberFormat().format(property.lotAreaUnit == 'sqft' ? property.lotSize : parseInt(property.lotSize * 43560))} sqft </span> -
                                     <span> {property.statusText} </span>
                                 </p>
-                                <button className='contactAgent' onClick={() => {
-                                    setOpenContactModal(true)
-                                }}>Contact Owner</button>
+                                <button
+                                    className='contactAgent'
+                                    onClick={() => {
+                                        user.email ? setOpenContactModal(true) : changeErrorMessage('You have to sign in to be able to send messages')
+                                    }}
+                                >Contact Owner</button>
                                 <hr />
                             </div>
                             <div className='propertyInfoDiv'>

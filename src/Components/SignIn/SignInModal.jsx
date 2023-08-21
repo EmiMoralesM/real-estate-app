@@ -28,10 +28,13 @@ function SignInModal(props) {
                         />}
                     </div>
                 </div>
-                <hr />
+                {/* <hr />
                 <div>
-                    {/* <p>Or connect with:</p> */}
-                </div>
+                    <button>Test Manager Account</button>
+                    <button>Test User Account</button>
+
+                    <p>Or connect with:</p>
+                </div> */}
             </div>
 
             <div onClick={() => props.setSignInModalOpen(false)} className='signInBackground'></div>

@@ -16,20 +16,13 @@ import ProtectedRoutesAdmin from './assets/ProtectedRoutesAdmin'
 import SellProperty from './Pages/SellProperty'
 import { Context } from './assets/Context'
 import Footer from './Components/Footer'
+import axios from 'axios'
 
 function App() {
   let location = useLocation().pathname
-  const { user, setUser, successMessage, errorMessage } = useContext(Context)
+  const { SERVER_URL, user, setUser, successMessage, errorMessage } = useContext(Context)
   const [signInModalOpen, setSignInModalOpen] = useState(false)
 
-  // {
-  //   name: "Emiliano Morales",
-  //   email: "moralesemi000@gmail.com",
-  //   favorites: [],
-  //   image: "newImage_1689733481033.jpg",
-  //   role: "admin",
-  //   password: "$2b$10$.avopOH1J3i5RJIHTOg7Aey3XfuHhnOexLwEXemI1MhO3MTVT3I/O"
-  // }
 
   useEffect(() => {
     if (user.email) { localStorage.setItem('user', JSON.stringify(user)) }
@@ -41,6 +34,7 @@ function App() {
     window.scrollTo(0, 0)
   }, [location])
 
+  
 
   return (
     <>
