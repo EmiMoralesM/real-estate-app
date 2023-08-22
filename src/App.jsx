@@ -41,7 +41,7 @@ function App() {
       {!location.includes('dashboard') && <Header setSignInModalOpen={setSignInModalOpen} />}
       {signInModalOpen && <SignInModal setSignInModalOpen={setSignInModalOpen} />}
       <Routes>
-        <Route path='*' element={<Home signInModalOpen={signInModalOpen} />} />
+        <Route path='*' element={<Home />} />
         <Route path='/properties/*' element={<Properties />} />
         <Route path='/sellProperty/*' element={<SellProperty />} />
         <Route element={<ProtectedRoutesUser />}>
@@ -53,7 +53,7 @@ function App() {
       </Routes>
       {successMessage && <SuccessMessage />}
       {errorMessage && <ErrorMessage />}
-      {!location.includes('dashboard') && <Footer />}
+      {!location.includes('dashboard') && !location.includes('properties') && <Footer />}
     </>
   )
 }

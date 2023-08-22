@@ -1,12 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { Context } from '../../assets/Context'
-import Filters from './ManageProperties/Filters'
+import { LocationContext } from '../../assets/LocationContext'
+import Filters from '../Filters'
 import EditPropertyModal from '../Modals/EditPropertyModal'
 import ConfirmDeleteProperty from '../Modals/ConfirmDeleteProperty'
+import { Wrapper } from '@googlemaps/react-wrapper'
 
 function ManageProperties(props) {
     const { SERVER_URL, hometypes_array, disableScroll, enableScroll, imageUrl, changeSuccessMessage, changeErrorMessage, user } = useContext(Context)
+    const { locationCoordinates, setLocationCoordinates, fetchPropertiesData } = useContext(LocationContext)
     const [results, setResults] = useState()
 
     const [minPrice, setMinPrice] = useState()
@@ -17,14 +20,10 @@ function ManageProperties(props) {
 
     useEffect(() => {
         setResults()
-        async function fetchData() {
-            // Fetch the properties with the filters specified 
-            await axios.get(axios.get(`${SERVER_URL}/getProperties?minPrice=${minPrice ? minPrice : 0}&maxPrice=${maxPrice ? maxPrice : 0}&minBaths=${minBaths ? minBaths : 0}&minBeds=${minBeds ? minBeds : 0}&homeTypes=${homeTypes.length == 0 ? hometypes_array : homeTypes}`)
-                .then((data) => setResults(data.data))
-                .catch(err => console.log(`Error: ${err}`)))
-        }
-        fetchData();
-    }, [maxPrice, minPrice, minBaths, minBeds, homeTypes])
+        // Function (from LocationContext) that fetches the properties with the specified filters.
+        fetchPropertiesData(setResults, locationCoordinates, maxPrice, minPrice, minBaths, minBeds, homeTypes);
+        
+    }, [locationCoordinates, maxPrice, minPrice, minBaths, minBeds, homeTypes])
 
     const [confirmDeleteModal, setConfirmDeleteModal] = useState(false)
     const [editPropertyModal, setEditPropertyModal] = useState(false)
@@ -43,18 +42,24 @@ function ManageProperties(props) {
     return (
         <div className='whiteBackground manageProperties'>
             <div className='managePropertiesFilterDiv'>
-                <Filters
-                    minPrice={minPrice}
-                    setMinPrice={setMinPrice}
-                    maxPrice={maxPrice}
-                    setMaxPrice={setMaxPrice}
-                    minBaths={minBaths}
-                    setMinBaths={setMinBaths}
-                    minBeds={minBeds}
-                    setMinBeds={setMinBeds}
-                    homeTypes={homeTypes}
-                    setHomeTypes={setHomeTypes}
-                />
+                <Wrapper
+                    apiKey="AIzaSyDYd25d8gbKq9Voxfu5aFxog9SPnT4OZTU"
+                    version="beta"
+                    libraries={["marker", "places"]}
+                >
+                    <Filters
+                        minPrice={minPrice}
+                        setMinPrice={setMinPrice}
+                        maxPrice={maxPrice}
+                        setMaxPrice={setMaxPrice}
+                        minBaths={minBaths}
+                        setMinBaths={setMinBaths}
+                        minBeds={minBeds}
+                        setMinBeds={setMinBeds}
+                        homeTypes={homeTypes}
+                        setHomeTypes={setHomeTypes}
+                    />
+                </Wrapper>
             </div>
             <div className='propertiesDiv'>
                 {(!results) ? (

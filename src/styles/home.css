@@ -103,7 +103,9 @@
     transition: all ease .3s;
     outline: 0;
 }
-
+.locationDiv{
+    position: relative;
+}
 .searchBarDiv form div>input:focus-visible,
 .optionSelected>input {
     color: black !important;
@@ -140,7 +142,7 @@
 .options {
     width: 100%;
     position: absolute;
-    top: 44px;
+    top: 45px;
     left: 0;
     font-size: 16px;
     z-index: 1;
@@ -155,6 +157,13 @@
     padding: 10px 10px;
     cursor: pointer;
     transition: all ease .3s;
+}
+.option-item-loading {
+    padding: 10px 10px;
+    background-color: rgb(202, 202, 202);
+    height: 20px;
+    margin: 2px 0;
+    animation: loadingMapSkeleton 1.5s infinite;
 }
 
 .option-item:hover {

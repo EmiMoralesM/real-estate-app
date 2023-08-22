@@ -2,9 +2,11 @@ import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../../assets/Context'
 import { Link } from 'react-router-dom'
+import { LocationContext } from '../../assets/LocationContext'
 
 function Homes(props) {
-  const { SERVER_URL, useOutsideClick, imageUrl, hometypes_array } = useContext(Context)
+  const { useOutsideClick, imageUrl } = useContext(Context)
+  const { locationCoordinates, fetchPropertiesData } = useContext(LocationContext)
 
   const sort_options_array = ['Homes for You', 'Price (Low to High)', 'Price (High to Low)', 'Square Feet']
 
@@ -15,16 +17,9 @@ function Homes(props) {
 
   useEffect(() => {
     props.setProperties()
-    async function fetchData() {
-      // Fetch the properties with the specified filters
-      await axios.get(axios.get(`${SERVER_URL}/getProperties?minPrice=${props.minPrice ? props.minPrice : 0}&maxPrice=${props.maxPrice ? props.maxPrice : 0}&minBaths=${props.minBaths ? props.minBaths : 0}&minBeds=${props.minBeds ? props.minBeds : 0}&homeTypes=${props.homeTypes.length == 0 ? hometypes_array : props.homeTypes}`)
-        .then((data) => {
-          props.setProperties(data.data)
-        })
-        .catch(err => console.log(`Error: ${err}`)))
-    }
-    fetchData();
-  }, [props.maxPrice, props.minPrice, props.minBaths, props.minBeds, props.homeTypes])
+    // Function (from LocationContext) that fetches the properties with the specified filters.
+    fetchPropertiesData(props.setProperties, locationCoordinates, props.maxPrice, props.minPrice, props.minBaths, props.minBeds, props.homeTypes);
+  }, [locationCoordinates, props.maxPrice, props.minPrice, props.minBaths, props.minBeds, props.homeTypes])
 
   return (
     <section className='homesSection'>

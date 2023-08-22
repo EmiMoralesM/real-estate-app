@@ -1,22 +1,32 @@
 import React, { useContext, useState } from 'react'
 import { Context } from '../../assets/Context';
+import { LocationContext } from '../../assets/LocationContext';
+import { Wrapper } from '@googlemaps/react-wrapper';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 function Banner() {
     const { hometypes_array } = useContext(Context)
-    const [locationValue, setLocationValue] = useState('');
+    const { locationValue, setLocationValue, handleSelect, setHomeTypes } = useContext(LocationContext)
 
-    const [isStateOpen, setIsStateOpen] = useState(false);
-    const [selectedStateOption, setSelectedStateOption] = useState('Any');
-    const stateOptions = ["Any", "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"];
+    const [selectedlocation, setSelectedlocation] = useState('');
+    // const [isStateOpen, setIsStateOpen] = useState(false);
+    // const [selectedStateOption, setSelectedStateOption] = useState('Any');
+    // const stateOptions = ["Any", "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"];
 
     const [isTypeOpen, setIsTypeOpen] = useState(false);
     const [selectedTypeOption, setSelectedTypeOption] = useState('Any');
 
     const toggleDropdown = (id) => {
-        if (id == "state") setIsStateOpen(prevIsStateOpen => !prevIsStateOpen);
+        // if (id == "state") setIsStateOpen(prevIsStateOpen => !prevIsStateOpen);
         if (id == "type") setIsTypeOpen(prevIsTypeOpen => !prevIsTypeOpen);
     };
-
+    const handleSearch = (e) => {
+        e.preventDefault()
+        console.log('search');
+        console.log(Array(selectedTypeOption));
+        setHomeTypes(selectedTypeOption == 'Any' ? '' : Array(selectedTypeOption))
+    }
+    
 
     return (
         <section className='bannerSection'>
@@ -29,16 +39,38 @@ function Banner() {
             <div className='searchBarDiv'>
                 <form action="#">
                     <div className={`locationDiv ${locationValue ? 'optionSelected' : ''}`}>
-                        <label htmlFor="location">LOCATION</label>
-                        <input
-                            type="text"
-                            name='location'
-                            value={locationValue}
-                            onChange={(event) => setLocationValue(event.target.value)}
-                            placeholder="Enter an address, neighborhood, city, or ZIP code"
-                        />
+                        <Wrapper
+                            apiKey="AIzaSyDYd25d8gbKq9Voxfu5aFxog9SPnT4OZTU"
+                            version="beta"
+                            libraries={["marker", "places"]}
+                        >
+                            <PlacesAutocomplete
+                                value={locationValue}
+                                onChange={setLocationValue}
+                                onSelect={handleSelect}
+                            >
+                                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                    <div >
+                                        <label htmlFor="location">LOCATION</label>
+                                        <div className={`${locationValue ? 'optionSelected' : ''} locationDiv`}>
+                                            <input {...getInputProps({ placeholder: "Enter a address, neighborhood, state or city...", })} />
+                                            {(loading || suggestions.length > 0) && <div className="options optionsLocation">
+                                                {loading && [1, 2, 3, 4].map((x) => (<div key={x} className="option-item-loading"></div>))}
+                                                {suggestions.map(suggestion => {
+                                                    return (
+                                                        <div className="option-item" key={suggestion.description} {...getSuggestionItemProps(suggestion)}>
+                                                            <span>{suggestion.description}</span>
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>}
+                                        </div>
+                                    </div>
+                                )}
+                            </PlacesAutocomplete>
+                        </Wrapper>
                     </div>
-                    <div className='stateDiv' onMouseLeave={() => setIsStateOpen(false)}>
+                    {/* <div className='stateDiv' onMouseLeave={() => setIsStateOpen(false)}>
                         <label>STATE</label>
                         <div
                             onClick={() => toggleDropdown('state')}
@@ -59,7 +91,7 @@ function Banner() {
                                 </div>
                             )}
                         </div>
-                    </div>
+                    </div> */}
                     <div className='typeDiv' onMouseLeave={() => setIsTypeOpen(false)}>
                         <label>TYPE</label>
                         <div onClick={() => toggleDropdown('type')} className={`dropdown ${isTypeOpen ? 'openDropdown' : ''} ${selectedTypeOption != 'Any' ? 'optionSelected' : ''}`}>
@@ -69,7 +101,7 @@ function Banner() {
                                     {selectedTypeOption != 'Any' ? <div
                                         className="option-item"
                                         onClick={() => setSelectedTypeOption('Any')}
-                                    >   
+                                    >
                                         {'Any'}
                                     </div> : ''}
                                     {hometypes_array.map((option) => (
@@ -86,7 +118,7 @@ function Banner() {
                         </div>
                     </div>
                     <div className='searchSubmitDiv'>
-                        <button className='searchButton' type="submit"></button>
+                        <button className='searchButton' type="submit" onClick={handleSearch}></button>
                     </div>
                 </form>
             </div>

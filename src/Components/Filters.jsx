@@ -1,14 +1,18 @@
-import React, { useContext, useState } from 'react'
-import { Context } from '../../../assets/Context'
+import React, { useContext, useEffect, useState } from 'react'
+import { Context } from '../assets/Context'
+
+import PlacesAutocomplete from 'react-places-autocomplete';
+import { LocationContext } from '../assets/LocationContext';
 
 
-function Filters(props) { 
+function Filters(props) {
     const { useOutsideClick, hometypes_array } = useContext(Context)
+    const { locationCoordinates, setLocationCoordinates, locationValue, setLocationValue, handleSelect, homeTypes } = useContext(LocationContext)
+    
+    const [locationFilterOpen, setLocationFilterOpen] = useState(false)
     const [priceFilterOpen, setPriceFilterOpen] = useState(false)
     const [bathsFilterOpen, setBathsFilterOpen] = useState(false)
     const [homeTypeFilterOpen, setHomeTypeFilterOpen] = useState(false)
-
-    const [locationValue, setLocationValue] = useState('')
 
     const [minPriceOpen, setMinPriceOpen] = useState(false)
     const [minPrice, setMinPrice] = useState()
@@ -22,17 +26,21 @@ function Filters(props) {
     const [bedrooms, setBedrooms] = useState()
     const [bathrooms, setBathrooms] = useState()
 
-    const [homeTypes, setHomeTypes] = useState([])
-    
+    const [homeTypesChecked, setHomeTypesChecked] = useState([])
+    useEffect(() => {
+    }, [])
     const toggleHomeType = (option) => {
-        if (homeTypes.includes(option)) {
-            setHomeTypes(prevHomeTypes => prevHomeTypes.filter(type => option != type))
+        if (homeTypesChecked.includes(option)) {
+            setHomeTypesChecked(prevHomeTypesChecked => prevHomeTypesChecked.filter(type => option != type))
         } else {
-            setHomeTypes(prevHomeTypes => [...prevHomeTypes, option])
+            setHomeTypesChecked(prevHomeTypesChecked => [...prevHomeTypesChecked, option])
         }
     }
 
     const toggleDropdown = (filter) => {
+        if (filter === 'location') {
+            setLocationFilterOpen(true)
+        }
         if (filter === 'price') {
             setPriceFilterOpen(prevPriceFilterOpen => !prevPriceFilterOpen)
         }
@@ -45,28 +53,50 @@ function Filters(props) {
     }
 
     const handleClickOutside = () => {
+        setLocationFilterOpen(false)
         setPriceFilterOpen(false)
         setBathsFilterOpen(false)
         setHomeTypeFilterOpen(false)
     }
 
     // This returns a reference. And creates an event listener that will activate with every click outside the reference. (Form Context.jsx)
+    const refLocation = useOutsideClick(handleClickOutside)
     const refPrice = useOutsideClick(handleClickOutside)
     const refBaths = useOutsideClick(handleClickOutside)
     const refHomeType = useOutsideClick(handleClickOutside)
 
     return (
         <>
-            <div className='locationSearchDiv'>
-                <input
-                    className='generalInput locationInput'
-                    type="text"
-                    name="search"
-                    placeholder="City, Neighborhood, Address"
+            <div ref={locationFilterOpen ? refLocation : null} className='locationSearchDiv'>
+                {/* https://github.com/hibiken/react-places-autocomplete */}
+                <PlacesAutocomplete
                     value={locationValue}
-                    onChange={(event) => setLocationValue(event.target.value)}
-                />
-                <p className='locationSearchIcon'></p>
+                    onChange={setLocationValue}
+                    onSelect={handleSelect}
+                >
+                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                        <div>
+                            <input
+                                className='generalInput locationInput'
+                                onClick={() => toggleDropdown('location')}
+                                onFocus={() => toggleDropdown('location')}
+                                onMouseEnter={() => toggleDropdown('location')}
+                                {...getInputProps({ placeholder: "State, City, Address...", })}
+                            />
+                            {locationFilterOpen && (loading || suggestions.length > 0) && <div className='locationSuggestionsDiv'>
+                                {loading && [1, 2, 3, 4, 5].map((x) => (<div key={x} className='locationSuggestionLoading'></div>))}
+                                {suggestions.map(suggestion => {
+                                    return (
+                                        <div className='locationSuggestion' key={suggestion.description} {...getSuggestionItemProps(suggestion)}>
+                                            <span>{suggestion.description}</span>
+                                        </div>
+                                    );
+                                })}
+                            </div>}
+                        </div>
+                    )}
+                </PlacesAutocomplete>
+
             </div>
             <div ref={priceFilterOpen ? refPrice : null}>
                 <button className='generalInput filterButton' onClick={() => toggleDropdown('price')}>
@@ -194,7 +224,7 @@ function Filters(props) {
                             <ul>
                                 {hometypes_array.map(option => (
                                     <li onClick={() => toggleHomeType(option)} key={option}>
-                                        <span className={`checkboxHometype ${homeTypes.includes(option) ? 'active' : ''}`}></span>
+                                        <span className={`checkboxHometype ${homeTypesChecked.includes(option) ? 'active' : ''}`}></span>
                                         <p>{option}</p>
                                     </li>
                                 ))}
@@ -202,7 +232,7 @@ function Filters(props) {
                         </div>
                         <div className='applyFilterDiv'>
                             <button onClick={() => {
-                                props.setHomeTypes(homeTypes)
+                                props.setHomeTypes(homeTypesChecked)
                                 setHomeTypeFilterOpen(false)
                                 // props.setProperties()
                             }}>Filter</button>
@@ -210,14 +240,15 @@ function Filters(props) {
                     </div>
                 )}
             </div>
-            {(props.minPrice || props.maxPrice || props.minBaths || props.minBeds || props.homeTypes.length != 0) && <div>
+            {(locationCoordinates || props.minPrice || props.maxPrice || props.minBaths || props.minBeds || props.homeTypes.length != 0) && <div>
                 <button className='generalInput filterButton removeFiltersButton' onClick={() => {
+                    setLocationCoordinates()
                     props.setMinPrice()
                     props.setMaxPrice()
                     props.setMinBaths()
                     props.setMinBeds()
                     props.setHomeTypes([])
-                    setHomeTypes([])
+                    setHomeTypesChecked([])
                 }}>Remove filters
                     {/* <span className='x'></span> */}
                 </button>

@@ -9,12 +9,19 @@ import Analytics from '../Components/Dashboard/Analytics'
 import Users from '../Components/Dashboard/Users'
 import { Context } from '../assets/Context'
 import ManageProperties from '../Components/Dashboard/ManageProperties'
+import { LocationContext } from '../assets/LocationContext'
 
 function Dashboard(props) {
-    const { user} = useContext(Context)
-    
+    const { user } = useContext(Context)
+    const { setLocationCoordinates } = useContext(LocationContext)
+
     const [sideBarOpen, setSideBarOpen] = useState(true)
     const [dashboardPage, setDashboardPage] = useState('analytics')
+
+    useEffect(() => {
+        // Refresh the location filter (the locationCoordinates is in the locationContext. The value is shared among the map and this page (manageProperties), that why we reset its value)
+        setLocationCoordinates()
+    }, [])
 
     useEffect(() => {
         setDashboardPage(location.pathname.replace('/dashboard/', '').charAt(0).toUpperCase() + location.pathname.replace('/dashboard/', '').slice(1))

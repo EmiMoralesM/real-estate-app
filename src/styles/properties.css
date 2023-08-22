@@ -34,12 +34,13 @@
 }
 
 .locationInput {
-    width: 275px;
+    width: 355px;
 }
 
 .locationSearchIcon {
     position: absolute;
     margin: 0;
+    top: 10px;
     right: 20px;
     width: 22px;
     height: 22px;
@@ -47,9 +48,38 @@
     background-image: url(../assets/icons/search-icon-black.svg);
     background-repeat: no-repeat;
     background-position: center;
-
 }
 
+.locationSuggestionsDiv{
+    position: absolute;
+    background-color: white;
+    padding: 5px;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 100px;
+    border-radius: 0 0 10px 10px;
+}
+.locationSuggestion{
+    background-color: #f8f8f8;
+    padding: 8px;
+    margin: 5px;
+    border-radius: 5px;
+    transition: all ease .2s;
+    cursor: pointer;
+}
+.locationSuggestionLoading{
+    background-color: rgb(226, 226, 226);
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 25px;
+    display: block;
+    animation: loadingMapSkeleton 1.5s infinite;
+}
+.locationSuggestion:hover{
+    background-color: #e1e1e1;
+}
 
 
 .arrow {
@@ -335,7 +365,7 @@
     position: fixed;
     width: 62vw;
     margin-top: calc(79px + 54px);
-    height: calc(100% - 79px - 62px);
+    height: calc(100% - 79px - 42px);
 }
 
 .map {
@@ -426,7 +456,18 @@
 
 }
 
-
+.locationSeach{
+    /* border-radius: 50%; */
+    width: 40px;
+    height: 40px;
+    background-image: url(../assets/icons/pin.svg);
+    background-position: center center;
+    background-size: 40px;
+    display: block;
+    /* border: 2px solid #ffffff; */
+    /* background-color: #960000; */
+    transition: all ease .2s;
+}
 
 
 /* Home properties */
