@@ -100,8 +100,8 @@ function PropertyDetails(props) {
                 addressState: props.addressState,
                 addressZipcode: props.addressZipCode,
                 coordinates: {
-                    lat: props.lat,
-                    lng: props.lng,
+                    lat: props.coordinates.lat,
+                    lng: props.coordinates.lng,
                 },
                 ownerId: user._id
             })

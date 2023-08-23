@@ -1,51 +1,80 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Chart_1 from './Charts/Chart_1'
 import Chart_3 from './Charts/Chart_3'
 import Chart_5 from './Charts/Chart_5'
 import Chart_4 from './Charts/Chart_4'
+import axios from 'axios'
+import { Context } from '../../assets/Context'
 
 
 function Analytics() {
-    const countUsers = 9
-    const countProperties = 2572
+    const { SERVER_URL } = useContext(Context)
+    const [countProperties, setCountProperties] = useState()
+    const [totalProperties, setTotalProperties] = useState(0)
+    const [countUsers, setCountUsers] = useState()
+    useEffect(() => {
+        const countProps = async () => {
+            await axios.get(`${SERVER_URL}/countProperties`)
+                .then(res => {
+                    Object.values(res.data).forEach(amount => {
+                        setTotalProperties(prevTotal => prevTotal + amount)
+                    })
+                    setCountProperties(res.data)
+                })
+                .catch(err => console.log(`Error: ${err}`))
+            await axios.get(`${SERVER_URL}/countUsers`)
+                .then(res => setCountUsers(res.data))
+                .catch(err => console.log(`Error: ${err}`))
+        }
+        countProps()
+    }, [])
 
     return (
         <>
             <div className='chart_block_1'>
-                <Chart_1 />
+                {(!countUsers) && <div className='chart_div chart_1 chart-loading'>
+
+                </div>}
+                {countUsers && <Chart_1 totalProperties={totalProperties} countProperties={countProperties} />}
                 <div className='charts_2_3'>
                     <div className='chart_2'>
-                        <div className='propertiesSold'>
+                        {!countUsers && <div className='propertiesSold chart-loading' />}
+                        {countUsers && <div className='propertiesSold'>
                             <div>
                                 <p>Properties Sold</p>
                                 <p>{Intl.NumberFormat().format(203)}</p>
                                 <p><span className='green'>10% </span> vs last/month</p>
                             </div>
                             <div className='chart2Icon'><p></p></div>
-                        </div>
-                        <div className='newUsers'>
+                        </div>}
+                        {!countUsers && <div className='newUsers chart-loading' />}
+                        {countUsers && <div className='newUsers'>
                             <div>
-                                <p>New Users</p>
+                                <p>Total Users</p>
                                 <p>{Intl.NumberFormat().format(countUsers)}</p>
                                 <p><span className='green'>22% </span>vs last/week</p>
                             </div>
                             <div className='chart2Icon'><p></p></div>
-                        </div>
-                        <div className='propertiesForSale'>
+                        </div>}
+                        {!countUsers && <div className='propertiesForSale chart-loading' />}
+                        {countUsers && <div className='propertiesForSale'>
                             <div>
                                 <p>Properties For Sale</p>
-                                <p>{Intl.NumberFormat().format(countProperties)}</p>
+                                <p>{Intl.NumberFormat().format(totalProperties)}</p>
                                 <p ><span className='red'>-5% </span>vs last/month</p>
                             </div>
                             <div className='chart2Icon'><p></p></div>
-                        </div>
+                        </div>}
                     </div>
-                    <Chart_3 />
+                    {!countUsers && <div className='chart_3 chart_div chart-loading'></div>}
+                    {countUsers && <Chart_3 />}
                 </div>
             </div>
             <div className='chart_block_2'>
-                <Chart_4 />
-                <Chart_5 />
+                {!countUsers && <div className='chart_4 chart_div chart-loading'></div>}
+                {countUsers && <Chart_4 totalProperties={totalProperties} />}
+                {!countUsers && <div className='chart_5 chart_div chart-loading'></div>}
+                {countUsers && <Chart_5 countUsers={countUsers} />}
             </div>
         </>
 

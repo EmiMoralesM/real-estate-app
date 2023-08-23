@@ -3,6 +3,7 @@ import { Context } from '../../assets/Context';
 import { LocationContext } from '../../assets/LocationContext';
 import { Wrapper } from '@googlemaps/react-wrapper';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import { Link } from 'react-router-dom';
 
 function Banner() {
     const { hometypes_array } = useContext(Context)
@@ -20,8 +21,8 @@ function Banner() {
         // if (id == "state") setIsStateOpen(prevIsStateOpen => !prevIsStateOpen);
         if (id == "type") setIsTypeOpen(prevIsTypeOpen => !prevIsTypeOpen);
     };
-    const handleSearch = (e) => {
-        e.preventDefault()
+    const handleSearch = () => {
+        // e.preventDefault()
         console.log('search');
         console.log(Array(selectedTypeOption));
         setHomeTypes(selectedTypeOption == 'Any' ? '' : Array(selectedTypeOption))
@@ -118,7 +119,7 @@ function Banner() {
                         </div>
                     </div>
                     <div className='searchSubmitDiv'>
-                        <button className='searchButton' type="submit" onClick={handleSearch}></button>
+                        <Link className='searchButton' to={'/properties'} onClick={handleSearch}></Link>
                     </div>
                 </form>
             </div>

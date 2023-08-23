@@ -16,9 +16,9 @@ function SideBar(props) {
                 <li className={location.pathname.includes('properties') ? 'active' : ''}>
                     <Link to={'/dashboard/properties'}><i className='propertiesItem'></i><span>Properties</span></Link>
                 </li>
-                <li className={location.pathname.includes('notifications') ? 'active' : ''}>
+                {/* <li className={location.pathname.includes('notifications') ? 'active' : ''}>
                     <Link to={'/dashboard/notifications'}><i className='notificationsItem'></i><span>Notifications</span></Link>
-                </li>
+                </li> */}
                 {/* <li><p>LogOut</p></li> */}
                 {/* <li><button>Back Home</button></li> */}
             </ul>

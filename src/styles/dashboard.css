@@ -328,6 +328,11 @@
     color: #4d97ff;
 }
 
+
+.chart-loading{
+    background-color: rgb(202, 202, 202)!important;
+    animation: loadingSkeleton 1.5s infinite;
+}
 /* Chart 1 */
 
 
@@ -384,20 +389,17 @@
 }
 
 .chartInfo ul .townhomes:before {
-    background-color: rgba(75, 192, 192);
-}
-
-.chartInfo ul .multiFamily:before {
     background-color: rgba(255, 99, 132);
 }
 
-.chartInfo ul .condos:before {
+.chartInfo ul .multiFamily:before {
     background-color: rgba(255, 206, 86);
 }
 
-.chartInfo ul .aparments:before {
+.chartInfo ul .condos:before {
     background-color: rgba(255, 159, 64);
 }
+
 
 /* Chart 2 */
 .charts_2_3 {

@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 function MapAddress(props) {
   const [modalAddress, setModalAddress] = useState(false)
-
+  useEffect(() => {
+    console.log(props.coordinates);
+  }, [])
   return (
     <>
       <div className='mapAddressDiv'>
@@ -21,7 +23,7 @@ function MapAddress(props) {
           <button className='closeModal' onClick={() => setModalAddress(false)}></button>
           <div className='generalModalContent'>
             <h3>Modify Location</h3>
-            <p className='lat_long'>{props.lng}, {props.lat}</p>
+            <p className='lat_long'>{props.coordinates.lng}, {props.coordinates.lat}</p>
 
             <div className='mapAddress'></div>
             <div className='addressActionsDiv'>

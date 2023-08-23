@@ -13,17 +13,17 @@ function Map(props) {
     const [propertyHover, setPropertyHover] = useState('')
 
     const mapRef = useRef()
-
+   
     const mapOptions = {
         mapId: '49c3f173e021d634',
         center: locationCoordinates ? locationCoordinates : centerPosition,
         zoom: locationCoordinates ? 10 : 6,
         // disableDefaultUI: true
     }
-    useEffect(() => {
+    /* useEffect(() => {
         // Refresh the location filter (the locationCoordinates is in the locationContext. The value is shared among the manageProperties page and this page, that why we reset its value)
         setLocationCoordinates()
-    }, [])
+    }, []) */
     useEffect(() => {
         setMap()
         if (props.properties) {

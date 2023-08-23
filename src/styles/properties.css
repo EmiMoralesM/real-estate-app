@@ -20,10 +20,12 @@
 }
 
 .removeFiltersButton {
-    color: #979797;
+    color: #4a96ff;
+    border: 2px solid #4a96ff;
 }
 
 .removeFiltersButton:hover {
+    border: 2px solid #006aff;
     color: #006aff;
 }
 

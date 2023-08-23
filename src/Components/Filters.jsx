@@ -7,33 +7,35 @@ import { LocationContext } from '../assets/LocationContext';
 
 function Filters(props) {
     const { useOutsideClick, hometypes_array } = useContext(Context)
-    const { locationCoordinates, setLocationCoordinates, locationValue, setLocationValue, handleSelect, homeTypes } = useContext(LocationContext)
-    
+    const { locationCoordinates, setLocationCoordinates, locationValue, setLocationValue, handleSelect } = useContext(LocationContext)
+
     const [locationFilterOpen, setLocationFilterOpen] = useState(false)
     const [priceFilterOpen, setPriceFilterOpen] = useState(false)
     const [bathsFilterOpen, setBathsFilterOpen] = useState(false)
     const [homeTypeFilterOpen, setHomeTypeFilterOpen] = useState(false)
-
     const [minPriceOpen, setMinPriceOpen] = useState(false)
-    const [minPrice, setMinPrice] = useState()
-    const min_prices_array = [100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000]
-
     const [maxPriceOpen, setMaxPriceOpen] = useState(false)
-    const [maxPrice, setMaxPrice] = useState()
+
+    const min_prices_array = [100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000]
     const max_prices_array = [500000, 600000, 700000, 800000, 900000, 1000000, 1250000, 1500000, 2000000, 2500000, 3000000]
-
     const beds_baths_array = [1, 2, 3, 4, 5]
-    const [bedrooms, setBedrooms] = useState()
-    const [bathrooms, setBathrooms] = useState()
 
-    const [homeTypesChecked, setHomeTypesChecked] = useState([])
+    // const [minPrice, setMinPrice] = useState()
+    // const [maxPrice, setMaxPrice] = useState()
+    // const [bedrooms, setBedrooms] = useState()
+    // const [bathrooms, setBathrooms] = useState()
+    // const [homeTypesChecked, setHomeTypesChecked] = useState([])
+
     useEffect(() => {
+        console.log(locationCoordinates);
+        console.log(locationValue);
     }, [])
+
     const toggleHomeType = (option) => {
-        if (homeTypesChecked.includes(option)) {
-            setHomeTypesChecked(prevHomeTypesChecked => prevHomeTypesChecked.filter(type => option != type))
+        if (props.homeTypes.includes(option)) {
+            props.setHomeTypes(prevHomeTypes => prevHomeTypes.filter(type => option != type))
         } else {
-            setHomeTypesChecked(prevHomeTypesChecked => [...prevHomeTypesChecked, option])
+            props.setHomeTypes(prevHomeTypes => [...prevHomeTypes, option])
         }
     }
 
@@ -57,6 +59,8 @@ function Filters(props) {
         setPriceFilterOpen(false)
         setBathsFilterOpen(false)
         setHomeTypeFilterOpen(false)
+        setMinPriceOpen(false)
+        setMaxPriceOpen(false)
     }
 
     // This returns a reference. And creates an event listener that will activate with every click outside the reference. (Form Context.jsx)
@@ -113,21 +117,24 @@ function Filters(props) {
                         <p className='filterTitle'>Price Range</p>
                         <div className='priceFilters'>
                             <div
-                                onClick={() => setMinPriceOpen(prevMinPriceOpen => !prevMinPriceOpen)}
+                                onClick={() => {
+                                    setMaxPriceOpen(false)
+                                    setMinPriceOpen(prevMinPriceOpen => !prevMinPriceOpen)
+                                }}
                                 className='individualFilterDropdown'
                             >
                                 <p className='filterSubTitle'>Minimum Price</p>
                                 <div className='individualFilterButton'>
-                                    <input type="text" name='state' value={minPrice ? `$${Intl.NumberFormat().format(minPrice)}` : 'No Min'} readOnly />
+                                    <input type="text" name='state' value={props.minPrice ? `$${Intl.NumberFormat().format(props.minPrice)}` : 'No Min'} readOnly />
                                     <p className={`arrow ${minPriceOpen ? 'arrowActive' : ''}`}></p>
                                 </div>
                                 <div className={`options filterOptions ${minPriceOpen ? '' : 'hideOptions'}`}>
-                                    <div className="option-item" onClick={() => setMinPrice()}>No Min</div>
+                                    <div className="option-item" onClick={() => props.setMinPrice()}>No Min</div>
                                     {min_prices_array.map((option) => (
                                         <div
                                             className="option-item"
                                             key={option}
-                                            onClick={() => setMinPrice(option)}
+                                            onClick={() => props.setMinPrice(option)}
                                         >
                                             ${Intl.NumberFormat().format(option)}
                                         </div>
@@ -135,21 +142,24 @@ function Filters(props) {
                                 </div>
                             </div>
                             <div
-                                onClick={() => setMaxPriceOpen(prevMaxPriceOpen => !prevMaxPriceOpen)}
+                                onClick={() => {
+                                    setMinPriceOpen(false)
+                                    setMaxPriceOpen(prevMaxPriceOpen => !prevMaxPriceOpen)
+                                }}
                                 className='individualFilterDropdown'
                             >
                                 <p className='filterSubTitle'>Maximum Price</p>
                                 <div className='individualFilterButton'>
-                                    <input type="text" name='state' value={maxPrice ? `$${Intl.NumberFormat().format(maxPrice)}` : 'No Max'} readOnly />
+                                    <input type="text" name='state' value={props.maxPrice ? `$${Intl.NumberFormat().format(props.maxPrice)}` : 'No Max'} readOnly />
                                     <p className={`arrow ${maxPriceOpen ? 'arrowActive' : ''}`}></p>
                                 </div>
                                 <div className={`options filterOptions ${maxPriceOpen ? '' : 'hideOptions'}`}>
-                                    <div className="option-item" onClick={() => setMaxPrice()}>No Max</div>
+                                    <div className="option-item" onClick={() => props.setMaxPrice()}>No Max</div>
                                     {max_prices_array.map((option) => (
                                         <div
                                             className="option-item"
                                             key={option}
-                                            onClick={() => setMaxPrice(option)}
+                                            onClick={() => props.setMaxPrice(option)}
                                         >
                                             ${Intl.NumberFormat().format(option)}
                                         </div>
@@ -160,8 +170,8 @@ function Filters(props) {
                         <div className='applyFilterDiv'>
                             <button onClick={() => {
                                 // When the user clicks the button, we set the filters and "activate" the useEffect that fetches the data
-                                props.setMinPrice(minPrice)
-                                props.setMaxPrice(maxPrice)
+                                // props.setMinPrice(props.minPrice)
+                                // props.setMaxPrice(maxPrice)
                                 setMinPriceOpen(false)
                                 setMaxPriceOpen(false)
                                 setPriceFilterOpen(false)
@@ -186,20 +196,20 @@ function Filters(props) {
                         <div className='bathsOptions'>
                             <p>Bedrooms</p>
                             <div>
-                                <p className={`first ${bedrooms ? '' : 'active'}`} onClick={() => setBedrooms(0)}>Any</p>
+                                <p className={`first ${props.minBeds ? '' : 'active'}`} onClick={() => props.setMinBaths(0)}>Any</p>
                                 {beds_baths_array.map((option) => (
-                                    <p className={`${option == beds_baths_array.length ? 'last' : ''} ${option == bedrooms ? 'active' : ''}`}
-                                        onClick={() => setBedrooms(option)}
+                                    <p className={`${option == beds_baths_array.length ? 'last' : ''} ${option == props.minBeds ? 'active' : ''}`}
+                                        onClick={() => props.setMinBeds(option)}
                                         key={option}
                                     >{option}+</p>
                                 ))}
                             </div>
                             <p>Bathrooms</p>
                             <div>
-                                <p className={`first ${bathrooms ? '' : 'active'}`} onClick={() => setBathrooms(0)}>Any</p>
+                                <p className={`first ${props.minBaths ? '' : 'active'}`} onClick={() => props.setMinBaths(0)}>Any</p>
                                 {beds_baths_array.map((option) => (
-                                    <p className={`${option == beds_baths_array.length ? 'last' : ''} ${option == bathrooms ? 'active' : ''}`}
-                                        onClick={() => setBathrooms(option)}
+                                    <p className={`${option == beds_baths_array.length ? 'last' : ''} ${option == props.minBaths ? 'active' : ''}`}
+                                        onClick={() => props.setMinBaths(option)}
                                         key={option}
                                     >{option}+</p>
                                 ))}
@@ -207,8 +217,8 @@ function Filters(props) {
                         </div>
                         <div className='applyFilterDiv'>
                             <button onClick={() => {
-                                props.setMinBaths(bathrooms)
-                                props.setMinBeds(bedrooms)
+                                // props.setMinBaths(bathrooms)
+                                // props.setMinBeds(bedrooms)
                                 setBathsFilterOpen(false)
                             }}>Filter</button>
                         </div>
@@ -224,7 +234,7 @@ function Filters(props) {
                             <ul>
                                 {hometypes_array.map(option => (
                                     <li onClick={() => toggleHomeType(option)} key={option}>
-                                        <span className={`checkboxHometype ${homeTypesChecked.includes(option) ? 'active' : ''}`}></span>
+                                        <span className={`checkboxHometype ${props.homeTypes.includes(option) ? 'active' : ''}`}></span>
                                         <p>{option}</p>
                                     </li>
                                 ))}
@@ -232,7 +242,7 @@ function Filters(props) {
                         </div>
                         <div className='applyFilterDiv'>
                             <button onClick={() => {
-                                props.setHomeTypes(homeTypesChecked)
+                                // props.setHomeTypes(props.homeTypes)
                                 setHomeTypeFilterOpen(false)
                                 // props.setProperties()
                             }}>Filter</button>
@@ -243,15 +253,14 @@ function Filters(props) {
             {(locationCoordinates || props.minPrice || props.maxPrice || props.minBaths || props.minBeds || props.homeTypes.length != 0) && <div>
                 <button className='generalInput filterButton removeFiltersButton' onClick={() => {
                     setLocationCoordinates()
+                    setLocationValue('')
                     props.setMinPrice()
                     props.setMaxPrice()
                     props.setMinBaths()
                     props.setMinBeds()
                     props.setHomeTypes([])
                     setHomeTypesChecked([])
-                }}>Remove filters
-                    {/* <span className='x'></span> */}
-                </button>
+                }}>Remove filters</button>
             </div>}
         </>
     )

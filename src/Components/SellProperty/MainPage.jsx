@@ -5,6 +5,7 @@ import time from '../../assets/icons/time.svg'
 import eyes from '../../assets/icons/eyes.svg'
 import saveMoney from '../../assets/icons/save-money.svg'
 import { Context } from '../../assets/Context'
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 function MainPage(props) {
     const { useOutsideClick } = useContext(Context)
@@ -12,8 +13,10 @@ function MainPage(props) {
     const [isStateOpen, setIsStateOpen] = useState(false);
     const stateOptions = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
 
-    const handleAddressSubmit = () => {
-        location = '/sellProperty/propertyInformation/mapAddress'
+    const handleAddressSubmit = async () => {
+        const results = await geocodeByAddress(`${props.addressStreet}, ${props.addressCity}, ${props.addressState}, ${props.addressZipCode}`)
+        const coord = await getLatLng(results[0])
+        await props.setCoordinates(coord);
     }
 
     const refState = useOutsideClick(() => setIsStateOpen(false))
@@ -78,7 +81,7 @@ function MainPage(props) {
                                 />
                             </div>
                             <div className='searchSubmitDiv'>
-                                <button className='searchButton' onClick={handleAddressSubmit} type="submit"></button>
+                                <Link to={'/sellProperty/propertyInformation/mapAddress'} className='searchButton' onClick={handleAddressSubmit}></Link>
                             </div>
                         </div>
                     </div>
@@ -108,9 +111,9 @@ function MainPage(props) {
                             <p>When you sell with us, you’ll pay a listing fee that’s less than half of what brokerages commonly charge.</p>
                         </div>
                     </div>
-                    <div className='sellNowButtonDiv'>
-                        <button className='sellNowButton'>Sell Now</button>
-                    </div>
+                    {/* <div className='sellNowButtonDiv'>
+                        <button className='sellNowButton' onClick={() => window.scrollTo(0, 0)}>Sell Now</button>
+                    </div> */}
                 </div>
             </section>
         </>

@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../../../assets/Context'
 
-function Chart_4() {
+function Chart_4(props) {
     const { imageUrl } = useContext(Context)
     const [properties, setProperties] = useState()
     useEffect(() => {
@@ -15,7 +15,7 @@ function Chart_4() {
         <div className='chart_4 chart_div'>
             <div className='titleChat'>
                 <p>Latest Properties Available</p>
-                <p>Total Properties: <span>{Intl.NumberFormat().format(2572)}</span></p>
+                <p>Total Properties: <span>{Intl.NumberFormat().format(props.totalProperties)}</span></p>
             </div>
             <div className='propertiesDashboard'>
                 {(!properties) ? (

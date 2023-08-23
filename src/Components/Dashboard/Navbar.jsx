@@ -23,7 +23,7 @@ function Navbar(props) {
                 <div className='headerDashboardMenu'>
                     <Link onClick={toggleSideBar} className='closeSidebar'></Link>
                     <p ><Link className='blueButton' to={'/'}>Back Home</Link></p>
-                    <p className='notifications'><Link to={'/dashboard/notifications'}>Notifications</Link></p>
+                    {/* <p className='notifications'><Link to={'/dashboard/notifications'}>Notifications</Link></p> */}
                 </div>
                 <div className='profileInfo'>
                     <div className='profileNameEmail'>

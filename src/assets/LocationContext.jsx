@@ -1,5 +1,5 @@
 import axios from "axios"
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Context } from "./Context"
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
@@ -12,9 +12,16 @@ export function LocationContextProvider({ children }) {
     // This is here in the location context because it is used by the banner (home page) and by the filters (dashboard and map page) 
     const [homeTypes, setHomeTypes] = useState([])
 
+    useEffect(() => {
+        if(locationValue == ''){
+            setLocationCoordinates()
+        }
+    }, [locationValue])
+
     const handleSelect = async (value) => {
         const results = await geocodeByAddress(value)
         const coord = await getLatLng(results[0])
+        console.log(coord);
         setLocationValue(value)
         setLocationCoordinates(coord)
     }

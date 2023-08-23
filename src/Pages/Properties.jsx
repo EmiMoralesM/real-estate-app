@@ -10,9 +10,9 @@ import DetailPropertyModal from "./DetailPropertyModal";
 import { LocationContext } from "../assets/LocationContext";
 
 function Properties(props) {
-  const { homeTypes, setHomeTypes } = useContext(LocationContext)
   const [propertyDetail, setPropertyDetail] = useState("");
   const [properties, setProperties] = useState();
+  
   // If we are trying to access a particular property
   useEffect(() => {
     if (location.pathname.includes('details')) {
@@ -21,6 +21,8 @@ function Properties(props) {
       // Open the propery detail modal 
     }
   }, [location.pathname])
+  
+  const { homeTypes, setHomeTypes } = useContext(LocationContext)
   const [minPrice, setMinPrice] = useState();
   const [maxPrice, setMaxPrice] = useState();
   const [minBaths, setMinBaths] = useState();
@@ -35,7 +37,6 @@ function Properties(props) {
         libraries={["marker", "places"]}
       >
         <section className="mapSection">
-          {/* <Map properties={properties} setPropertyDetail={setPropertyDetail} /> */}
           <Map
             properties={properties}
             setPropertyDetail={setPropertyDetail}

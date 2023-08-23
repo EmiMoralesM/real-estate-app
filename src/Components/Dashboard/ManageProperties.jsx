@@ -8,21 +8,20 @@ import ConfirmDeleteProperty from '../Modals/ConfirmDeleteProperty'
 import { Wrapper } from '@googlemaps/react-wrapper'
 
 function ManageProperties(props) {
-    const { SERVER_URL, hometypes_array, disableScroll, enableScroll, imageUrl, changeSuccessMessage, changeErrorMessage, user } = useContext(Context)
-    const { locationCoordinates, setLocationCoordinates, fetchPropertiesData } = useContext(LocationContext)
+    const { SERVER_URL, disableScroll, enableScroll, imageUrl, changeSuccessMessage, changeErrorMessage, user,  } = useContext(Context)
+    const { locationCoordinates, fetchPropertiesData, homeTypes, setHomeTypes } = useContext(LocationContext)
     const [results, setResults] = useState()
 
     const [minPrice, setMinPrice] = useState()
     const [maxPrice, setMaxPrice] = useState()
     const [minBaths, setMinBaths] = useState()
     const [minBeds, setMinBeds] = useState()
-    const [homeTypes, setHomeTypes] = useState([])
+    // const [homeTypes, setHomeTypes] = useState([])
 
     useEffect(() => {
         setResults()
         // Function (from LocationContext) that fetches the properties with the specified filters.
         fetchPropertiesData(setResults, locationCoordinates, maxPrice, minPrice, minBaths, minBeds, homeTypes);
-        
     }, [locationCoordinates, maxPrice, minPrice, minBaths, minBeds, homeTypes])
 
     const [confirmDeleteModal, setConfirmDeleteModal] = useState(false)

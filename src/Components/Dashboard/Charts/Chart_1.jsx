@@ -1,32 +1,34 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 
-function Chart_1() {
-    
-    ChartJS.register(ArcElement, Tooltip, Legend);
+function Chart_1(props) {
 
+    ChartJS.register(ArcElement, Tooltip, Legend);
     const data = {
-        labels: ['Houses', 'Townhomes', 'Multy-family', 'Condos/Co-ops', 'Apartments'],
+        labels: ['Houses', 'Townhomes', 'Multy-family', 'Condos/Co-ops'],
         datasets: [
             {
                 label: 'Properties',
-                data: [335, 204, 359, 140, 253],
+                data: [
+                    props.countProperties.House,
+                    props.countProperties.Townhouse,
+                    props.countProperties['Multy-family'],
+                    props.countProperties.Condo,
+                ],
                 backgroundColor: [
                     'rgba(54, 162, 235, 0.8)',
-                    'rgba(75, 192, 192, 0.8)',
-                    'rgba(255, 99, 132, 0.8)    ',
+                    'rgba(255, 99, 132, 0.8)',
                     'rgba(255, 206, 86, 0.8)',
                     'rgba(255, 159, 64, 0.8)',
                 ],
                 hoverBackgroundColor: [
                     'rgba(54, 162, 235)',
-                    'rgba(75, 192, 192)',
-                    'rgba(255, 99, 132)    ',
+                    'rgba(255, 99, 132)',
                     'rgba(255, 206, 86)',
                     'rgba(255, 159, 64)',
-                ],
+                ]
             },
         ],
     };
@@ -57,18 +59,25 @@ function Chart_1() {
         <div className='chart_1 chart_div'>
             <div className='titleChat'>
                 <p>Property Types</p>
-                <p>Total Properties: <span>2,572</span></p>
+                <p>Total Properties: <span>{props.totalProperties}</span></p>
             </div>
             <div>
                 <Doughnut data={data} options={options} />
             </div>
             <div className='chartInfo'>
                 <ul>
-                    <li className='multiFamily'>Multy-family: <span>30%</span></li>
-                    <li className='houses'>Houses: <span>20%</span></li>
-                    <li className='townhomes'>Townhomes: <span>20%</span></li>
-                    <li className='condos'>Condos/Co-ops: <span>20%</span></li>
-                    <li className='aparments'>Apartments: <span>10%</span></li>
+                    <li className='multiFamily'>Multy-family:
+                        <span>{((props.countProperties['Multy-family'] * 100) / props.totalProperties).toFixed(0)}%</span>
+                    </li>
+                    <li className='houses'>Houses:
+                        <span>{((props.countProperties.House * 100) / props.totalProperties).toFixed(0)}%</span>
+                    </li>
+                    <li className='townhomes'>Townhomes:
+                        <span>{((props.countProperties.Townhouse * 100) / props.totalProperties).toFixed(0)}%</span>
+                    </li>
+                    <li className='condos'>Condos/Co-ops:
+                        <span>{((props.countProperties.Condo * 100) / props.totalProperties).toFixed(0)}%</span>
+                    </li>
                 </ul>
             </div>
         </div>

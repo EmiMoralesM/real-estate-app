@@ -13,23 +13,20 @@
             <section className='mapAddressSection contentSellProp'>
                 <div className='mapAddressTitleDiv'>
                     <h1>For Sale by Owner Listings</h1>
-                    <p>{props.address}</p>
+                    <p>{`${props.addressStreet}, ${props.addressCity}, ${props.addressState}, ${props.addressZipCode}`}</p>
                     <hr />
                 </div>
                 {props.sellLocation.includes('mapAddress') && <MapAddress
-                    lng={lng}
-                    setLng={setLng}
-                    lat={lat}
-                    setLat={setLat}
+                    coordinates={props.coordinates}
+                    setCoordinates={props.setCoordinates}
                 />}
                 {props.sellLocation.includes('propertyDetails') && <PropertyDetails
+                    coordinates={props.coordinates}
+                    
                     addressStreet={props.addressStreet}
                     addressCity={props.addressCity}
                     addressState={props.addressState}
                     addressZipCode={props.addressZipCode}
-                    lat={lat}
-                    lng={lng}
-                    // setPropertyId={props.setPropertyId}
                 />}
             </section>
         )

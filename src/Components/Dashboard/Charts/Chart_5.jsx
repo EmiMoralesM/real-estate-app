@@ -5,7 +5,7 @@ import { Context } from '../../../assets/Context'
 
 import axios from 'axios'
 
-function Chart_5() {
+function Chart_5(props) {
     const { SERVER_URL } = useContext(Context)
     const [admins, setAdmins] = useState([])
     useEffect(() => {
@@ -18,7 +18,7 @@ function Chart_5() {
         <div className='chart_5 chart_div'>
             <div className='titleChat'>
                 <p>Latest Admins and Managers</p>
-                <p>Total Users: <span>100</span></p>
+                <p>Total Users: <span>{props.countUsers}</span></p>
             </div>
             <div className='allUsersAnalysis'>
                 {(!admins) ? (
