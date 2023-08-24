@@ -196,7 +196,7 @@ function Filters(props) {
                         <div className='bathsOptions'>
                             <p>Bedrooms</p>
                             <div>
-                                <p className={`first ${props.minBeds ? '' : 'active'}`} onClick={() => props.setMinBaths(0)}>Any</p>
+                                <p className={`first ${props.minBeds ? '' : 'active'}`} onClick={() => props.setMinBeds(0)}>Any</p>
                                 {beds_baths_array.map((option) => (
                                     <p className={`${option == beds_baths_array.length ? 'last' : ''} ${option == props.minBeds ? 'active' : ''}`}
                                         onClick={() => props.setMinBeds(option)}

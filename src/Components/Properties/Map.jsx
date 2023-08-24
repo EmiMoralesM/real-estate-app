@@ -24,6 +24,7 @@ function Map(props) {
         // Refresh the location filter (the locationCoordinates is in the locationContext. The value is shared among the manageProperties page and this page, that why we reset its value)
         setLocationCoordinates()
     }, []) */
+
     useEffect(() => {
         setMap()
         if (props.properties) {
@@ -82,7 +83,7 @@ function Map(props) {
 }
 
 // This function creates every individual marker  
-function Marker(props) {
+export function Marker(props) {
     const markerRef = useRef()
     const rootRef = useRef()
 

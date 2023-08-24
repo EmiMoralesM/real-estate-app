@@ -3,18 +3,13 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../../assets/Context'
 import { Link } from 'react-router-dom'
 import { LocationContext } from '../../assets/LocationContext'
+import SortProperties from '../SortProperties'
 
 function Homes(props) {
   const { useOutsideClick, imageUrl } = useContext(Context)
   const { locationCoordinates, fetchPropertiesData } = useContext(LocationContext)
 
-  const sort_options_array = ['Homes for You', 'Price (Low to High)', 'Price (High to Low)', 'Square Feet']
-
-  const [sortResults, setSortResults] = useState(sort_options_array[0])
-  const [sortResultsOpen, setSortResultsOpen] = useState(false)
-
-  const refSort = useOutsideClick(() => setSortResultsOpen(false))
-
+  
   useEffect(() => {
     props.setProperties()
     // Function (from LocationContext) that fetches the properties with the specified filters.
@@ -26,17 +21,7 @@ function Homes(props) {
       <h1>Search Results</h1>
       <div className='homesSectionDescriptionDiv'>
         {<p className='resultsCout'>{props.properties && props.properties.length} Results</p>}
-        <div className='sortButton' ref={refSort} onClick={() => setSortResultsOpen(prevSortResultsOpen => !prevSortResultsOpen)}>
-          <p>Sort: {sortResults}</p>
-          <p className={`arrow ${sortResultsOpen ? 'arrowActive' : ''}`}></p>
-          {sortResultsOpen &&
-            <div className='options sortOptions' >
-              {sort_options_array.map(option => (
-                <div className="option-item" onClick={() => setSortResults(option)}>{option}</div>
-              ))}
-            </div>
-          }
-        </div>
+        <SortProperties properties={props.properties} setProperties={props.setProperties} />
       </div>
       <div className='propertiesDiv homesDiv'>
         {(!props.properties) ? (

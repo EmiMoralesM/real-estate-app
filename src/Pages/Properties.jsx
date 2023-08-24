@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Wrapper } from "@googlemaps/react-wrapper";
 
 import "../styles/properties.css";
 
@@ -12,7 +11,7 @@ import { LocationContext } from "../assets/LocationContext";
 function Properties(props) {
   const [propertyDetail, setPropertyDetail] = useState("");
   const [properties, setProperties] = useState();
-  
+
   // If we are trying to access a particular property
   useEffect(() => {
     if (location.pathname.includes('details')) {
@@ -21,7 +20,7 @@ function Properties(props) {
       // Open the propery detail modal 
     }
   }, [location.pathname])
-  
+
   const { homeTypes, setHomeTypes } = useContext(LocationContext)
   const [minPrice, setMinPrice] = useState();
   const [maxPrice, setMaxPrice] = useState();
@@ -31,32 +30,27 @@ function Properties(props) {
 
   return (
     <main className="mainProperties">
-      <Wrapper
-        apiKey="AIzaSyDYd25d8gbKq9Voxfu5aFxog9SPnT4OZTU"
-        version="beta"
-        libraries={["marker", "places"]}
-      >
-        <section className="mapSection">
-          <Map
-            properties={properties}
-            setPropertyDetail={setPropertyDetail}
-          />
-        </section>
-        <header className="filtersHeader">
-          <Filters
-            minPrice={minPrice}
-            setMinPrice={setMinPrice}
-            maxPrice={maxPrice}
-            setMaxPrice={setMaxPrice}
-            minBaths={minBaths}
-            setMinBaths={setMinBaths}
-            minBeds={minBeds}
-            setMinBeds={setMinBeds}
-            homeTypes={homeTypes}
-            setHomeTypes={setHomeTypes}
-          />
-        </header>
-      </Wrapper>
+
+      <section className="mapSection">
+        <Map
+          properties={properties}
+          setPropertyDetail={setPropertyDetail}
+        />
+      </section>
+      <header className="filtersHeader">
+        <Filters
+          minPrice={minPrice}
+          setMinPrice={setMinPrice}
+          maxPrice={maxPrice}
+          setMaxPrice={setMaxPrice}
+          minBaths={minBaths}
+          setMinBaths={setMinBaths}
+          minBeds={minBeds}
+          setMinBeds={setMinBeds}
+          homeTypes={homeTypes}
+          setHomeTypes={setHomeTypes}
+        />
+      </header>
       <Homes
         properties={properties}
         setProperties={setProperties}

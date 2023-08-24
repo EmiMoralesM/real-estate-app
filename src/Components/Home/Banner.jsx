@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Context } from '../../assets/Context';
 import { LocationContext } from '../../assets/LocationContext';
-import { Wrapper } from '@googlemaps/react-wrapper';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import { Link } from 'react-router-dom';
 
@@ -40,11 +39,7 @@ function Banner() {
             <div className='searchBarDiv'>
                 <form action="#">
                     <div className={`locationDiv ${locationValue ? 'optionSelected' : ''}`}>
-                        <Wrapper
-                            apiKey="AIzaSyDYd25d8gbKq9Voxfu5aFxog9SPnT4OZTU"
-                            version="beta"
-                            libraries={["marker", "places"]}
-                        >
+                        
                             <PlacesAutocomplete
                                 value={locationValue}
                                 onChange={setLocationValue}
@@ -69,7 +64,6 @@ function Banner() {
                                     </div>
                                 )}
                             </PlacesAutocomplete>
-                        </Wrapper>
                     </div>
                     {/* <div className='stateDiv' onMouseLeave={() => setIsStateOpen(false)}>
                         <label>STATE</label>

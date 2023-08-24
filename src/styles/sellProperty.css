@@ -93,33 +93,33 @@
 
 }
 
-.sellPropeSearchBarDiv > div  {
+.sellPropeSearchBarDiv>div {
     width: 93%;
     margin: auto;
     gap: 3%;
     display: flex;
 }
 
-.sellPropeSearchBarDiv > div >.streetDiv {
+.sellPropeSearchBarDiv>div>.streetDiv {
     width: 45%;
 }
 
-.sellPropeSearchBarDiv > div >.cityDiv,
-.sellPropeSearchBarDiv > div >.zipDiv {
+.sellPropeSearchBarDiv>div>.cityDiv,
+.sellPropeSearchBarDiv>div>.zipDiv {
     width: 20%;
 }
 
-.sellPropeSearchBarDiv > div >.stateDiv {
+.sellPropeSearchBarDiv>div>.stateDiv {
     width: 15%;
 }
 
-.sellPropeSearchBarDiv > div  div>label {
+.sellPropeSearchBarDiv>div div>label {
     display: block;
     font-size: 15px;
     font-weight: 700;
 }
 
-.sellPropeSearchBarDiv > div div>input {
+.sellPropeSearchBarDiv>div div>input {
     border: 0;
     font-family: 'Merriweather Sans', sans-serif;
     width: 100%;
@@ -132,7 +132,7 @@
     outline: 0;
 }
 
-.sellPropeSearchBarDiv > div div>input:focus-visible,
+.sellPropeSearchBarDiv>div div>input:focus-visible,
 .optionSelected>input {
     color: black !important;
     border-bottom: 2px solid #3287ff !important;
@@ -296,12 +296,17 @@
 }
 
 .mapAddress {
-    background-image: url(../assets/imgs/map.png);
     width: 100%;
+    border: 0;
     height: 350px;
     background-position: center;
     background-size: cover;
 }
+
+.mapAddressChange {
+    height: 620px!important; 
+}
+
 
 .addressActionsDiv {
     display: flex;

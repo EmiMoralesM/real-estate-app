@@ -5,7 +5,6 @@ import { LocationContext } from '../../assets/LocationContext'
 import Filters from '../Filters'
 import EditPropertyModal from '../Modals/EditPropertyModal'
 import ConfirmDeleteProperty from '../Modals/ConfirmDeleteProperty'
-import { Wrapper } from '@googlemaps/react-wrapper'
 
 function ManageProperties(props) {
     const { SERVER_URL, disableScroll, enableScroll, imageUrl, changeSuccessMessage, changeErrorMessage, user,  } = useContext(Context)
@@ -16,7 +15,6 @@ function ManageProperties(props) {
     const [maxPrice, setMaxPrice] = useState()
     const [minBaths, setMinBaths] = useState()
     const [minBeds, setMinBeds] = useState()
-    // const [homeTypes, setHomeTypes] = useState([])
 
     useEffect(() => {
         setResults()
@@ -41,11 +39,6 @@ function ManageProperties(props) {
     return (
         <div className='whiteBackground manageProperties'>
             <div className='managePropertiesFilterDiv'>
-                <Wrapper
-                    apiKey="AIzaSyDYd25d8gbKq9Voxfu5aFxog9SPnT4OZTU"
-                    version="beta"
-                    libraries={["marker", "places"]}
-                >
                     <Filters
                         minPrice={minPrice}
                         setMinPrice={setMinPrice}
@@ -58,7 +51,6 @@ function ManageProperties(props) {
                         homeTypes={homeTypes}
                         setHomeTypes={setHomeTypes}
                     />
-                </Wrapper>
             </div>
             <div className='propertiesDiv'>
                 {(!results) ? (
