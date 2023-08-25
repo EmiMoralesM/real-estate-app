@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react'
 import { Context } from '../../assets/Context'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 function PropertyDetails(props) {
 
     const { SERVER_URL, useOutsideClick, user, setUser, hometypes_array, changeSuccessMessage } = useContext(Context)
-
+    const navigate = useNavigate();
 
     const [price, setPrice] = useState('')
     const [homeType, setHomeType] = useState(hometypes_array[0])
@@ -106,7 +107,6 @@ function PropertyDetails(props) {
                 ownerId: user._id
             })
                 .then(async data => {
-                    console.log('data');
                     const mainImg = new FormData()
                     mainImg.append('newMainImg', mainImage)
                     await axios.patch(`${SERVER_URL}/postPropertyMainImage/${data.data._id}`, mainImg)
@@ -124,7 +124,7 @@ function PropertyDetails(props) {
                                     await axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { yourProperties: [...user.yourProperties, data.data._id] })
                                         .then(resUser => {
                                             setUser(resUser.data)
-                                            location = `../../properties/details/${res.data.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${res.data._id}`
+                                            navigate(`../../properties/details/${res.data.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${res.data._id}`)
                                         })
                                     setSubmitActive(false)
                                 })

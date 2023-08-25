@@ -8,7 +8,6 @@ function Banner() {
     const { hometypes_array } = useContext(Context)
     const { locationValue, setLocationValue, handleSelect, setHomeTypes } = useContext(LocationContext)
 
-    const [selectedlocation, setSelectedlocation] = useState('');
     // const [isStateOpen, setIsStateOpen] = useState(false);
     // const [selectedStateOption, setSelectedStateOption] = useState('Any');
     // const stateOptions = ["Any", "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"];

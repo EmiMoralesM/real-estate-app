@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import time from '../../assets/icons/time.svg'
 import eyes from '../../assets/icons/eyes.svg'
@@ -10,15 +10,50 @@ import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 function MainPage(props) {
     const { useOutsideClick, user, changeErrorMessage } = useContext(Context)
 
+    const stateOptions = { "Alabama": "AL", "Alaska": "AK", "Arizona": "AZ", "Arkansas": "AR", "California": "CA", "Colorado": "CO", "Connecticut": "CT", "Delaware": "DE", "Florida": "FL", "Georgia": "GA", "Hawaii": "HI", "Idaho": "ID", "Illinois": "IL", "Indiana": "IN", "Iowa": "IA", "Kansas": "KS", "Kentucky": "KY", "Louisiana": "LA", "Maine": "ME", "Maryland": "MD", "Massachusetts": "MA", "Michigan": "MI", "Minnesota": "MN", "Mississippi": "MS", "Missouri": "MO", "Montana": "MT", "Nebraska": "NE", "Nevada": "NV", "New Hampshire": "NH", "New Jersey": "NJ", "New Mexico": "NM", "New York": "NY", "North Carolina": "NC", "North Dakota": "ND", "Ohio": "OH", "Oklahoma": "OK", "Oregon": "OR", "Pennsylvania": "PA", "Rhode Island": "RI", "South Carolina": "SC", "South Dakota": "SD", "Tennessee": "TN", "Texas": "TX", "Utah": "UT", "Vermont": "VT", "Virginia": "VA", "Washington": "WA", "West Virginia": "WV", "Wisconsin": "WI", "Wyoming": "WY"};
+    
     const [isStateOpen, setIsStateOpen] = useState(false);
-    const stateOptions = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
+    const [fieldError, setFieldError] = useState('')
+    
+    const navigate = useNavigate();
+    
+    const checkAddress = () => {
+        if (!props.addressStreet) {
+            setFieldError('street');
+            changeErrorMessage('Please enter a valid street');
+            return false;
+        }
+        if (!props.addressCity) {
+            setFieldError('city');
+            changeErrorMessage('Please enter a valid city');
+            return false;
+        }
+        if (!props.addressState) {
+            setFieldError('state');
+            changeErrorMessage('Please enter a valid state');
+            return false;
+        }
+        if (!props.addressZipCode || (props.addressZipCode.length !== 5 && props.addressZipCode.length !== 9)) {
+            setFieldError('zip');
+            changeErrorMessage('Please enter a valid zip code');
+            return false;
+        }
+        return true
+    }
 
     const handleAddressSubmit = async () => {
         if (user.email) {
-            const results = await geocodeByAddress(`${props.addressStreet}, ${props.addressCity}, ${props.addressState}, ${props.addressZipCode}`)
-            const coord = await getLatLng(results[0])
-            await props.setCoordinates(coord);
-        } else{
+            if (checkAddress()) {
+                try {
+                    const results = await geocodeByAddress(`${props.addressStreet}, ${props.addressCity}, ${props.addressState}, ${props.addressZipCode}`)
+                    const coord = await getLatLng(results[0])
+                    await props.setCoordinates(coord);
+                    navigate('/sellProperty/propertyInformation/mapAddress');
+                } catch (e) {
+                    changeErrorMessage('The address entered does not exist. Please enter a valid address')
+                }
+            }
+        } else {
             changeErrorMessage('You have to sign in to sell a property')
         }
     }
@@ -32,23 +67,29 @@ function MainPage(props) {
                 <div>
                     <div className='sellPropeSearchBarDiv'>
                         <div>
-                            <div className={`streetDiv ${props.addressStreet ? 'optionSelected' : ''}`}>
-                                <label htmlFor="street">Street</label>
+                            <div className={`streetDiv ${props.addressStreet ? 'optionSelected' : ''} ${fieldError == 'street' ? 'fieldError' : ''}`}>
+                                <label htmlFor="street">STREET</label>
                                 <input
                                     type="text"
                                     name='street'
                                     value={props.addressStreet}
                                     onChange={(event) => props.setAddressStreet(event.target.value)}
+                                    onClick={() => {
+                                        if (fieldError == 'street') { setFieldError() }
+                                    }}
                                     placeholder="Street address..."
                                 />
                             </div>
-                            <div className={`cityDiv ${props.addressCity ? 'optionSelected' : ''}`}>
+                            <div className={`cityDiv ${props.addressCity ? 'optionSelected' : ''} ${fieldError == 'city' ? 'fieldError' : ''}`} >
                                 <label htmlFor="city">CITY</label>
                                 <input
                                     type="text"
                                     name='city'
                                     value={props.addressCity}
                                     onChange={(event) => props.setAddressCity(event.target.value)}
+                                    onClick={() => {
+                                        if (fieldError == 'city') { setFieldError() }
+                                    }}
                                     placeholder="City..."
                                 />
                             </div>
@@ -56,40 +97,49 @@ function MainPage(props) {
                                 <label>STATE</label>
                                 <div
                                     onClick={() => setIsStateOpen(prevIsStateOpen => !prevIsStateOpen)} ref={refState}
-                                    className={`dropdown ${isStateOpen ? 'openDropdown' : ''} ${props.addressState ? 'optionSelected' : ''}`}
+                                    className={`dropdown ${isStateOpen ? 'openDropdown' : ''} ${props.addressState ? 'optionSelected' : ''} ${fieldError == 'state' ? 'fieldError' : ''}`}
                                 >
                                     <input type="text" name='state' placeholder='State...' value={props.addressState} readOnly />
                                     {isStateOpen && (
                                         <div className="options">
-                                            {stateOptions.map((option) => (
-                                                props.addressState != option ? <div
-                                                    className="option-item"
-                                                    key={option}
-                                                    onClick={() => props.setAddressState(option)}
-                                                >
-                                                    {option}
-                                                </div> : ''
+                                            {Object.keys(stateOptions).map((fullName) => (
+                                                props.addressState !== stateOptions[fullName] ? (
+                                                    <div
+                                                        className="option-item"
+                                                        key={fullName}
+                                                        onClick={() => {
+                                                            props.setAddressState(stateOptions[fullName]);
+                                                            if (fieldError === 'state') {
+                                                                setFieldError();
+                                                            }
+                                                        }}
+                                                    >
+                                                        {fullName}
+                                                    </div>
+                                                ) : null
                                             ))}
                                         </div>
                                     )}
                                 </div>
                             </div>
-                            <div className={`zipDiv ${props.addressZipCode ? 'optionSelected' : ''}`}>
+                            <div className={`zipDiv ${props.addressZipCode ? 'optionSelected' : ''} ${fieldError == 'zip' ? 'fieldError' : ''}`}>
                                 <label htmlFor="zip">ZIP</label>
                                 <input
-                                    type="text"
+                                    type="number"
                                     name='zip'
                                     value={props.addressZipCode}
                                     onChange={(event) => props.setAddressZipCode(event.target.value)}
+                                    onClick={() => {
+                                        if (fieldError == 'zip') { setFieldError() }
+                                    }}
                                     placeholder="Zip..."
                                 />
                             </div>
                             <div className='searchSubmitDiv'>
-                                <Link to={user.email ? '/sellProperty/propertyInformation/mapAddress' : ''} className='searchButton' onClick={handleAddressSubmit}></Link>
+                                <Link className='searchButton' onClick={handleAddressSubmit} />
                             </div>
                         </div>
                     </div>
-                    {/* <p>Or manually <Link>select your address</Link> on the map</p> */}
                 </div>
             </section>
             <section className='contentSellProp'>

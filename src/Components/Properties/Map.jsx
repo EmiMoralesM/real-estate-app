@@ -4,14 +4,17 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Context } from '../../assets/Context'
 import { createRoot } from "react-dom/client"
 import { LocationContext } from '../../assets/LocationContext'
+import { useNavigate } from 'react-router-dom'
 
 function Map(props) {
     const { SERVER_URL, imageUrl } = useContext(Context)
     const { locationCoordinates, setLocationCoordinates } = useContext(LocationContext)
+
     const [map, setMap] = useState()
     const [centerPosition, setCenterPosition] = useState({ lat: 36.778259, lng: -119.417931 })
     const [propertyHover, setPropertyHover] = useState('')
 
+    const navigate = useNavigate();
     const mapRef = useRef()
    
     const mapOptions = {
@@ -60,7 +63,7 @@ function Map(props) {
                     coordinates={property.coordinates}
                 >
                     {/* Content of the marker */}
-                    <div onClick={() => props.setPropertyDetail(property._id)}>
+                    <div onClick={() => navigate(`details/${property.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${property._id}`)}>
                         {propertyHover == property._id && <div className='mapMarkerInfo'>
                             <div className='markerImg'>
                                 <img src={imageUrl(property.mainImage)} alt="" />

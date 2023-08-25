@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 
 import MapAddress from './MapAddress'
 import PropertyDetails from './PropertyDetails'
+import { useNavigate } from 'react-router-dom';
 
 function PropertyInformation(props) {
-        useEffect(() => {
-            if (!props.addressStreet || !props.addressCity || !props.addressZipCode) { location = '/sellProperty' }
-        }, [])
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (!props.coordinates || !props.coordinates.lat || !props.coordinates.lng) { navigate('/sellProperty') }
+    }, [])
 
     return (
         <section className='mapAddressSection contentSellProp'>

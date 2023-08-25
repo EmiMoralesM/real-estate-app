@@ -140,6 +140,7 @@
 }
 
 .options {
+    overflow-x: hidden;
     width: 100%;
     position: absolute;
     top: 45px;

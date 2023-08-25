@@ -12,17 +12,24 @@ function SortProperties(props) {
     const refSort = useOutsideClick(() => setSortResultsOpen(false))
 
     const sortProperties = (option) => {
-        // let sortedProps = props.properties
-        // // let sortedProps = []
+        let sortedProps = props.properties
+        console.log(props.properties);
+        
+        if (option == "Price (Low to High)"){
+            sortedProps.sort((prop1, prop2) => {
+                return prop1.price - prop2.price 
+            })
+        }
+        if (option == "Price (High to Low)"){
+            sortedProps.sort((prop1, prop2) => {
+                return prop2.price - prop1.price
+            })
+        }
+        console.log(sortedProps);
 
-        // if (option == "Price (Low to High)"){
-        //     sortedProps.sort((prop1, prop2) => {
-        //         return prop1.price - prop2.price 
-        //     })
-        // }
-            
-        // props.setProperties(sortedProps);
+        // props.setProperties();
         // console.log(sortedProps);
+        // props.setProperties([sortedProps[1], sortedProps[2]]);
     }
 
     return (
@@ -32,10 +39,13 @@ function SortProperties(props) {
             {sortResultsOpen &&
                 <div className='options sortOptions' >
                     {sort_options_array.map(option => (
-                        <div className="option-item" onClick={() => {
-                            setSortResults(option)
-                            sortProperties(option)
-                        }}>{option}</div>
+                        <div
+                            key={option}
+                            className="option-item"
+                            onClick={() => {
+                                setSortResults(option)
+                                sortProperties(option)
+                            }}>{option}</div>
                     ))}
                 </div>
             }
