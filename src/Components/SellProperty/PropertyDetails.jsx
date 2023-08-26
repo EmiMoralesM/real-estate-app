@@ -1,11 +1,10 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../../assets/Context'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 
 function PropertyDetails(props) {
-
-    const { SERVER_URL, useOutsideClick, user, setUser, hometypes_array, changeSuccessMessage } = useContext(Context)
+    const { SERVER_URL, useOutsideClick, user, setUser, hometypes_array, changeSuccessMessage, changeErrorMessage } = useContext(Context)
     const navigate = useNavigate();
 
     const [price, setPrice] = useState('')
@@ -32,7 +31,7 @@ function PropertyDetails(props) {
     const [mainImagePreview, setMainImagePreview] = useState('')
     const [otherImagesPreview, setOtherImagesPreview] = useState([])
 
-    const [submitActive, setSubmitActive] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const previewImage = (e, type) => {
         const reader = new FileReader()
@@ -44,11 +43,17 @@ function PropertyDetails(props) {
             }
         } else if (type == 'other') {
             for (let x = 0; x < e.target.files.length; x++) {
-                const reader = new FileReader()
-                reader.readAsDataURL(e.target.files[x])
-                reader.onload = () => {
-                    setOtherImagesPreview(prevOtherImage => [...prevOtherImage, reader.result])
-                    setOtherImages(prevOtherImage => [...prevOtherImage, e.target.files[x]])
+                const file = e.target.files[x];
+                // If the file has already been uploaded, we dont allow the image to be uploaded
+                if (!otherImages.some((existingFile) => existingFile.name + existingFile.type === file.name + file.type)) {
+                    const reader = new FileReader()
+                    reader.readAsDataURL(file)
+                    reader.onload = () => {
+                        setOtherImagesPreview(prevOtherImage => [...prevOtherImage, reader.result])
+                        setOtherImages(prevOtherImage => [...prevOtherImage, file])
+                    }
+                } else {
+                    changeErrorMessage('You already uploaded this file')
                 }
             }
         }
@@ -83,61 +88,127 @@ function PropertyDetails(props) {
         return valid
     }
 
-    const handleSubmit = async (e) => {
-        setSubmitActive(true)
+    const handleSubmit = async () => {
+        setLoading(true)
         if (checkInputs('all')) {
-            await axios.post(`${SERVER_URL}/postProperty`, {
-                statusType: 'FOR_SALE',
-                statusText: homeType,
-                price: price,
-                pricePerSqFt: (sizeScale.toLowerCase() == 'sqft' ? (price / size) : (price / (size * 43560))).toFixed(1),
-                lotSize: size,
-                lotAreaUnit: sizeScale.toLowerCase(),
-                beds: beds,
-                baths: baths,
-                address: `${props.addressStreet}, ${props.addressCity}, ${props.addressState} ${props.addressZipCode}`,
-                addressStreet: props.addressStreet,
-                addressCity: props.addressCity,
-                addressState: props.addressState,
-                addressZipcode: props.addressZipCode,
-                coordinates: {
-                    lat: props.coordinates.lat,
-                    lng: props.coordinates.lng,
-                },
-                ownerId: user._id
-            })
-                .then(async data => {
-                    const mainImg = new FormData()
-                    mainImg.append('newMainImg', mainImage)
-                    await axios.patch(`${SERVER_URL}/postPropertyMainImage/${data.data._id}`, mainImg)
-                        .then(async res => {
-                            console.log('main img');
-                            console.log(res);
-                            const otherImgs = new FormData();
-                            otherImages.forEach(image => {
-                                otherImgs.append('newOtherImages', image);
-                            });
-                            await axios.patch(`${SERVER_URL}/postPropertyOtherImages/${data.data._id}`, otherImgs)
-                                .then(async res => {
-                                    console.log('other imgs');
-                                    console.log(res);
-                                    await axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { yourProperties: [...user.yourProperties, data.data._id] })
-                                        .then(resUser => {
-                                            setUser(resUser.data)
-                                            navigate(`../../properties/details/${res.data.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${res.data._id}`)
-                                        })
-                                    setSubmitActive(false)
-                                })
-                        })
+            let mainImageName, otherImagesName
+            try {
+                // Main image upload
+                const mainImg = new FormData()
+                mainImg.append('newMainImg', mainImage)
+                await axios.post(`${SERVER_URL}/postPropertyMainImage`, mainImg)
+                    .then(async res => {
+                        mainImageName = res.data
+                    })
 
+                // Other images upload
+                const otherImgs = new FormData();
+                otherImages.forEach(image => {
+                    otherImgs.append('newOtherImages', image);
+                });
+
+                await axios.post(`${SERVER_URL}/postPropertyOtherImages`, otherImgs)
+                    .then(async res => {
+                        otherImagesName = res.data
+                    })
+
+                // Property Post
+                await axios.post(`${SERVER_URL}/postProperty`, {
+                    statusType: 'FOR_SALE',
+                    statusText: homeType,
+                    price: price,
+                    pricePerSqFt: (sizeScale.toLowerCase() == 'sqft' ? (price / size) : (price / (size * 43560))).toFixed(1),
+                    lotSize: size,
+                    lotAreaUnit: sizeScale.toLowerCase(),
+                    beds: beds,
+                    baths: baths,
+                    address: `${props.addressStreet}, ${props.addressCity}, ${props.addressState} ${props.addressZipCode}`,
+                    addressStreet: props.addressStreet,
+                    addressCity: props.addressCity,
+                    addressState: props.addressState,
+                    addressZipcode: props.addressZipCode,
+                    coordinates: {
+                        lat: props.coordinates.lat,
+                        lng: props.coordinates.lng,
+                    },
+                    mainImage: mainImageName,
+                    otherImages: otherImagesName,
+                    ownerId: user._id
                 })
-            // props.setPropertyId('64bf54767ddbcab441138187')
-
+                    .then(async data => {
+                        // Update user (yourProperties)
+                        await axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { yourProperties: [...user.yourProperties, data.data._id] })
+                            .then(resUser => {
+                                setUser(resUser.data)
+                            })
+                        // Navigate to the uploaded property 
+                        navigate(`../../properties/details/${data.data.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${data.data._id}`)
+                    })
+            } catch (e) {
+                changeErrorMessage('An error occured. Please try again later')
+            }
         } else {
-            setSubmitActive(false)
             window.scrollTo(0, 0)
         }
+        setLoading(false)
     }
+
+
+
+    /*  const handleSubmit = async (e) => {
+         setLoading(true)
+         if (checkInputs('all')) {
+             await axios.post(`${SERVER_URL}/postProperty`, {
+                 statusType: 'FOR_SALE',
+                 statusText: homeType,
+                 price: price,
+                 pricePerSqFt: (sizeScale.toLowerCase() == 'sqft' ? (price / size) : (price / (size * 43560))).toFixed(1),
+                 lotSize: size,
+                 lotAreaUnit: sizeScale.toLowerCase(),
+                 beds: beds,
+                 baths: baths,
+                 address: `${props.addressStreet}, ${props.addressCity}, ${props.addressState} ${props.addressZipCode}`,
+                 addressStreet: props.addressStreet,
+                 addressCity: props.addressCity,
+                 addressState: props.addressState,
+                 addressZipcode: props.addressZipCode,
+                 coordinates: {
+                     lat: props.coordinates.lat,
+                     lng: props.coordinates.lng,
+                 },
+                 ownerId: user._id
+             })
+                 .then(async data => {
+                     const mainImg = new FormData()
+                     mainImg.append('newMainImg', mainImage)
+                     await axios.patch(`${SERVER_URL}/postPropertyMainImage/${data.data._id}`, mainImg)
+                         .then(async res => {
+                             console.log('main img');
+                             console.log(res);
+                             const otherImgs = new FormData();
+                             otherImages.forEach(image => {
+                                 otherImgs.append('newOtherImages', image);
+                             });
+                             await axios.patch(`${SERVER_URL}/postPropertyOtherImages/${data.data._id}`, otherImgs)
+                                 .then(async res => {
+                                     console.log('other imgs');
+                                     console.log(res);
+                                     await axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { yourProperties: [...user.yourProperties, data.data._id] })
+                                         .then(resUser => {
+                                             setUser(resUser.data)
+                                             navigate(`../../properties/details/${res.data.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${res.data._id}`)
+                                         })
+                                 })
+                         })
+     
+                 })
+             // props.setPropertyId('64bf54767ddbcab441138187')
+     
+         } else {
+             window.scrollTo(0, 0)
+         }
+         setLoading(false)
+     } */
 
     return (
         <>
@@ -181,7 +252,7 @@ function PropertyDetails(props) {
                         <input type="file" name="" onChange={async (e) => {
                             previewImage(e, 'main')
                             setMainImageError('')
-                        }} id="mainImage" accept="image/png, image/jpeg" className='pictureInput' />
+                        }} id="mainImage" accept="image/jpeg, image/png" className='pictureInput' />
                     </div>
                     <div>
                         <p>Other Images <span className='requiredField'>*</span></p>
@@ -195,11 +266,14 @@ function PropertyDetails(props) {
                             </label>
                             {otherImagesPreview.length > 0 && <figure className='otherImagesFigure'>
                                 {otherImagesPreview.map((image, i) => (
-                                    <div>
-                                        <img src={image} key={i} alt="" />
+                                    <div key={i}>
+                                        <img src={image} alt="" />
                                         <span
                                             className='removeImage'
-                                            onClick={() => setOtherImagesPreview(prevOtherImage => prevOtherImage.filter(item => image != item))}
+                                            onClick={() => {
+                                                setOtherImages(prevOtherImage => prevOtherImage.filter(item => otherImages[i] != item))
+                                                setOtherImagesPreview(prevOtherImage => prevOtherImage.filter(item => image != item))
+                                            }}
                                         ></span>
                                     </div>
                                 ))}
@@ -295,7 +369,8 @@ function PropertyDetails(props) {
                     </div>
                     <hr />
                 </div>
-                <button className='button submitSellPorpertyButton' disabled={submitActive} onClick={handleSubmit}>Submit</button>
+                {!loading && <button className='button submitSellPorpertyButton' onClick={handleSubmit}>Submit</button>}
+                {loading && <button className='button submitSellPorpertyButton submitSellPorpertyButtonLoading' onClick={handleSubmit}><span className="loader"></span></button>}
             </div >
         </>
     )

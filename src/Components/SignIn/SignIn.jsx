@@ -9,7 +9,7 @@ import { Context } from '../../assets/Context'
 
 function SignIn(props) {
 
-    const { SERVER_URL, setUser, changeSuccessMessage } = useContext(Context)
+    const { SERVER_URL, setUser, changeSuccessMessage, changeErrorMessage } = useContext(Context)
     const [email, setEmail] = useState('')
     const [emailError, setEmailError] = useState('')
 
@@ -19,6 +19,9 @@ function SignIn(props) {
     const [formError, setFormError] = useState('')
 
     const [passwordVisibility, setPasswordVisibility] = useState('password')
+
+    const [loading, setLoading] = useState(false)
+
 
     const checkEmail = (email) => {
         console.log(email);
@@ -38,13 +41,35 @@ function SignIn(props) {
             return true
         }
     }
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault()
         if (checkEmail(email) && checkPassword(password)) {
+            try {
+                setLoading(true)
+                setFormError('')
+                // If the credentials are correct , the server will return an object with the user.
+                // If the user is invalid it will retun { error: ... }.
+                await axios.get(`${SERVER_URL}/getUser?email=${email}&password=${password}`)
+                    .then(res => {
+                        if (res.data.email) {
+                            changeSuccessMessage(`Welcome back ${res.data.name}!`)
+                            props.setSignInModalOpen(false)
+                            setUser(res.data)
+                        } else {
+                            setFormError(res.data.error)
+                        }
+                    })
+            } catch (e) {
+                changeErrorMessage('An error occured. Please try again later')
+            }
+            setLoading(false)
+        }
+    }
+    const testAccount = async (testEmail, testPassword) => {
+        try {
+            setLoading(true)
             setFormError('')
-            // If the credentials are correct , the server will return an object with the user.
-            // If the user is invalid it will retun { error: ... }.
-            axios.get(`${SERVER_URL}/getUser?email=${email}&password=${password}`)
+            await axios.get(`${SERVER_URL}/getUser?email=${testEmail}&password=${testPassword}`)
                 .then(res => {
                     if (res.data.email) {
                         changeSuccessMessage(`Welcome back ${res.data.name}!`)
@@ -54,19 +79,10 @@ function SignIn(props) {
                         setFormError(res.data.error)
                     }
                 })
+        } catch (e) {
+            changeErrorMessage('An error occured. Please try again later')
         }
-    }
-    const testAccount = (testEmail, testPassword) => {
-        axios.get(`${SERVER_URL}/getUser?email=${testEmail}&password=${testPassword}`)
-            .then(res => {
-                if (res.data.email) {
-                    changeSuccessMessage(`Welcome back ${res.data.name}!`)
-                    props.setSignInModalOpen(false)
-                    setUser(res.data)
-                } else {
-                    setFormError(res.data.error)
-                }
-            })
+        setLoading(false)
     }
     return (
         <>
@@ -101,7 +117,8 @@ function SignIn(props) {
                     />
                     {passwordError && <p className='errorText'>{passwordError}</p>}
                 </div>
-                <button onClick={submit} className='submitSignInButton'>Sign In</button>
+                {!loading && <button type="submit" onClick={submit} className='submitSignInButton'>Sign In</button>}
+                {loading && <button className='submitSignInButtonLoading'><span className="loader"></span></button>}
                 {/* <Link className='forgotPass' >Forgot your password?</Link> */}
                 {formError && <p className='formErrorText'>{formError}</p>}
             </form>

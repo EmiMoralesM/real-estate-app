@@ -628,6 +628,16 @@
 .submitSellPorpertyButton {
     width: 100%;
     margin-top: 20px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.submitSellPorpertyButtonLoading {
+    background-color: #4995ff;
+}
+.submitSellPorpertyButtonLoading:hover {
+    background-color: #4995ff;
 }
 
 

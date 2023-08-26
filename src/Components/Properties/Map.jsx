@@ -61,6 +61,7 @@ function Map(props) {
                     key={property._id}
                     map={map}
                     coordinates={property.coordinates}
+                    className={`mapMarkerZindex ${propertyHover === property._id ? 'mapMarkerHoverZindex' : ''}`}
                 >
                     {/* Content of the marker */}
                     <div onClick={() => navigate(`details/${property.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${property._id}`)}>
@@ -77,7 +78,9 @@ function Map(props) {
                                 <p>{property.lotAreaUnit == 'acres' ? property.lotSize.toFixed(3) : property.lotSize} {property.lotAreaUnit}</p>
                             </div>
                         </div>}
-                        <div className={`mapMarker ${propertyHover === property._id ? 'mapMarkerHover' : ''}`} onMouseEnter={() => setPropertyHover(property._id)} onMouseLeave={() => setPropertyHover()}></div>
+                        <div className={`mapMarker ${propertyHover === property._id ? 'mapMarkerHover' : ''}`} 
+                        onMouseEnter={() => setPropertyHover(property._id)}
+                         onMouseLeave={() => setPropertyHover()}></div>
                     </div>
                 </Marker>)
             )}

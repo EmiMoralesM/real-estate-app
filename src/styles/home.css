@@ -3,7 +3,7 @@
     background-image: url(../assets/imgs/banner.jpg);
     /* background-image: url(../assets/imgs/test-house.png); */
     background-color: #d9e8ff;
-    height: 72vh;
+    height: 65vh;
     background-position: center 70%;
     /* background-position: center -30px; */
     /* background-position: 110%; */
@@ -24,7 +24,7 @@
     margin: 0;
     font-size: 58px;
     width: 50%;
-    color: #181c23;
+    color: #101112;
     
     
     /* margin: auto;
@@ -194,6 +194,24 @@
 
     transition: all ease .4s;
 }
+.searchSubmitDiv>.searchButtonLoading .loader {
+    margin-left: -8px;
+}
+.searchSubmitDiv>.searchButtonLoading {
+    background-color: #559cffe4;
+    height: 20px;
+    width: 20px;
+    position: relative;
+    border-radius: 50%;
+    padding: 22px;
+    border: 0;
+    box-shadow: 0px 0px 5px 2px #2e85ff3d;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all ease .4s;
+}
 
 .searchSubmitDiv>.searchButton:hover {
     background-color: #006aff;
@@ -222,7 +240,9 @@
     margin-bottom: 45px;
     font-weight: 700;
 }
-
+.propertyDiv .loadingPropertyImage, .propertyDiv .infoDiv > .priceLoading{
+    background-color: rgb(200, 200, 200)!important;    
+}
 
 .propertiesDiv {
     display: flex;
@@ -350,6 +370,7 @@
     font-size: 16px;
     color: #676767;
     font-weight: 600;
+    overflow-x: hidden;
     margin-top: 0px;
     display: flex;
     align-items: center;
@@ -358,6 +379,7 @@
 
 .beds-baths-sqft span {
     color: #2e2e2e;
+    white-space: nowrap;
     font-weight: 500;
     display: flex;
     gap: 6px;
@@ -393,6 +415,9 @@
 
 .infoDiv .address {
     font-size: 15px;
+    max-width: 350px;
+    overflow: hidden;
+    white-space: nowrap;
     color: #7a7a7a;
     font-weight: 500;
 }

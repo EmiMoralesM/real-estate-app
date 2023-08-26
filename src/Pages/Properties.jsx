@@ -26,7 +26,8 @@ function Properties(props) {
   const [maxPrice, setMaxPrice] = useState();
   const [minBaths, setMinBaths] = useState();
   const [minBeds, setMinBeds] = useState();
-
+  
+  const [sortPropertes, setSortPropertes] = useState('Homes for You');
 
   return (
     <main className="mainProperties">
@@ -49,19 +50,22 @@ function Properties(props) {
           setMinBeds={setMinBeds}
           homeTypes={homeTypes}
           setHomeTypes={setHomeTypes}
-        />
+          />
       </header>
       <Homes
         properties={properties}
         setProperties={setProperties}
         setPropertyDetail={setPropertyDetail}
-
+        
+        sortPropertes={sortPropertes}
+        setSortPropertes={setSortPropertes}
+        
         minPrice={minPrice}
         maxPrice={maxPrice}
         minBaths={minBaths}
         minBeds={minBeds}
         homeTypes={homeTypes}
-      />
+        />
       {propertyDetail && (
         <DetailPropertyModal
           setPropertyDetail={setPropertyDetail}

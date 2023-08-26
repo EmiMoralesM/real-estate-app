@@ -5,11 +5,14 @@ import { LocationContext } from '../../assets/LocationContext'
 import Filters from '../Filters'
 import EditPropertyModal from '../Modals/EditPropertyModal'
 import ConfirmDeleteProperty from '../Modals/ConfirmDeleteProperty'
+import SortProperties from '../SortProperties'
 
 function ManageProperties(props) {
-    const { SERVER_URL, disableScroll, enableScroll, imageUrl, changeSuccessMessage, changeErrorMessage, user,  } = useContext(Context)
+    const { SERVER_URL, disableScroll, enableScroll, imageUrl, changeSuccessMessage, changeErrorMessage, user, } = useContext(Context)
     const { locationCoordinates, fetchPropertiesData, homeTypes, setHomeTypes } = useContext(LocationContext)
     const [results, setResults] = useState()
+
+    const [sortPropertes, setSortPropertes] = useState('Homes for You');
 
     const [minPrice, setMinPrice] = useState()
     const [maxPrice, setMaxPrice] = useState()
@@ -19,8 +22,8 @@ function ManageProperties(props) {
     useEffect(() => {
         setResults()
         // Function (from LocationContext) that fetches the properties with the specified filters.
-        fetchPropertiesData(setResults, locationCoordinates, maxPrice, minPrice, minBaths, minBeds, homeTypes);
-    }, [locationCoordinates, maxPrice, minPrice, minBaths, minBeds, homeTypes])
+        fetchPropertiesData(setResults, locationCoordinates, maxPrice, minPrice, minBaths, minBeds, homeTypes, sortPropertes);
+    }, [locationCoordinates, maxPrice, minPrice, minBaths, minBeds, homeTypes, sortPropertes])
 
     const [confirmDeleteModal, setConfirmDeleteModal] = useState(false)
     const [editPropertyModal, setEditPropertyModal] = useState(false)
@@ -38,7 +41,8 @@ function ManageProperties(props) {
 
     return (
         <div className='whiteBackground manageProperties'>
-            <div className='managePropertiesFilterDiv'>
+            <div className='headerManageProps'>
+                <div className='managePropertiesFilterDiv'>
                     <Filters
                         minPrice={minPrice}
                         setMinPrice={setMinPrice}
@@ -51,6 +55,14 @@ function ManageProperties(props) {
                         homeTypes={homeTypes}
                         setHomeTypes={setHomeTypes}
                     />
+                </div>
+                <SortProperties
+                    properties={props.properties}
+                    setProperties={props.setProperties}
+
+                    sortPropertes={sortPropertes}
+                    setSortPropertes={setSortPropertes}
+                />
             </div>
             <div className='propertiesDiv'>
                 {(!results) ? (
@@ -95,7 +107,7 @@ function ManageProperties(props) {
                             <p className='beds-baths-sqft'>
                                 <span className='beforeIcon'> {property.beds ? property.beds : '--'} </span> |
                                 <span className='beforeIcon'> {property.baths ? property.baths : '--'} </span> |
-                                <span className='beforeIcon'> {Intl.NumberFormat().format(property.lotAreaUnit == 'sqft' ? property.lotSize : parseInt(property.lotSize * 43560))} sqft </span> -
+                                <span className='beforeIcon'> {Intl.NumberFormat().format(property.lotAreaUnit == 'sqft' ? property.lotSize : parseInt(property.lotSize * 43560))} ft. </span> -
                                 <span> {property.statusText} </span>
                             </p>
                             <p className='address'>{property.address}</p>

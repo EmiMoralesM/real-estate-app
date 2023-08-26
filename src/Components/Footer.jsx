@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/footer.css'
+import { Context } from '../assets/Context'
 
-function Footer() {
+function Footer(props) {
+  const { user } = useContext(Context)
+
   return (
     <footer>
       <div className='logoAndCopy'>
@@ -20,11 +23,16 @@ function Footer() {
         </div>
         <div>
           <Link to={'/profile/accountSettings'}>Profile</Link>
-          <ul>
-            <li><Link to={'/profile/accountSettings'}>Account Settings</Link></li>
-            <li><Link to={'/profile/favoriteProperties'}>Favorite Properties</Link></li>
-            <li><Link to={'/profile/yourProperties'}>Your Properties</Link></li>
-          </ul>
+          {user.email &&
+            <ul>
+              <li><Link to={'/profile/accountSettings'}>Account Settings</Link></li>
+              <li><Link to={'/profile/favoriteProperties'}>Favorite Properties</Link></li>
+              <li><Link to={'/profile/yourProperties'}>Your Properties</Link></li>
+            </ul>}
+          {!user.email &&
+            <ul>
+              <li><Link onClick={() => props.setSignInModalOpen(true)}>Sign In</Link></li>
+            </ul>}
         </div>
       </div>
     </footer>

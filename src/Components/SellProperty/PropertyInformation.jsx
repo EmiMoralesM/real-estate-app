@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import MapAddress from './MapAddress'
 import PropertyDetails from './PropertyDetails'
 import { useNavigate } from 'react-router-dom';
+import { Context } from '../../assets/Context';
 
 function PropertyInformation(props) {
+    const { user } = useContext(Context)
     const navigate = useNavigate();
     useEffect(() => {
-        if (!props.coordinates || !props.coordinates.lat || !props.coordinates.lng) { navigate('/sellProperty') }
+        if (!user.email || !props.coordinates || !props.coordinates.lat || !props.coordinates.lng) { navigate('/sellProperty') }
     }, [])
 
     return (

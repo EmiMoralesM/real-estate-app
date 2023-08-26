@@ -59,8 +59,12 @@ function Users(props) {
         <>
             {props.userActive.role !== 'admin' && <p className='warningMessage'>Only admins can edit users. </p>}
             <div className='whiteBackground allUsers'>
-                {(!users) ? (
-                    <p>Loading...</p>
+                {(!users.length != 0) ? (
+                    <>
+                        {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
+                            <div key={i} className='loadingUsers'></div>
+                        ))}
+                    </>
                 ) : (
                     users.map((user, i) => (
                         <div className='userRow' key={user.email} id={props.userActive.email === user.email ? 'userActiveRow' : ''}>

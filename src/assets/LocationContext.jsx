@@ -28,9 +28,10 @@ export function LocationContextProvider({ children }) {
 
     const { SERVER_URL, hometypes_array } = useContext(Context)
 
-    async function fetchPropertiesData(setResults, locationCoordinates, maxPrice, minPrice, minBaths, minBeds, homeTypes) {
+    async function fetchPropertiesData(setResults, locationCoordinates, maxPrice, minPrice, minBaths, minBeds, homeTypes, sortPropertes) {
         // Fetch the properties with the specified filters
-        await axios.get(axios.get(`${SERVER_URL}/getProperties?minPrice=${minPrice ? minPrice : 0}&maxPrice=${maxPrice ? maxPrice : 0}&minBaths=${minBaths ? minBaths : 0}&minBeds=${minBeds ? minBeds : 0}&homeTypes=${homeTypes.length == 0 ? hometypes_array : homeTypes}&lat=${locationCoordinates ? locationCoordinates.lat : 0}&lng=${locationCoordinates ? locationCoordinates.lng : 0}`)
+        console.log(sortPropertes);
+        await axios.get(axios.get(`${SERVER_URL}/getProperties?minPrice=${minPrice ? minPrice : 0}&maxPrice=${maxPrice ? maxPrice : 0}&minBaths=${minBaths ? minBaths : 0}&minBeds=${minBeds ? minBeds : 0}&homeTypes=${homeTypes.length == 0 ? hometypes_array : homeTypes}&lat=${locationCoordinates ? locationCoordinates.lat : 0}&lng=${locationCoordinates ? locationCoordinates.lng : 0}&sortPropertes=${sortPropertes}`)
             .then((data) => setResults(data.data))
             .catch(err => console.log(`Error: ${err}`)))
     }

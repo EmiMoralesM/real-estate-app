@@ -383,7 +383,13 @@
     border: 2px solid #ffffff;
     background-color: #003e96;
     transition: all ease .2s;
-
+    position: relative;
+}
+.mapMarkerZindex{
+    z-index: 10;
+}
+.mapMarkerHoverZindex{
+    z-index: 20;
 }
 
 .mapMarkerHover {
@@ -400,6 +406,7 @@
 
 .mapMarkerInfo {
     position: absolute;
+    z-index: 0;
     margin-top: -82px;
     margin-left: -100px;
     width: 210px;
@@ -502,13 +509,18 @@
 
 .sortButton {
     display: flex;
+    min-width: 200px;
     align-items: center;
     position: relative;
+    justify-content: right;
     cursor: pointer;
 }
 
 .sortOptions {
     z-index: 999;
+}
+.sortButton .options {
+    max-height: 400px;
 }
 
 .sortButton>p:nth-child(1) {

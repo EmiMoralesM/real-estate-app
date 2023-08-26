@@ -1,8 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Marker } from '../Properties/Map'
+import { Context } from '../../assets/Context'
 
 function MapAddress(props) {
+  const { disableScroll, enableScroll} = useContext(Context)
   const [modalAddress, setModalAddress] = useState(false)
 
   const [mapLocation, setMapLocation] = useState('')
@@ -11,7 +13,7 @@ function MapAddress(props) {
   const [mapLocationChange, setMapLocationChange] = useState('')
   const mapLocationChangeRef = useRef()
 
-  const [newCoordinates, setNewCoordinates] = useState()
+  const [newCoordinates, setNewCoordinates] = useState(props.coordinates)
 
   const mapOptions = {
     mapId: '49c3f173e021d634',
@@ -46,7 +48,7 @@ function MapAddress(props) {
       <div className='mapAddressDiv'>
         <p>Is this the right location of your home?</p>
         {/* {props.coordinates && <iframe className='mapAddress' src={`https://maps.google.com/maps?q=${props.coordinates.lat},${props.coordinates.lng}&t=&z=15&ie=UTF8&iwloc=&output=embed`} />} */}
-        <div ref={mapLocationRef} className='mapAddress' />
+        {props.coordinates && <div ref={mapLocationRef} className='mapAddress' />}
         {props.coordinates && mapLocation && mapLocationRef &&
           <Marker
             map={mapLocation}
@@ -57,7 +59,10 @@ function MapAddress(props) {
 
         <div className='addressActionsDiv'>
           <Link to={'propertyInformation/propertyDetails'} className='correctLocation'>Yes, it's the correct location</Link>
-          <button className='incorrectLocation' onClick={() => setModalAddress(true)}>No, let me change it</button>
+          <button className='incorrectLocation' onClick={() => {
+            disableScroll()
+            setModalAddress(true)
+          }}>No, let me change it</button>
         </div>
       </div>
 
@@ -66,16 +71,17 @@ function MapAddress(props) {
         <div className='generalModalDiv modalChangeLocation'>
           <button className='closeModal' onClick={() => {
             setModalAddress(false)
+            enableScroll()
             setNewCoordinates(props.coordinates)
           }}></button>
           <div className='generalModalContent'>
-            <h3>Modify Location</h3>
+            <h3>Select the right Location</h3>
             {newCoordinates && <p className='lat_long'>{newCoordinates.lng}, {newCoordinates.lat}</p>}
 
             <div ref={mapLocationChangeRef} className='mapAddress mapAddressChange' />
-            {mapLocationChangeRef && props.coordinates && newCoordinates && mapLocationChange && mapLocationChangeRef &&
+            {newCoordinates && mapLocationChange && mapLocationChangeRef && 
               <Marker
-                map={mapLocationChange} 
+                map={mapLocationChange}
                 coordinates={newCoordinates}
               >
                 <div className='locationSeach'></div>
@@ -84,10 +90,12 @@ function MapAddress(props) {
             <div className='addressActionsDiv'>
               <button className='correctLocation' onClick={() => {
                 props.setCoordinates(newCoordinates)
+                enableScroll()
                 setModalAddress(false)
               }}>Continue</button>
               <button className='incorrectLocation' onClick={() => {
                 setModalAddress(false)
+                enableScroll()
                 setNewCoordinates(props.coordinates)
               }}>Cancel</button>
             </div>
@@ -95,6 +103,7 @@ function MapAddress(props) {
         </div>
         <div onClick={() => {
           setModalAddress(false)
+          enableScroll()
           setNewCoordinates(props.coordinates)
         }} className='generalModalBackground'></div>
       </aside>}

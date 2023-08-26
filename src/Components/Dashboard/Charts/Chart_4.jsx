@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../../../assets/Context'
+import { Link } from 'react-router-dom'
 
 function Chart_4(props) {
     const { imageUrl } = useContext(Context)
@@ -22,7 +23,7 @@ function Chart_4(props) {
                     <p>Loading...</p>
                 ) : (
                     properties.map((property, i) => (
-                        <div key={i}>
+                        <Link to={`/properties/details/${property.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${property._id}`} key={i}>
                             <div className='imageDivDashboard'>
                                 <div className='imageDiv'>
                                     <p className='locationDash'>{property.addressCity}, {property.addressState}</p>
@@ -30,7 +31,7 @@ function Chart_4(props) {
                                 </div>
                             </div>
                             <div className='infoDiv'>
-                                <p className='price'>${new Intl.NumberFormat().format(property.price)} <span> {property.statusText} </span></p>
+                                <p className='price'>${new Intl.NumberFormat().format(property.price)} <span> - {property.statusText} </span></p>
                                 <p className='beds-baths-sqft'>
                                     <span className='beforeIcon'> {property.beds ? property.beds : '--'} </span> |
                                     <span className='beforeIcon'> {property.baths ? property.baths : '--'} </span> |
@@ -38,7 +39,7 @@ function Chart_4(props) {
                                 </p>
                                 <p className='address'>{property.address}</p>
                             </div>
-                        </div>
+                        </Link>
                     ))
                 )}
             </div>

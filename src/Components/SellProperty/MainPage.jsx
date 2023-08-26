@@ -15,6 +15,8 @@ function MainPage(props) {
     const [isStateOpen, setIsStateOpen] = useState(false);
     const [fieldError, setFieldError] = useState('')
     
+    const [loading, setLoading] = useState(false)
+    
     const navigate = useNavigate();
     
     const checkAddress = () => {
@@ -42,6 +44,7 @@ function MainPage(props) {
     }
 
     const handleAddressSubmit = async () => {
+        setLoading(true)
         if (user.email) {
             if (checkAddress()) {
                 try {
@@ -56,6 +59,7 @@ function MainPage(props) {
         } else {
             changeErrorMessage('You have to sign in to sell a property')
         }
+        setLoading(false)
     }
 
     const refState = useOutsideClick(() => setIsStateOpen(false))
@@ -136,7 +140,8 @@ function MainPage(props) {
                                 />
                             </div>
                             <div className='searchSubmitDiv'>
-                                <Link className='searchButton' onClick={handleAddressSubmit} />
+                                {!loading && <Link className='searchButton' onClick={handleAddressSubmit} />}
+                                {loading && <div className='searchButtonLoading'><span className="loader"></span></div>}
                             </div>
                         </div>
                     </div>

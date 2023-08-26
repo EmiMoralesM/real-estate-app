@@ -9,19 +9,26 @@ function Homes(props) {
   const { useOutsideClick, imageUrl } = useContext(Context)
   const { locationCoordinates, fetchPropertiesData } = useContext(LocationContext)
 
-  
+
   useEffect(() => {
     props.setProperties()
     // Function (from LocationContext) that fetches the properties with the specified filters.
-    fetchPropertiesData(props.setProperties, locationCoordinates, props.maxPrice, props.minPrice, props.minBaths, props.minBeds, props.homeTypes);
-  }, [locationCoordinates, props.maxPrice, props.minPrice, props.minBaths, props.minBeds, props.homeTypes])
+    
+    fetchPropertiesData(props.setProperties, locationCoordinates, props.maxPrice, props.minPrice, props.minBaths, props.minBeds, props.homeTypes, props.sortPropertes);
+  }, [locationCoordinates, props.maxPrice, props.minPrice, props.minBaths, props.minBeds, props.homeTypes, props.sortPropertes])
 
   return (
     <section className='homesSection'>
       <h1>Search Results</h1>
       <div className='homesSectionDescriptionDiv'>
         {<p className='resultsCout'>{props.properties && props.properties.length} Results</p>}
-        <SortProperties properties={props.properties} setProperties={props.setProperties} />
+        <SortProperties
+          properties={props.properties}
+          setProperties={props.setProperties}
+          
+          sortPropertes={props.sortPropertes}
+          setSortPropertes={props.setSortPropertes}
+        />
       </div>
       <div className='propertiesDiv homesDiv'>
         {(!props.properties) ? (
@@ -62,7 +69,7 @@ function Homes(props) {
                 <p className='beds-baths-sqft'>
                   <span className='beforeIcon'> {property.beds ? property.beds : '--'} </span> |
                   <span className='beforeIcon'> {property.baths ? property.baths : '--'} </span> |
-                  <span className='beforeIcon'> {new Intl.NumberFormat().format(property.lotAreaUnit == 'sqft' ? property.lotSize : parseInt(property.lotSize * 43560))} sqft </span> -
+                  <span className='beforeIcon'> {new Intl.NumberFormat().format(property.lotAreaUnit == 'sqft' ? property.lotSize : parseInt(property.lotSize * 43560))} ft. </span> -
                   <span> {property.statusText} </span>
                 </p>
                 <p className='address'>{property.address}</p>

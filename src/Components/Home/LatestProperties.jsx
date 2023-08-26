@@ -21,7 +21,18 @@ function LatestProperties() {
             </div>
             <div className='propertiesDiv'>
                 {(!properties) ? (
-                    <p>Loading...</p>
+                    <>
+                        {[1, 2, 3].map(i => (
+                            <div key={i} className='propertyDiv loadingProperty loadingPropertyMap'>
+                                <div className='loadingPropertyImage' />
+                                <div className='infoDiv'>
+                                    <span className='priceLoading' />
+                                    <span className='infoLoading' />
+                                    <span className='infoLoading' />
+                                </div>
+                            </div>
+                        ))}
+                    </>
                 ) : (
                     properties.map((property, i) => (
                         <Link
@@ -46,7 +57,7 @@ function LatestProperties() {
                                 <p className='beds-baths-sqft'>
                                     <span className='beforeIcon'> {property.beds ? property.beds : '--'} </span> |
                                     <span className='beforeIcon'> {property.baths ? property.baths : '--'} </span> |
-                                    <span className='beforeIcon'> {Intl.NumberFormat().format(property.lotAreaUnit == 'sqft' ? property.lotSize : parseInt(property.lotSize * 43560))} sqft </span> -
+                                    <span className='beforeIcon'> {Intl.NumberFormat().format(property.lotAreaUnit == 'sqft' ? property.lotSize : parseInt(property.lotSize * 43560))} ft. </span> -
                                     <span> {property.statusText} </span>
                                 </p>
                                 <p className='address'>{property.address}</p>

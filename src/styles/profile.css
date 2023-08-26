@@ -260,6 +260,11 @@
     flex-direction: column;
     gap: 20px;
 }
+.notificationsDiv {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
 .favoriteProperty {
     display: flex;
@@ -333,6 +338,9 @@
     width: 100%;
     text-align: center;
     margin: 20px 0;
+}
+.noPropertiesToShow > .button {
+    margin: auto;
 }
 
 .noPropertiesToShow img {

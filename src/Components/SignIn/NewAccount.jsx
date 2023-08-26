@@ -7,7 +7,7 @@ import eyeOn from '../../assets/icons/eye-on.svg'
 import { Context } from '../../assets/Context'
 
 function NewAccount(props) {
-    const { SERVER_URL, setUser, changeSuccessMessage } = useContext(Context)
+    const { SERVER_URL, setUser, changeSuccessMessage, changeErrorMessage } = useContext(Context)
 
     const [email, setEmail] = useState('')
     const [emailError, setEmailError] = useState('')
@@ -20,6 +20,8 @@ function NewAccount(props) {
 
     const [passwordVisibility, setPasswordVisibility] = useState('password')
     const [passwordConfirmVisibility, setPasswordConfirmVisibility] = useState('password')
+
+    const [loading, setLoading] = useState(false)
 
     const checkEmail = async (email) => {
         let valid = false
@@ -64,9 +66,10 @@ function NewAccount(props) {
     }
     const submit = async (e) => {
         e.preventDefault()
-        const emailValidation = await checkEmail(email)
-        if (emailValidation && checkPassword(password) && checkPasswordConfirm(passwordConfirm)) {
-            try {
+        try {
+            setLoading(true)
+            const emailValidation = await checkEmail(email)
+            if (emailValidation && checkPassword(password) && checkPasswordConfirm(passwordConfirm)) {
                 await axios.post(`${SERVER_URL}/createUser`, {
                     name: email.substring(0, email.indexOf('@')).toLowerCase(),
                     email: email.toLowerCase(),
@@ -78,12 +81,11 @@ function NewAccount(props) {
                         changeSuccessMessage(`Account created | Welcome ${email.substring(0, email.indexOf('@')).toLowerCase()}!`)
                         props.setSignInModalOpen(false)
                     })
-            } catch (err) {
-                console.log(err);
             }
-        } else {
-            console.log('Account not created');
+        } catch (e) {
+            changeErrorMessage('An error occured. Please try again later')
         }
+        setLoading(false)
     }
 
     return (
@@ -137,7 +139,8 @@ function NewAccount(props) {
                     />
                     {passwordConfirmError && <p className='errorText'>{passwordConfirmError}</p>}
                 </div>
-                <button type="submit" onClick={submit} className='submitSignInButton'>Create Account</button>
+                {!loading && <button type="submit" onClick={submit} className='submitSignInButton'>Create Account</button>}
+                {loading && <button className='submitSignInButtonLoading'><span className="loader"></span></button>}
             </form>
         </>
     )

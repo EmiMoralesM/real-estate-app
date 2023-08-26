@@ -15,7 +15,7 @@
     position: absolute;
     background-color: white;
     border-radius: 5px;
-    height: 700px;
+    height: 680px;
     width: 450px;
     left: calc(50% - 225px);
     top: calc(50% - 350px);
@@ -128,8 +128,25 @@
     font-weight: 600;
     color: white;
     border-radius: 6px;
+    height: 45px;
     transition: all ease .3s;
 }
+.modalForms .submitSignInButtonLoading{
+    height: 45px;
+    width: 100%;
+    text-align: center;
+    background-color: #4e98ff;
+    cursor: pointer;
+    padding: 14px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 6px;
+}
+
+
 .modalForms .submitSignInButton:hover{
     background-color: #006aff;
 }

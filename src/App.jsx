@@ -34,7 +34,7 @@ function App() {
     window.scrollTo(0, 0)
   }, [location])
 
-  
+
 
   return (
     <>
@@ -53,7 +53,7 @@ function App() {
       </Routes>
       {successMessage && <SuccessMessage />}
       {errorMessage && <ErrorMessage />}
-      {!location.includes('dashboard') && !location.includes('properties') && <Footer />}
+      {!location.includes('dashboard') && !location.includes('properties') && <Footer setSignInModalOpen={setSignInModalOpen} />}
     </>
   )
 }

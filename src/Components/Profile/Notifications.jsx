@@ -70,7 +70,7 @@ function Notifications(props) {
                     <h2>Notifications</h2>
                     {user.notifications.length > 0 && <p onClick={refreshNotifications} className=''><span></span>Refresh</p>}
                 </div>
-                <div className='savedPropertiesDiv'>
+                <div className='notificationsDiv'>
                     {(user.notifications.length <= 0) ? (
                         <div className='noPropertiesToShow'>
                             <img src={notificationImg} alt="" />

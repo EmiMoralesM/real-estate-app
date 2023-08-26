@@ -26,11 +26,6 @@ function Filters(props) {
     // const [bathrooms, setBathrooms] = useState()
     // const [homeTypesChecked, setHomeTypesChecked] = useState([])
 
-    useEffect(() => {
-        console.log(locationCoordinates);
-        console.log(locationValue);
-    }, [])
-
     const toggleHomeType = (option) => {
         if (props.homeTypes.includes(option)) {
             props.setHomeTypes(prevHomeTypes => prevHomeTypes.filter(type => option != type))

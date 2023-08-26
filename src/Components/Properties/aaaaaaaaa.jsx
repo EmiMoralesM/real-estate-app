@@ -1,337 +1,249 @@
+const handleSubmit = async (e) => {
+    setLoading(true)
+    if (checkInputs('all')) {
+        await axios.post(`${SERVER_URL}/postProperty`, {
+            statusType: 'FOR_SALE',
+            statusText: homeType,
+            price: price,
+            pricePerSqFt: (sizeScale.toLowerCase() == 'sqft' ? (price / size) : (price / (size * 43560))).toFixed(1),
+            lotSize: size,
+            lotAreaUnit: sizeScale.toLowerCase(),
+            beds: beds,
+            baths: baths,
+            address: `${props.addressStreet}, ${props.addressCity}, ${props.addressState} ${props.addressZipCode}`,
+            addressStreet: props.addressStreet,
+            addressCity: props.addressCity,
+            addressState: props.addressState,
+            addressZipcode: props.addressZipCode,
+            coordinates: {
+                lat: props.coordinates.lat,
+                lng: props.coordinates.lng,
+            },
+            ownerId: user._id
+        })
+            .then(async data => {
+                const mainImg = new FormData()
+                mainImg.append('newMainImg', mainImage)
+                await axios.patch(`${SERVER_URL}/postPropertyMainImage/${data.data._id}`, mainImg)
+                    .then(async res => {
+                        console.log('main img');
+                        console.log(res);
+                        const otherImgs = new FormData();
+                        otherImages.forEach(image => {
+                            otherImgs.append('newOtherImages', image);
+                        });
+                        await axios.patch(`${SERVER_URL}/postPropertyOtherImages/${data.data._id}`, otherImgs)
+                            .then(async res => {
+                                console.log('other imgs');
+                                console.log(res);
+                                await axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { yourProperties: [...user.yourProperties, data.data._id] })
+                                    .then(resUser => {
+                                        setUser(resUser.data)
+                                        navigate(`../../properties/details/${res.data.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${res.data._id}`)
+                                    })
+                            })
+                    })
 
-import axios from 'axios'
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import { Context } from '../../assets/Context'
-import { createRoot } from "react-dom/client"
-
-
-function Map(props) {
-    const { SERVER_URL, imageUrl } = useContext(Context)
-    const [propertyHover, setPropertyHover] = useState('')
-    const [map, setMap] = useState()
-    const [markers, setMarkers] = useState()
-    const [refreshMap, setRefreshMap] = useState({ lat: 36.778259, lng: -119.417931 })
-    
-    const mapRef = useRef()
-
-    const mapOptions = {
-        mapId: '49c3f173e021d634',
-        center: refreshMap,
-        zoom: 6,
-        // disableDefaultUI: true
-    }
-
-    useEffect(() => {
-        const mapConfig = new window.google.maps.Map(mapRef.current, mapOptions)
-        /* mapConfig.addListener('click', (e) => {
-            // This refreshes the map every time the user click it.
-            // It sets the position (center) of the map to be the lat and lng clicked by the user. 
-            setRefreshMap({ lat: e.latLng.lat(), lng: e.latLng.lng() })
-            console.log('click');
-        }) */
-        setMap(mapConfig)
-    }, [])
-
-
-    useEffect(() => {
-        setMarkers(() => (
-            props.properties && map && props.properties.map(property => (
-                <Marker
-                    key={property._id}
-                    map={map}
-                    setPropertyHover={setPropertyHover}
-                    coordinates={property.coordinates}
-                    properties={props.properties}
-                >
-                    <div onClick={() => props.setPropertyDetail(property._id)}>
-                        {/* className={`mapMarkerDiv ${propertyHover === property._id ? 'mapMarkerDivHover' : ''}`} */}
-                        {propertyHover == property._id && <div className='mapMarkerInfo'>
-                            <div className='markerImg'>
-                                <img src={imageUrl(property.mainImage)} alt="" />
-                            </div>
-                            <div className='markerData'>
-                                <h3>${propertyHover == property._id ? Intl.NumberFormat().format(property.price) : 'hola'}</h3>
-                                <div className='markerBaBd'>
-                                    <p>{property.beds} bd</p>
-                                    <p>{property.baths} ba</p>
-                                </div>
-                                <p>{property.lotAreaUnit == 'acres' ? property.lotSize.toFixed(3) : property.lotSize} {property.lotAreaUnit}</p>
-                            </div>
-                        </div>}
-                        <div className={`mapMarker ${propertyHover === property._id ? 'mapMarkerHover' : ''}`} onMouseEnter={() => setPropertyHover(property._id)} onMouseLeave={() => setPropertyHover()}></div>
-                    </div>
-                </Marker>)
-            )
-        ))
-    }, [props.properties])
-
-    return (
-        <>
-            {/* Map */}
-            <div ref={mapRef} className='map' />
-            {/* Markers (they will be rendered when the properties have been fetched and the map has been created) */}
-            {markers}
-        </>
-    )
-}
-
-// This function creates every individual marker  
-function Marker(props) {
-
-    const markerRef = useRef()
-    const rootRef = useRef()
-
-    useEffect(() => {
-        // The if condition solves the problem of duplicating the markers: 
-        // If the rootRef is not defined yet (if the marker hasn't been created)...
-        if (!rootRef.current) {
-            // Div of the marker (later it will be replaced with the children of the Marker)
-            const container = document.createElement('div')
-            rootRef.current = createRoot(container)
-
-            // This creates the marker. To create it we have to pass the coordinates and the content (the div to be displayed).
-            markerRef.current = new google.maps.marker.AdvancedMarkerView({
-                position: props.coordinates,
-                content: container
             })
-            // This makes the marker events work (click, mouseEnter, etc.) (review)
-            if (markerRef.current) { markerRef.current.addListener('gmp-click', () => { }) }
-        }
-    }, [])
+        // props.setPropertyId('64bf54767ddbcab441138187')
 
-    useEffect(() => {
-        // This updates the content of the div that was created before, with the info of the property. 
-        rootRef.current.render(props.children)
-        markerRef.current.position = props.coordinates
-        markerRef.current.map = props.map
-    }, [props.map, props.coordinates, props.children])
-}
-
-export default Map
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Original
-
-import axios from 'axios'
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import { Context } from '../../assets/Context'
-import { createRoot } from "react-dom/client"
-
-
-function Map(props) {
-    const { SERVER_URL, imageUrl } = useContext(Context)
-    const [map, setMap] = useState()
-    const [refreshMap, setRefreshMap] = useState({ lat: 36.778259, lng: -119.417931 })
-    const mapRef = useRef()
-    const mapOptions = {
-        mapId: '49c3f173e021d634',
-        center: refreshMap,
-        zoom: 6,
-        // disableDefaultUI: true
+    } else {
+        window.scrollTo(0, 0)
     }
-
-    useEffect(() => {
-        const mapConfig = new window.google.maps.Map(mapRef.current, mapOptions) 
-        /* mapConfig.addListener('click', (e) => {
-            console.log('click');
-            // This refreshes the map every time the user click it.
-            // It sets the position (center) of the map to be the lat and lng clicked by the user. 
-            setRefreshMap({lat: e.latLng.lat(), lng: e.latLng.lng() })
-        })  */
-        setMap(mapConfig)
-    }, [props.properties, refreshMap])
-
-    const [propertyHover, setPropertyHover] = useState('')
-    
-    return (
-        <>
-            {/* Map */}
-            <div ref={mapRef} className='map' />
-            {/* Markers (they will be rendered when the properties have been fetched and the map has been created) */}
-            {props.properties && map && props.properties.map(property => (
-                <Marker
-                    key={property._id}
-                    map={map}
-                    coordinates={property.coordinates}
-                >
-                    {/* Content of the marker */}
-                    <div onClick={() => props.setPropertyDetail(property._id)}>
-                        {propertyHover == property._id && <div className='mapMarkerInfo'>
-                            <div className='markerImg'>
-                                <img src={imageUrl(property.mainImage)} alt="" />
-                            </div>
-                            <div className='markerData'>
-                                <h3>${propertyHover == property._id ? Intl.NumberFormat().format(property.price) : 'hola'}</h3>
-                                <div className='markerBaBd'>
-                                    <p>{property.beds} bd</p>
-                                    <p>{property.baths} ba</p>
-                                </div>
-                                <p>{property.lotAreaUnit == 'acres' ? property.lotSize.toFixed(3) : property.lotSize} {property.lotAreaUnit}</p>
-                            </div>
-                        </div>}
-                        <div className={`mapMarker ${propertyHover === property._id ? 'mapMarkerHover' : ''}`} onMouseEnter={() => setPropertyHover(property._id)} onMouseLeave={() => setPropertyHover()}></div>
-                    </div>
-                </Marker>)
-            )}
-        </>
-    )
+    setLoading(false)
 }
 
-// This function creates every individual marker  
-function Marker(props) {
 
-    const markerRef = useRef()
-    const rootRef = useRef()
 
-    useEffect(() => {
-        // The if condition solves the problem of duplicating the markers: 
-        // If the rootRef is not defined yet (if the marker hasn't been created)...
-        if (!rootRef.current) {
-            // Div of the marker (later it will be replaced with the children of the Marker)
-            const container = document.createElement('div')
-            rootRef.current = createRoot(container)
 
-            // This creates the marker. To create it we have to pass the coordinates and the content (the div to be displayed).
-            markerRef.current = new google.maps.marker.AdvancedMarkerView({
-                position: props.coordinates,
-                content: container
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.post('/postProperty', async (req, res) => {
+    try {
+        const prop = new Property({
+            statusType: req.body.statusType,
+            statusText: req.body.statusText,
+            price: req.body.price,
+            pricePerSqFt: req.body.pricePerSqFt,
+            lotSize: req.body.lotSize,
+            lotAreaUnit: req.body.lotAreaUnit,
+            beds: req.body.beds,
+            baths: req.body.baths,
+            address: req.body.address,
+            addressStreet: req.body.addressStreet,
+            addressCity: req.body.addressCity,
+            addressState: req.body.addressState,
+            addressZipcode: req.body.addressZipCode,
+            coordinates: req.body.coordinates,
+            ownerId: req.body.ownerId
+        })
+        prop.save()
+        res.status(200).send(prop)
+        res.end()
+    } catch (e) {
+        res.status(500).send(`Error: ${e}`);
+    }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.patch('/postPropertyMainImage/:_id', upload.single('newMainImg'), async (req, res) => {
+    try {
+        console.log(req.file.filename);
+        const property = await Property.findOneAndUpdate({ _id: req.params._id },
+            { $set: { mainImage: req.file.filename } },
+            { new: true })
+        console.log(property);
+        res.status(200).json(property)
+    } catch (e) {
+        res.status(500).end('An error occured. Please try again later')
+    }
+    res.end()
+})
+
+app.patch('/postPropertyOtherImages/:_id', upload.array('newOtherImages'), async (req, res) => {
+    try {
+        const otherImages = []
+        // We append to the otherImages array the names of the new files uploaded
+        if (req.files) {
+            req.files.forEach((file) => {
+                otherImages.push(file.filename)
+            });
+        }
+        // We append to the otherImages array the names of the old files passed
+        if (req.body.oldOtherImages) {
+            Array(req.body.oldOtherImages).forEach((file) => {
+                otherImages.push(file)
+            });
+        }
+        const property = await Property.findOneAndUpdate({ _id: req.params._id },
+            { $set: { otherImages: otherImages } },
+            { new: true })
+        res.status(200).json(property)
+    } catch (e) {
+        res.status(500).end('An error occured. Please try again later')
+    }
+    res.end()
+})
+
+
+
+
+
+
+
+const handleUpdate = async (e) => {
+    setSubmitActive(true)
+    if (checkInputs('all')) {
+        try {
+            // If the data updated is valid, we update the property.
+            await axios.post(`${SERVER_URL}/updateProperty/${props.editProperty._id}`, {
+                statusText: homeType,
+                price: price,
+                pricePerSqFt: (sizeScale.toLowerCase() == 'sqft' ? (price / size) : (price / (size * 43560))).toFixed(1),
+                lotSize: size,
+                lotAreaUnit: sizeScale.toLowerCase(),
+                beds: beds,
+                baths: baths, 
             })
-            // This makes the marker events work (click, mouseEnter, etc.) (review)
-            if (markerRef.current) { markerRef.current.addListener('gmp-click', () => { }) }
+                .then(async res => {
+                    let newData = res
+                    // If the main image was changed then we upload it and update the property
+                    if (props.editProperty.mainImage != mainImage) {
+                        const mainImg = new FormData()
+                        mainImg.append('newMainImg', mainImage)
+                        await axios.patch(`${SERVER_URL}/postPropertyMainImage/${props.editProperty._id}`, mainImg)
+                            .then(res => newData = res)
+                    }
+                    // If the other images were changed then we upload the new ones and update the property
+                    if (props.editProperty.otherImages != otherImages) {
+                        const otherImgs = new FormData();
+                        otherImages.forEach(image => {
+                            if (typeof image === 'string') {
+                                otherImgs.append('oldOtherImages', image);
+                            } else {
+                                otherImgs.append('newOtherImages', image);
+                            }
+                        });
+                        await axios.patch(`${SERVER_URL}/postPropertyOtherImages/${props.editProperty._id}`, otherImgs)
+                            .then(res => newData = res)
+                    }
+                    return newData
+                })
+                .then(newData => {
+
+                    // Update the results
+                    props.setResults(prevResults => prevResults.map(prop => {
+                        if (prop._id == newData.data._id) {
+                            return newData.data
+                        } else {
+                            return prop
+                        }
+                    }))
+                    changeSuccessMessage('Property Updated!')
+                    props.setEditProperty(false)
+                    enableScroll()
+                })
+        } catch (e) {
+            changeErrorMessage('An error occurred. Please try again.')
+            props.setEditProperty(false)
+            console.log(e);
         }
-    }, [])
-
-    useEffect(() => {
-        // This updates the content of the div that was created before, with the info of the property. 
-        rootRef.current.render(props.children)
-        markerRef.current.position = props.coordinates
-        markerRef.current.map = props.map
-    }, [props.map, props.coordinates, props.children])
-}
-
-export default Map
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Clusters
-import axios from 'axios'
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
-import { Context } from '../../assets/Context'
-import { GoogleMapsProvider } from "@ubilabs/google-maps-react-hooks"
-import { MarkerClusterer } from "@googlemaps/markerclusterer"
-import { createRoot } from "react-dom/client"
-
-
-function Map(props) {
-    const { SERVER_URL, imageUrl } = useContext(Context)
-    const [map, setMap] = useState(null)
-    console.log(props.properties);
-    const onLoad = useCallback((map, properties) => addMarkers(map, properties), [])
-    const mapOptions = {
-        // mapId: '49c3f173e021d634',
-        center: { lat: 36.778259, lng: -119.417931 },
-        zoom: 5,
-        // disableDefaultUI: true
+    } else {
+        changeErrorMessage('Verify that every filed is filled')
+        setSubmitActive(false)
     }
-    return (
-        props.properties && <GoogleMapsProvider
-            googleMapsAPIKey="AIzaSyDYd25d8gbKq9Voxfu5aFxog9SPnT4OZTU"
-            mapOptions={mapOptions}
-            mapContainer={map}
-            onLoadMap={(map) => onLoad(map, props.properties)}
-        >
-            <div ref={(node) => setMap(node)} className='map' />
-        </GoogleMapsProvider>
-    )
 }
 
-function addMarkers(map, properties) {
-    console.log('add');
-    console.log(properties);
-    const markers = properties.map((property) => {
-        const marker = new google.maps.Marker({ position: property.coordinates })
 
-        return marker
-    })
-
-    // Options to pass along to the marker clusterer
-    const clusterOptions = {
-        gridSize: 130,
-        zoomOnClick: false,
-        maxZoom: 0,
-    };
-    
-    // Add a marker clusterer to manage the markers.
-    const cluster = new MarkerClusterer({
-        markers,
-        map,
-        clusterOptions
-    })
-    // Change styles after cluster is created
-    
-}
-
-export default Map
 
 

@@ -27,7 +27,7 @@ function EditPropertyModal(props) {
     const [mainImagePreview, setMainImagePreview] = useState()
     const [otherImagesPreview, setOtherImagesPreview] = useState(props.editProperty.otherImages)
 
-    const [submitActive, setSubmitActive] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const previewImage = (e, type) => {
         const reader = new FileReader()
@@ -39,11 +39,17 @@ function EditPropertyModal(props) {
             }
         } else if (type == 'other') {
             for (let x = 0; x < e.target.files.length; x++) {
-                const reader = new FileReader()
-                reader.readAsDataURL(e.target.files[x])
-                reader.onload = () => {
-                    setOtherImagesPreview(prevOtherImage => [...prevOtherImage, reader.result])
-                    setOtherImages(prevOtherImage => [...prevOtherImage, e.target.files[x]])
+                const file = e.target.files[x];
+                // If the file has already been uploaded, we dont allow the image to be uploaded
+                if (!otherImages.some((existingFile) => existingFile.name + existingFile.type === file.name + file.type)) {
+                    const reader = new FileReader()
+                    reader.readAsDataURL(file)
+                    reader.onload = () => {
+                        setOtherImagesPreview(prevOtherImage => [...prevOtherImage, reader.result])
+                        setOtherImages(prevOtherImage => [...prevOtherImage, file])
+                    }
+                } else {
+                    changeErrorMessage('You already uploaded this file')
                 }
             }
         }
@@ -72,12 +78,41 @@ function EditPropertyModal(props) {
         return valid
     }
 
-    const handleUpdate = async (e) => {
-        setSubmitActive(true)
+    const handleUpdate = async () => {
+        setLoading(true)
         if (checkInputs('all')) {
+            let mainImageName = mainImage
+            let otherImagesName = otherImages
+
             try {
-                // If the data updated is valid, we update the property.
-                await axios.post(`${SERVER_URL}/updateProperty/${props.editProperty._id}`, {
+                // If the Main image was changes upload the new one
+                if (props.editProperty.mainImage != mainImage) {
+                    const mainImg = new FormData()
+                    mainImg.append('newMainImg', mainImage)
+                    await axios.post(`${SERVER_URL}/postPropertyMainImage`, mainImg)
+                        .then(async res => {
+                            mainImageName = res.data
+                        })
+                }
+
+                // If the Other images were changed upload the new ones
+                if (props.editProperty.otherImages != otherImages) {
+                    const otherImgs = new FormData();
+                    otherImages.forEach(image => {
+                        if (typeof image === 'string') {
+                            otherImgs.append('oldOtherImages', image);
+                        } else {
+                            otherImgs.append('newOtherImages', image);
+                        }
+                    });
+                    await axios.post(`${SERVER_URL}/postPropertyOtherImages`, otherImgs)
+                        .then(async res => {
+                            otherImagesName = res.data
+                        })
+                }
+
+                // Property Post
+                await axios.patch(`${SERVER_URL}/updateProperty/${props.editProperty._id}`, {
                     statusText: homeType,
                     price: price,
                     pricePerSqFt: (sizeScale.toLowerCase() == 'sqft' ? (price / size) : (price / (size * 43560))).toFixed(1),
@@ -85,34 +120,10 @@ function EditPropertyModal(props) {
                     lotAreaUnit: sizeScale.toLowerCase(),
                     beds: beds,
                     baths: baths,
+                    mainImage: mainImageName,
+                    otherImages: otherImagesName,
                 })
-                    .then(async res => {
-                        let newData = res
-                        // If the main image was changed then we upload it and update the property
-                        if (props.editProperty.mainImage != mainImage) {
-                            const mainImg = new FormData()
-                            mainImg.append('newMainImg', mainImage)
-                            await axios.patch(`${SERVER_URL}/postPropertyMainImage/${props.editProperty._id}`, mainImg)
-                                .then(res => newData = res)
-                        }
-                        // If the other images were changed then we upload the new ones and update the property
-                        if (props.editProperty.otherImages != otherImages) {
-                            const otherImgs = new FormData();
-                            otherImages.forEach(image => {
-                                if (typeof image === 'string') {
-                                    otherImgs.append('oldOtherImages', image);
-                                } else {
-                                    otherImgs.append('newOtherImages', image);
-                                }
-                            });
-                            await axios.patch(`${SERVER_URL}/postPropertyOtherImages/${props.editProperty._id}`, otherImgs)
-                                .then(res => newData = res)
-                        }
-                        return newData
-                    })
-                    .then(newData => {
-
-                        // Update the results
+                    .then(async newData => {
                         props.setResults(prevResults => prevResults.map(prop => {
                             if (prop._id == newData.data._id) {
                                 return newData.data
@@ -125,14 +136,13 @@ function EditPropertyModal(props) {
                         enableScroll()
                     })
             } catch (e) {
-                changeErrorMessage('An error occurred. Please try again.')
+                changeErrorMessage('An error occured. Please try again later')
                 props.setEditProperty(false)
-                console.log(e);
             }
         } else {
             changeErrorMessage('Verify that every filed is filled')
-            setSubmitActive(false)
         }
+        setLoading(false)
     }
 
     return (
@@ -209,7 +219,7 @@ function EditPropertyModal(props) {
                                                     className='removeImage'
                                                     onClick={() => {
                                                         setOtherImagesPreview(prevOtherImage => prevOtherImage.filter(item => image != item))
-                                                        setOtherImages(otherImage => otherImage.filter(item => image != item))
+                                                        setOtherImages(otherImage => otherImage.filter(item => otherImage[i] != item))
                                                     }}
                                                 ></span>
                                             </div>
@@ -285,13 +295,14 @@ function EditPropertyModal(props) {
                         </div>
                     </div >
 
-
                     <div className='deleteUserEditActions'>
                         <button onClick={() => {
                             props.setEditProperty(false)
                             enableScroll()
                         }} className='cancel'>Cancel</button>
-                        <button className='button' onClick={handleUpdate}>Update</button>
+
+                        {!loading && <button className='button' onClick={handleUpdate}>Update</button>}
+                        {loading && <button className='button buttonLoading'><span className="loader"></span></button>}
                     </div>
                 </div>
 
@@ -302,7 +313,7 @@ function EditPropertyModal(props) {
                 props.setEditProperty(false)
                 enableScroll()
             }} className='generalModalBackground'></div>
-        </aside>
+        </aside >
     )
 }
 

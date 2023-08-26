@@ -5,16 +5,19 @@ body {
     max-width: 2000px;
     margin: auto;
 }
-.noScroll{
-    overflow: hidden;   
+
+.noScroll {
+    overflow: hidden;
 }
+
 /* Button */
-.button{
+.button {
     padding: 8px 12px;
     border: 0;
     outline: 0;
     gap: 8px;
     font-weight: 600;
+    min-width: 120px;
     font-family: 'Merriweather Sans', sans-serif;
     color: white;
     cursor: pointer;
@@ -23,14 +26,25 @@ body {
     background-color: #1f7cff;
     transition: all ease .3s;
     padding: 11px 30px;
+    display: flex;
+    align-items: center;
+    /* margin: auto; */
+    justify-content: center;
 }
-.button:hover{
+
+.button:hover {
     background-color: #006aff;
 }
+.buttonLoading{
+    height: 42px;
+    background-color: #599eff;
+}
+.buttonLoading:hover{
+    background-color: #599eff;
+}
 
 
-
-.cancel{
+.cancel {
     border: 0;
     outline: 0;
     font-weight: 600;
@@ -42,9 +56,11 @@ body {
     background-color: transparent;
     color: #006aff;
 }
-.cancel:hover{
+
+.cancel:hover {
     color: #4089ff;
 }
+
 /* Messages */
 .successMessage,
 .errorMessage {
@@ -65,6 +81,7 @@ body {
 .successMessage {
     background-color: rgb(57, 170, 57);
 }
+
 .errorMessage {
     background-color: rgb(173, 61, 61);
 }
@@ -260,7 +277,11 @@ body {
 
 /* Favorite message */
 
-.favoriteButton, .removeFavoriteButton, .submitButton, .deleteUserPropertiesButton, .editUserPropertiesButton {
+.favoriteButton,
+.removeFavoriteButton,
+.submitButton,
+.deleteUserPropertiesButton,
+.editUserPropertiesButton {
     padding: 8px 12px;
     border: 0;
     outline: 0;
@@ -277,21 +298,31 @@ body {
     transition: all ease .3s;
 }
 
-.favoriteButton, .removeFavoriteButton, .submitButton, .editUserPropertiesButton {
+.favoriteButton,
+.removeFavoriteButton,
+.submitButton,
+.editUserPropertiesButton {
     background-color: #1f7cff;
 }
-.favoriteButton:hover, .removeFavoriteButton:hover, .editUserPropertiesButton:hover {
+
+.favoriteButton:hover,
+.removeFavoriteButton:hover,
+.editUserPropertiesButton:hover {
     background-color: #0464ea;
 }
 
 .deleteUserPropertiesButton {
     background-color: #0755c2;
 }
+
 .deleteUserPropertiesButton:hover {
     background-color: #0043a2;
 }
 
-.favoriteButton::before, .removeFavoriteButton::before, .deleteUserPropertiesButton::before, .editUserPropertiesButton::before {
+.favoriteButton::before,
+.removeFavoriteButton::before,
+.deleteUserPropertiesButton::before,
+.editUserPropertiesButton::before {
     content: '';
     display: inline-block;
     background-repeat: no-repeat;
@@ -301,14 +332,18 @@ body {
     height: 20px;
     width: 20px;
 }
+
 .favoriteButton::before {
     background-size: 20px;
     background-image: url(assets/icons/favorite.svg);
 }
-.removeFavoriteButton::before, .deleteUserPropertiesButton::before {
+
+.removeFavoriteButton::before,
+.deleteUserPropertiesButton::before {
     background-size: 15px;
     background-image: url(assets/icons/trash.svg);
 }
+
 .editUserPropertiesButton::before {
     background-size: 16px;
     background-image: url(assets/icons/edit-property.svg);
@@ -318,7 +353,7 @@ body {
     background-image: url(assets/icons/favorite-filled.svg);
 }
 
-.requiredField{
+.requiredField {
     color: #d52121;
     font-size: 12px;
 }
@@ -352,42 +387,50 @@ body {
 
 /* Loadings */
 
-.loadingPropertyMap{
+.loadingPropertyMap {
     height: 340px;
     width: 49%;
 }
-.loadingPropertyDashboard{
+
+.loadingPropertyDashboard {
     height: 340px;
     width: 350px;
 }
-.loadingProperty{
+
+.loadingProperty {
     margin-bottom: 30px;
     background-color: rgb(209, 209, 209);
     border-radius: 10px;
     box-shadow: 0 2px 70px 1px rgba(38, 42, 76, 0.169);
     animation: loadingSkeleton 1.5s infinite;
 }
+
 @keyframes loadingSkeleton {
-    0%{
+    0% {
         opacity: .8;
     }
-    50%{
+
+    50% {
         opacity: .3;
     }
-    100%{
+
+    100% {
         opacity: .8;
     }
 }
-.loadingProperty .loadingPropertyImage{
+
+.loadingProperty .loadingPropertyImage {
     background-color: rgb(190, 190, 190);
     width: 100%;
     border-radius: 10px 10px 0 0;
     height: 220px;
 }
-.infoDiv{
+
+.infoDiv {
     width: 100%;
 }
-.infoDiv > .priceLoading{
+
+.infoDiv>.priceLoading {
     width: 45%;
     margin: 15px 0;
     height: 18px;
@@ -395,11 +438,55 @@ body {
     background-color: rgb(190, 190, 190);
     border-radius: 10px;
 }
-.infoDiv > .infoLoading{
+
+.infoDiv>.infoLoading {
     width: 100%;
     margin-bottom: 12px;
     border-radius: 10px;
     height: 15px;
     display: inline-block;
     background-color: rgb(190, 190, 190);
+}
+
+
+
+
+/* Loading animation */
+
+.loader {
+    width: 38px;
+    height: 38px;
+    display: inline-block;
+    position: relative;
+}
+
+.loader::after,
+.loader::before {
+    content: '';
+    box-sizing: border-box;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #FFF;
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    animation: animloader 1s linear infinite;
+}
+
+.loader::after {
+    animation-delay: .5s;
+}
+
+@keyframes animloader {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
 }
