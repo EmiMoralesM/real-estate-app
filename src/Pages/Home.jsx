@@ -11,7 +11,6 @@ function Home() {
       <Banner />
       <LatestProperties />
       <About />
-      <br /><br /><br /><br /><br /><br /><br /><br /><br />
     </main>
   )
 }

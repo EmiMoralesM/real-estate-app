@@ -8,19 +8,13 @@ function Banner() {
     const { hometypes_array } = useContext(Context)
     const { locationValue, setLocationValue, handleSelect, setHomeTypes } = useContext(LocationContext)
 
-    // const [isStateOpen, setIsStateOpen] = useState(false);
-    // const [selectedStateOption, setSelectedStateOption] = useState('Any');
-    // const stateOptions = ["Any", "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"];
-
     const [isTypeOpen, setIsTypeOpen] = useState(false);
     const [selectedTypeOption, setSelectedTypeOption] = useState('Any');
 
     const toggleDropdown = (id) => {
-        // if (id == "state") setIsStateOpen(prevIsStateOpen => !prevIsStateOpen);
         if (id == "type") setIsTypeOpen(prevIsTypeOpen => !prevIsTypeOpen);
     };
     const handleSearch = () => {
-        // e.preventDefault()
         console.log('search');
         console.log(Array(selectedTypeOption));
         setHomeTypes(selectedTypeOption == 'Any' ? '' : Array(selectedTypeOption))
@@ -64,28 +58,6 @@ function Banner() {
                                 )}
                             </PlacesAutocomplete>
                     </div>
-                    {/* <div className='stateDiv' onMouseLeave={() => setIsStateOpen(false)}>
-                        <label>STATE</label>
-                        <div
-                            onClick={() => toggleDropdown('state')}
-                            className={`dropdown ${isStateOpen ? 'openDropdown' : ''} ${selectedStateOption != 'Any' ? 'optionSelected' : ''}`}
-                        >
-                            <input type="text" name='state' value={selectedStateOption} readOnly />
-                            {isStateOpen && (
-                                <div className="options">
-                                    {stateOptions.map((option) => (
-                                        selectedStateOption != option ? <div
-                                            className="option-item"
-                                            key={option}
-                                            onClick={() => setSelectedStateOption(option)}
-                                        >
-                                            {option}
-                                        </div> : ''
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    </div> */}
                     <div className='typeDiv' onMouseLeave={() => setIsTypeOpen(false)}>
                         <label>TYPE</label>
                         <div onClick={() => toggleDropdown('type')} className={`dropdown ${isTypeOpen ? 'openDropdown' : ''} ${selectedTypeOption != 'Any' ? 'optionSelected' : ''}`}>

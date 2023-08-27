@@ -45,7 +45,6 @@ function LatestProperties() {
                                     <p className='status'>{property.statusType.replace('_', ' ')}</p>
                                     <div>
                                         <p className='location'>{property.addressCity}, {property.addressState}</p>
-                                        <p className='share'></p>
                                     </div>
                                 </div>
                                 <div className='imageDiv'>

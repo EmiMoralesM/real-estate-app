@@ -9,15 +9,17 @@ import { Context } from '../assets/Context'
 function Header(props) {
   const { SERVER_URL, useOutsideClick, user, setUser, changeSuccessMessage } = useContext(Context)
   const [profileSubMenu, setProfileSubMenu] = useState(false)
+  const [openBurgerMenu, setOpenBurgerMenu] = useState(false)
 
   // This returns a reference. And creates an event listener that will activate with every click outside the reference. (form Context.jsx)
   const refSubMenu = useOutsideClick(() => setProfileSubMenu(false));
   return (
     <header >
-      <nav onClick={() => { if (profileSubMenu) setProfileSubMenu(false) }}>
+      <nav className='hideMobileNav' onClick={() => { if (profileSubMenu) setProfileSubMenu(false) }}>
         <div className='ulNavbar'>
           <ul>
-            {user.email && (user.role == 'admin' || user.role == 'manager') && <li ><Link className='dashboard' to={'/dashboard/analytics'}>Admin Dashboard</Link></li>}
+            {user.email && (user.role == 'admin' || user.role == 'manager') && <li className='tabletHide'><Link className='dashboard' to={'/dashboard/analytics'}>Admin Dashboard</Link></li>}
+            {user.email && (user.role == 'admin' || user.role == 'manager') && <li className='tabletDisplay'><Link className='dashboard' to={'/dashboard/analytics'}>Dashboard</Link></li>}
             <li><Link to={'/properties'}>Buy</Link></li>
             <li><Link to={'/sellProperty'}>Sell</Link></li>
           </ul>
@@ -51,6 +53,31 @@ function Header(props) {
                 </aside>
               }
             </li>}
+          </ul>
+        </div>
+      </nav>
+      <nav className='displayMobileNav' onClick={() => { if (profileSubMenu) setProfileSubMenu(false) }}>
+        <div className='ulNavbarMobile'>
+          <button className='burgerMenu' onClick={() => setOpenBurgerMenu(true)}></button>
+          {openBurgerMenu && <div className='menuMobile'>
+            <button className='closeModal' onClick={() => setOpenBurgerMenu(false)}></button>
+            <div className='logoDiv'>
+              <h1 className='logo'><Link to={'/'}>Logo</Link></h1>
+            </div>
+            <ul>
+              {user.email && (user.role == 'admin' || user.role == 'manager') && <li><Link to={'/dashboard/analytics'}>Admin Dashboard</Link></li>}
+              <li><Link to={'/properties'}>Buy</Link></li>
+              <li><Link to={'/sellProperty'}>Sell</Link></li>
+              <li><Link to={'/sellProperty'}>Map</Link></li>
+            </ul>
+          </div>}
+        </div>
+        <div className='logoDiv'>
+          <h1 className='logo'><Link to={'/'}>Logo</Link></h1>
+        </div>
+        <div className='ulNavbarMobile'>
+          <ul>
+
           </ul>
         </div>
       </nav>

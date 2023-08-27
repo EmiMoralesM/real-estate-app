@@ -2,6 +2,7 @@
 .bannerSection {
     background-image: url(../assets/imgs/banner.jpg);
     /* background-image: url(../assets/imgs/test-house.png); */
+    background-size: cover;
     background-color: #d9e8ff;
     height: 65vh;
     background-position: center 70%;
@@ -23,13 +24,7 @@
 .titleDiv h1 {
     margin: 0;
     font-size: 58px;
-    width: 50%;
     color: #101112;
-    
-    
-    /* margin: auto;
-    text-align: center;
-    font-weight: 500; */
 }
 
 .titleDiv h1>span {
@@ -103,9 +98,11 @@
     transition: all ease .3s;
     outline: 0;
 }
-.locationDiv{
+
+.locationDiv {
     position: relative;
 }
+
 .searchBarDiv form div>input:focus-visible,
 .optionSelected>input {
     color: black !important;
@@ -159,6 +156,7 @@
     cursor: pointer;
     transition: all ease .3s;
 }
+
 .option-item-loading {
     padding: 10px 10px;
     background-color: rgb(202, 202, 202);
@@ -174,6 +172,7 @@
 .searchSubmitDiv {
     display: flex;
     justify-content: end;
+    align-items: center;
 }
 
 .searchSubmitDiv>.searchButton {
@@ -194,9 +193,11 @@
 
     transition: all ease .4s;
 }
+
 .searchSubmitDiv>.searchButtonLoading .loader {
     margin-left: -8px;
 }
+
 .searchSubmitDiv>.searchButtonLoading {
     background-color: #559cffe4;
     height: 20px;
@@ -240,8 +241,10 @@
     margin-bottom: 45px;
     font-weight: 700;
 }
-.propertyDiv .loadingPropertyImage, .propertyDiv .infoDiv > .priceLoading{
-    background-color: rgb(200, 200, 200)!important;    
+
+.propertyDiv .loadingPropertyImage,
+.propertyDiv .infoDiv>.priceLoading {
+    background-color: rgb(200, 200, 200) !important;
 }
 
 .propertiesDiv {
@@ -264,14 +267,16 @@
 }
 
 .propertiesDiv>.propertyDiv .imageDiv {
-    height: 220px;
+    height: inherit;
     overflow: hidden;
     border-radius: 10px 10px 0 0;
 }
-.imagePropertyDiv{
+
+.imagePropertyDiv {
     height: 220px;
     position: relative;
 }
+
 .propertiesDiv>.propertyDiv .imageDiv img {
     width: 100%;
     margin-top: -15px;
@@ -290,7 +295,7 @@
 .imageContent {
     z-index: 9;
     position: absolute;
-    height: 220px;
+    height: inherit;
     width: 100%;
 }
 
@@ -431,6 +436,7 @@
     margin: auto;
     display: flex;
     margin-top: 150px;
+    margin-bottom: 200px;
 }
 
 .aboutSection div {
@@ -462,7 +468,8 @@
     font-weight: 700;
     margin-bottom: 0;
 }
-.aboutSection .aboutText{
+
+.aboutSection .aboutText {
     color: #2f2f2f;
     font-size: 15px;
     font-weight: 700;
@@ -470,7 +477,379 @@
 
 }
 
-
-
-
 /* End About */
+
+
+
+@media all and (max-width: 1600px) {
+    .bannerSection {
+        height: 60vh;
+        background-position: 35% 70%;
+    }
+
+    .titleDiv {
+        width: 950px;
+    }
+
+    .titleDiv h1 {
+        font-size: 52px;
+    }
+
+    .searchBarDiv {
+        width: 85%;
+        height: 105px;
+        bottom: -50px;
+    }
+
+    .searchSubmitDiv>.searchButton {
+        padding: 20px;
+        background-size: 33px;
+    }
+
+    .searchBarDiv form div>label {
+        font-size: 14px;
+    }
+
+    .searchBarDiv form div>input {
+        font-size: 15px;
+    }
+
+    .propertiesTitleDiv h2 {
+        font-size: 33px;
+        margin-top: 10px;
+        margin-bottom: 35px;
+    }
+
+    .propertiesSection {
+        width: 1100px;
+    }
+
+    .aboutSection {
+        padding-top: 36px;
+        width: 1100px;
+        margin-top: 80px;
+    }
+
+    .aboutSection img {
+        width: 500px;
+    }
+
+    .aboutSection h2 {
+        font-size: 33px;
+    }
+
+    .aboutSection .aboutText {
+        font-size: 14px;
+    }
+}
+
+@media all and (max-width: 1350px) {
+    .bannerSection {
+        height: 58vh;
+    }
+
+    .titleDiv {
+        width: 900px;
+    }
+
+    .titleDiv h1 {
+        font-size: 50px;
+    }
+
+    .titleDiv hr {
+        width: 120px;
+        margin: 15px auto 30px 5px;
+    }
+
+    .searchBarDiv {
+        width: 85%;
+        height: 95px;
+        bottom: -45px;
+    }
+
+    .searchSubmitDiv>.searchButton {
+        padding: 20px;
+        background-size: 32px;
+    }
+
+    .searchBarDiv form div>label {
+        font-size: 13px;
+        margin-top: 4px;
+    }
+
+    .searchBarDiv form div>input {
+        font-size: 14px;
+        padding: 12px 0 6px 5px;
+    }
+
+    .options {
+        top: 38px;
+    }
+
+    .option-item {
+        font-size: 15px;
+    }
+
+    .propertiesTitleDiv p {
+        font-size: 13px;
+    }
+
+    .propertiesTitleDiv h2 {
+        font-size: 31px;
+    }
+
+    .propertiesSection {
+        width: 930px;
+        margin-top: 15vh;
+    }
+
+    .imagePropertyDiv {
+        height: 170px;
+    }
+
+    .beds-baths-sqft {
+        font-size: 14px;
+        gap: 5px;
+    }
+
+    .beds-baths-sqft .beforeIcon::before {
+        width: 18px;
+        height: 18px;
+        background-size: 18px !important;
+    }
+
+    .imageContent>div {
+        padding: 3px 0 6px 0;
+        font-size: 15px;
+    }
+
+    .infoDiv .address {
+        font-size: 14px;
+        margin-top: 0px;
+    }
+
+    .aboutSection {
+        width: 930px;
+        margin-top: 50px;
+    }
+
+    .aboutSection img {
+        width: 400px;
+    }
+
+    .aboutSection h2 {
+        font-size: 30px;
+    }
+
+    .aboutSection .aboutText {
+        font-size: 13px;
+    }
+}
+
+@media all and (max-width: 1100px) {
+    .titleDiv {
+        width: 780px;
+    }
+
+    .searchBarDiv {
+        width: 90%;
+    }
+
+    .bannerSection {
+        height: 55vh;
+    }
+
+    .propertiesSection {
+        width: 830px;
+        margin-top: 13vh;
+    }
+
+    .aboutSection {
+        width: 830px;
+        margin-top: 40px;
+    }
+
+    .aboutSection img {
+        width: 350px;
+    }
+}
+
+@media all and (max-width: 950px) {
+    .bannerSection {
+        background-image: url(/src/assets/imgs/banner-tablet.jpg);
+        height: 75vh;
+        justify-content: center;
+    }
+
+    .titleDiv {
+        text-align: center;
+        margin: initial;
+        margin-bottom: 20px;
+    }
+
+    .titleDiv h1 {
+        margin: 0;
+        font-size: 58px;
+        color: #000000;
+    }
+
+    .titleDiv hr {
+        margin: 15px auto 30px auto;
+        display: none;
+    }
+
+    .searchBarDiv {
+        position: initial;
+    }
+
+    .searchBarDiv form div>label {
+        font-size: 14px;
+    }
+
+    .searchBarDiv form div>input {
+        font-size: 15px;
+    }
+
+    .propertiesSection {
+        width: 90vw;
+    }
+
+    .propertiesDiv>.propertyDiv {
+        width: 48.3%;
+    }
+
+    .infoDiv .price {
+        font-size: 24px;
+    }
+
+    .beds-baths-sqft {
+        font-size: 17px;
+    }
+
+    .infoDiv .address {
+        font-size: 16px;
+    }
+
+    .imageContent>div {
+        font-size: 16px;
+    }
+
+    .imagePropertyDiv {
+        height: 220px;
+    }
+
+    .aboutSection {
+        width: 90vw;
+    }
+
+    .aboutSection>img {
+        display: none;
+    }
+
+    .aboutSection h2>span {
+        display: inline;
+    }
+
+    .aboutSection .tabletDisplay {
+        width: 100%;
+        height: 300px;
+        overflow: hidden;
+    }
+
+    .aboutSection .tabletDisplay img {
+        width: 100%;
+    }
+}
+
+@media all and (max-width: 750px) {
+    .typeDiv {
+        display: none;
+    }
+
+    .searchBarDiv form {
+        width: 90%;
+        justify-content: space-around;
+    }
+
+    .titleDiv h1 {
+        font-size: 50px;
+    }
+
+    .propertiesTitleDiv h2,
+    .aboutSection h2 {
+        font-size: 28px;
+    }
+
+    .searchBarDiv form>.locationDiv {
+        width: 80%;
+    }
+
+    .imagePropertyDiv {
+        height: 170px;
+    }
+}
+
+@media all and (max-width: 600px) {
+    .bannerSection {
+        height: 100vh;
+    }
+
+    .propertiesDiv {
+        justify-content: center;
+    }
+
+    .propertiesDiv>.propertyDiv {
+        width: 100%;
+        margin-bottom: 25px;
+    }
+
+    .propertiesDiv>.propertyDiv:nth-child(4) {
+        display: none;
+    }
+
+    .propertiesDiv>.propertyDiv:nth-child(5) {
+        display: none;
+    }
+
+    .propertiesDiv>.propertyDiv:nth-child(6) {
+        display: none;
+    }
+
+    .propertiesSection {
+        width: 85vw;
+    }
+
+    .aboutSection {
+        width: 85vw;
+        margin-bottom: 100px;
+    }
+}
+
+@media all and (max-width: 450px) {
+    .titleDiv h1 {
+        font-size: 45px;
+    }
+    .searchSubmitDiv>.searchButton {
+        background-color: transparent;
+        height: 100%;
+        width: 10px;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 10px;
+        background-image: url(/src/assets/icons/search-icon-black.svg);
+        background-size: 30px;
+    }
+    .searchSubmitDiv>.searchButton:hover {
+        background-color: transparent;
+    }
+}
+
+@media all and (max-width: 400px) {
+    .titleDiv{
+        padding: 0;
+    }
+    .titleDiv h1 {
+        font-size: 40px;
+    }
+    
+}
