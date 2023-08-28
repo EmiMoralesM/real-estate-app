@@ -52,7 +52,7 @@
     background-position: center;
 }
 
-.locationSuggestionsDiv{
+.locationSuggestionsDiv {
     position: absolute;
     background-color: white;
     padding: 5px;
@@ -61,7 +61,8 @@
     min-height: 100px;
     border-radius: 0 0 10px 10px;
 }
-.locationSuggestion{
+
+.locationSuggestion {
     background-color: #f8f8f8;
     padding: 8px;
     margin: 5px;
@@ -69,7 +70,8 @@
     transition: all ease .2s;
     cursor: pointer;
 }
-.locationSuggestionLoading{
+
+.locationSuggestionLoading {
     background-color: rgb(226, 226, 226);
     padding: 5px;
     margin: 5px;
@@ -79,7 +81,8 @@
     display: block;
     animation: loadingMapSkeleton 1.5s infinite;
 }
-.locationSuggestion:hover{
+
+.locationSuggestion:hover {
     background-color: #e1e1e1;
 }
 
@@ -115,7 +118,7 @@
     position: absolute;
     background-color: white;
     box-shadow: 0px 10px 5px 2px #c0c0c03d;
-    margin-top: 8px;
+    margin-top: 7px;
     border-radius: 0 0 10px 10px;
 }
 
@@ -231,6 +234,8 @@
 .priceFilters {
     display: flex;
     gap: 20px;
+    position: relative;
+    z-index: 10;
     padding: 10px 20px 20px 20px;
 }
 
@@ -351,17 +356,21 @@
     background-color: rgb(209, 209, 209);
     animation: loadingMapSkeleton 1.5s infinite;
 }
+
 @keyframes loadingMapSkeleton {
-    0%{
+    0% {
         opacity: .3;
     }
-    50%{
+
+    50% {
         opacity: .8;
     }
-    100%{
+
+    100% {
         opacity: .3;
     }
 }
+
 .mapSection {
     background-color: #8c8c8c;
     position: fixed;
@@ -385,10 +394,12 @@
     transition: all ease .2s;
     position: relative;
 }
-.mapMarkerZindex{
+
+.mapMarkerZindex {
     z-index: 10;
 }
-.mapMarkerHoverZindex{
+
+.mapMarkerHoverZindex {
     z-index: 20;
 }
 
@@ -465,7 +476,7 @@
 
 }
 
-.locationSeach{
+.locationSeach {
     /* border-radius: 50%; */
     width: 40px;
     height: 40px;
@@ -519,6 +530,7 @@
 .sortOptions {
     z-index: 999;
 }
+
 .sortButton .options {
     max-height: 400px;
 }
@@ -571,4 +583,304 @@
 
 .homesDiv>.propertyDiv .imagePropertyDiv {
     height: 180px;
+}
+
+
+
+.desktopFilters {
+    display: flex;
+    gap: 15px;
+}
+
+.mobileFilters {
+    display: none;
+}
+
+@media all and (max-width: 1550px) {
+    .homesSection {
+        width: 40vw;
+    }
+
+    .mapSection {
+        width: 59vw;
+    }
+}
+
+@media all and (max-width: 1450px) {
+    .homesSection {
+        width: 45vw;
+    }
+
+    .mapSection {
+        width: 54vw;
+    }
+}
+
+@media all and (max-width: 1300px) {
+    .homesSection {
+        width: 30vw;
+    }
+
+    .mapSection {
+        width: 69vw;
+    }
+
+    .loadingMapSkeleton {
+        width: 69vw;
+    }
+
+
+    .homesDiv {
+        justify-content: center;
+    }
+
+    .homesDiv>.propertyDiv {
+        width: 95%;
+    }
+
+    .loadingPropertyMap {
+        width: 95%;
+    }
+
+    .filterButton {
+        font-size: 15px;
+    }
+
+    .locationInput {
+        width: 280px;
+        font-size: 15px;
+    }
+
+    .priceFilters {
+        padding: 10px 20px 10px 20px;
+    }
+
+    .bathsOptions>p {
+        font-size: 15px;
+    }
+
+    .bathsOptions>div>p {
+        font-size: 16px;
+    }
+
+    .individualFilterDropdown .individualFilterButton>input {
+        padding: 14px 15px;
+        font-size: 16px;
+    }
+
+    .filterSubTitle {
+        font-size: 15px;
+    }
+}
+
+@media all and (max-width: 1150px) {
+    .filtersHeader {
+        padding: 6px 15px;
+        gap: 15px;
+    }
+
+    .filterButton {
+        padding: 9px 15px;
+    }
+
+    .locationInput {
+        width: 240px;
+    }
+
+    .homesSection {
+        width: 35vw;
+    }
+
+    .mapSection {
+        width: 64vw;
+    }
+
+    .homesDiv {
+        justify-content: center;
+    }
+
+    .homesDiv>.propertyDiv {
+        width: 95%;
+    }
+}
+
+@media all and (max-width: 1000px) {
+    .mapSection {
+        display: none;
+    }
+    .fiterMobileButton, .mobileFiltersDiv > .locationSearchDiv {
+        display: none;
+    }
+    
+    .homesSection {
+        width: 100%;
+        position: relative;
+        margin-top: 0;
+        padding-top: calc(79px + 70px);
+    }
+
+    .homesDiv>.propertyDiv {
+        width: 30vw;
+    }
+
+    .loadingPropertyMap {
+        width: 30vw;
+    }
+
+    .homesDiv {
+        justify-content: space-between;
+    }
+}
+
+@media all and (max-width: 900px) {
+    .homesDiv>.propertyDiv {
+        width: 45vw;
+    }
+
+    .loadingPropertyMap {
+        width: 45vw;
+    }
+
+    .desktopFilters {
+        display: none;
+    }
+
+    .mobileFilters {
+        display: block;
+    }
+
+    .filtersHeader {
+        margin-top: 60px;
+        border: 0;
+    }
+
+    .mobileFiltersDiv {
+        position: fixed;
+        top: 107px;
+        left: 30px;
+        background-color: white;
+        border-radius: 0 0 10px 10px;
+    }
+
+    .homesSection {
+        width: 100%;
+        position: relative;
+        margin-top: 0;
+        padding-top: calc(79px + 54px);
+    }
+}
+
+@media all and (max-width: 700px) {
+    .homesDiv>.propertyDiv {
+        width: 44vw;
+    }
+
+    .loadingPropertyMap {
+        width: 44vw;
+    }
+}
+
+@media all and (max-width: 600px) {
+    .homesDiv>.propertyDiv {
+        width: 95vw;
+    }
+    .homesDiv{
+        justify-content: center;
+        display: block;
+    }
+    .homesSection{
+        padding: 12px;
+        padding-top: calc(79px + 54px);
+    }
+    .loadingPropertyMap {
+        width: 100%;
+    }
+    .infoDiv .address{
+        padding-bottom: 15px;
+    }  
+}
+
+@media all and (max-width: 420px) {
+    .mobile420Hide {
+        display: none;
+    }
+    .infoDiv .address{
+        max-width: 300px;
+    }
+    
+    .mobile420Display {
+        display: block;
+    }
+
+    .filtersHeader {
+        padding: 0;
+        justify-content: center;
+    }
+    
+    .mobileFilters {
+        width: 100%;
+        padding: 10px 20px;
+        box-sizing: border-box;
+    }
+
+    .mobilesFiltersDivOpen {
+        height: calc(100vh - 60px);
+        overflow-y: scroll;
+    }
+
+    .generalInput {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .mobileFiltersDiv {
+        top: 0;
+        left: 0;
+        position: relative;
+        /* padding: 30px; */
+        padding-top: 40px;
+        box-sizing: border-box;
+    }
+
+    .removeFiltersDiv {
+        display: none;
+    }
+
+    .locationSuggestionsDiv {
+        z-index: 999;
+    }
+
+    .fiterMobileButton {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .fiterMobileButton>button {
+        width: 100%;
+    }
+
+    .individualFilterDropdown {
+        width: 50%;
+    }
+
+    .individualFilterDropdown .individualFilterButton>input {
+        padding: 14px 0 14px 20px;
+        width: 100%;
+    }
+
+    .bathsOptions,
+    .hometypeOptions {
+        padding: 10px 0;
+    }
+
+    .priceFilters {
+        padding: 10px 0;
+        justify-content: space-between;
+    }
+
+    .generalInput {
+        box-sizing: border-box;
+
+    }
 }

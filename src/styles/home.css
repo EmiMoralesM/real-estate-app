@@ -684,6 +684,7 @@
     .titleDiv {
         text-align: center;
         margin: initial;
+        width: 100%;
         margin-bottom: 20px;
     }
 

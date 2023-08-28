@@ -23,7 +23,7 @@ function LatestProperties() {
                 {(!properties) ? (
                     <>
                         {[1, 2, 3].map(i => (
-                            <div key={i} className='propertyDiv loadingProperty loadingPropertyMap'>
+                            <div key={i} className='propertyDiv loadingProperty'>
                                 <div className='loadingPropertyImage' />
                                 <div className='infoDiv'>
                                     <span className='priceLoading' />

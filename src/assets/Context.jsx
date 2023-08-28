@@ -42,9 +42,11 @@ export function ContextProvider({ children }) {
             return `${SERVER_URL}/images/${image}`
         }
     }
-
+    // const [disableScroll, setDisableScroll] = useState(false)
     const disableScroll = () => {
-        document.body.classList.add("noScroll");
+        // console.log(document.body.classList);
+        document.body.classList.add('noScroll');
+        // setDisableScroll(true)
     }
 
     const enableScroll = () => {

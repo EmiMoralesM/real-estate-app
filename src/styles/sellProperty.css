@@ -21,64 +21,6 @@
     padding-top: 60px;
 }
 
-/* .sellPropeSearchBarDiv {
-    margin: 0;
-    font-size: 40px;
-    width: 800px;
-    position: relative;
-    margin-top: 30px;
-    font-size: 16px;
-    cursor: pointer;
-    font-weight: 600;
-    background-color: white;
-    border: 2px solid #cdcdcd;
-    color: rgba(0, 0, 0, 0.923);
-    outline: 0;
-    transition: all ease .3s;
-    border-radius: 8px;
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    transition: all ease .3s;
-}
-.sellPropeSearchBarDiv:hover {
-    border: 2px solid #3f8fff;
-}
-.sellPropeSearchBarDiv:has(input:focus-visible) {
-    border: 2px solid #006aff;
-}
-.sellPropeSearchBarDiv input {
-    border-radius: 8px;
-    padding: 20px;
-    border: 0;
-    font-family: 'Roboto', sans-serif;
-    font-size: 18px;
-    color: rgb(53, 53, 53);
-    font-weight: 600;
-    outline: 0;
-    width: 90%;
-}
-.sellPropeSearchBarDiv span {
-    box-sizing: border-box;
-    margin-right: 20px;
-}
-.sellPropeSearchBarDiv span a {
-    display: block;
-    width: 28px;
-    cursor: pointer;
-    height: 28px;
-    background-size: 28px;
-    background-color: transparent;
-    border: 0;
-    outline: 0;
-    background-image: url(../assets/icons/search-icon-black.svg);
-} */
-
-
-
-
-
-
 
 .sellPropeSearchBarDiv {
     align-items: center;
@@ -137,14 +79,17 @@
     color: black !important;
     border-bottom: 2px solid #3287ff !important;
 }
+
 .optionSelected>input::placeholder {
     color: black !important;
     border-bottom: 2px solid #3287ff !important;
 }
+
 .fieldError>input {
     border-bottom: 2px solid #ff0000 !important;
 }
-.fieldError>input::placeholder { 
+
+.fieldError>input::placeholder {
     color: #ff0000 !important;
 }
 
@@ -314,7 +259,7 @@
 }
 
 .mapAddressChange {
-    height: 620px!important; 
+    height: 620px !important;
 }
 
 
@@ -633,12 +578,239 @@
     align-items: center;
     justify-content: center;
 }
+
 .submitSellPorpertyButtonLoading {
     background-color: #4995ff;
 }
+
 .submitSellPorpertyButtonLoading:hover {
     background-color: #4995ff;
 }
 
 
-/*  */
+@media all and (max-width: 1600px) {
+    .contentSellProp {
+        width: 1100px;
+    }
+
+    .bannerSellProp h1 {
+        font-size: 38px;
+    }
+
+    .sellPropeSearchBarDiv {
+        height: 100px;
+    }
+
+    .sellPropeSearchBarDiv>div div>label {
+        font-size: 14px;
+    }
+
+    .sellPropeSearchBarDiv>div div>input {
+        font-size: 15px;
+    }
+
+    .whySellSection .whySellDiv div h3 {
+        font-size: 19px;
+    }
+
+    .whySellSection .whySellDiv div p {
+        font-size: 14px;
+    }
+}
+
+@media all and (max-width: 1350px) {
+    .contentSellProp {
+        width: 930px;
+    }
+
+    .whySellSection .whySellDiv div {
+        padding: 20px;
+    }
+
+    .whySellSection .whySellDiv div h3 {
+        font-size: 18px;
+        margin-top: 8px;
+    }
+
+    .whySellSection .whySellDiv div p {
+        font-size: 13px;
+    }
+
+    .sellPropeSearchBarDiv>div div>label {
+        font-size: 13px;
+    }
+
+    .sellPropeSearchBarDiv>div div>input {
+        font-size: 14px;
+        padding: 12px 0 8px 5px;
+    }
+
+    .sellPropeSearchBarDiv {
+        height: 95px;
+    }
+
+    .searchSubmitDiv>.searchButton {
+        padding: 18px;
+    }
+
+    .contentSellProp {
+        padding-top: 10vh;
+    }
+
+    .sellPropeSearchBarDiv {
+        width: 1100px;
+    }
+    .modalChangeLocation{
+        width: 1050px;
+    }
+}
+
+@media all and (max-width: 1110px) {
+    .contentSellProp {
+        width: 830px;
+    }
+
+    .whySellSection .whySellDiv {
+        gap: 20px;
+    }
+
+    .bannerSellProp h1 {
+        font-size: 37px;
+    }
+
+    .sellPropeSearchBarDiv {
+        width: 900px;
+    }
+    .modalChangeLocation{
+        width: 850px;
+    }
+}
+
+@media all and (max-width: 900px) {
+    .bannerSellProp {
+        padding: 0;
+    }
+
+    .sellPropeSearchBarDiv {
+        height: fit-content;
+        width: 90vw;
+        padding: 30px;
+        box-sizing: border-box;
+    }
+
+    .sellPropeSearchBarDiv>div {
+        margin: 0;
+        width: 100%;
+    }
+
+    .sellPropeSearchBarDiv>div>div {
+        margin: 0;
+        width: 100% !important;
+        margin-bottom: 20px;
+    }
+
+    .bannerSellProp h1 {
+        text-shadow: 0 0 15px rgb(224, 224, 224);
+    }
+    
+    .sellPropeSearchBarDiv>div div>input {
+        box-sizing: border-box;
+    }
+
+    .searchSubmitDiv>.button {
+        width: 100%;
+        font-size: 16px;
+        text-decoration: none;
+    }
+
+    .sellPropeSearchBarDiv>div div>label {
+        font-size: 16px;
+    }
+
+    .sellPropeSearchBarDiv>div div>input {
+        font-size: 16px;
+    }
+
+    .bannerSellProp h1 {
+        font-size: 45px;
+    }
+
+    .bannerSellProp {
+        height: 60vh;
+    }
+
+    .whySellSection .whySellDiv div {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .whySellSection .whySellDiv {
+        flex-direction: column;
+    }
+
+    .contentSellProp {
+        width: 100%;
+        padding: 30px;
+        box-sizing: border-box;
+    }
+
+    .searchSubmitDiv>.searchButtonLoading {
+        border-radius: 10px;
+        margin: 0;
+        padding: 12px;
+    }
+
+
+
+    .contentSellProp {
+        padding-top: 70px;
+    }
+
+    .mapAddressSection .mapAddressTitleDiv h1 {
+        font-size: 26px;
+    }
+
+    .mapAddressSection .mapAddressTitleDiv p {
+        font-size: 16px;
+    }
+
+    .addressActionsDiv {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .addressActionsDiv>a {
+        text-align: center;
+    }
+    .modalChangeLocation{
+        width: 95%;
+        height: fit-content;
+    }
+    .mapAddressChange{
+        height: 50vh!important;   
+    }
+}
+
+@media all and (max-width: 720px) {
+    .bannerSellProp h1 {
+        font-size: 40px;
+        text-align: center;
+    }
+}
+
+@media all and (max-width: 600px) {
+    .bannerSellProp h1 {
+        font-size: 40px;
+        text-align: center;
+    }
+    
+    .bannerSellProp {
+        height: 100vh;
+    }
+    .mapAddressSection .mapAddressTitleDiv h1 {
+        font-size: 24px;
+    }
+    .mapAddressSection .mapAddressTitleDiv p {
+        font-size: 14px;
+    }
+}

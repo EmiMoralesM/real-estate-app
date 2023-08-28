@@ -7,8 +7,11 @@ import Map from "../Components/Properties/Map";
 import Homes from "../Components/Properties/Homes";
 import DetailPropertyModal from "./DetailPropertyModal";
 import { LocationContext } from "../assets/LocationContext";
+import { Context } from "../assets/Context";
 
 function Properties(props) {
+  const { enableScroll, disableScroll } = useContext(Context)
+
   const [propertyDetail, setPropertyDetail] = useState("");
   const [properties, setProperties] = useState();
 
@@ -17,6 +20,7 @@ function Properties(props) {
     if (location.pathname.includes('details')) {
       // Set propertyDetail to the _id of the property accessed.
       setPropertyDetail(location.pathname.split('/').pop())
+      disableScroll()
       // Open the propery detail modal 
     }
   }, [location.pathname])

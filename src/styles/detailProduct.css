@@ -37,7 +37,7 @@
 
 .propertyImages .mainImage {
     width: 100%;
-    height: 550px;
+    height: fit-content;
 }
 
 .propertyImages .mainImage {
@@ -214,4 +214,44 @@
 }
 .sendOwnerMessage > button{
     width: 100%;
+}
+
+
+@media all and (max-width: 1450px){
+    .properyDetailModal{
+        width: 1100px;
+    }
+    .propertyDetails> .propertyTitleDiv > .address{
+        font-size: 15px;
+    }
+}
+
+@media all and (max-width: 1250px){
+    .properyDetailModal{
+        width: 1000px;
+    }
+    .propertyImages{
+        width: 55%;
+    }
+    .propertyDetails{
+        width: 45%;
+    }
+    
+}
+@media all and (max-width: 1100px){
+    .properyDetailModal{
+        width: 100%;
+    }
+    .propertyImages{
+        width: 50%;
+    }
+    .propertyDetails{
+        width: 50%;
+    }
+}
+
+@media all and (max-width: 900px){
+    .properyDetailSection{
+        top: 60px;
+    }
 }

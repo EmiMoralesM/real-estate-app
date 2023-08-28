@@ -51,3 +51,28 @@ footer .menuFooter > div > ul li a {
 footer .menuFooter > div > ul li a:hover {
     color: rgb(126, 126, 126);
 }
+
+
+@media all and (max-width: 900px) {
+    footer{
+        flex-direction: column;
+        text-align: center;
+        padding: 0;
+    }
+    footer .logoAndCopy .logo{
+        margin: auto;
+    }
+}
+@media all and (max-width: 600px) {
+    footer{
+        flex-direction: column;
+        text-align: center;
+    }
+    footer .logoAndCopy .logo{
+        margin: auto;
+    }
+    .menuFooter{
+        flex-direction: column;
+        gap: 50px!important;
+    }
+}

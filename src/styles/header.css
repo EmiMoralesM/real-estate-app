@@ -18,6 +18,7 @@ header {
 .logo {
     background-image: url(../assets/imgs/logo-test.svg);
     width: 150px;
+    margin: 0;
     height: 35px;
     background-position: center center;
     background-repeat: no-repeat;
@@ -69,7 +70,7 @@ header {
     color: #006aff;
 }
 
-.ulNavbar>ul .signUpButton button,
+.signUpButton button,
 .dashboard,
 .blueButton {
     text-decoration: none;
@@ -85,7 +86,7 @@ header {
     transition: all ease .4s;
 }
 
-.ulNavbar>ul .signUpButton button:hover,
+.signUpButton button:hover,
 .dashboard:hover,
 .blueButton:hover {
     background-color: #006aff;
@@ -202,7 +203,9 @@ header {
         display: flex !important;
         background-color: transparent;
         backdrop-filter: blur(5px);
+        background-color: rgba(255, 255, 255, 0.293);
         box-shadow: none;
+        height: 60px;
     }
 
     .hideMobileNav {
@@ -222,50 +225,104 @@ header {
         background-size: 25px;
     }
 
-
-
-
-
     .ulNavbarMobile {
         display: flex;
-        justify-content: left;
-        padding: 0 60px;
-        width: 35%;
+        width: 20%;
         box-sizing: border-box;
         margin: auto;
     }
 
+    .ulNavbarMobileRight {
+        padding: 0 40px 0 0;
+        justify-content: right;
+    }
 
-    .menuMobile{
+    .ulNavbarMobileLeft {
+        padding: 0 0 0 60px;
+        justify-content: left;
+    }
+
+    .ulNavbarMobile>ul {
+        padding: 0;
+        display: flex;
+        gap: 55px;
+        align-items: center;
+        margin: 0;
+    }
+
+    .ulNavbarMobile>ul .signUpButton button {
+        padding: 12px 22px;
+    }
+
+    .ulNavbarMobile>ul li {
+        list-style-type: none;
+        align-items: center;
+        display: flex;
+    }
+
+    .menuMobile {
         width: 100vw;
         position: fixed;
         background-color: white;
         /* height: 100vh; */
         top: 0;
         left: 0;
+        box-shadow: 0px 0px 5px 2px #a7a7a73d;
     }
-    .menuMobile > .closeModal{
-        top: 16px;
+
+    .menuMobile>.closeModal {
+        top: 8px;
         left: 51px;
     }
-    .menuMobile > .logoDiv{
+
+    .logoDiv {
         margin: auto;
+        height: 60px;
+        display: flex;
+        width: 60%;
+        align-items: center;
     }
-    .menuMobile > .logoDiv > .logo{
-        margin: 22px 0 0 -18px;
+
+    .logo {
+        background-size: 135px;
+        height: 30px;
     }
+
+    .profile {
+        padding: 7px;
+    }
+
+    .profilePic {
+        width: 19px;
+    }
+
+    .imageSet {
+        padding: 0 !important;
+        width: 40px;
+        height: 40px;
+        border: 2px solid #4492ffe4;
+    }
+
+    .menuMobile>.logoDiv>.logo {
+        margin: 0 0 0 -17px;
+    }
+
     .menuMobile ul {
         padding: 0;
-        margin-top: 40px;
+        margin-top: 20px;
+        margin-bottom: 10px;
     }
+
     .menuMobile ul li {
         list-style-type: none;
         transition: all ease .3s;
         display: block;
     }
+
     .menuMobile ul li:hover {
         background-color: rgb(241, 241, 241);
     }
+
     .menuMobile ul li a {
         display: block;
         text-align: center;
@@ -275,5 +332,24 @@ header {
         color: black;
         font-weight: 600;
         text-decoration: none;
+    }
+
+    .ulNavbarMobile .profileSubMenu {
+        border-radius: 10px;
+        width: 200px;
+    }
+
+    .ulNavbarMobile .profileItem .profile {
+        border: 2px solid #4492ffe4;
+    }
+}
+
+@media all and (max-width: 420px) {
+    .ulNavbarMobileRight {
+        padding: 0 19px 0 0;
+    }
+
+    .ulNavbarMobileLeft {
+        padding: 0 0 0 19px;
     }
 }

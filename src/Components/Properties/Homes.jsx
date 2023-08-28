@@ -9,7 +9,6 @@ function Homes(props) {
   const { useOutsideClick, imageUrl } = useContext(Context)
   const { locationCoordinates, fetchPropertiesData } = useContext(LocationContext)
 
-
   useEffect(() => {
     props.setProperties()
     // Function (from LocationContext) that fetches the properties with the specified filters.
@@ -57,7 +56,6 @@ function Homes(props) {
                   <p className='status'>{property.statusType.replace('_', ' ')}</p>
                   <div>
                     <p className='location'>{property.addressCity}, {property.addressState}</p>
-                    <p className='share'></p>
                   </div>
                 </div>
                 <div className='imageDiv'>
