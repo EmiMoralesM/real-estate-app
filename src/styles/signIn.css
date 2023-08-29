@@ -202,3 +202,16 @@
     height: 43px;
 }
 
+
+
+@media all and (max-width: 600px) {
+    .signInModal{
+        z-index: 999999;
+    }
+    .signInContent {
+        height: 100vh;
+        width: 100vw;
+        left: 0;
+        top: 0;
+    }
+}

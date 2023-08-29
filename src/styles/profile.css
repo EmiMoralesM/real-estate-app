@@ -256,10 +256,10 @@
 
 .savedPropertiesDiv {
     display: flex;
-    margin-top: 30px;
     flex-direction: column;
     gap: 20px;
 }
+
 .notificationsDiv {
     display: flex;
     flex-direction: column;
@@ -338,9 +338,6 @@
     width: 100%;
     text-align: center;
     margin: 20px 0;
-}
-.noPropertiesToShow > .button {
-    margin: auto;
 }
 
 .noPropertiesToShow img {
@@ -423,14 +420,17 @@
     border-radius: 5px;
     box-shadow: 0 0 7px 0 rgb(211, 211, 211);
 }
-.notificationProfileDiv{
+
+.notificationProfileDiv {
     display: flex;
     justify-content: space-between;
 }
-.notificationNameDiv>p{
+
+.notificationNameDiv>p {
     margin-left: 20px;
 }
-.notificationProfileDiv .blueDot{
+
+.notificationProfileDiv .blueDot {
     width: 15px;
     height: 15px;
     margin-top: 5px;
@@ -438,17 +438,20 @@
     display: inline-block;
     border-radius: 50%;
 }
-.notificationProfileDiv h3{
+
+.notificationProfileDiv h3 {
     margin: 0;
     margin-top: 5px;
 }
-.notificationProfileDiv span{
+
+.notificationProfileDiv span {
     font-size: 16px;
     color: #8c8c8c;
     font-weight: 500;
     margin-left: 12px;
 }
-.notificationProperty{
+
+.notificationProperty {
     justify-content: right;
     gap: 5px;
     display: flex;
@@ -456,15 +459,270 @@
     margin: 0;
     margin-top: 20px;
 }
-.notificationProperty span{
+
+.notificationProperty span {
     font-weight: 600;
 }
-.notificationProperty a{
+
+.notificationProperty a {
     color: #006aff;
     text-decoration: none;
     transition: all ease .3s;
     font-weight: 600;
 }
-.notificationProperty a:hover{
+
+.notificationProperty a:hover {
     color: #4391ff;
+}
+
+
+@media all and (max-width: 1500px) {
+    .profileMenu {
+        width: 950px;
+    }
+
+    .profileContentDiv {
+        width: 1100px;
+    }
+}
+
+@media all and (max-width: 1350px) {
+    .profileMenu {
+        width: 900px;
+    }
+
+    .profileContentDiv {
+        width: 1050px;
+    }
+
+    .profileMenu h1 {
+        font-size: 30px;
+    }
+
+    .profileContentDiv>div>h2 {
+        font-size: 22px;
+    }
+
+    .profileOptions {
+        font-size: 15px;
+    }
+
+    .editProfileDiv p {
+        font-size: 15px;
+    }
+
+    .changePasswordButton {
+        font-size: 14px;
+    }
+}
+
+@media all and (max-width: 1100px) {
+    .profileMenu {
+        width: 760px;
+    }
+
+    .profileOptions {
+        font-size: 14px;
+        margin-top: 30px;
+    }
+
+    .profileContentDiv {
+        width: 880px;
+    }
+
+    .accountSetDiv .title {
+        font-size: 15px;
+    }
+
+    .accountSetDiv .description {
+        font-size: 14px;
+    }
+
+    .editProfileDiv p {
+        font-size: 14px;
+    }
+
+    .profileContentDiv {
+        width: 95%;
+    }
+
+    .profileMenu {
+        width: 80%;
+    }
+
+
+    .noPropertiesToShow img {
+        width: 130px;
+    }
+    .noPropertiesToShow p:nth-child(2) {
+        font-size: 20px;
+    }
+    .noPropertiesToShow p:nth-child(3) {
+        font-size: 17px;
+    }
+}
+
+@media all and (max-width: 900px) {
+    .mainProfile {
+        padding-top: 75px;
+    }
+
+    .editProfileDiv {
+        justify-content: space-between;
+    }
+
+    .accountSetDiv {
+        display: block;
+    }
+
+    .accountSetDiv .title {
+        margin-top: 0;
+    }
+
+    .accountSetDiv {
+        margin: 15px;
+    }
+
+    .profileContentDiv>div>h2 {
+        margin: 10px 15px 30px 15px;
+    }
+
+    .profileContentDiv {
+        padding: 20px 16px !important;
+    }
+
+    .profileOptions {
+        font-size: 14px;
+        padding: 0 0 10px 0;
+        justify-content: space-around;
+        gap: 0;
+    }
+
+
+    .noPropertiesToShow img {
+        width: 120px;
+    }
+    .noPropertiesToShow p:nth-child(2) {
+        font-size: 21px;
+    }
+    .noPropertiesToShow p:nth-child(3) {
+        font-size: 15px;
+    }
+    .noPropertiesToShow p:nth-child(3) span {
+        width: 18px;
+        height: 18px;
+        background-size: 18px;
+    }
+}
+
+@media all and (max-width: 700px) {
+    .profileOptions {
+        font-size: 13px;
+    }
+
+    .profileOptions .active::before {
+        margin-left: -10%;
+        width: 120%;
+    }
+
+    .notificationProperty {
+        display: block;
+    }
+    .notificationProperty > a {
+        margin-left: 4px;
+    }
+    .notificationProperty > span {
+        margin-right: 2px;
+    }
+}
+
+@media all and (max-width: 600px) {
+    .profileMenu {
+        width: 98%;
+    }
+
+    .accountSetDiv {
+        margin: 15px 0;
+    }
+
+    .profileContentDiv>div>h2 {
+        margin: 10px 0px 30px 0px;
+        font-size: 21px;
+    }
+
+    .profileOptions li {
+        list-style-type: none;
+        display: flex;
+        text-align: center;
+        align-items: center;
+        width: 25%;
+        justify-content: center;
+    }
+
+    .profileOptions .active::before {
+        margin-left: 20%;
+        width: 60%;
+    }
+
+    .noPropertiesToShow p:nth-child(2) {
+        font-size: 23px;
+    }
+    .noPropertiesToShow p:nth-child(3) {
+        font-size: 16px;
+    }
+    .noPropertiesToShow p:nth-child(3) span {
+        width: 16px;
+        height: 16px;
+        background-size: 16px;
+        margin: 0 2px -3px 2px;
+    }
+    .noPropertiesToShow p:nth-child(3) {
+        display: inline-block;
+        margin: 0;
+    }
+    .profileContentDiv>div {
+        margin-bottom: 12px;
+    }
+    .contentFavoriteProperty .imgDiv{
+        margin: 0;
+        width: 100%;
+    }
+    .favoriteProperty {
+        flex-direction: column;
+        gap: 20px;margin-bottom: 30px;
+    }
+    .contentFavoriteProperty{
+        align-items: baseline;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .contentFavoriteProperty div p {
+        font-size: 14px;
+    }
+    .favoriteProperty>div{
+        justify-content: center;
+    }
+    .removeFavoriteButton{
+        width: 100%;
+        justify-content: center;
+    }
+    
+
+    .savedPropertiesDiv{
+        margin-top: 0;
+    }
+    /* .yourPropertiesButtons{
+        align-items: ;
+    } */
+
+    .notificationProfileDiv .blueDot{
+        display: none;
+    }
+    .notificationProfileDiv span{
+        display: block;
+        margin: 0;
+    }
+    .notificationMessage{
+        margin-top: 20px;
+    }
 }

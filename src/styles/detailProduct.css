@@ -27,6 +27,7 @@
     width: 60%;
     min-height: 100vh;
     padding: 0;
+    background-color: rgb(235 235 235);
     margin: 0;
     display: flex;
     flex-wrap: wrap;
@@ -70,17 +71,17 @@
     background-size: 120px;
 }
 
-.propertyDetails> .propertyTitleDiv {
-    padding: 0 20px;    
+.propertyDetails>.propertyTitleDiv {
+    padding: 0 20px;
 }
 
-.propertyDetails> .propertyTitleDiv > .priceDiv {
+.propertyDetails>.propertyTitleDiv>.priceDiv {
     display: flex;
     justify-content: space-between;
     align-items: end;
 }
 
-.propertyDetails> .propertyTitleDiv > .priceDiv h2 {
+.propertyDetails>.propertyTitleDiv>.priceDiv h2 {
     font-family: 'Roboto', sans-serif;
     font-size: 36px;
     margin-top: 20px;
@@ -89,7 +90,7 @@
 
 
 
-.propertyDetails> .propertyTitleDiv > .address {
+.propertyDetails>.propertyTitleDiv>.address {
     font-size: 16px;
     margin-top: 20px;
     color: gray;
@@ -105,7 +106,7 @@
     margin-bottom: 30px;
 }
 
-.propertyDetails> .propertyTitleDiv > .contactAgent {
+.propertyDetails>.propertyTitleDiv>.contactAgent {
     font-size: 17px;
     width: 100%;
     background-color: #006aff;
@@ -120,7 +121,7 @@
     margin-bottom: 20px;
 }
 
-.propertyDetails> .propertyTitleDiv > .contactAgent:hover {
+.propertyDetails>.propertyTitleDiv>.contactAgent:hover {
     background-color: #005bda;
 }
 
@@ -135,14 +136,16 @@
     overflow-x: hidden;
     height: 100%;
 }
-.propertyDetails> .propertyInfoDiv {
-    padding: 0 20px;    
+
+.propertyDetails>.propertyInfoDiv {
+    padding: 0 20px;
 }
 
 .generalInfoDiv h3,
 .descriptionDiv h3 {
     font-size: 22px;
 }
+
 .descriptionDiv h3 {
     margin-top: 40px;
     margin-bottom: 10px;
@@ -197,61 +200,225 @@
     height: 300px;
 }
 
-.descriptionDiv p{
+.descriptionDiv p {
     font-size: 15px;
 }
 
 /* Contact owner */
 
-.contactOwnerModal> .generalModalDiv{
+.contactOwnerModal>.generalModalDiv {
     height: 650px;
     width: 550px;
 }
 
-.sendOwnerMessage{
+.sendOwnerMessage {
     display: flex;
     justify-content: center;
 }
-.sendOwnerMessage > button{
+
+.sendOwnerMessage>button {
     width: 100%;
 }
 
 
-@media all and (max-width: 1450px){
-    .properyDetailModal{
+@media all and (max-width: 1450px) {
+    .properyDetailModal {
         width: 1100px;
     }
-    .propertyDetails> .propertyTitleDiv > .address{
+
+    .propertyDetails>.propertyTitleDiv>.address {
         font-size: 15px;
     }
 }
 
-@media all and (max-width: 1250px){
-    .properyDetailModal{
+@media all and (max-width: 1250px) {
+    .properyDetailModal {
         width: 1000px;
     }
-    .propertyImages{
+
+    .propertyImages {
         width: 55%;
     }
-    .propertyDetails{
+
+    .propertyDetails {
         width: 45%;
     }
-    
+
 }
-@media all and (max-width: 1100px){
-    .properyDetailModal{
+
+@media all and (max-width: 1100px) {
+    .properyDetailModal {
         width: 100%;
     }
-    .propertyImages{
+
+    .propertyImages {
         width: 50%;
     }
-    .propertyDetails{
+
+    .propertyDetails {
         width: 50%;
     }
 }
 
-@media all and (max-width: 900px){
-    .properyDetailSection{
+@media all and (max-width: 900px) {
+    .properyDetailModal>.closeModal {
+        z-index: 9;
+        top: 20px;
+        left: 20px;
+        background-size: 40px;
+        width: 50px;
+        height: 50px;
+        background-color: rgba(255, 255, 255, 0.47);
+    }
+
+    .properyDetailModal {
+        height: calc(100vh - 60px);
+    }
+
+    .properyDetailSection {
         top: 60px;
+    }
+
+    .properyDetailModal {
+        display: block;
+        overflow-y: scroll;
+    }
+
+    .propertyImages {
+        width: 100%;
+        min-height: 0;
+        height: fit-content;
+        max-height: 40%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .propertyDetails {
+        width: 100%;
+        padding: 10px 0 40px 0;
+    }
+
+    .propertyInfoDiv {
+        overflow: hidden;
+    }
+
+    .propertyDetailslogoDiv {
+        display: none;
+    }
+
+    .propertyTitleDiv hr:nth-child(2) {
+        display: none;
+    }
+
+    .propertyDetails>.propertyTitleDiv>.priceDiv h2 {
+        font-size: 45px;
+    }
+
+    .propertyDetails>.propertyTitleDiv>.priceDiv {
+        align-items: center;
+    }
+
+    .propertyDetails>.propertyTitleDiv>.address {
+        font-size: 18px;
+    }
+
+    .propertyDetails .beds-baths-sqft {
+        font-size: 20px;
+    }
+
+    .propertyDetails>.propertyTitleDiv>.contactAgent {
+        font-size: 19px;
+    }
+
+    .generalInfoDiv p {
+        font-size: 19px;
+    }
+
+    .generalInfoDiv h3,
+    .descriptionDiv h3 {
+        font-size: 25px;
+    }
+
+    .generalInfoDiv p span {
+        background-size: 28px;
+        width: 42px;
+        height: 34px;
+    }
+
+    .generalInfoDiv .beds span,
+    .generalInfoDiv .baths span,
+    .generalInfoDiv .lotSize span {
+        background-size: 28px;
+
+    }
+
+    .favoriteButton {
+        font-size: 17px;
+    }
+}
+
+@media all and (max-width: 600px) {
+    .properyDetailModal>.closeModal {
+        background-size: 35px;
+        width: 45px;
+        height: 45px;
+    }
+
+    .propertyDetails>.propertyTitleDiv>.priceDiv h2 {
+        font-size: 38px;
+        margin-top: 0;
+    }
+
+    .propertyDetails {
+        width: 100%;
+        height: auto;
+        padding: 25px 0 40px 0;
+    }
+
+    .propertyImages .mainImage {
+        width: 100%;
+    }
+    .propertyImages .image{
+        width: 100%;
+    }
+    .propertyDetails>.propertyTitleDiv>.address {
+        font-size: 16px;
+    }
+
+    .propertyDetails .beds-baths-sqft {
+        font-size: 17px;
+    }
+
+    .propertyDetails>.propertyTitleDiv>.contactAgent {
+        font-size: 17px;
+    }
+
+    .generalInfoDiv p {
+        font-size: 17px;
+    }
+
+
+    .generalInfoDiv h3,
+    .descriptionDiv h3 {
+        font-size: 20px;
+    }
+
+    .generalInfoDiv p span {
+        background-size: 22px;
+        width: 32px;
+        height: 28px;
+    }
+
+    .generalInfoDiv .beds span,
+    .generalInfoDiv .baths span,
+    .generalInfoDiv .lotSize span {
+        background-size: 22px;
+
+    }
+
+    .favoriteButton {
+        font-size: 15px;
     }
 }

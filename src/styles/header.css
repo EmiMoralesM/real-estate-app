@@ -8,7 +8,7 @@ nav {
     width: 100%;
     background-color: white;
     box-shadow: 0px 0px 5px 2px #c0c0c03d;
-    z-index: 9999;
+    z-index: 99999;
 }
 
 header {
@@ -199,6 +199,10 @@ header {
 }
 
 @media all and (max-width: 900px) {
+    nav {
+        z-index: 999999;
+    }
+
     .displayMobileNav {
         display: flex !important;
         background-color: transparent;
@@ -227,18 +231,18 @@ header {
 
     .ulNavbarMobile {
         display: flex;
-        width: 20%;
+        /* width: 20%; */
         box-sizing: border-box;
         margin: auto;
     }
 
     .ulNavbarMobileRight {
-        padding: 0 40px 0 0;
+        /* padding: 0 40px 0 0; */
         justify-content: right;
     }
 
     .ulNavbarMobileLeft {
-        padding: 0 0 0 60px;
+        padding: 0 0 0 20px;
         justify-content: left;
     }
 
@@ -251,7 +255,7 @@ header {
     }
 
     .ulNavbarMobile>ul .signUpButton button {
-        padding: 12px 22px;
+        padding: 12px 16px;
     }
 
     .ulNavbarMobile>ul li {
@@ -279,7 +283,7 @@ header {
         margin: auto;
         height: 60px;
         display: flex;
-        width: 60%;
+        width: 50%;
         align-items: center;
     }
 
@@ -337,10 +341,29 @@ header {
     .ulNavbarMobile .profileSubMenu {
         border-radius: 10px;
         width: 200px;
+        top: calc(79px - 29.5px);
     }
 
     .ulNavbarMobile .profileItem .profile {
         border: 2px solid #4492ffe4;
+    }
+}
+
+@media all and (max-width: 650px) {
+    .ulNavbarMobile>ul .signUpButton button {
+        padding: 10px 14px;
+        font-size: 15px;
+    }
+}
+
+@media all and (max-width: 550px) {
+    .ulNavbarMobile {
+        width: 35%;
+    }
+
+    .ulNavbarMobileRight {
+        padding: 0 10px 0 0;
+        justify-content: right;
     }
 }
 
