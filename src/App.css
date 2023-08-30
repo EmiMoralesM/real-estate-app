@@ -517,6 +517,7 @@ body {
 .hideMobileFlex {
     display: flex !important;
 }
+
 @media all and (max-width: 1100px) {
     .tabletHide {
         display: none !important;

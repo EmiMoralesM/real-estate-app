@@ -674,7 +674,7 @@
     }
 }
 
-@media all and (max-width: 950px) {
+@media all and (max-width: 900px) {
     .bannerSection {
         background-image: url(/src/assets/imgs/banner-tablet.jpg);
         height: 75vh;
@@ -762,7 +762,7 @@
     }
 }
 
-@media all and (max-width: 750px) {
+@media all and (max-width: 800px) {
     .typeDiv {
         display: none;
     }

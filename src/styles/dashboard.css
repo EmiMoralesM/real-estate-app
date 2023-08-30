@@ -9,7 +9,8 @@
 }
 
 .collapseSideBar {
-    width: 90px;
+    width: 90px !important;
+    overflow: hidden;
 }
 
 
@@ -155,7 +156,7 @@
 }
 
 .extendheaderDashboard nav {
-    width: calc(100% - 30px - 90px);
+    width: calc(100% - 30px - 90px) !important;
 
 }
 
@@ -240,7 +241,7 @@
 }
 
 .extendDashboard {
-    width: calc(100% - 90px);
+    width: calc(100% - 90px) !important;
 
 }
 
@@ -329,10 +330,11 @@
 }
 
 
-.chart-loading{
-    background-color: rgb(202, 202, 202)!important;
+.chart-loading {
+    background-color: rgb(202, 202, 202) !important;
     animation: loadingSkeleton 1.5s infinite;
 }
+
 /* Chart 1 */
 
 
@@ -594,18 +596,23 @@
 }
 
 .userRowChart .userEmailChart {
-    width: 30%;
+    width: fit-content;
     margin-left: 20px;
+    margin-right: 20px;
     font-size: 17px;
     font-weight: 600;
 }
 
 .userRowChart hr {
-    width: 30%;
+    flex-grow: 1;
     height: 3px;
     border-radius: 2px;
     background-color: #d6d6d6;
     border: 0px;
+}
+
+.userRoleChart {
+    margin-left: 20px;
 }
 
 .userRowChart .userRoleChar {
@@ -714,10 +721,12 @@
     transition: all ease .6s;
     z-index: 10;
 }
+
 .propertiesDashboard .price span {
     font-size: 18px;
 
 }
+
 .locationDash {
     position: absolute;
     margin: 0;
@@ -759,7 +768,7 @@
 /* End Charts */
 
 /* Users */
-.loadingUsers{
+.loadingUsers {
     width: 100%;
     background-color: rgb(202, 202, 202);
     display: block;
@@ -767,6 +776,7 @@
     border-radius: 10px;
     animation: loadingSkeleton 1.5s infinite;
 }
+
 .allUsers {
     gap: 20px;
 
@@ -1072,17 +1082,20 @@
 
 
 /* Manage Properties */
-.headerManageProps{
+.headerManageProps {
     display: flex;
     justify-content: space-between;
     width: 100%;
 }
-.headerManageProps > .sortButton{
+
+.headerManageProps>.sortButton {
     margin-right: 15px;
 }
-.headerManageProps > .sortButton p{
+
+.headerManageProps>.sortButton p {
     font-size: 16px;
 }
+
 .managePropertiesFilterDiv {
     padding: 6px 20px;
     display: flex;
@@ -1093,9 +1106,10 @@
 }
 
 /* results */
-.manageProperties{
+.manageProperties {
     align-items: baseline;
 }
+
 .manageProperties .propertiesDiv {
     margin-top: 30px;
     justify-content: space-around;
@@ -1114,6 +1128,7 @@
     right: 10px;
     top: 10px;
 }
+
 .manageProperties .propertiesDiv>.propertyDiv:hover .imageDiv img {
     transform: scale(1);
 }
@@ -1150,20 +1165,24 @@
     border-radius: 5px;
     overflow: hidden;
 }
+
 .deletePropertyContent .imgDiv img {
     width: 100%;
 }
+
 .deletePropertyContent div h3 {
     align-items: center;
     display: flex;
     font-size: 26px;
     margin: 0;
 }
+
 .deletePropertyContent div h3 span {
     margin-left: 10px;
     font-size: 18px;
     color: #006aff;
 }
+
 .deletePropertyContent div p {
     font-weight: 500;
     color: #707070;
@@ -1177,7 +1196,7 @@
     background-color: white;
     border-radius: 5px;
     height: 95vh;
-    width: 1620px;
+    width: 85%;
 }
 
 .editPropertyModalDiv .generalModalContent h3 {
@@ -1185,7 +1204,7 @@
     padding-bottom: 10px;
 }
 
-.editPropertyForm{
+.editPropertyForm {
     height: 80%;
     width: 100%;
     left: 0;
@@ -1195,4 +1214,749 @@
     margin: auto;
     overflow-y: scroll;
 }
+
 /* End Manage Properties */
+
+
+
+
+
+@media all and (max-width: 1750px) {
+    .sideBar {
+        width: 220px;
+    }
+
+    .sideBar h1 {
+        margin: 40px auto;
+    }
+
+    .menuSideBar li i {
+        background-size: 16px;
+    }
+
+    .mainDashboard {
+        width: calc(100% - 220px);
+    }
+
+    .dashboardTitleDiv>h1 {
+        font-size: 32px;
+    }
+
+    .headerDashboard nav {
+        width: calc(100% - 30px - 220px);
+        height: 73px;
+    }
+
+    .headerDashboard nav>div {
+        padding: 15px 30px 15px 30px;
+    }
+
+    .dashboardContent {
+        padding: 0px 25px;
+    }
+
+    .dashboardTitleDiv {
+        padding: 105px 75px 8px 75px;
+        align-items: center;
+    }
+
+    .chart_1 {
+        width: 35%;
+        justify-content: space-between;
+    }
+
+    .chart_1>div {
+        width: 80%;
+        padding: 30px 0px 15px 0px;
+    }
+
+    .chart_1>div>canvas {
+        height: 280px !important;
+    }
+
+    .charts_2_3 {
+        width: calc(65% - 35px);
+        gap: 25px;
+    }
+
+    .chart_block_1 {
+        height: 520px;
+        gap: 25px;
+    }
+
+    .chart_3 .chart_3Div>canvas {
+        height: 280px !important;
+    }
+
+
+    .chart_2 {
+        gap: 20px;
+        height: 22%;
+    }
+
+    .hide1600 {
+        display: none;
+    }
+
+    .chart_2>div {
+        padding: 20px 15px 15px 15px;
+    }
+
+    .chart_3 {
+        height: calc(78% - 25px);
+    }
+
+    .titleChat>p:nth-child(1) {
+        font-size: 18px;
+    }
+
+    .titleChat>p:nth-child(2) {
+        font-size: 15px;
+    }
+
+    .chart_2>div>div>p:nth-child(1) {
+        font-size: 15px;
+    }
+
+    .chart_2>div>div>p:nth-child(2) {
+        font-size: 28px;
+        margin-top: 8px;
+    }
+
+    .chart2Icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .propertiesSold .chart2Icon p,
+    .newUsers .chart2Icon p,
+    .propertiesForSale .chart2Icon p {
+        background-size: 20px;
+    }
+
+    .chart_2>div>div>p:nth-child(3) {
+        white-space: nowrap;
+    }
+
+    .userRowChart .userEmailChart {
+        font-size: 15px;
+    }
+
+    .profile {
+        width: 25px;
+        height: 25px;
+        padding: 8px;
+    }
+
+    .imageSet {
+        width: 39px;
+        height: 39px;
+    }
+
+    .userRowChart .userRoleChart p {
+        font-size: 15px;
+    }
+
+    .userRowChart .userRoleChart p {
+        background-size: 14px;
+    }
+
+    .profilePic {
+        width: 16px;
+    }
+
+    .chart_block_2 {
+        gap: 28px;
+    }
+
+    .chart_5 {
+        width: calc(52% - 17.5px);
+    }
+
+    .chart_4 {
+        width: calc(48% - 17.5px);
+    }
+
+    .propertiesDashboard {
+        justify-content: space-between;
+    }
+
+    .propertiesDashboard>a {
+        width: 48%;
+        margin-bottom: 7%;
+    }
+
+    .imageDivDashboard {
+        height: 130px;
+    }
+
+    .infoDiv .price {
+        font-size: 20px;
+    }
+
+    .beds-baths-sqft {
+        font-size: 13px;
+        gap: 5px;
+    }
+
+    .infoDiv .address {
+        font-size: 13px;
+    }
+
+    .infoDiv {
+        overflow: hidden;
+    }
+
+    .infoDiv .price {
+        white-space: nowrap;
+    }
+
+
+    .manageProperties .propertiesDiv>.propertyDiv,
+    .loadingPropertyDashboard {
+        width: 31%;
+    }
+
+
+    /* Filters */
+    .managePropertiesFilterDiv .filterButton {
+        padding: 9px 10px;
+    }
+
+    .managePropertiesFilterDiv .generalInput {
+        font-size: 14px;
+    }
+
+    .managePropertiesFilterDiv .locationInput {
+        width: 200px;
+    }
+
+    .managePropertiesFilterDiv {
+        gap: 10px;
+    }
+
+    .managePropertiesFilterDiv .desktopFilters {
+        gap: 10px;
+    }
+
+    .managePropertiesFilterDiv {
+        padding: 6px 5px;
+    }
+
+    .headerManageProps>.sortButton {
+        margin-right: 2px;
+        min-width: 0;
+    }
+
+    .headerManageProps>.sortButton p {
+        font-size: 14px;
+    }
+}
+
+@media all and (max-width: 1350px) {
+    .chart_block_1 {
+        display: block;
+        height: fit-content;
+        margin-bottom: 25px;
+    }
+
+    .chart_1 {
+        width: 100%;
+        height: 340px;
+    }
+
+    .chart_div {
+        display: flex;
+        flex-direction: unset;
+        flex-wrap: wrap;
+    }
+
+    .chart_1>div {
+        width: 50%;
+        margin: auto;
+        padding: 15px 0px 15px 0px;
+    }
+
+    .chart_1>div>canvas {
+        height: 250px !important;
+    }
+
+    .chartInfo {
+        width: 40% !important;
+    }
+
+    .charts_2_3 {
+        margin-top: 25px;
+        width: 100%;
+    }
+
+    .chart_2 {
+        width: 100%;
+    }
+
+    .chart_3 {
+        height: 50%;
+    }
+
+    .chart_block_2 {
+        flex-direction: column;
+    }
+
+    .chart_4 {
+        display: none;
+    }
+
+    .chart_5 {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .manageProperties .propertiesDiv>.propertyDiv .editPropertyButton {
+        right: 5px;
+    }
+
+    .manageProperties .propertiesDiv>.propertyDiv .deletePropertyButton {
+        left: 5px;
+
+    }
+
+    .manageProperties .propertiesDiv>.propertyDiv .editPropertyButton,
+    .manageProperties .propertiesDiv>.propertyDiv .deletePropertyButton {
+        font-size: 14px;
+        width: fit-content;
+    }
+
+    .filterButton {
+        padding: 9px 11px;
+    }
+
+    .locationInput {
+        width: 280px;
+    }
+
+    .managePropertiesFilterDiv {
+        gap: 15px;
+    }
+
+    .editPropertyModalDiv {
+        width: 95%;
+    }
+
+    /* Filters */
+    .managePropertiesFilterDiv .locationInput {
+        width: 230px;
+    }
+
+    .managePropertiesFilterDiv .desktopFilters {
+        display: none;
+    }
+
+    .managePropertiesFilterDiv .mobileFilters {
+        display: block;
+    }
+
+    .managePropertiesFilterDiv .mobileFiltersDiv {
+        /* top: 0;
+        left: 0; */
+        position: fixed;
+        background-color: white;
+        padding-top: 20px;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    .managePropertiesFilterDiv .mobileFiltersDiv .locationSearchDiv {
+        display: none;
+    }
+
+    .managePropertiesFilterDiv .mobileFiltersDiv .button {
+        width: 100%;
+        display: block !important;
+    }
+
+    .managePropertiesFilterDiv .fiterMobileButton {
+        margin: 0 20px 20px 20px;
+    }
+
+    .managePropertiesFilterDiv .priceFilters,
+    .managePropertiesFilterDiv .bathsOptions {
+        padding: 10px 20px 0px 20px;
+    }
+
+    .managePropertiesFilterDiv .individualFilterDropdown .individualFilterButton>input {
+        font-size: 15px;
+    }
+
+    .managePropertiesFilterDiv .bathsOptions>div>p {
+        font-size: 15px;
+    }
+
+}
+
+@media all and (max-width: 1100px) {
+    .sideBar {
+        width: 90px !important;
+        overflow: hidden;
+    }
+
+    .sideBar h1 {
+        background-image: url(../assets/imgs/logo-test-small.svg) !important;
+        background-size: 35px;
+        height: 40px;
+        margin: 39px auto !important;
+        width: 90px;
+    }
+
+    .sideBar li a span {
+        opacity: 0;
+    }
+
+    .headerDashboard nav {
+        width: calc(100% - 30px - 90px) !important;
+    }
+
+    .mainDashboard {
+        width: calc(100% - 90px) !important;
+    }
+
+
+    .manageProperties .propertiesDiv>.propertyDiv,
+    .loadingPropertyDashboard {
+        width: 45%;
+    }
+
+    .managePropertiesFilterDiv .fiterMobileButton {
+        display: block !important;
+    }
+}
+
+@media all and (max-width: 900px) {
+    .mainDashboard {
+        width: 100% !important;
+    }
+
+    .headerDashboard nav {
+        width: calc(100% - 30px) !important;
+    }
+
+    .closeSidebar {
+        display: none;
+    }
+
+    .sideBar {
+        width: 100vw !important;
+        height: 75px;
+        box-shadow: 0px 0px 5px 2px #7b7b7b68;
+        display: flex;
+        bottom: 0;
+    }
+
+    .menuSideBar {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        margin: 0;
+    }
+
+    .menuSideBar li {
+        width: 50px;
+        height: 50px;
+        position: relative;
+        margin: 12px 20px;
+    }
+
+    .menuSideBar li i {
+        width: 50px;
+    }
+
+    .sideBar h1 {
+        display: none;
+    }
+
+    .chart_5 {
+        margin-bottom: 100px;
+    }
+
+    .chartInfo {
+        width: 45% !important;
+    }
+
+    .chart_2>.chart-loading {
+        height: 120px;
+        box-sizing: border-box;
+    }
+
+    .chart_3.chart-loading {
+        height: 220px;
+    }
+
+    .userRow {
+        width: 750px !important;
+    }
+
+    .whiteBackground {
+        align-items: baseline;
+        overflow-x: scroll;
+        margin-bottom: 100px;
+    }
+
+    .generalModal {
+        z-index: 9999999;
+    }
+
+
+    /* Filters */
+
+    .managePropertiesFilterDiv .mobileFiltersDiv {
+        top: auto;
+        left: auto;
+        position: fixed;
+        background-color: white;
+        padding-top: 20px;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    .managePropertiesFilterDiv .locationSearchDiv .locationInput {
+        display: none;
+    }
+
+    .managePropertiesFilterDiv .generalInput {
+        font-size: 16px;
+    }
+
+    .managePropertiesFilterDiv .mobileFiltersDiv>.locationSearchDiv {
+        display: block !important;
+        padding: 10px 20px 0px 20px;
+    }
+
+    .managePropertiesFilterDiv .mobileFiltersDiv>.locationSearchDiv .locationInput {
+        display: block !important;
+        width: 100%;
+        font-size: 15px;
+        box-sizing: border-box;
+    }
+
+    .managePropertiesFilterDiv .mobileFiltersDiv {
+        width: 400px;
+        height: 670px;
+        position: absolute;
+        top: auto;
+        left: auto;
+    }
+}
+
+@media all and (max-width: 700px) {
+    .chart_2 {
+        flex-direction: column;
+    }
+
+    .chart_2>div {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .chart_1>div>canvas {
+        height: 230px !important;
+    }
+
+    .userRow {
+        width: 560px !important;
+    }
+
+    .userName {
+        display: none !important;
+    }
+
+    .userEmail::before {
+        display: none;
+    }
+
+    .userEmail {
+        color: black;
+        font-weight: 600;
+    }
+
+    .deletePropertyModalDiv {
+        width: 550px;
+    }
+
+    .dashboardTitleDiv p {
+        display: none;
+    }
+}
+
+@media all and (max-width: 600px) {
+    .dashboardTitleDiv {
+        padding: 105px 10px 8px 40px;
+    }
+
+    .dashboardTitleDiv>h1 {
+        margin-bottom: 10px;
+    }
+
+    .profileNameEmail {
+        display: none;
+    }
+
+
+
+    .chart_1>div {
+        width: 80%;
+    }
+
+    .chartInfo {
+        width: 80% !important;
+    }
+
+    .chart_1 {
+        height: fit-content;
+    }
+
+    .chart_1>div>canvas {
+        height: 280px !important;
+    }
+
+    .userRowChart {
+        width: 480px;
+    }
+
+    .allUsersAnalysis {
+        overflow-x: scroll;
+        padding-bottom: 10px;
+    }
+
+    .deleteUserModalDiv {
+        width: 380px;
+    }
+
+    .generalModalDiv {
+        width: 400px;
+    }
+
+    .userRole {
+        margin: 0;
+    }
+
+    .manageProperties .propertiesDiv>.propertyDiv,
+    .loadingPropertyDashboard {
+        width: 100%;
+    }
+
+    .whiteBackground {
+        padding: 20px 10px 20px 10px;
+    }
+
+    .deletePropertyModalDiv {
+        width: 95%;
+        height: 450px;
+    }
+
+    .deletePropertyContent {
+        flex-direction: column;
+        gap: 20px;
+        width: 350px;
+        justify-content: center;
+        margin: 35px auto 0 auto;
+    }
+
+    .deletePropertyContent .imgDiv {
+        width: 100%;
+        margin: 0;
+    }
+
+    .dashboardContent {
+        padding: 0px 13px;
+    }
+
+}
+
+@media all and (max-width: 500px) {
+    .managePropertiesFilterDiv .mobileFiltersDiv {
+        width: 347px;
+    }
+}
+
+@media all and (max-width: 420px) {
+    .headerManageProps {
+        flex-direction: column;
+    }
+
+    .managePropertiesFilterDiv .mobileFiltersDiv {
+        width: 96%;
+        height: 380px;
+        overflow: scroll;
+        padding-top: 0px;
+        position: absolute;
+        top: 50px;
+        left: 8px;
+        background-color: #e6e6e6;
+    }
+
+    .mobilesFiltersDivOpen {
+        height: fit-content;
+    }
+
+    .managePropertiesFilterDiv .mobileFiltersDiv>.locationSearchDiv,
+    .managePropertiesFilterDiv .priceFilters,
+    .managePropertiesFilterDiv .hometypeOptions,
+    .managePropertiesFilterDiv .bathsOptions {
+        padding: 10px 12px 0px 12px;
+    }
+
+    .managePropertiesFilterDiv .fiterMobileButton {
+        margin: 20px;
+    }
+
+    .headerManageProps>.sortButton {
+        justify-content: left;
+        padding: 10px 10px 0 10px;
+        height: 20px;
+    }
+
+    .headerManageProps>.sortButton p {
+        font-size: 16px;
+    }
+
+    .managePropertiesFilterDiv .mobileFilters {
+        padding: 0;
+    }
+}
+
+@media all and (max-width: 480px) {
+    .headerDashboard nav>div {
+        padding: 15px;
+    }
+
+    .chart_1>div>canvas {
+        height: auto !important;
+    }
+
+    .chart_3 .chart_3Div {
+        overflow-x: scroll;
+    }
+
+    .chart_3 .chart_3Div>canvas {
+        width: 350px !important;
+    }
+
+    .dashboardContent .generalModalDiv {
+        width: 350px;
+        height: 470px;
+    }
+
+    .chengeUserRole {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        width: 300px;
+    }
+
+    .deletePropertyContent {
+        flex-direction: column;
+        gap: 20px;
+        width: 280px;
+        justify-content: center;
+        margin: 35px auto 0 auto;
+    }
+}

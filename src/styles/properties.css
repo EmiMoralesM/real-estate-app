@@ -327,9 +327,6 @@
 }
 
 .hometypeOptions li:hover .checkboxHometype {
-    width: 20px;
-    height: 20px;
-    display: inline-block;
     background-color: #e7e7e7;
     border: 2px solid #207dff;
     border-radius: 5px;
@@ -881,6 +878,5 @@
 
     .generalInput {
         box-sizing: border-box;
-
     }
 }

@@ -59,7 +59,7 @@ function Analytics() {
                         {!countUsers && <div className='propertiesForSale chart-loading' />}
                         {countUsers && <div className='propertiesForSale'>
                             <div>
-                                <p>Properties For Sale</p>
+                                <p>Properties <span className='hide1600'>For Sale </span></p>
                                 <p>{Intl.NumberFormat().format(totalProperties)}</p>
                                 <p ><span className='red'>-5% </span>vs last/month</p>
                             </div>

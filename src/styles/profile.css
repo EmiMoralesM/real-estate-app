@@ -1,5 +1,7 @@
 .mainProfile {
     padding-top: 110px;
+    min-height: calc(100vh - 200px);
+    box-sizing: border-box;
     margin: auto;
     background-color: rgb(249, 249, 249);
     padding-bottom: 80px;
