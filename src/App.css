@@ -28,7 +28,7 @@ body {
     padding: 11px 30px;
     display: flex;
     align-items: center;
-    /* margin: auto; */
+    margin: auto;
     justify-content: center;
 }
 
@@ -428,7 +428,7 @@ body {
     height: 220px;
 }
 
-.loadingPropertyMap > .loadingPropertyImage {
+.loadingPropertyMap>.loadingPropertyImage {
     height: 185px;
 
 }
@@ -514,6 +514,7 @@ body {
 .hideMobile {
     display: inline !important;
 }
+
 .hideMobileFlex {
     display: flex !important;
 }
@@ -522,6 +523,7 @@ body {
     .tabletHide {
         display: none !important;
     }
+
     .tabletDisplay {
         display: inline !important;
     }
@@ -531,9 +533,11 @@ body {
     .displayMobile {
         display: inline !important;
     }
+
     .hideMobileFlex {
         display: none !important;
     }
+
     .hideMobile {
         display: none !important;
     }

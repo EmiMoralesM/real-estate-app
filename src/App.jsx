@@ -25,8 +25,9 @@ function App() {
 
 
   useEffect(() => {
-    if (user.email) { localStorage.setItem('user', JSON.stringify(user)) }
-    if (!user.email) { localStorage.removeItem('user') }
+    if (user.email) { localStorage.setItem('logConfig', user._id) }
+    // If the user is signs out, remove the saved user.
+    if (!user.loading && !user.email) { localStorage.removeItem('logConfig') }
   }, [user])
 
   // Set scroll to top when the url is changed 

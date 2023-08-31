@@ -83,12 +83,13 @@ function FavoriteProperties(props) {
                     )}
                 </div>
             </div>
-            {confirmDeleteModal && <ConfirmDeleteProperty 
+            {confirmDeleteModal && <ConfirmDeleteProperty
                 handlePropertyDelete={handlePropertyDelete}
                 setConfirmDeleteModal={setConfirmDeleteModal}
                 confirmDeleteModal={confirmDeleteModal}
             />}
             {editPropertyModal && <EditPropertyModal
+                // blockAdmin={false}
                 setResults={setYourProperties}
                 editProperty={editPropertyModal}
                 setEditProperty={setEditPropertyModal}

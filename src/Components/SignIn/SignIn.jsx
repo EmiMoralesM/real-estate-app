@@ -124,11 +124,11 @@ function SignIn(props) {
             </form>
             <hr />
             <div>
-                <button className='testAccountButton' onClick={() => {
+                {/* <button className='testAccountButton' onClick={() => {
                     setEmail('test_admin@gmail.com')
                     setPassword('testAdmin1234')
                     testAccount('test_admin@gmail.com', 'testAdmin1234')
-                }}>Test Admin Account</button>
+                }}>Test Admin Account</button> */}
                 <button className='testAccountButton' onClick={() => {
                     setEmail('test_manager@gmail.com')
                     setPassword('testManager1234')

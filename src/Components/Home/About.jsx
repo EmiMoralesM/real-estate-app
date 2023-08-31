@@ -12,7 +12,7 @@ function About() {
                 {/* <div className='tabletDisplay'>
                     <img src={aboutImgTablet}  alt="" />
                 </div> */}
-                <p className='aboutText'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore temporibus minus, veritatis vero, quo, molestias reprehenderit non beatae vitae ducimus nisi. Atque iste quam deserunt neque assumenda eaque nobis obcaecati.</p>
+                <p className='aboutText'>Since 1992, we've been reshaping real estate. Our app offers unparalleled listings, market insights, and a seamless experience for buying, and selling your properties. Welcome to the future of real estate.</p>
             </div>
         </section>
     )

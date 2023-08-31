@@ -3,36 +3,20 @@ import '../styles/detailProduct.css'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { Context } from '../assets/Context'
+import Carousel from '../Components/DetailProperty/Carousel'
+import ContactOwner from '../Components/DetailProperty/ContactOwner'
 
 function DetailProductModal(props) {
     const { SERVER_URL, user, setUser, imageUrl, changeSuccessMessage, changeErrorMessage } = useContext(Context)
+
     const [property, setProperty] = useState('')
-    const [isFavorite, setIsFavorite] = useState(false)
     const [otherImages, setOtherImages] = useState([])
-    const [nameContact, setNameContact] = useState(user.name)
-    const [emailContact, setEmailContact] = useState(user.email)
-    const [messageContact, setMessageContact] = useState('')
 
+    const [isFavorite, setIsFavorite] = useState(false)
+
+    // Contact owner
     const [openContactModal, setOpenContactModal] = useState(false)
-
-    const sendMessageToOwner = async () => {
-        if (property.ownerId) {
-            await axios.post(`${SERVER_URL}/postNotification/${property.ownerId}`, {
-                propertyId: property._id,
-                propertyAddress: property.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', ''),
-                nameContact: nameContact,
-                emailContact: emailContact,
-                messageContact: messageContact,
-            })
-                .then((res) => {
-                    changeSuccessMessage('Message Send!')
-                    setOpenContactModal(false)
-                })
-                .catch((e) => {
-                    console.log(e);
-                })
-        }
-    }
+    const [messageContact, setMessageContact] = useState('')
 
     useEffect(() => {
         axios.get(`${SERVER_URL}/getProperty/${props.propertyDetail}`)
@@ -41,7 +25,6 @@ function DetailProductModal(props) {
                 setOtherImages(data.data.otherImages.map(image => <img className='image' key={image} src={imageUrl(image)} alt="" />))
                 setIsFavorite(user.favorites.includes(data.data._id) ? true : false)
                 setMessageContact(`Hi, I'm interested in ${data.data.address}.`)
-                // location.pathname = `/properties/details/${data.data.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${data.data._id}`
             })
     }, [])
 
@@ -62,18 +45,23 @@ function DetailProductModal(props) {
         setIsFavorite(prevIsFavorite => !prevIsFavorite)
     }
 
-
     return (
         <section className='properyDetailSection'>
             <Link to={'/properties'} onClick={() => props.setPropertyDetail('')} className='generalModalBackground detailProductModalBackground'></Link>
             <div className='properyDetailModal'>
                 <Link to={'/properties'} className='closeModal' onClick={() => props.setPropertyDetail('')}></Link>
-                {property &&
+                {!property ? (
+                    <div className='loaderDetailProperty'><span className="loader"></span></div>
+                ) : (
                     <>
                         <div className='propertyImages'>
-                            <img className='mainImage' onClick={() => setIsFavorite(true)} src={imageUrl(property.mainImage)} alt="" />
+                            <img className='mainImage' src={imageUrl(property.mainImage)} alt="" />
                             {otherImages}
                         </div>
+
+                        {/* Mobile images carousel */}
+                        <Carousel otherImages={otherImages} mainImage={imageUrl(property.mainImage)} />
+
                         <div className='propertyDetails'>
                             <div className='propertyTitleDiv'>
                                 <div className='propertyDetailslogoDiv'>
@@ -117,32 +105,15 @@ function DetailProductModal(props) {
                             </div>
                         </div>
                     </>
+                )
                 }
             </div>
-            {openContactModal && <aside className='generalModal contactOwnerModal'>
-                <div className={`generalModalDiv`}>
-                    <button className='closeModal' onClick={() => setOpenContactModal(false)}></button>
-                    <div className='generalModalContent'>
-                        <h3>Contact Owner</h3>
-                        <div>
-                            <label htmlFor="">Name</label>
-                            <input type="text" value={nameContact} onChange={(e) => setNameContact(e.target.value)} name="" id="" />
-                        </div>
-                        <div>
-                            <label htmlFor="">Email</label>
-                            <input type="text" value={emailContact} onChange={(e) => setEmailContact(e.target.value)} name="" id="" />
-                        </div>
-                        <div>
-                            <label htmlFor="">Message</label>
-                            <textarea name="" id="" value={messageContact} onChange={(e) => setMessageContact(e.target.value)} cols="30" rows="10"></textarea>
-                        </div>
-                        <div className='sendOwnerMessage'>
-                            <button className="button" onClick={sendMessageToOwner}>Send</button>
-                        </div>
-                    </div>
-                </div>
-                <div onClick={() => setOpenContactModal(false)} className='generalModalBackground'></div>
-            </aside>}
+            {openContactModal && <ContactOwner
+                setOpenContactModal={setOpenContactModal}
+                property={property}
+                messageContact={messageContact}
+                setMessageContact={setMessageContact}
+            />}
         </section >
     )
 }

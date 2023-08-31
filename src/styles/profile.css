@@ -234,6 +234,10 @@
     justify-content: center;
 }
 
+.profileModalActions .button {
+    margin: 0;
+}
+
 .profileModalDiv .title {
     font-weight: 600;
 }
@@ -556,9 +560,11 @@
     .noPropertiesToShow img {
         width: 130px;
     }
+
     .noPropertiesToShow p:nth-child(2) {
         font-size: 20px;
     }
+
     .noPropertiesToShow p:nth-child(3) {
         font-size: 17px;
     }
@@ -604,12 +610,15 @@
     .noPropertiesToShow img {
         width: 120px;
     }
+
     .noPropertiesToShow p:nth-child(2) {
         font-size: 21px;
     }
+
     .noPropertiesToShow p:nth-child(3) {
         font-size: 15px;
     }
+
     .noPropertiesToShow p:nth-child(3) span {
         width: 18px;
         height: 18px;
@@ -630,10 +639,12 @@
     .notificationProperty {
         display: block;
     }
-    .notificationProperty > a {
+
+    .notificationProperty>a {
         margin-left: 4px;
     }
-    .notificationProperty > span {
+
+    .notificationProperty>span {
         margin-right: 2px;
     }
 }
@@ -669,62 +680,77 @@
     .noPropertiesToShow p:nth-child(2) {
         font-size: 23px;
     }
+
     .noPropertiesToShow p:nth-child(3) {
         font-size: 16px;
     }
+
     .noPropertiesToShow p:nth-child(3) span {
         width: 16px;
         height: 16px;
         background-size: 16px;
         margin: 0 2px -3px 2px;
     }
+
     .noPropertiesToShow p:nth-child(3) {
         display: inline-block;
         margin: 0;
     }
+
     .profileContentDiv>div {
         margin-bottom: 12px;
     }
-    .contentFavoriteProperty .imgDiv{
+
+    .contentFavoriteProperty .imgDiv {
         margin: 0;
         width: 100%;
     }
+
     .favoriteProperty {
         flex-direction: column;
-        gap: 20px;margin-bottom: 30px;
+        gap: 20px;
+        margin-bottom: 30px;
     }
-    .contentFavoriteProperty{
+
+    .contentFavoriteProperty {
         align-items: baseline;
         flex-direction: column;
         gap: 20px;
     }
+
     .contentFavoriteProperty div p {
         font-size: 14px;
     }
-    .favoriteProperty>div{
+
+    .favoriteProperty>div {
         justify-content: center;
+        align-items: center !important;
     }
-    .removeFavoriteButton{
+
+    .removeFavoriteButton {
         width: 100%;
         justify-content: center;
     }
-    
 
-    .savedPropertiesDiv{
+
+    .savedPropertiesDiv {
         margin-top: 0;
     }
+
     /* .yourPropertiesButtons{
         align-items: ;
     } */
 
-    .notificationProfileDiv .blueDot{
+    .notificationProfileDiv .blueDot {
         display: none;
     }
-    .notificationProfileDiv span{
+
+    .notificationProfileDiv span {
         display: block;
         margin: 0;
     }
-    .notificationMessage{
+
+    .notificationMessage {
         margin-top: 20px;
     }
 }

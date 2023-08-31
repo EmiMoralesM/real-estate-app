@@ -9,7 +9,21 @@ export function ContextProvider({ children }) {
     const SERVER_URL = 'http://localhost'
 
     const hometypes_array = ['House', 'Townhouse', 'Multy-family', 'Condo']
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')) : {})
+    const [user, setUser] = useState({ loading: true })
+
+    useEffect(() => {
+        // If the user is already signed up, load it
+        const logUser = async () => {
+            if (localStorage.getItem('logConfig')) {
+                await axios.get(`${SERVER_URL}/getUserById/${localStorage.getItem('logConfig')}`)
+                    .then(res => setUser(res.data))
+            } else {
+                setUser({})
+            }
+        }
+        logUser()
+    }, [])
+
 
 
     // Function to close pop ups when click outside

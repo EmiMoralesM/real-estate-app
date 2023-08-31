@@ -220,6 +220,31 @@
     width: 100%;
 }
 
+.loaderDetailProperty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.loaderDetailProperty .loader {
+    width: 70px;
+    height: 70px;
+    display: inline-block;
+    position: relative;
+}
+
+.loaderDetailProperty .loader::after,
+.loaderDetailProperty .loader::before {
+    width: 70px;
+    height: 70px;
+    background-color: #005bda;
+}
+
+.propertyImagesCarouselMobile {
+    display: none;
+}
 
 @media all and (max-width: 1450px) {
     .properyDetailModal {
@@ -261,6 +286,99 @@
 }
 
 @media all and (max-width: 900px) {
+
+    /* Carousel */
+    .propertyImagesCarouselMobile {
+        display: block;
+        width: 100%;
+        height: fit-content;
+        margin: 0 auto;
+    }
+
+    .carousel {
+        position: relative;
+        height: 100%;
+    }
+
+    .carouselImages {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .carouselImages ul {
+        padding: 0;
+        margin: 0;
+        white-space: nowrap;
+        width: 100%;
+        min-height: 0;
+        height: fit-content;
+    }
+
+    .carouselImages ul li {
+        display: inline;
+    }
+
+    .carouselImages ul>li>img {
+        height: 400px;
+    }
+
+    .leftArrow,
+    .rightArrow {
+        position: absolute;
+        top: 52%;
+        cursor: pointer;
+        background-image: url(../assets/icons/arrow-carousel.svg);
+        background-size: 20px;
+        width: 35px;
+        height: 35px;
+        background-color: #ffffff7e;
+        border-radius: 50%;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+
+    .rightArrow {
+        transform: translate(0, -50%);
+        right: 12px;
+    }
+
+    .leftArrow {
+        transform: translate(0, -50%) rotate(180deg);
+        left: 12px;
+    }
+
+    .carouselDots {
+        display: flex;
+        gap: 15px;
+        position: absolute;
+        bottom: 15px;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .carouselDots>.dot {
+        transition: all ease .3s;
+        width: 12px;
+        height: 12px;
+        background-color: rgb(255, 255, 255);
+        display: block;
+        border: 1px solid rgb(125, 125, 125);
+        border-radius: 50%;
+    }
+
+    .carouselDots>.dot.active {
+        border: 1px solid #005bda;
+        background-color: #005bda;
+    }
+
+    .propertyImages {
+        display: none;
+    }
+
+
+
+
     .properyDetailModal>.closeModal {
         z-index: 9;
         top: 20px;
@@ -284,16 +402,6 @@
         overflow-y: scroll;
     }
 
-    .propertyImages {
-        width: 100%;
-        min-height: 0;
-        height: fit-content;
-        max-height: 40%;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-    }
 
     .propertyDetails {
         width: 100%;
@@ -357,15 +465,26 @@
     .favoriteButton {
         font-size: 17px;
     }
+
+
 }
 
 @media all and (max-width: 600px) {
+    .propertyImagesCarouselMobile {
+        display: block;
+        width: 100%;
+        height: fit-content;
+        margin: 0 auto;
+    }
+    .carouselImages ul>li>img {
+        height: auto;
+        width: 100%;
+    }
     .properyDetailModal>.closeModal {
         background-size: 35px;
         width: 45px;
         height: 45px;
     }
-
     .propertyDetails>.propertyTitleDiv>.priceDiv h2 {
         font-size: 38px;
         margin-top: 0;
@@ -380,9 +499,11 @@
     .propertyImages .mainImage {
         width: 100%;
     }
-    .propertyImages .image{
+
+    .propertyImages .image {
         width: 100%;
     }
+
     .propertyDetails>.propertyTitleDiv>.address {
         font-size: 16px;
     }
@@ -420,5 +541,18 @@
 
     .favoriteButton {
         font-size: 15px;
+    }
+
+    .contactOwnerModal>.generalModalDiv{
+        width: 90%;
+        height: 550px;
+    }
+    .generalModalContent textarea{
+        height: 100px;
+    }
+
+    .carouselDots>.dot {
+        width: 9px;
+        height: 9px;
     }
 }

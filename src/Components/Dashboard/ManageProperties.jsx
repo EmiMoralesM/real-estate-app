@@ -29,14 +29,19 @@ function ManageProperties(props) {
     const [editPropertyModal, setEditPropertyModal] = useState(false)
 
     const handlePropertyDelete = async () => {
-        await axios.delete(`${SERVER_URL}/deleteProperty/${confirmDeleteModal._id}`)
-            .then(res => {
-                setConfirmDeleteModal(false)
-                enableScroll()
-                changeSuccessMessage(`Property deleted!`)
-                setResults(prevResults => prevResults.filter(prop => prop._id !== confirmDeleteModal._id))
-            })
-            .catch(err => console.log(`Error: ${err}`))
+        if (user.role == 'admin') {
+            await axios.delete(`${SERVER_URL}/deleteProperty/${confirmDeleteModal._id}`)
+                .then(res => {
+                    setConfirmDeleteModal(false)
+                    enableScroll()
+                    changeSuccessMessage(`Property deleted!`)
+                    setResults(prevResults => prevResults.filter(prop => prop._id !== confirmDeleteModal._id))
+                })
+                .catch(err => console.log(`Error: ${err}`))
+        } else {
+            changeErrorMessage(`Only admins can perform this action`)
+            enableScroll()
+        }
     }
 
     return (
@@ -83,12 +88,8 @@ function ManageProperties(props) {
                         <div className='imagePropertyDiv'>
                             <div className='imageContent'>
                                 <button onClick={() => {
-                                    if (user.role === 'admin') {
-                                        disableScroll()
-                                        setConfirmDeleteModal(property)
-                                    } else {
-                                        changeErrorMessage('Only admins can delete properties')
-                                    }
+                                    disableScroll()
+                                    setConfirmDeleteModal(property)
                                 }} className='button deletePropertyButton'>Delete Property</button>
                                 <button onClick={() => {
                                     disableScroll()
@@ -116,12 +117,14 @@ function ManageProperties(props) {
                 ))
                 )}
             </div>
-            {confirmDeleteModal && user.role === 'admin' && <ConfirmDeleteProperty
+            {confirmDeleteModal && <ConfirmDeleteProperty
+                blockForAdmin={true}
                 handlePropertyDelete={handlePropertyDelete}
                 setConfirmDeleteModal={setConfirmDeleteModal}
                 confirmDeleteModal={confirmDeleteModal}
             />}
             {editPropertyModal && <EditPropertyModal
+                blockAdmin={true}
                 setResults={setResults}
                 editProperty={editPropertyModal}
                 setEditProperty={setEditPropertyModal}
