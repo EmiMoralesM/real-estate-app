@@ -16,18 +16,18 @@ header {
 }
 
 .logo {
-    background-image: url(../assets/imgs/logo-test.svg);
-    width: 150px;
+    background-image: url(../assets/imgs/logo.svg);
+    width: 170px;
     margin: 0;
-    height: 35px;
+    height: 40px;
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: 150px;
+    background-size: 170px;
     overflow: hidden;
 }
 
 .logo a {
-    padding-left: 150px;
+    padding-left: 200px;
 }
 
 .logoDiv {
@@ -288,6 +288,7 @@ header {
     }
 
     .logo {
+        width: 135px;
         background-size: 135px;
         height: 30px;
     }

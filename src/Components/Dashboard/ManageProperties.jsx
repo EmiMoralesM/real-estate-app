@@ -6,6 +6,7 @@ import Filters from '../Filters'
 import EditPropertyModal from '../Modals/EditPropertyModal'
 import ConfirmDeleteProperty from '../Modals/ConfirmDeleteProperty'
 import SortProperties from '../SortProperties'
+import Pagination from '../Pagination'
 
 function ManageProperties(props) {
     const { SERVER_URL, disableScroll, enableScroll, imageUrl, changeSuccessMessage, changeErrorMessage, user, } = useContext(Context)
@@ -27,6 +28,10 @@ function ManageProperties(props) {
 
     const [confirmDeleteModal, setConfirmDeleteModal] = useState(false)
     const [editPropertyModal, setEditPropertyModal] = useState(false)
+
+    const [currentProperties, setCurrentProperties] = useState([])
+    const [currentPage, setCurrentPage] = useState(1)
+
 
     const handlePropertyDelete = async () => {
         if (user.role == 'admin') {
@@ -83,7 +88,7 @@ function ManageProperties(props) {
                             </div>
                         ))}
                     </>
-                ) : (results.map(property => (
+                ) : (currentProperties.map(property => (
                     <div key={property._id} className='propertyDiv managePropertiesResults'>
                         <div className='imagePropertyDiv'>
                             <div className='imageContent'>
@@ -116,6 +121,13 @@ function ManageProperties(props) {
                     </div>
                 ))
                 )}
+                <Pagination
+                    properties={results}
+                    currentProperties={currentProperties}
+                    setCurrentProperties={setCurrentProperties}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                />
             </div>
             {confirmDeleteModal && <ConfirmDeleteProperty
                 blockForAdmin={true}

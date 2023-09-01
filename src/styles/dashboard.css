@@ -15,7 +15,7 @@
 
 
 .collapseSideBar h1 {
-    background-image: url(../assets/imgs/logo-test-small.svg) !important;
+    background-image: url(../assets/imgs/logo-small.svg) !important;
     background-size: 35px;
     height: 40px;
     margin: 39px auto !important;
@@ -1602,7 +1602,7 @@
     }
 
     .sideBar h1 {
-        background-image: url(../assets/imgs/logo-test-small.svg) !important;
+        background-image: url(../assets/imgs/logo-small.svg) !important;
         background-size: 35px;
         height: 40px;
         margin: 39px auto !important;

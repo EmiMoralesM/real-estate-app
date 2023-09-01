@@ -246,6 +246,64 @@
     display: none;
 }
 
+
+/* Pagination */
+
+.paginationDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+    margin: 20px 0 40px 0;
+}
+
+.paginationDiv>p,
+.paginationDiv>div {
+    cursor: pointer;
+    transition: all ease .3s;
+    /* box-shadow: 0px 0px 5px 2px #adadad68;
+    width: 30px;
+    height: 30px; */
+    /* border-radius: 50%; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.paginationDiv>p:hover,
+.paginationDiv>div:hover {
+    opacity: .7;
+}
+
+.nextPage,
+.prevPage {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url(../assets/icons/arrow-carousel.svg);
+    background-position: center center;
+    background-size: 15px;
+    background-repeat: no-repeat;
+}
+
+.prevPage {
+    transform: rotate(180deg);
+}
+
+.activePage,
+.activePage:hover {
+    color: #005bda;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    padding: 10px;
+    background-color: #006aff3a;
+    opacity: 1 !important;
+}
+
+
+
 @media all and (max-width: 1450px) {
     .properyDetailModal {
         width: 1100px;
@@ -256,6 +314,11 @@
     }
 }
 
+@media all and (max-width: 1350px) {
+    .paginationDiv {
+        gap: 20px;
+    }
+}
 @media all and (max-width: 1250px) {
     .properyDetailModal {
         width: 1000px;
@@ -269,6 +332,7 @@
         width: 45%;
     }
 
+    
 }
 
 @media all and (max-width: 1100px) {
@@ -283,6 +347,8 @@
     .propertyDetails {
         width: 50%;
     }
+
+
 }
 
 @media all and (max-width: 900px) {
@@ -476,15 +542,18 @@
         height: fit-content;
         margin: 0 auto;
     }
+
     .carouselImages ul>li>img {
         height: auto;
         width: 100%;
     }
+
     .properyDetailModal>.closeModal {
         background-size: 35px;
         width: 45px;
         height: 45px;
     }
+
     .propertyDetails>.propertyTitleDiv>.priceDiv h2 {
         font-size: 38px;
         margin-top: 0;
@@ -543,11 +612,12 @@
         font-size: 15px;
     }
 
-    .contactOwnerModal>.generalModalDiv{
+    .contactOwnerModal>.generalModalDiv {
         width: 90%;
         height: 550px;
     }
-    .generalModalContent textarea{
+
+    .generalModalContent textarea {
         height: 100px;
     }
 

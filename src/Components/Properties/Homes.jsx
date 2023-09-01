@@ -4,15 +4,19 @@ import { Context } from '../../assets/Context'
 import { Link } from 'react-router-dom'
 import { LocationContext } from '../../assets/LocationContext'
 import SortProperties from '../SortProperties'
+import Pagination from '../Pagination'
 
 function Homes(props) {
   const { useOutsideClick, imageUrl } = useContext(Context)
   const { locationCoordinates, fetchPropertiesData } = useContext(LocationContext)
 
+  const [currentProperties, setCurrentProperties] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+
   useEffect(() => {
     props.setProperties()
     // Function (from LocationContext) that fetches the properties with the specified filters.
-    
+    setCurrentPage(1)
     fetchPropertiesData(props.setProperties, locationCoordinates, props.maxPrice, props.minPrice, props.minBaths, props.minBeds, props.homeTypes, props.sortPropertes);
   }, [locationCoordinates, props.maxPrice, props.minPrice, props.minBaths, props.minBeds, props.homeTypes, props.sortPropertes])
 
@@ -24,7 +28,7 @@ function Homes(props) {
         <SortProperties
           properties={props.properties}
           setProperties={props.setProperties}
-          
+
           sortPropertes={props.sortPropertes}
           setSortPropertes={props.setSortPropertes}
         />
@@ -44,36 +48,45 @@ function Homes(props) {
             ))}
           </>
         ) : (
-          props.properties.map((property, i) => (
-            <Link
-              to={`/properties/details/${property.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${property._id}`}
-              // onClick={() => props.setPropertyDetail(property._id)}
-              key={i}
-              className='propertyDiv'
-            >
-              <div className='imagePropertyDiv'>
-                <div className='imageContent homesImageContent'>
-                  <p className='status'>{property.statusType.replace('_', ' ')}</p>
-                  <div>
-                    <p className='location'>{property.addressCity}, {property.addressState}</p>
+          <>
+            {currentProperties.map((property, i) => (
+              <Link
+                to={`/properties/details/${property.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${property._id}`}
+                // onClick={() => props.setPropertyDetail(property._id)}
+                key={i}
+                className='propertyDiv'
+              >
+                <div className='imagePropertyDiv'>
+                  <div className='imageContent homesImageContent'>
+                    <p className='status'>{property.statusType.replace('_', ' ')}</p>
+                    <div>
+                      <p className='location'>{property.addressCity}, {property.addressState}</p>
+                    </div>
+                  </div>
+                  <div className='imageDiv'>
+                    <img src={imageUrl(property.mainImage)} alt="" />
                   </div>
                 </div>
-                <div className='imageDiv'>
-                  <img src={imageUrl(property.mainImage)} alt="" />
+                <div className='infoDiv'>
+                  <p className='price'>${new Intl.NumberFormat().format(property.price)}</p>
+                  <p className='beds-baths-sqft'>
+                    <span className='beforeIcon'> {property.beds ? property.beds : '--'} </span> |
+                    <span className='beforeIcon'> {property.baths ? property.baths : '--'} </span> |
+                    <span className='beforeIcon'> {new Intl.NumberFormat().format(property.lotAreaUnit == 'sqft' ? property.lotSize : parseInt(property.lotSize * 43560))} ft. </span> -
+                    <span> {property.statusText} </span>
+                  </p>
+                  <p className='address'>{property.address}</p>
                 </div>
-              </div>
-              <div className='infoDiv'>
-                <p className='price'>${new Intl.NumberFormat().format(property.price)}</p>
-                <p className='beds-baths-sqft'>
-                  <span className='beforeIcon'> {property.beds ? property.beds : '--'} </span> |
-                  <span className='beforeIcon'> {property.baths ? property.baths : '--'} </span> |
-                  <span className='beforeIcon'> {new Intl.NumberFormat().format(property.lotAreaUnit == 'sqft' ? property.lotSize : parseInt(property.lotSize * 43560))} ft. </span> -
-                  <span> {property.statusText} </span>
-                </p>
-                <p className='address'>{property.address}</p>
-              </div>
-            </Link>
-          ))
+              </Link>
+            ))}
+            <Pagination
+              properties={props.properties}
+              currentProperties={currentProperties}
+              setCurrentProperties={setCurrentProperties}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </>
         )}
       </div>
     </section>

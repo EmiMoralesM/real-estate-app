@@ -3,7 +3,7 @@ import { Context } from '../../assets/Context'
 import axios from 'axios'
 
 function EditPropertyModal(props) {
-    const { SERVER_URL, useOutsideClick, hometypes_array, enableScroll, imageUrl, changeSuccessMessage, changeErrorMessage } = useContext(Context)
+    const { SERVER_URL, useOutsideClick, user, hometypes_array, enableScroll, imageUrl, changeSuccessMessage, changeErrorMessage } = useContext(Context)
 
     const [price, setPrice] = useState(props.editProperty.price)
     const [homeType, setHomeType] = useState(props.editProperty.statusText)
@@ -80,7 +80,7 @@ function EditPropertyModal(props) {
 
     const handleUpdate = async () => {
         setLoading(true)
-        if (!props.blockAdmin) {
+        if (!props.blockAdmin || user.role === 'admin') {
             if (checkInputs('all')) {
                 let mainImageName = mainImage
                 let otherImagesName = otherImages
