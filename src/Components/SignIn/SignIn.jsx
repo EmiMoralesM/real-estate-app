@@ -24,7 +24,6 @@ function SignIn(props) {
 
 
     const checkEmail = (email) => {
-        console.log(email);
         if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
             setEmailError('Enter a valid email address')
         } else {
@@ -47,9 +46,12 @@ function SignIn(props) {
             try {
                 setLoading(true)
                 setFormError('')
+                // Encode the data so that there is no problem when sending it over through the URL (special characters)
+                const encodedEmail = encodeURIComponent(email);
+                const encodedPassword = encodeURIComponent(password);
                 // If the credentials are correct , the server will return an object with the user.
                 // If the user is invalid it will retun { error: ... }.
-                await axios.get(`${SERVER_URL}/getUser?email=${email}&password=${password}`)
+                await axios.get(`${SERVER_URL}/getUser?email=${encodedEmail}&password=${encodedPassword}`)
                     .then(res => {
                         if (res.data.email) {
                             changeSuccessMessage(`Welcome back ${res.data.name}!`)
@@ -60,6 +62,7 @@ function SignIn(props) {
                         }
                     })
             } catch (e) {
+                console.log(e);
                 changeErrorMessage('An error occured. Please try again later')
             }
             setLoading(false)

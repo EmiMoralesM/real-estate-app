@@ -10,7 +10,7 @@ function Footer(props) {
     <footer>
       <div className='logoAndCopy'>
         <p className='logo'><Link to={'/'}></Link></p>
-        <p>2023 © Zillow</p>
+        <p>2023 © Housely</p>
       </div>
       <div className='menuFooter'>
         <div>

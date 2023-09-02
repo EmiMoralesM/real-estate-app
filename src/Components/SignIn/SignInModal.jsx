@@ -14,7 +14,7 @@ function SignInModal(props) {
             <div className='signInContent'>
                 <button className='closeModal' onClick={() => props.setSignInModalOpen(false)}></button>
                 <div className='modalContent'>
-                    <h3>Welcome to Zillow</h3>
+                    <h3>Welcome to Housely</h3>
                     <ul className='signInOptions'>
                         <li onClick={() => setSignIn(true)} className={signIn ? 'active' : ''}>Sign In</li>
                         <li onClick={() => setSignIn(false)} className={!signIn ? 'active' : ''}>New Account</li>

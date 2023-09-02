@@ -12,6 +12,7 @@ function MainPage(props) {
 
     const stateOptions = { "Alabama": "AL", "Alaska": "AK", "Arizona": "AZ", "Arkansas": "AR", "California": "CA", "Colorado": "CO", "Connecticut": "CT", "Delaware": "DE", "Florida": "FL", "Georgia": "GA", "Hawaii": "HI", "Idaho": "ID", "Illinois": "IL", "Indiana": "IN", "Iowa": "IA", "Kansas": "KS", "Kentucky": "KY", "Louisiana": "LA", "Maine": "ME", "Maryland": "MD", "Massachusetts": "MA", "Michigan": "MI", "Minnesota": "MN", "Mississippi": "MS", "Missouri": "MO", "Montana": "MT", "Nebraska": "NE", "Nevada": "NV", "New Hampshire": "NH", "New Jersey": "NJ", "New Mexico": "NM", "New York": "NY", "North Carolina": "NC", "North Dakota": "ND", "Ohio": "OH", "Oklahoma": "OK", "Oregon": "OR", "Pennsylvania": "PA", "Rhode Island": "RI", "South Carolina": "SC", "South Dakota": "SD", "Tennessee": "TN", "Texas": "TX", "Utah": "UT", "Vermont": "VT", "Virginia": "VA", "Washington": "WA", "West Virginia": "WV", "Wisconsin": "WI", "Wyoming": "WY" };
 
+    const [isStateMobileOpen, setIsStateMobileOpen] = useState(false);
     const [isStateOpen, setIsStateOpen] = useState(false);
     const [fieldError, setFieldError] = useState('')
 
@@ -63,6 +64,7 @@ function MainPage(props) {
     }
 
     const refState = useOutsideClick(() => setIsStateOpen(false))
+    const refStateMobile = useOutsideClick(() => setIsStateMobileOpen(false))
 
     return (
         <>
@@ -180,11 +182,12 @@ function MainPage(props) {
                             <div className='stateDiv'>
                                 <label>STATE</label>
                                 <div
-                                    onClick={() => setIsStateOpen(prevIsStateOpen => !prevIsStateOpen)} ref={refState}
-                                    className={`dropdown ${isStateOpen ? 'openDropdown' : ''} ${props.addressState ? 'optionSelected' : ''} ${fieldError == 'state' ? 'fieldError' : ''}`}
+                                    onClick={() => setIsStateMobileOpen(prevIsStateMobileOpen => !prevIsStateMobileOpen)}
+                                    ref={refStateMobile}
+                                    className={`dropdown ${isStateMobileOpen ? 'openDropdown' : ''} ${props.addressState ? 'optionSelected' : ''} ${fieldError == 'state' ? 'fieldError' : ''}`}
                                 >
                                     <input type="text" name='state' placeholder='State...' value={props.addressState} readOnly />
-                                    {isStateOpen && (
+                                    {isStateMobileOpen && (
                                         <div className="options">
                                             {Object.keys(stateOptions).map((fullName) => (
                                                 props.addressState !== stateOptions[fullName] ? (
@@ -231,7 +234,7 @@ function MainPage(props) {
                 <div className='whySellSection'>
                     <div className='propertiesTitleDiv'>
                         <p>SELL PROPERTY</p>
-                        <h2>Why Sell with Zillow?</h2>
+                        <h2>Why Sell with Housely?</h2>
                     </div>
                     <div className='whySellDiv'>
                         <div>
@@ -250,9 +253,6 @@ function MainPage(props) {
                             <p>When you sell with us, you’ll pay a listing fee that’s less than half of what brokerages commonly charge.</p>
                         </div>
                     </div>
-                    {/* <div className='sellNowButtonDiv'>
-                        <button className='sellNowButton' onClick={() => window.scrollTo(0, 0)}>Sell Now</button>
-                    </div> */}
                 </div>
             </section>
         </>

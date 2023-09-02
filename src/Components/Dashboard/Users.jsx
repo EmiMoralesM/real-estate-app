@@ -101,9 +101,9 @@ function Users(props) {
                     <div className='generalModalContent'>
                         <h3>Edit User</h3>
                         <div className='profileInfo'>
-                            <div className='profile profileUser'>
+                            <div className={`profile profileUser ${userEdit.image ? 'imageSet' : ''}`}>
                                 <p className='profilePicItem'>
-                                    <img className='profilePic' src={userEdit.image ? userEdit.image : profilePic} alt="" />
+                                    <img className='profilePic' src={userEdit.image ? `${SERVER_URL}/images/${userEdit.image}` : profilePic} alt="" />
                                 </p>
                             </div>
                             <div>

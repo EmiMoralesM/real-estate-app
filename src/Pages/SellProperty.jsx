@@ -11,14 +11,14 @@ function SellProperty(props) {
 
 
     const [coordinates, setCoordinates] = useState()
-    const [addressStreet, setAddressStreet] = useState('5145 S Hatch Drive')
-    const [addressCity, setAddressCity] = useState('Evergreen')
-    const [addressState, setAddressState] = useState('CO')
-    const [addressZipCode, setAddressZipCode] = useState('80439')
-    // const [addressStreet, setAddressStreet] = useState()
-    // const [addressCity, setAddressCity] = useState()
-    // const [addressState, setAddressState] = useState()
-    // const [addressZipCode, setAddressZipCode] = useState()
+    // const [addressStreet, setAddressStreet] = useState('5145 S Hatch Drive')
+    // const [addressCity, setAddressCity] = useState('Evergreen')
+    // const [addressState, setAddressState] = useState('CO')
+    // const [addressZipCode, setAddressZipCode] = useState('80439')
+    const [addressStreet, setAddressStreet] = useState()
+    const [addressCity, setAddressCity] = useState()
+    const [addressState, setAddressState] = useState()
+    const [addressZipCode, setAddressZipCode] = useState()
 
     useEffect(() => {
         setSellLocation(location.pathname.replace('/sellProperty', ''))

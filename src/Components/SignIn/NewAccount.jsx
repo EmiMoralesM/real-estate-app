@@ -69,6 +69,7 @@ function NewAccount(props) {
         try {
             setLoading(true)
             const emailValidation = await checkEmail(email)
+            console.log(password);
             if (emailValidation && checkPassword(password) && checkPasswordConfirm(passwordConfirm)) {
                 await axios.post(`${SERVER_URL}/createUser`, {
                     name: email.substring(0, email.indexOf('@')).toLowerCase(),

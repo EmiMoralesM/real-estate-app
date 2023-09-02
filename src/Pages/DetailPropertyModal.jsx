@@ -22,6 +22,8 @@ function DetailProductModal(props) {
         axios.get(`${SERVER_URL}/getProperty/${props.propertyDetail}`)
             .then(data => {
                 setProperty(data.data)
+                console.log(props.propertyDetail);
+                console.log(data.data);
                 setOtherImages(data.data.otherImages.map(image => <img className='image' key={image} src={imageUrl(image)} alt="" />))
                 setIsFavorite(user.favorites.includes(data.data._id) ? true : false)
                 setMessageContact(`Hi, I'm interested in ${data.data.address}.`)

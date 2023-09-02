@@ -821,6 +821,7 @@
 }
 
 .userInfoDiv {
+    align-items: center;
     display: flex;
     width: max-content;
 }

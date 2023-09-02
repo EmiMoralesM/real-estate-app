@@ -15,10 +15,10 @@
     position: absolute;
     background-color: white;
     border-radius: 5px;
-    height: 680px;
+    height: 630px;
     width: 450px;
     left: calc(50% - 225px);
-    top: calc(50% - 350px);
+    top: calc(50% - 315px);
 }
 
 

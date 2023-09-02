@@ -24,13 +24,6 @@ function App() {
   const [signInModalOpen, setSignInModalOpen] = useState(false)
 
   useEffect(() => {
-    let text = 'https://photos.zillowstatic.com/fp/71f2815b4e724b142955f864700c076d-cc_ft_384.webp, https://photos.zillowstatic.com/fp/de3b4d0024963db8e0f11380ff93366c-cc_ft_384.webp, https://photos.zillowstatic.com/fp/073725805fc83e44944d48942ba4cd4c-cc_ft_384.webp, https://photos.zillowstatic.com/fp/cec2759908f53b2fcc51a02b4b527c41-cc_ft_384.webp, https://photos.zillowstatic.com/fp/7d4c0f63fe4698772c7213d97921ab09-cc_ft_384.webp'
-
-    console.log(text.split(','));
-  }, [])
-  
-
-  useEffect(() => {
     if (user.email) { localStorage.setItem('logConfig', user._id) }
     // If the user is signs out, remove the saved user.
     if (!user.loading && !user.email) { localStorage.removeItem('logConfig') }

@@ -16,6 +16,8 @@ function PropertyDetails(props) {
     const [mainImage, setMainImage] = useState('')
     const [otherImages, setOtherImages] = useState([])
 
+    const [bedsError, setBedsError] = useState('')
+    const [bathsError, setBathsError] = useState('')
     const [priceError, setPriceError] = useState('')
     const [sizeError, setSizeError] = useState('')
     const [mainImageError, setMainImageError] = useState('')
@@ -62,13 +64,13 @@ function PropertyDetails(props) {
     const checkInputs = (input) => {
         var valid = true
         if (input == 'all' || input == 'price') {
-            if (price <= 0) {
+            if (price <= 0 || price > 999999999) {
                 var valid = false
                 setPriceError('Enter a valid price')
             } else { setPriceError('') }
         }
         if (input == 'all' || input == 'size') {
-            if (size <= 0) {
+            if (size <= 0 || size > 99999999) {
                 var valid = false
                 setSizeError('Enter a valid lot size')
             } else { setSizeError('') }
@@ -84,6 +86,18 @@ function PropertyDetails(props) {
                 var valid = false
                 setOtherImageError('Provide at least one other image')
             } else { setOtherImageError('') }
+        }
+        if (input == 'all' || input == 'beds') {
+            if (beds > 99) {
+                var valid = false
+                setBedsError('Enter a valid number of bedrooms. (Max 99)')
+            } else { setBedsError('') }
+        }
+        if (input == 'all' || input == 'baths') {
+            if (baths > 99) {
+                var valid = false
+                setBathsError('Enter a valid number of bathrooms. (Max 99)')
+            } else { setBathsError('') }
         }
         return valid
     }
@@ -122,8 +136,8 @@ function PropertyDetails(props) {
                     lotAreaUnit: sizeScale.toLowerCase(),
                     beds: beds,
                     baths: baths,
-                    address: `${props.addressStreet}, ${props.addressCity}, ${props.addressState} ${props.addressZipCode}`,
-                    addressStreet: props.addressStreet,
+                    address: `${props.addressStreet.replaceAll(/[^a-zA-Z0-9 ]/g, '')}, ${props.addressCity}, ${props.addressState} ${props.addressZipCode}`,
+                    addressStreet: props.addressStreet.replaceAll(/[^a-zA-Z0-9 ]/g, ''),
                     addressCity: props.addressCity,
                     addressState: props.addressState,
                     addressZipcode: props.addressZipCode,
@@ -152,63 +166,6 @@ function PropertyDetails(props) {
         }
         setLoading(false)
     }
-
-
-
-    /*  const handleSubmit = async (e) => {
-         setLoading(true)
-         if (checkInputs('all')) {
-             await axios.post(`${SERVER_URL}/postProperty`, {
-                 statusType: 'FOR_SALE',
-                 statusText: homeType,
-                 price: price,
-                 pricePerSqFt: (sizeScale.toLowerCase() == 'sqft' ? (price / size) : (price / (size * 43560))).toFixed(1),
-                 lotSize: size,
-                 lotAreaUnit: sizeScale.toLowerCase(),
-                 beds: beds,
-                 baths: baths,
-                 address: `${props.addressStreet}, ${props.addressCity}, ${props.addressState} ${props.addressZipCode}`,
-                 addressStreet: props.addressStreet,
-                 addressCity: props.addressCity,
-                 addressState: props.addressState,
-                 addressZipcode: props.addressZipCode,
-                 coordinates: {
-                     lat: props.coordinates.lat,
-                     lng: props.coordinates.lng,
-                 },
-                 ownerId: user._id
-             })
-                 .then(async data => {
-                     const mainImg = new FormData()
-                     mainImg.append('newMainImg', mainImage)
-                     await axios.patch(`${SERVER_URL}/postPropertyMainImage/${data.data._id}`, mainImg)
-                         .then(async res => {
-                             console.log('main img');
-                             console.log(res);
-                             const otherImgs = new FormData();
-                             otherImages.forEach(image => {
-                                 otherImgs.append('newOtherImages', image);
-                             });
-                             await axios.patch(`${SERVER_URL}/postPropertyOtherImages/${data.data._id}`, otherImgs)
-                                 .then(async res => {
-                                     console.log('other imgs');
-                                     console.log(res);
-                                     await axios.patch(`${SERVER_URL}/updateUser/${user.email}`, { yourProperties: [...user.yourProperties, data.data._id] })
-                                         .then(resUser => {
-                                             setUser(resUser.data)
-                                             navigate(`../../properties/details/${res.data.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${res.data._id}`)
-                                         })
-                                 })
-                         })
-     
-                 })
-             // props.setPropertyId('64bf54767ddbcab441138187')
-     
-         } else {
-             window.scrollTo(0, 0)
-         }
-         setLoading(false)
-     } */
 
     return (
         <>
@@ -312,11 +269,30 @@ function PropertyDetails(props) {
                     </div>
                     <div>
                         <label htmlFor="beds">Bedrooms <span className='requiredField'>*</span></label>
-                        <input type="number" name="beds" id="beds" value={beds} max="99" onChange={(e) => setBeds(e.target.value)} />
+                        <input type="number"
+                            name="beds"
+                            id="beds"
+                            value={beds}
+                            onBlur={() => checkInputs('beds')}
+                            onChange={(e) => setBeds(e.target.value)}
+                            className={bedsError ? 'errorInput' : ''}
+                        />
+                        {bedsError && <p className='errorText errorPropertyDetails'>{bedsError}</p>}
+
                     </div>
                     <div>
                         <label htmlFor="baths">Baths <span className='requiredField'>*</span></label>
-                        <input type="number" name="baths" id="baths" value={baths} max="99" onChange={(e) => setBaths(e.target.value)} />
+                        <input
+                            type="number"
+                            name="baths"
+                            id="baths"
+                            className={bathsError ? 'errorInput' : ''}
+                            value={baths}
+                            onBlur={() => checkInputs('baths')}
+                            onChange={(e) => setBaths(e.target.value)}
+                        />
+                        {bathsError && <p className='errorText errorPropertyDetails'>{bathsError}</p>}
+
                     </div>
                     <div className='prop50PercentDiv propInfoSqftDiv'>
                         <div>
@@ -362,7 +338,7 @@ function PropertyDetails(props) {
                 </div>
                 <div className='propInfoDiv'>
                     <h2 className='propInfoTitle'>Contact Information</h2>
-                    <p>Potential buyers will contact you through the email address you use to register on Zillow. You can also add your phone number.</p>
+                    <p>Potential buyers will contact you through the email address you use to register on Housely. You can also add your phone number.</p>
                     <div>
                         <label htmlFor="size">Phone Number</label>
                         <input type="tel" id="phone" name="phone" />

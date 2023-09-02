@@ -4,7 +4,7 @@ import { Context } from '../../assets/Context'
 import axios from 'axios'
 
 function AccountSettings(props) {
-  const { SERVER_URL, user, setUser, changeSuccessMessage } = useContext(Context)
+  const { SERVER_URL, user, setUser, changeSuccessMessage, changeErrorMessage } = useContext(Context)
 
   const [openSettingsModal, setOpenSettingsModal] = useState(false)
 
@@ -65,13 +65,17 @@ function AccountSettings(props) {
   }
 
   const handleEmailChange = async () => {
-    // If the new email structure is correct 
-    if (await checkEmail()) {
-      // We verify that the password passed is the correct one
-      if (await handleVerification('email')) {
-        // If it is we updae the user data with the new email
-        handleUserChange(user.name, newEmail, user.image)
+    if (user.email !== "test_user@gmail.com" && user.email !== "test_manager@gmail.com") {
+      // If the new email structure is correct 
+      if (await checkEmail()) {
+        // We verify that the password passed is the correct one
+        if (await handleVerification('email')) {
+          // If it is we updae the user data with the new email
+          handleUserChange(user.name, newEmail, user.image)
+        }
       }
+    } else {
+      changeErrorMessage("You can't change the email of this account. To try this functionality please create a new account")
     }
   }
 
@@ -87,31 +91,39 @@ function AccountSettings(props) {
   }
 
   const handlePasswordChange = async () => {
-    if (checkPassword()) {
+    if (user.email !== "test_user@gmail.com" && user.email !== "test_manager@gmail.com") {
+      if (checkPassword()) {
+        // We verify that the password passed is the correct one
+        if (await handleVerification()) {
+          // If it is, we change the users password for tyhe newPassword
+          axios.patch(`${SERVER_URL}/changePassword/${user.email}`, { newPassword })
+            .then(res => {
+              setUser(res.data)
+              changeSuccessMessage(`Password changed!`)
+              setOpenSettingsModal(false)
+            })
+            .catch(e => console.log(e))
+        }
+      }
+    } else {
+      changeErrorMessage("You can't change the password of this account. To try this functionality please create a new account")
+    }
+  }
+  const handleDeleteAcoount = async () => {
+    if (user.email !== "test_user@gmail.com" && user.email !== "test_manager@gmail.com") {
       // We verify that the password passed is the correct one
       if (await handleVerification()) {
-        // If it is, we change the users password for tyhe newPassword
-        axios.patch(`${SERVER_URL}/changePassword/${user.email}`, { newPassword })
+        // If it is, we change the users password for the newPassword
+        await axios.delete(`${SERVER_URL}/deleteUser/${user.email}`)
           .then(res => {
-            setUser(res.data)
-            changeSuccessMessage(`Password changed!`)
+            setUser({})
+            changeSuccessMessage('User deleted!')
             setOpenSettingsModal(false)
           })
           .catch(e => console.log(e))
       }
-    }
-  }
-  const handleDeleteAcoount = async () => {
-    // We verify that the password passed is the correct one
-    if (await handleVerification()) {
-      // If it is, we change the users password for tyhe newPassword
-      await axios.delete(`${SERVER_URL}/deleteUser/${user.email}`)
-        .then(res => {
-          setUser()
-          changeSuccessMessage('User deleted!')
-          setOpenSettingsModal(false)
-        })
-        .catch(e => console.log(e))
+    } else {
+      changeErrorMessage("You can't delete this account. To try this functionality please create a new account")
     }
   }
 
@@ -119,7 +131,9 @@ function AccountSettings(props) {
   const handleVerification = async () => {
     let verified = false
     // We verify the user password to be correct
-    await axios.get(`${SERVER_URL}/getUser?email=${user.email}&password=${password}`)
+    const encodedEmail = encodeURIComponent(user.email);
+    const encodedPassword = encodeURIComponent(password);
+    await axios.get(`${SERVER_URL}/getUser?email=${encodedEmail}&password=${encodedPassword}`)
       .then(res => {
         // If the promise return a user, then we change the user email
         if (res.data.email === user.email) {
@@ -153,7 +167,7 @@ function AccountSettings(props) {
         <div className='accountSetDiv'>
           <div>
             <p className='title'>Name</p>
-            <p className='description'>Updates are going to be reflected across all Zillow experiences.</p>
+            <p className='description'>Updates are going to be reflected across all Housely experiences.</p>
           </div>
           <div className='editProfileDiv'>
             <p className=''>{user.name}</p>

@@ -11,7 +11,7 @@ function Map(props) {
     const { locationCoordinates, setLocationCoordinates } = useContext(LocationContext)
 
     const [map, setMap] = useState()
-    const [centerPosition, setCenterPosition] = useState({ lat: 36.778259, lng: -119.417931 })
+    const [centerPosition, setCenterPosition] = useState({ lat: 34.09117, lng: -89.078186 })
     const [propertyHover, setPropertyHover] = useState('')
 
     const navigate = useNavigate();

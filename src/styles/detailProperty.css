@@ -66,9 +66,9 @@
 .propertyDetailslogoDiv p {
     margin: auto;
     margin-bottom: 20px;
-    width: 120px;
+    width: 150px;
     height: 30px;
-    background-size: 120px;
+    background-size: 150px;
 }
 
 .propertyDetails>.propertyTitleDiv {
