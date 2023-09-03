@@ -276,7 +276,7 @@ header {
 
     .menuMobile>.closeModal {
         top: 8px;
-        left: 51px;
+        left: 10px;
     }
 
     .logoDiv {
@@ -309,7 +309,7 @@ header {
     }
 
     .menuMobile>.logoDiv>.logo {
-        margin: 0 0 0 -17px;
+        /* margin: 0 0 0 -17px; */
     }
 
     .menuMobile ul {

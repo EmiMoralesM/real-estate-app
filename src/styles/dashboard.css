@@ -1042,11 +1042,13 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    margin: 0 0 25px 0!important;
+    margin: 0 0 25px 0 !important;
 }
-.deleteUserEditActions button{
+
+.deleteUserEditActions button {
     margin: 0;
 }
+
 .confirmUserChange,
 .deleteUser {
     padding: 10px;
@@ -1610,8 +1612,12 @@
         width: 90px;
     }
 
+    .menuSideBar li a {
+        padding: 0;
+    }
+
     .sideBar li a span {
-        opacity: 0;
+        display: none;
     }
 
     .headerDashboard nav {
@@ -1628,6 +1634,10 @@
         width: 45%;
     }
 
+    .closeSidebar {
+        display: none;
+    }
+
     .managePropertiesFilterDiv .fiterMobileButton {
         display: block !important;
     }
@@ -1642,9 +1652,7 @@
         width: calc(100% - 30px) !important;
     }
 
-    .closeSidebar {
-        display: none;
-    }
+
 
     .sideBar {
         width: 100vw !important;
@@ -1834,7 +1842,11 @@
     }
 
     .generalModalDiv {
-        width: 400px;
+        width: 95vw;
+    }
+
+    .deleteAccountModalDiv {
+        height: 375px;
     }
 
     .userRole {

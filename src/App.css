@@ -70,7 +70,7 @@ body {
     bottom: 0;
     width: 100%;
     text-align: center;
-    z-index: 999999;
+    z-index: 999999999999;
     animation: up 4.1s forwards;
 }
 

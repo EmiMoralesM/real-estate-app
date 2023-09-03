@@ -73,7 +73,6 @@ function Header(props) {
               {user.email && (user.role == 'admin' || user.role == 'manager') && <li><Link to={'/dashboard/analytics'} onClick={() => setOpenBurgerMenu(false)}>Admin Dashboard</Link></li>}
               <li><Link to={'/properties'} onClick={() => setOpenBurgerMenu(false)}>Buy</Link></li>
               <li><Link to={'/sellProperty'} onClick={() => setOpenBurgerMenu(false)}>Sell</Link></li>
-              <li><Link to={'/sellProperty'} onClick={() => setOpenBurgerMenu(false)}>Map</Link></li>
             </ul>
           </div>}
         </div>

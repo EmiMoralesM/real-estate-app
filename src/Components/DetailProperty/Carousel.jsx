@@ -44,12 +44,15 @@ function Carousel(props) {
                         })}
                     </ul>
                 </div>
-                <div className='carouselDots'>
+                <div className='pageIndex'>
+                    <p>{indexCarousel + 1} / {props.otherImages.length + 1}</p>
+                </div>
+                {/* <div className='carouselDots'>
                     <div className={`dot ${indexCarousel === 0 ? 'active' : ''}`} onClick={() => scrollToImage(0)}></div>
                     {props.otherImages.map((img, i) => {
                         return <div key={i} className={`dot ${indexCarousel === i + 1 ? 'active' : ''}`} onClick={() => scrollToImage(i+1)}></div>
                     })}
-                </div>
+                </div> */}
             </div>
         </div>
     )

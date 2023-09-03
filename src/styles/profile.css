@@ -249,7 +249,9 @@
     margin-bottom: 50px;
 }
 
-
+.passwordModalDiv{
+    height: 405px;
+}
 
 
 .deleteAccountLabel {
