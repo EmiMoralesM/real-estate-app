@@ -4,10 +4,11 @@ import { Context } from '../../../assets/Context'
 import { Link } from 'react-router-dom'
 
 function Chart_4(props) {
-    const { imageUrl } = useContext(Context)
+    const { } = useContext(Context)
+    const { SERVER_URL, imageUrl } = useContext(Context)
     const [properties, setProperties] = useState()
     useEffect(() => {
-        axios.get('http://localhost/latestProperties?limit=2')
+        axios.get(`${SERVER_URL}/latestProperties?limit=2`)
             .then((res) => setProperties(res.data))
             .catch(err => console.log(`Error: ${err}`))
     }, [])
@@ -20,7 +21,18 @@ function Chart_4(props) {
             </div>
             <div className='propertiesDashboard'>
                 {(!properties) ? (
-                    <p>Loading...</p>
+                    <>
+                        {[1, 2].map(i => (
+                            <div key={i} className='propertyDiv loadingProperty'>
+                                <div className='loadingPropertyImage' />
+                                <div className='infoDiv'>
+                                    <span className='priceLoading' />
+                                    <span className='infoLoading' />
+                                    <span className='infoLoading' />
+                                </div>
+                            </div>
+                        ))}
+                    </>
                 ) : (
                     properties.map((property, i) => (
                         <Link to={`/properties/details/${property.address.replaceAll(' ', '-').replaceAll(',', '').replaceAll('/', '').replaceAll('?', '')}/${property._id}`} key={i}>

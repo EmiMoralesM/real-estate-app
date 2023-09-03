@@ -566,8 +566,13 @@
 .chart_4 {
     width: calc(45% - 17.5px);
 }
-
+.chart_4.chart-loading {
+    min-height: 350px;
+}
 /* Chart 5 */
+.chart_5.chart-loading {
+    min-height: 350px;
+}
 
 .chart_5 {
     width: calc(55% - 17.5px);
@@ -684,6 +689,7 @@
 .propertiesDashboard {
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
     justify-content: space-around;
     margin-top: 40px;
 }
@@ -1692,7 +1698,7 @@
         width: 45% !important;
     }
 
-    .chart_2>.chart-loading {
+    .chart_2.chart-loading {
         height: 120px;
         box-sizing: border-box;
     }
@@ -1700,6 +1706,7 @@
     .chart_3.chart-loading {
         height: 220px;
     }
+    
 
     .userRow {
         width: 750px !important;

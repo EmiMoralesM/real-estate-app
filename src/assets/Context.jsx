@@ -5,8 +5,8 @@ import React, { Component, useEffect, useRef, useState } from "react"
 export const Context = React.createContext()
 
 export function ContextProvider({ children }) {
-    // const SERVER_URL = 'https://real-estate-app-server.onrender.com'
-    const SERVER_URL = 'http://localhost'
+    const SERVER_URL = 'https://real-estate-app-server.onrender.com'
+    // const SERVER_URL = 'http://localhost'
 
     const hometypes_array = ['House', 'Townhouse', 'Multy-family', 'Condo']
     const [user, setUser] = useState({ loading: true })

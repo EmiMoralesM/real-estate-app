@@ -9,7 +9,7 @@ function Chart_5(props) {
     const { SERVER_URL } = useContext(Context)
     const [admins, setAdmins] = useState([])
     useEffect(() => {
-        axios.get('http://localhost/getAdmins?limit=5')
+        axios.get(`${SERVER_URL}/getAdmins?limit=5`)
             .then(res => setAdmins(res.data))
             .catch(err => console.log(`Error: ${err}`))
     }, [])
@@ -21,8 +21,12 @@ function Chart_5(props) {
                 <p>Total Users: <span>{props.countUsers}</span></p>
             </div>
             <div className='allUsersAnalysis'>
-                {(!admins) ? (
-                    <p>Loading...</p>
+                {(admins.length == 0) ? (
+                    <>
+                        {[1, 2, 3, 4, 5].map(i => (
+                            <div key={i} className='loadingUsers'></div>
+                        ))}
+                    </>
                 ) : (
                     admins.map((user, i) => (
                         <div key={i} className='userRowChart'>
