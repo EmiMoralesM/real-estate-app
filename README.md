@@ -58,23 +58,20 @@ To begin using Housely, simply visit the website and start exploring. You can se
 While Housely primarily serves as a showcase of my development skills, I am open to contributions from fellow developers who are interested in enhancing the application. If you would like to contribute, please fork the repository and submit a pull request.
 
 
+## Property Search & Map Display
+https://github.com/EmiMoralesM/real-estate-app/assets/111534564/e66d87b1-c2d8-4d2e-bae7-6ae5ba530b2b
 
-https://github.com/EmiMoralesM/real-estate-app/assets/111534564/32577614-66d2-4379-979c-567764d8e7b0
-
-
-
-https://github.com/EmiMoralesM/real-estate-app/assets/111534564/ce76230a-368c-4c31-9973-07f3e693979d
-
-
-
-https://github.com/EmiMoralesM/real-estate-app/assets/111534564/7cb836be-4448-49c6-b729-352d89f3cd64
-
-
-
+## User Roles & Authentication
 https://github.com/EmiMoralesM/real-estate-app/assets/111534564/bc924af9-c05c-403b-b882-9bae41b74ae9
 
+## Admin/Manager Dashboard
+https://github.com/EmiMoralesM/real-estate-app/assets/111534564/7cb836be-4448-49c6-b729-352d89f3cd64
 
+## Property Listing Submission
+https://github.com/EmiMoralesM/real-estate-app/assets/111534564/ce76230a-368c-4c31-9973-07f3e693979d
 
-https://github.com/EmiMoralesM/real-estate-app/assets/111534564/e66d87b1-c2d8-4d2e-bae7-6ae5ba530b2b
+## User Profile Management
+https://github.com/EmiMoralesM/real-estate-app/assets/111534564/32577614-66d2-4379-979c-567764d8e7b0
+
 
 
