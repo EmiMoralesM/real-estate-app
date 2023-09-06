@@ -5,8 +5,8 @@ Housely is a full-stack real estate application meticulously crafted to demonstr
 [Explore the Housely App!](https://housely.app/) 🏡
 
 <p align='center'> 
-  <img width='410' src="https://github.com/EmiMoralesM/real-estate-app/assets/111534564/2d8a0f12-21b0-4aed-8cc0-14cde5edb318" alt="">
-  <img width='410' src="https://github.com/EmiMoralesM/real-estate-app/assets/111534564/6d888462-537c-4e6c-99f6-2b42e758a55f" alt="">
+  <img width='410' src="https://github.com/EmiMoralesM/real-estate-app/assets/111534564/e834d2a2-a7c2-4bb8-83f5-1788e8d359f0" alt="">
+  <img width='410' src="https://github.com/EmiMoralesM/real-estate-app/assets/111534564/1e08825b-7092-4935-9bf4-3e2666833833" alt="">
 </p>
 
 ## 🏠 Features
@@ -59,19 +59,22 @@ While Housely primarily serves as a showcase of my development skills, I am open
 
 
 ## Property Search & Map Display
-https://github.com/EmiMoralesM/real-estate-app/assets/111534564/e66d87b1-c2d8-4d2e-bae7-6ae5ba530b2b
+https://github.com/EmiMoralesM/real-estate-app/assets/111534564/19a22c4c-d5d8-42c2-92e1-cdaecffa52a1
 
 ## User Roles & Authentication
-https://github.com/EmiMoralesM/real-estate-app/assets/111534564/bc924af9-c05c-403b-b882-9bae41b74ae9
+https://github.com/EmiMoralesM/real-estate-app/assets/111534564/9b38741c-696a-4c13-8869-33b6af596b01
+
 
 ## Admin/Manager Dashboard
-https://github.com/EmiMoralesM/real-estate-app/assets/111534564/7cb836be-4448-49c6-b729-352d89f3cd64
+https://github.com/EmiMoralesM/real-estate-app/assets/111534564/fa3b31ca-74b1-4c3e-8211-63804d64cc7f
+
 
 ## Property Listing Submission
-https://github.com/EmiMoralesM/real-estate-app/assets/111534564/ce76230a-368c-4c31-9973-07f3e693979d
+https://github.com/EmiMoralesM/real-estate-app/assets/111534564/decf9dc4-7ee3-4eaa-a1c6-90e4fafbbc09
+
 
 ## User Profile Management
-https://github.com/EmiMoralesM/real-estate-app/assets/111534564/32577614-66d2-4379-979c-567764d8e7b0
+https://github.com/EmiMoralesM/real-estate-app/assets/111534564/bef65b3b-7e3c-4ad2-8cb5-8c5b9f12cde5
 
 
 
