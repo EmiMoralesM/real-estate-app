@@ -11,20 +11,22 @@ export function ContextProvider({ children }) {
     const hometypes_array = ['House', 'Townhouse', 'Multy-family', 'Condo']
     const [user, setUser] = useState({ loading: true })
 
+    // Enables the token to store in cookies
+    axios.defaults.withCredentials = true
+
     useEffect(() => {
-        // If the user is already signed up, load it
+        // Check if the user is authenticated on page load
         const logUser = async () => {
-            if (localStorage.getItem('logConfig')) {
-                await axios.get(`${SERVER_URL}/getUserById/${localStorage.getItem('logConfig')}`)
-                    .then(res => setUser(res.data))
-            } else {
-                setUser({})
-            }
+            await axios.get(`${SERVER_URL}/getAuthUser`, { withCredentials: true })
+                .then((res) => {
+                    setUser(res.data);
+                })
+                .catch((err) => {
+                    // No user saved
+                });
         }
         logUser()
-    }, [])
-
-
+    }, []);
 
     // Function to close pop ups when click outside
     const useOutsideClick = (callback) => {
@@ -32,8 +34,6 @@ export function ContextProvider({ children }) {
 
         useEffect(() => {
             const handleClick = (event) => {
-                // console.log('Reference Current:',ref.current);
-                // console.log('Target clicked:', event.target);
                 if (ref.current && !ref.current.contains(event.target)) {
                     callback()
                     enableScroll()
@@ -58,7 +58,6 @@ export function ContextProvider({ children }) {
     }
     // const [disableScroll, setDisableScroll] = useState(false)
     const disableScroll = () => {
-        // console.log(document.body.classList);
         document.body.classList.add('noScroll');
         // setDisableScroll(true)
     }

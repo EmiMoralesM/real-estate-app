@@ -9,7 +9,6 @@ function ContactOwner(props) {
     const [emailContact, setEmailContact] = useState(user.email)
 
     const sendMessageToOwner = async () => {
-        console.log(props.property.ownerId);
         if (props.property.ownerId) {
             await axios.post(`${SERVER_URL}/postNotification/${props.property.ownerId}`, {
                 propertyId: props.property._id,

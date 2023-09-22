@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { Context } from '../../assets/Context'
 
 function Users(props) {
-    const { SERVER_URL, changeSuccessMessage } = useContext(Context)
+    const { SERVER_URL, changeSuccessMessage, changeErrorMessage } = useContext(Context)
     const [users, setUsers] = useState([])
     const [userEdit, setUserEdit] = useState({})
     const [modalEdit, setModalEdit] = useState(false)
@@ -36,23 +36,28 @@ function Users(props) {
 
     const handleUserChange = async () => {
         await axios.patch(`${SERVER_URL}/updateUser/${userEdit.email}`, { role: userEdit.role })
-            .then(res => console.log('User changed!'))
-            .catch(err => console.log(`Error: ${err}`))
+            .then(res => {
+                // Update users in the page (So that you dont have to do another fetch form the database)
+                setUsers(prevUsers => prevUsers.map(user => user.email === userEdit.email ? userEdit : user))
+                changeSuccessMessage(`User (${userEdit.email}) updated!`)
+            })
+            .catch(err => {
+                changeErrorMessage('An error occured. Please try again later')
+            })
         setModalEdit(false)
-        // Update users in the page (So that you dont have to do another fetch form the database)
-        setUsers(prevUsers => prevUsers.map(user => user.email === userEdit.email ? userEdit : user))
-        changeSuccessMessage(`User (${userEdit.email}) updated!`)
     }
 
     const handleUserDelete = async () => {
         await axios.delete(`${SERVER_URL}/deleteUser/${userEdit.email}`)
             .then(res => {
-                setConfirmDeleteModal(false)
-                setModalEdit(false)
                 changeSuccessMessage(`User deleted!`)
                 setUsers(prevUsers => prevUsers.filter(user => user.email !== userEdit.email))
             })
-            .catch(err => console.log(`Error: ${err}`))
+            .catch(err => {
+                changeErrorMessage('An error occured. Please try again later')
+            })
+        setConfirmDeleteModal(false)
+        setModalEdit(false)
     }
 
     return (

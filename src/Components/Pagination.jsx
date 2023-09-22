@@ -10,7 +10,6 @@ function Pagination(props) {
             let lastPropIndex = props.currentPage * propsPerPage
             let firstPropIndex = lastPropIndex - propsPerPage
             props.setCurrentProperties(props.properties.slice(firstPropIndex, lastPropIndex))
-            console.log(props.properties.slice(firstPropIndex, lastPropIndex));
             setTotalPages(Math.ceil(props.properties.length / propsPerPage))
         }
     }, [props.currentPage, props.properties])

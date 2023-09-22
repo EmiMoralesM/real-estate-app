@@ -13,7 +13,7 @@ export function LocationContextProvider({ children }) {
     const [homeTypes, setHomeTypes] = useState([])
 
     useEffect(() => {
-        if(locationValue == ''){
+        if (locationValue == '') {
             setLocationCoordinates()
         }
     }, [locationValue])
@@ -21,7 +21,6 @@ export function LocationContextProvider({ children }) {
     const handleSelect = async (value) => {
         const results = await geocodeByAddress(value)
         const coord = await getLatLng(results[0])
-        console.log(coord);
         setLocationValue(value)
         setLocationCoordinates(coord)
     }
@@ -30,14 +29,16 @@ export function LocationContextProvider({ children }) {
 
     async function fetchPropertiesData(setResults, locationCoordinates, maxPrice, minPrice, minBaths, minBeds, homeTypes, sortPropertes) {
         // Fetch the properties with the specified filters
-        console.log(sortPropertes);
         await axios.get(axios.get(`${SERVER_URL}/getProperties?minPrice=${minPrice ? minPrice : 0}&maxPrice=${maxPrice ? maxPrice : 0}&minBaths=${minBaths ? minBaths : 0}&minBeds=${minBeds ? minBeds : 0}&homeTypes=${homeTypes.length == 0 ? hometypes_array : homeTypes}&lat=${locationCoordinates ? locationCoordinates.lat : 0}&lng=${locationCoordinates ? locationCoordinates.lng : 0}&sortPropertes=${sortPropertes}`)
             .then((data) => setResults(data.data))
-            .catch(err => console.log(`Error: ${err}`)))
+            .catch(err => {
+                // Property not found
+            }))
+
     }
 
     return (
-        <LocationContext.Provider value={{locationCoordinates, setLocationCoordinates, fetchPropertiesData, locationValue, setLocationValue, handleSelect, homeTypes, setHomeTypes}}>
+        <LocationContext.Provider value={{ locationCoordinates, setLocationCoordinates, fetchPropertiesData, locationValue, setLocationValue, handleSelect, homeTypes, setHomeTypes }}>
             {children}
         </LocationContext.Provider>
     )

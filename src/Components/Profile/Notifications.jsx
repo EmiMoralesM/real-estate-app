@@ -24,14 +24,12 @@ function Notifications(props) {
     const refreshNotifications = async () => {
         // Refresh the user saved (localhost) if there are new notifications 
         if (!blockRefresh) {
-            console.log('refresh');
             if (user.email) {
                 await axios.get(`${SERVER_URL}/getUserNotificationsIds/${user.email}`)
                     .then(res => {
                         setBlockRefresh(true)
                         setTimeout(() => setBlockRefresh(false), 25000)
                         if (res.data && (res.data.length != user.notifications.length)) {
-                            console.log('update');
                             changeSuccessMessage('Notifications refreshed!')
                             setUser(prevUser => ({ ...prevUser, notifications: [...res.data.reverse()] }))
                         } else {
@@ -40,7 +38,6 @@ function Notifications(props) {
                     })
             }
         } else {
-            console.log('no refresh');
             changeErrorMessage('You have to wait 30 seconds to refresh again')
         }
     }

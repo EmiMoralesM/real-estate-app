@@ -16,7 +16,6 @@ import ProtectedRoutesAdmin from './assets/ProtectedRoutesAdmin'
 import SellProperty from './Pages/SellProperty'
 import { Context } from './assets/Context'
 import Footer from './Components/Footer'
-import axios from 'axios'
 
 function App() {
   let location = useLocation().pathname

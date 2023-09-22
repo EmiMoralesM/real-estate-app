@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
 
 import eyeOff from '../../assets/icons/eye-off.svg'
 import eyeOn from '../../assets/icons/eye-on.svg'
@@ -31,15 +30,16 @@ function SignIn(props) {
             return true
         }
     }
+
     const checkPassword = (password) => {
         if (password.length < 1) {
             setPasswordError('Enter a password')
-            console.log('password valid');
         } else {
             setPasswordError('')
             return true
         }
     }
+
     const submit = async (e) => {
         e.preventDefault()
         if (checkEmail(email) && checkPassword(password)) {
@@ -51,7 +51,7 @@ function SignIn(props) {
                 const encodedPassword = encodeURIComponent(password);
                 // If the credentials are correct , the server will return an object with the user.
                 // If the user is invalid it will retun { error: ... }.
-                await axios.get(`${SERVER_URL}/getUser?email=${encodedEmail}&password=${encodedPassword}`)
+                await axios.post(`${SERVER_URL}/getUser?email=${encodedEmail}&password=${encodedPassword}`)
                     .then(res => {
                         if (res.data.email) {
                             changeSuccessMessage(`Welcome back ${res.data.name}!`)
@@ -62,17 +62,17 @@ function SignIn(props) {
                         }
                     })
             } catch (e) {
-                console.log(e);
                 changeErrorMessage('An error occured. Please try again later')
             }
             setLoading(false)
         }
     }
+
     const testAccount = async (testEmail, testPassword) => {
         try {
             setLoading(true)
             setFormError('')
-            await axios.get(`${SERVER_URL}/getUser?email=${testEmail}&password=${testPassword}`)
+            await axios.post(`${SERVER_URL}/getUser?email=${testEmail}&password=${testPassword}`)
                 .then(res => {
                     if (res.data.email) {
                         changeSuccessMessage(`Welcome back ${res.data.name}!`)
@@ -87,6 +87,7 @@ function SignIn(props) {
         }
         setLoading(false)
     }
+
     return (
         <>
             <form action="#">
@@ -127,11 +128,6 @@ function SignIn(props) {
             </form>
             <hr />
             <div>
-                {/* <button className='testAccountButton' onClick={() => {
-                    setEmail('test_admin@gmail.com')
-                    setPassword('testAdmin1234')
-                    testAccount('test_admin@gmail.com', 'testAdmin1234')
-                }}>Test Admin Account</button> */}
                 <button className='testAccountButton' onClick={() => {
                     setEmail('test_manager@gmail.com')
                     setPassword('testManager1234')

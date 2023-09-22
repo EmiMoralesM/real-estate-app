@@ -43,7 +43,6 @@ function AccountSettings(props) {
           valid = true
           res.data.forEach(user => {
             // If the email already exists then it sets the emailError to true
-            console.log(user.email === newEmail);
             if (user.email === newEmail) {
               setEmailError('This email has already been used')
               valid = false
@@ -133,7 +132,7 @@ function AccountSettings(props) {
     // We verify the user password to be correct
     const encodedEmail = encodeURIComponent(user.email);
     const encodedPassword = encodeURIComponent(password);
-    await axios.get(`${SERVER_URL}/getUser?email=${encodedEmail}&password=${encodedPassword}`)
+    await axios.post(`${SERVER_URL}/getUser?email=${encodedEmail}&password=${encodedPassword}`)
       .then(res => {
         // If the promise return a user, then we change the user email
         if (res.data.email === user.email) {

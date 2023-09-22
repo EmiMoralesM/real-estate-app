@@ -15,8 +15,6 @@ function Banner() {
         if (id == "type") setIsTypeOpen(prevIsTypeOpen => !prevIsTypeOpen);
     };
     const handleSearch = () => {
-        console.log('search');
-        console.log(Array(selectedTypeOption));
         setHomeTypes(selectedTypeOption == 'Any' ? '' : Array(selectedTypeOption))
     }
     

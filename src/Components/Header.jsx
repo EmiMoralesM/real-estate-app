@@ -5,9 +5,10 @@ import '../styles/header.css'
 
 import profilePic from '../assets/icons/profile.png'
 import { Context } from '../assets/Context'
+import axios from 'axios';
 
 function Header(props) {
-  const { SERVER_URL, useOutsideClick, user, setUser, changeSuccessMessage } = useContext(Context)
+  const { SERVER_URL, useOutsideClick, user, setUser, changeSuccessMessage,changeErrorMessage } = useContext(Context)
   const [profileSubMenu, setProfileSubMenu] = useState(false)
   const [openBurgerMenu, setOpenBurgerMenu] = useState(false)
   const [mobileProfileMenu, setMobileProfileMenu] = useState(false)
@@ -17,6 +18,19 @@ function Header(props) {
   const refBurgerMenu = useOutsideClick(() => setOpenBurgerMenu(false))
   const refMobileProfileMenu = useOutsideClick(() => setMobileProfileMenu(false))
 
+  const logOut = () => {
+    console.log('logout');
+    axios.get(`${SERVER_URL}/logOut`)
+      .then(res => {
+        setUser({})
+        setMobileProfileMenu(false)
+        changeSuccessMessage('Succesfully signedaaaaaaaaaa out!')
+      })
+      .catch((e) => {
+        console.log(e);
+        changeErrorMessage('An error occured. Plese try again later')
+      })
+  }
 
   return (
     <header >
@@ -51,10 +65,7 @@ function Header(props) {
                     <li><Link to={'/profile/notifications'}>Notifications</Link></li>
                   </ul>
                   <hr />
-                  <button className='logOutButton' onClick={() => {
-                    setUser({})
-                    changeSuccessMessage('Succesfully signed out!')
-                  }}>Sign Out</button>
+                  <button className='logOutButton' onClick={logOut}>Sign Out</button>
                 </aside>
               }
             </li>}
@@ -98,11 +109,7 @@ function Header(props) {
                     <li><Link to={'/profile/notifications'} onClick={() => setMobileProfileMenu(false)}>Notifications</Link></li>
                   </ul>
                   <hr />
-                  <button className='logOutButton' onClick={() => {
-                    setMobileProfileMenu(false)
-                    setUser({})
-                    changeSuccessMessage('Succesfully signed out!')
-                  }}>Sign Out</button>
+                  <button className='logOutButton' onClick={logOut}>Sign Out</button>
                 </aside>
               }
             </li>}
